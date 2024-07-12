@@ -1,0 +1,32 @@
+{
+  "name": "demo-dapp-react-ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host --force",
+    "build1": "tsc && GH_PAGES=true vite build",
+    "build:dev": "tsc && vite build",
+    "preview": "vite preview",
+    "delete": "rmdir /s /q ..\\telegram-mini\\assets",
+    "move": "xcopy .\\docs ..\\telegram-mini /s /e /i /Y",
+    "execBat": "cd ..\\ && cd telegram-mini && auto_commit.bat",
+    "build": "tsc && set GH_PAGES=true && vite build && npm run delete && npm run move && npm run execBat"
+  },
+  "dependencies": {
+    "@tonconnect/ui-react": "2.0.5",
+    "eruda": "^2.11.2",
+    "phaser": "^3.80.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-json-view": "^1.21.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@vitejs/plugin-react": "^3.0.0",
+    "sass": "^1.57.1",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
+  }
+}

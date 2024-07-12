@@ -1,9 +1,9 @@
-import {TonConnectButton} from "@tonconnect/ui-react";
+import { TonConnectButton } from "@tonconnect/ui-react";
 import './header.scss';
 
 export const Header = () => {
     return <header>
-        <span>ALL GAMES</span>
-        <TonConnectButton />
+        <span>Games</span>
+        <TonConnectButton style={{ minWidth: '120px' }} />
     </header>
 }

@@ -205,7 +205,7 @@ function Friends({ userInfo }: { userInfo: any }) {
       </div>
     }
     <div className="invite-btn">
-      <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => WebApp.openLink(link)}>Invite friends</Button>
+      <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => WebApp.openInvoice(link)}>Invite friends</Button>
     </div>
   </div>
 }

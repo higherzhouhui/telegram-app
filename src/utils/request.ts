@@ -1,12 +1,13 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import { addPending, removePending } from './pending';
+import WebApp from '@twa-dev/sdk'
 
 // 处理响应
 const handleResponse = (data: GlobalRequest.Response<any>) => {
   const {code} = data;
-  if (code === 40001) {
+  if (code === 403) {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('Authorization');
+      localStorage.removeItem('authorization');
       window.location.href = `/`;
     }
   }
@@ -32,11 +33,11 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config: any) => {
     if (typeof window !== 'undefined') {
-      const Authorization = localStorage.getItem('Authorization');
-      if (Authorization) {
+      const authorization = localStorage.getItem('authorization');
+      if (authorization) {
         config.headers = {
           ...config.headers,
-          'Authorization': Authorization,
+          'authorization': `Bearer ${authorization}`,
         };
       }
     }

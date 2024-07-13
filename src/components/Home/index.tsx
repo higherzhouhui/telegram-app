@@ -11,8 +11,11 @@ import No3 from '@/assets/NO.3.png'
 import { Button } from "antd-mobile";
 import { stringToColor } from '@/utils/common'
 import { InfiniteScroll, List } from 'antd-mobile'
+import { useSelector } from "react-redux";
+import WebApp from "@twa-dev/sdk";
 
 export default function () {
+  const userInfo = useSelector((state: any) => state.user.info);
   const eventBus = EventBus.getInstance()
   const [currentTab, setCurrentTab] = useState<any>('Home')
   useEffect(() => {
@@ -23,13 +26,13 @@ export default function () {
   }, [])
   return <main>
     {
-      currentTab == 'Home' ? <Home /> : currentTab == 'Leaderboard' ? <LeaderBoard /> : <Friends />
+      currentTab == 'Home' ? <Home userInfo={userInfo} /> : currentTab == 'Leaderboard' ? <LeaderBoard /> : <Friends />
     }
     <Footer />
   </main>
 }
 
-function Home() {
+function Home({ userInfo }: { userInfo: any }) {
   const eventBus = EventBus.getInstance()
 
   const handleToScore = () => {
@@ -43,12 +46,14 @@ function Home() {
     <div className="logo">
       {LOGO}
     </div>
-    <div className="score">838&nbsp;DOGS</div>
+    <div className="score">{userInfo.score}&nbsp;DOGS</div>
     <div className="wrapper">
       <div className="community">
         <div className="dogs-com">DOGS COMMUNITY</div>
         <div className="home-tg">Home for Telegram OGs</div>
-        <div className="join-btn">Join</div>
+        <div className="join-btn" onClick={() => {
+          WebApp.openTelegramLink('https://t.me/mydogs_community')
+        }}>Join</div>
       </div>
       <div className="reward">
         Your rewards

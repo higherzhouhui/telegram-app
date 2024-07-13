@@ -7,3 +7,11 @@ export const loginReq = (data: any) => {
     data,
   });
 };
+
+export const updateUserReq = (data: any) => {
+  return service<any>({
+    url: '/user/update',
+    method: 'POST',
+    data,
+  });
+};

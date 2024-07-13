@@ -3,13 +3,25 @@ import './index.scss'
 
 import { Button } from "antd-mobile";
 import EventBus from '@/utils/eventBus';
+import { useSelector } from 'react-redux';
+import { updateUserReq } from '@/api/common';
 
 export default function ({ cStep }: { cStep?: number }) {
   const eventBus = EventBus.getInstance();
   const [step, setStep] = useState(cStep || 0)
   const [isShowBtn, setIsShowBtn] = useState(true)
   const [thirdIndex, setThirdIndex] = useState(0)
-  const handleNext = () => {
+
+  const handleNext = async () => {
+    if (!isShowBtn) {
+      return
+    }
+    if (step == 1) {
+      // 这一步继续的话就算过了新人阶段
+      await updateUserReq({
+        is_New: false
+      })
+    }
     if (step == 2 && thirdIndex == 0) {
       setThirdIndex(1)
       return
@@ -90,19 +102,21 @@ function Second() {
 
 
 function Third({ cIndex, handleClick }: { cIndex: number, handleClick: (index: number) => void }) {
+  const userInfo = useSelector((state: any) => state.user.info);
+
   const staticList = [
     {
       title: 'Rising star!',
       desc: `You've joined Telegram`,
       subTitle: 'year ago',
       center: num1,
-      rank1: 'Your account number is #6348858602.',
+      rank1: `Your account number is #${userInfo.user_id}.`,
       rank2: `You're in the Top 90% Telegram users 🔥`
     },
     {
       title: 'You are amazing!',
       desc: `Here is your DOGS reward`,
-      subTitle: '838',
+      subTitle: userInfo.score,
       center: LOGO,
       rank1: 'Thanks for your time on Telegram 🤝',
     },

@@ -9,24 +9,52 @@ import NewUser from '@/components/NewUser';
 import EventBus from '@/utils/eventBus';
 import WebApp from '@twa-dev/sdk'
 import { loginReq } from '@/api/common';
+import { useDispatch } from 'react-redux';
+import { setUserInfoAction } from '@/redux/slices/userSlice'
 
 function App() {
+  const dispatch = useDispatch()
   const eventBus = EventBus.getInstance();
   const appRef: any = useRef(null);
   const size = useSize(appRef);
   const [appSize, setAppSize] = useState({ width: 0, height: 0 })
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(1)
   const [newUserStep, setNewUserStep] = useState(0)
-  WebApp.ready()
 
   const login = async () => {
     const initData = WebApp.initDataUnsafe
-    console.log(WebApp)
-    if (initData.user?.id) {
+    let res: any;
+    if (initData?.user?.id) {
       const user = WebApp.initDataUnsafe.user
       delete initData.user
-      const res = await loginReq({ ...initData, ...user })
-      console.log(res, 1111111111)
+      res = await loginReq({ ...initData, ...user })
+    } else {
+      res = await loginReq({
+        query_id: 'AAE_Tv5XAgAAAD9O_lds0lWY',
+        auth_date: '1720883932',
+        hash: '21380e055a32d77fc2401bec59f7aab2db41eb645c36dc49ff18ed8e2324a2e5',
+        id: 6954855144,
+        first_name: 'leborn',
+        last_name: 'james',
+        username: 'cloudljj',
+        language_code: 'zh-hans',
+        allows_write_to_pm: true,
+        start_param: btoa('5771251263')
+      })
+    }
+    if (res.code == 0) {
+      dispatch(setUserInfoAction(res.data))
+      localStorage.setItem('authorization', res.data.user_id)
+      try {
+        WebApp.CloudStorage.setItem('authorization', res.data.user_id)
+      } catch (error) {
+        console.error(error)
+      }
+      if (res.data.is_New) {
+        setStep(2)
+      } else {
+        setStep(0)
+      }
     }
   }
 

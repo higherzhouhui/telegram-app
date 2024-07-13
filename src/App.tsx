@@ -23,11 +23,10 @@ function App() {
     const initData = WebApp.initDataUnsafe
     console.log(WebApp)
     if (initData.user?.id) {
-      const res = await loginReq(initData)
-    } else {
-      const data = {
-        user: 111
-      }
+      const user = WebApp.initDataUnsafe.user
+      delete initData.user
+      const res = await loginReq({ ...initData, ...user })
+      console.log(res, 1111111111)
     }
   }
 

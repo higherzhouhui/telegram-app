@@ -11,6 +11,7 @@ import WebApp from '@twa-dev/sdk'
 import { loginReq } from '@/api/common';
 import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
+import { SDKProvider } from '@telegram-apps/sdk-react';
 
 function App() {
   WebApp.ready()
@@ -120,11 +121,14 @@ function App() {
         twaReturnUrl: 'https://t.me/tc_twa_demo_bot/start'
       }}
     >
-      <div className="app" ref={appRef}>
-        {
-          step == 1 ? <Begin /> : step == 2 ? <NewUser cStep={newUserStep} /> : <Home />
-        }
-      </div>
+      <SDKProvider acceptCustomStyles debug={true}>
+
+        <div className="app" ref={appRef}>
+          {
+            step == 1 ? <Begin /> : step == 2 ? <NewUser cStep={newUserStep} /> : <Home />
+          }
+        </div>
+      </SDKProvider>
     </TonConnectUIProvider>
   )
 }

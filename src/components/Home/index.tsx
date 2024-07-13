@@ -172,11 +172,6 @@ function Friends({ userInfo }: { userInfo: any }) {
   const link = `https://t.me/frenpetgame_bot/forkfrengame?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   const handleShare = () => {
-    WebApp.requestContact((e) => {
-      if (e) {
-        WebApp.showAlert('ok')
-      }
-    })
     WebApp.requestWriteAccess((e) => {
       if (e) {
         WebApp.showAlert('22')

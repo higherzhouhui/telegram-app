@@ -21,8 +21,13 @@ function App() {
 
   const login = async () => {
     const initData = WebApp.initDataUnsafe
+    console.log(WebApp)
     if (initData.user?.id) {
       const res = await loginReq(initData)
+    } else {
+      const data = {
+        user: 111
+      }
     }
   }
 

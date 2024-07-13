@@ -172,10 +172,6 @@ function Friends({ userInfo }: { userInfo: any }) {
   const link = `https://t.me/frenpetgame_bot/forkfrengame?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   const handleShare = () => {
-
-    WebApp.readTextFromClipboard((e) => {
-      WebApp.showAlert(`${e}`)
-    })
     WebApp.switchInlineQuery('111111', ['groups', 'channels', 'users'])
   }
   useEffect(() => {

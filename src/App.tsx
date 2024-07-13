@@ -1,36 +1,39 @@
 import './App.scss';
 import './trackers';
 import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
-import { Header } from "@/components/Header/Header";
-import { Footer } from "@/components/Footer/Footer";
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSize } from 'ahooks';
-import D1 from '@/assets/d1.gif'
-import D2 from '@/assets/d2.gif'
-import D3 from '@/assets/d3.gif'
-import D4 from '@/assets/d4.gif'
-import D5 from '@/assets/d5.gif'
-import D6 from '@/assets/d6.gif'
-import { Button } from 'antd-mobile';
+import Begin from '@/components/Begin';
+import Home from '@/components/Home';
+import NewUser from '@/components/NewUser';
+import EventBus from '@/utils/eventBus';
 
 function App() {
+  const eventBus = EventBus.getInstance();
   const appRef: any = useRef(null);
   const size = useSize(appRef);
   const [appSize, setAppSize] = useState({ width: 0, height: 0 })
-  const [currentDice, setCurrentDice] = useState(0)
-  // Example probabilities (sums to 1)
-  const probabilities = [0.1, 0.2, 0.15, 0.15, 0.2, 0.2];
-
-  const handleRoll = (result: number) => {
-    console.log(`Dice rolled: ${result}`);
-    // Handle the result, update UI, etc.
-  };
+  const [step, setStep] = useState(0)
+  const [newUserStep, setNewUserStep] = useState(0)
 
   useEffect(() => {
     if (size && size.height && size.width) {
       setAppSize(size)
     }
+    setTimeout(() => {
+      setStep(0)
+    }, 2000);
   }, [size])
+
+  useEffect(() => {
+    const onMessage = (index: number) => {
+      setStep(index)
+      if (index == 2) {
+        setNewUserStep(2)
+      }
+    }
+    eventBus.addListener('updateStep', onMessage)
+  }, [])
   return (
     <TonConnectUIProvider
       manifestUrl="https://ton-connect.github.io/demo-dapp-with-wallet/tonconnect-manifest.json"
@@ -75,22 +78,9 @@ function App() {
       }}
     >
       <div className="app" ref={appRef}>
-        <Suspense fallback={<div>loading</div>}>
-          <Header />
-          <main>
-            <div className='img-wrapper'>
-              <img src={D1} />
-            </div>
-            <div className='dice'>
-              {
-                probabilities.map((item, index) => {
-                  return <Button color={currentDice == index ? 'primary' : 'default'} onClick={() => setCurrentDice(index)}>{index + 1}</Button>
-                })
-              }
-            </div>
-          </main>
-          <Footer />
-        </Suspense>
+        {
+          step == 1 ? <Begin /> : step == 2 ? <NewUser cStep={newUserStep} /> : <Home />
+        }
       </div>
     </TonConnectUIProvider>
   )

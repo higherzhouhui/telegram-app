@@ -1,7 +1,7 @@
 import { TonConnectButton } from "@tonconnect/ui-react";
-import './header.scss';
+import './index.scss';
 
-export const Header = () => {
+export default function () {
     return <header>
         <span>Games</span>
         <TonConnectButton style={{ minWidth: '120px' }} />

@@ -15,6 +15,7 @@ import { InfiniteScroll, List } from 'antd-mobile'
 import { useSelector } from "react-redux";
 import WebApp from "@twa-dev/sdk";
 import { getSubUserListReq, getUserListReq } from "@/api/common";
+import { useUtils } from '@telegram-apps/sdk-react';
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -169,10 +170,11 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
 }
 
 function Friends({ userInfo }: { userInfo: any }) {
+  const utils = useUtils()
   const link = `https://t.me/frenpetgame_bot/forkfrengame?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   const handleShare = () => {
-    WebApp.openTelegramLink(link)
+    utils.shareURL(link, `${link} Who is dogs fans`)
   }
   useEffect(() => {
     getSubUserListReq({}).then((res: any) => {

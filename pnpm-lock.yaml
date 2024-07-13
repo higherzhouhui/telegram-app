@@ -11,6 +11,9 @@ importers:
       '@reduxjs/toolkit':
         specifier: ^2.2.6
         version: 2.2.6(react-redux@9.1.2(@types/react@18.3.3)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
+      '@telegram-apps/sdk-react':
+        specifier: ^1.1.1
+        version: 1.1.1(@types/react@18.3.3)(react@18.3.1)
       '@tonconnect/ui-react':
         specifier: 2.0.5
         version: 2.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -383,6 +386,18 @@ packages:
         optional: true
       react-redux:
         optional: true
+
+  '@telegram-apps/sdk-react@1.1.1':
+    resolution: {integrity: sha512-CM58ggGPgLV1B4ISAyVJkJAKWuM/Wq62F5ZcGTWsSfVEvndzgHA980WEthdkK9nxU+BrNJAOrR9K0PWr3cr9bw==}
+    peerDependencies:
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  '@telegram-apps/sdk@1.1.1':
+    resolution: {integrity: sha512-c+dbpbB9fozTGa3Ycb6zMzerAaiaRw603MvEiF2DjvkQfwsq12M3ANz3MVEhA0sdroxFns2vD2DykxcYPC+YHA==}
 
   '@tonconnect/isomorphic-eventsource@0.0.2':
     resolution: {integrity: sha512-B4UoIjPi0QkvIzZH5fV3BQLWrqSYABdrzZQSI9sJA9aA+iC0ohOzFwVVGXanlxeDAy1bcvPbb29f6sVUk0UnnQ==}
@@ -1271,6 +1286,15 @@ snapshots:
     optionalDependencies:
       react: 18.3.1
       react-redux: 9.1.2(@types/react@18.3.3)(react@18.3.1)(redux@5.0.1)
+
+  '@telegram-apps/sdk-react@1.1.1(@types/react@18.3.3)(react@18.3.1)':
+    dependencies:
+      '@telegram-apps/sdk': 1.1.1
+      react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.3
+
+  '@telegram-apps/sdk@1.1.1': {}
 
   '@tonconnect/isomorphic-eventsource@0.0.2':
     dependencies:

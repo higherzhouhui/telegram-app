@@ -169,7 +169,7 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
 }
 
 function Friends({ userInfo }: { userInfo: any }) {
-  const link = `https://t.me/frenpetgame_bot/forkfrenpetgame?startapp=${btoa(userInfo.user_id)}`;
+  const link = `https://t.me/frenpetgame_bot/forkfrengame?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   useEffect(() => {
     getSubUserListReq({}).then((res: any) => {

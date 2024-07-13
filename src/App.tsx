@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 
 function App() {
+  WebApp.ready()
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance();
   const appRef: any = useRef(null);

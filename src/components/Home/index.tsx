@@ -171,6 +171,19 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
 function Friends({ userInfo }: { userInfo: any }) {
   const link = `https://t.me/frenpetgame_bot/forkfrengame?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
+  const handleShare = () => {
+    WebApp.requestContact((e) => {
+      if (e) {
+        WebApp.showAlert('ok')
+      }
+    })
+    WebApp.requestWriteAccess((e) => {
+      if (e) {
+        WebApp.showAlert('22')
+      }
+    })
+    WebApp.switchInlineQuery(link)
+  }
   useEffect(() => {
     getSubUserListReq({}).then((res: any) => {
       setFriendsList(res.data.rows)
@@ -205,7 +218,7 @@ function Friends({ userInfo }: { userInfo: any }) {
       </div>
     }
     <div className="invite-btn">
-      <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => WebApp.openInvoice(link)}>Invite friends</Button>
+      <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => handleShare()}>Invite friends</Button>
     </div>
   </div>
 }

@@ -120,7 +120,7 @@ function LeaderBoard({ userInfo }: { userInfo: any }) {
         </div>
         <div className="name-score-warpper">
           <div className="name">{userInfo.username}</div>
-          <div className="name-score">838&nbsp;DOGS</div>
+          <div className="name-score">{userInfo.score}&nbsp;DOGS</div>
         </div>
       </div>
       <div className="right">
@@ -205,7 +205,7 @@ function Friends({ userInfo }: { userInfo: any }) {
       </div>
     }
     <div className="invite-btn">
-      <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => WebApp.sendData(link)}>Invite friends</Button>
+      <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => WebApp.openLink(link)}>Invite friends</Button>
     </div>
   </div>
 }

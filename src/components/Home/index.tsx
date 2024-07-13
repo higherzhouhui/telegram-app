@@ -173,7 +173,7 @@ function Friends({ userInfo }: { userInfo: any }) {
   const [friendsList, setFriendsList] = useState<any[]>([])
   const handleShare = () => {
     WebApp.MainButton.setParams({
-      color: 'red',
+      color: '#fff9cc',
       text: '999999999'
     })
     WebApp.MainButton.onClick = function () {

@@ -21,13 +21,13 @@ export default orderSlice.reducer
 export const loadCancelOrderData = createAsyncThunk(
     'order/fetchCancelOrderData',
     async (data, { dispatch }) => {
-        const { exchange } = data
+        const { exchange } = data as any
 
         const result = await exchange.getPastEvents('Cancel', {
             fromBlock: 0,
             toBlock: 'latest'
         })
-        const cancelOrders = result.map((item) => item.returnValues)
+        const cancelOrders = result.map((item: any) => item.returnValues)
         dispatch(setCancelOrders(cancelOrders))
     }
 )

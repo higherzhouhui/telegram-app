@@ -1,6 +1,6 @@
 import './patch-local-storage-for-github-pages';
 
-import React, { StrictMode } from 'react'
+import { StrictMode } from 'react'
 import { render } from 'react-dom';
 import App from './App'
 import './index.scss'
@@ -8,13 +8,18 @@ import './index.scss'
 import eruda from "eruda";
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { ConfigProvider } from 'antd-mobile';
+import enUS from 'antd-mobile/es/locales/en-US'
+
 eruda.init();
 
 render(
     <StrictMode>
-        <Provider store={store}>
-            <App />
-        </Provider>
+        <ConfigProvider locale={enUS}>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </ConfigProvider>
     </StrictMode>,
     document.getElementById('root') as HTMLElement
 )

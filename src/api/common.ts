@@ -15,3 +15,19 @@ export const updateUserReq = (data: any) => {
     data,
   });
 };
+
+export const getUserListReq = (params: any) => {
+  return service<any>({
+    url: '/user/list',
+    method: 'GET',
+    params,
+  });
+};
+
+export const getSubUserListReq = (params: any) => {
+  return service<any>({
+    url: '/user/subList',
+    method: 'GET',
+    params,
+  });
+};

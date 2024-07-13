@@ -17,3 +17,22 @@ export function stringToColor(string: string) {
 
   return color;
 }
+
+export function formatNumber(num: any) {
+  if (isNaN(num)) {
+    return num
+  }
+  // 小于千直接返回  
+  if (num < 1000) {  
+      return num;  
+  }  
+
+  // 超过千  
+  if (num < 1000000) {  
+      return (num / 1000).toFixed(2) + 'K';  
+  } else if (num < 1000000000) {  
+      return (num / 1000000).toFixed(2) + 'M';  
+  } else {  
+      return (num / 1000000000).toFixed(2) + 'B';  
+  }  
+} 

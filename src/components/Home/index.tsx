@@ -172,14 +172,7 @@ function Friends({ userInfo }: { userInfo: any }) {
   const link = `https://t.me/frenpetgame_bot/forkfrengame?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   const handleShare = () => {
-    WebApp.MainButton.setParams({
-      color: '#fff9cc',
-      text: '999999999'
-    })
-    WebApp.MainButton.onClick = function () {
-      WebApp.showAlert('111')
-    }
-    WebApp.BackButton.show()
+    WebApp.openTelegramLink(link)
   }
   useEffect(() => {
     getSubUserListReq({}).then((res: any) => {

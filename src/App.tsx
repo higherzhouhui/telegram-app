@@ -40,7 +40,6 @@ function App() {
         username: 'cloudljj',
         language_code: 'zh-hans',
         allows_write_to_pm: true,
-        start_param: btoa('5771251263')
       })
     }
     if (res.code == 0) {

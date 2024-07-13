@@ -176,6 +176,7 @@ function Friends({ userInfo }: { userInfo: any }) {
     WebApp.readTextFromClipboard((e) => {
       WebApp.showAlert(`${e}`)
     })
+    WebApp.switchInlineQuery('111111', ['groups', 'channels', 'users'])
   }
   useEffect(() => {
     getSubUserListReq({}).then((res: any) => {

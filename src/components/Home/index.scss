@@ -59,7 +59,7 @@ main {
       font-family: Bold;
     }
     .wrapper {
-      padding: 12px;
+      padding: 1rem 1.5rem;
     }
     .community {
       background: rgba($color: #fff, $alpha: 0.1);
@@ -132,7 +132,7 @@ main {
     flex: 1;
     overflow: auto;
     color: #fff;
-    padding: 12px;
+    padding: 1.5rem;
     .title {
       font-size: 2.5rem;
       font-family: Bold;
@@ -243,7 +243,7 @@ main {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 22px 12px;
+    padding: 22px 1.5rem;
     overflow: auto;
     color: #fff;
     padding-bottom: 7rem;
@@ -307,7 +307,7 @@ main {
     .invite-btn {
       position: fixed;
       bottom: 72px;
-      padding: 1rem;
+      padding: 1rem 1.5rem;
       width: 100%;
       background: #000;
     }

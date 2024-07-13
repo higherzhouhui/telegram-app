@@ -2,7 +2,7 @@ import service from '@/utils/request';
 
 export const loginReq = (data: any) => {
   return service<any>({
-    url: '/api/login',
+    url: '/user/login',
     method: 'POST',
     data,
   });

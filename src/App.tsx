@@ -7,6 +7,8 @@ import Begin from '@/components/Begin';
 import Home from '@/components/Home';
 import NewUser from '@/components/NewUser';
 import EventBus from '@/utils/eventBus';
+import WebApp from '@twa-dev/sdk'
+import { loginReq } from '@/api/common';
 
 function App() {
   const eventBus = EventBus.getInstance();
@@ -15,14 +17,23 @@ function App() {
   const [appSize, setAppSize] = useState({ width: 0, height: 0 })
   const [step, setStep] = useState(0)
   const [newUserStep, setNewUserStep] = useState(0)
+  WebApp.ready()
+
+  const login = async () => {
+    const initData = WebApp.initDataUnsafe
+    if (initData.user?.id) {
+      const res = await loginReq(initData)
+    }
+  }
+
+  useEffect(() => {
+    login()
+  }, [])
 
   useEffect(() => {
     if (size && size.height && size.width) {
       setAppSize(size)
     }
-    setTimeout(() => {
-      setStep(0)
-    }, 2000);
   }, [size])
 
   useEffect(() => {

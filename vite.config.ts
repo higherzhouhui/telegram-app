@@ -15,13 +15,13 @@ export default defineConfig({
     outDir: 'docs'
   },
   // @ts-ignore
-  base: process.env.GH_PAGES ? '/telegram-mini/' : './',
+  // base: process.env.GH_PAGES ? '/telegram-mini/' : './',
   server: {
     proxy: {
       '/api': {
         target: 'http://localhost:8085', // 目标服务器地址
         changeOrigin: true, // 是否改变源地址
-        rewrite: (path) => path.replace(/^\/api/, '/api'), // 重写路径
+        rewrite: (path) => path.replace(/^\/api/, '/api/'), // 重写路径
       }
     },
     fs: {

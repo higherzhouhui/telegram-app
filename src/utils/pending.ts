@@ -30,8 +30,8 @@ export const removePending = (config: AxiosRequestConfig) => {
   const url: string = [
     config.method,
     config.url,
-    qs.stringify(config.params),
-    qs.stringify(config.data),
+    JSON.stringify(config.params),
+    JSON.stringify(config.data),
   ].join('&');
   if (pending.has(url)) {
     const cancel: (url: string) => void = pending.get(url);

@@ -17,6 +17,14 @@ html, body, #root {
   background: #000;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
 * {
   box-sizing: border-box;
 }

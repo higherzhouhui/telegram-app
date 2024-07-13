@@ -19,8 +19,6 @@
     "paths": {
       "@/*": ["src/*"] // 设置别名路径映射，‌这里将@映射到src目录
     },
-    "typeRoots":  ["./node_modules/phaser/types"],
-    "types": ["Phaser"],
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

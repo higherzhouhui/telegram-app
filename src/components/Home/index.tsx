@@ -174,7 +174,7 @@ function Friends({ userInfo }: { userInfo: any }) {
   const link = `https://t.me/frenpetgame_bot/forkfrengame?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   const handleShare = () => {
-    utils.shareURL(link, `${link} Who is dogs fans`)
+    utils.shareURL(link, `Who is dogs fans`)
   }
   useEffect(() => {
     getSubUserListReq({}).then((res: any) => {

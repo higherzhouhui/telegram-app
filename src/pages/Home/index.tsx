@@ -9,7 +9,7 @@ import EventBus from '@/utils/eventBus';
 import { loginReq } from '@/api/common';
 import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
-import { initInitData, retrieveLaunchParams } from '@telegram-apps/sdk';
+import { initInitData } from '@telegram-apps/sdk';
 
 export const IndexPage: FC = () => {
   const dispatch = useDispatch()
@@ -40,11 +40,6 @@ export const IndexPage: FC = () => {
   }
 
   useEffect(() => {
-    const { initData } = retrieveLaunchParams();
-    setTimeout(() => {
-      console.log(initData)
-      console.log(222222)
-    }, 2000);
     login()
   }, [])
 

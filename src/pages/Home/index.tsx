@@ -21,24 +21,12 @@ export const IndexPage: FC = () => {
   const [newUserStep, setNewUserStep] = useState(0)
 
   const login = async () => {
-    const initData = initInitData();
-    console.log(initData)
+    const initData = initInitData() as any;
     let res: any;
     if (initData && initData.user && initData.user.id) {
-      const user = initData.user
-      res = await loginReq({ ...initData, ...user })
-    } else {
-      res = await loginReq({
-        query_id: 'AAE_Tv5XAgAAAD9O_lds0lWY',
-        auth_date: '1720883932',
-        hash: '21380e055a32d77fc2401bec59f7aab2db41eb645c36dc49ff18ed8e2324a2e5',
-        id: 5771251263,
-        first_name: 'leborn',
-        last_name: 'james',
-        username: 'cloudljj',
-        language_code: 'zh-hans',
-        allows_write_to_pm: true,
-      })
+      const user = initData.initData.user
+      console.log({ ...initData.initData, ...user })
+      res = await loginReq({ ...initData.initData, ...user })
     }
     if (res.code == 0) {
       dispatch(setUserInfoAction(res.data))

@@ -9,7 +9,7 @@ import EventBus from '@/utils/eventBus';
 import { loginReq } from '@/api/common';
 import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
-import { initInitData } from '@telegram-apps/sdk';
+import { initInitData, retrieveLaunchParams } from '@telegram-apps/sdk';
 
 export const IndexPage: FC = () => {
   const dispatch = useDispatch()
@@ -25,8 +25,8 @@ export const IndexPage: FC = () => {
     let res: any;
     if (initData && initData.user && initData.user.id) {
       const user = initData.initData.user
-      console.log({ ...initData.initData, ...user })
-      res = await loginReq({ ...initData.initData, ...user })
+      const data = { ...initData.initData, ...user }
+      res = await loginReq(data)
     }
     if (res.code == 0) {
       dispatch(setUserInfoAction(res.data))
@@ -40,6 +40,8 @@ export const IndexPage: FC = () => {
   }
 
   useEffect(() => {
+    const { initData } = retrieveLaunchParams();
+    console.log(initData, 11111)
     login()
   }, [])
 

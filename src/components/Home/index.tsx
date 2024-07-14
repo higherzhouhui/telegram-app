@@ -13,9 +13,8 @@ import { Button } from "antd-mobile";
 import { formatNumber, stringToColor } from '@/utils/common'
 import { InfiniteScroll, List } from 'antd-mobile'
 import { useSelector } from "react-redux";
-import WebApp from "@twa-dev/sdk";
 import { getSubUserListReq, getUserListReq } from "@/api/common";
-import { useUtils } from '@telegram-apps/sdk-react';
+import { initUtils } from '@telegram-apps/sdk-react';
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -37,7 +36,7 @@ export default function () {
 
 function Home({ userInfo }: { userInfo: any }) {
   const eventBus = EventBus.getInstance()
-
+  const utils = initUtils();
   const handleToScore = () => {
     eventBus.emit('updateStep', 2)
   }
@@ -55,7 +54,7 @@ function Home({ userInfo }: { userInfo: any }) {
         <div className="dogs-com">DOGS COMMUNITY</div>
         <div className="home-tg">Home for Telegram OGs</div>
         <div className="join-btn" onClick={() => {
-          WebApp.openTelegramLink('https://t.me/dogscommunityc')
+          utils.openTelegramLink('https://t.me/dogscommunityc')
         }}>Join</div>
       </div>
       <div className="reward">
@@ -170,7 +169,7 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
 }
 
 function Friends({ userInfo }: { userInfo: any }) {
-  const utils = useUtils()
+  const utils = initUtils()
   const link = `https://t.me/frenpetgame_bot/forkfrengame?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   const handleShare = () => {
@@ -194,12 +193,12 @@ function Friends({ userInfo }: { userInfo: any }) {
           friendsList.map((item, index) => {
             return <div className="friends-list" key={index}>
               <div className="fl-left">
-                <div className="icon" style={{ background: stringToColor(item.username || 'cc') }}>
+                <div className="icon" style={{ background: stringToColor(item.from_username || 'cc') }}>
                   {
-                    (item.username || 'cc').slice(0, 2)
+                    (item.from_username || 'cc').slice(0, 2)
                   }
                 </div>
-                <div className="name">{item.username || 'cc'}</div>
+                <div className="name">{item.from_username || 'cc'}</div>
               </div>
               <div className="fl-right">
                 +{item.score}&nbsp;DOGS

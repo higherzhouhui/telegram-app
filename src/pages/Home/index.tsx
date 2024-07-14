@@ -41,7 +41,10 @@ export const IndexPage: FC = () => {
 
   useEffect(() => {
     const { initData } = retrieveLaunchParams();
-    console.log(initData, 11111)
+    setTimeout(() => {
+      console.log(initData)
+      console.log(222222)
+    }, 2000);
     login()
   }, [])
 

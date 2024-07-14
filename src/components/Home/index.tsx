@@ -14,7 +14,7 @@ import { formatNumber, stringToColor } from '@/utils/common'
 import { InfiniteScroll, List } from 'antd-mobile'
 import { useSelector } from "react-redux";
 import { getSubUserListReq, getUserListReq } from "@/api/common";
-import { initUtils, retrieveLaunchParams } from '@telegram-apps/sdk-react';
+import { initUtils } from '@telegram-apps/sdk-react';
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -35,21 +35,17 @@ export default function () {
 }
 
 function Home({ userInfo }: { userInfo: any }) {
-
   const eventBus = EventBus.getInstance()
   const utils = initUtils();
   const handleToScore = () => {
-    console.log(111)
-    const { initData } = retrieveLaunchParams();
-    console.log(initData)
-    console.log(222)
-    // console.log(initData)
-    // eventBus.emit('updateStep', 2)
+    eventBus.emit('updateStep', 2)
   }
   return <div className="home">
     <div className="top" onClick={() => handleToScore()}>
-      {videoIcon}
-      <span>Your Score</span>
+      <div className="top-inner">
+        {videoIcon}
+        <span>Your Score</span>
+      </div>
     </div>
     <div className="logo">
       {LOGO}

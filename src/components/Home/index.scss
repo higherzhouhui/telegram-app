@@ -12,12 +12,21 @@ main {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.7rem 0;
+      padding: 1.5rem 0;
       background-color: #222;
       position: fixed;
       width: 100vw;
       top: 0;
       z-index: 99;
+      background-image: url('../../assets/tob-bg.png');
+      background-size: 100% 100%;
+      .top-inner {
+        display: flex;
+        align-items: center;
+        background: rgba($color: #000, $alpha: 0.7);
+        padding: 5px 12px;
+        border-radius: 6px;
+      }
       span {
         color: #fff;
         font-size: 1.3rem;

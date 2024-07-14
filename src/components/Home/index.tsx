@@ -41,6 +41,7 @@ function Home({ userInfo }: { userInfo: any }) {
   const handleToScore = () => {
     console.log(111)
     const { initData } = retrieveLaunchParams();
+    console.log(initData)
     console.log(222)
     // console.log(initData)
     // eventBus.emit('updateStep', 2)

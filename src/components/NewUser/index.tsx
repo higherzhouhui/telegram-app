@@ -106,7 +106,7 @@ function Third({ cIndex, handleClick }: { cIndex: number, handleClick: (index: n
 
   const staticList = [
     {
-      title: 'Rising star!',
+      title: 'Rising star!✨',
       desc: `You've joined Telegram`,
       subTitle: 'year ago',
       center: num1,
@@ -146,6 +146,7 @@ function Third({ cIndex, handleClick }: { cIndex: number, handleClick: (index: n
     <div className='center'>
       {list[tabIndex].center}
     </div>
+    {/* <div className='rotate'>💫</div> */}
     <div className='sub-title'>{list[tabIndex].subTitle}</div>
     <div className='rank'>{list[tabIndex].rank1}</div>
     <div className='rank'>{list[tabIndex].rank2}</div>

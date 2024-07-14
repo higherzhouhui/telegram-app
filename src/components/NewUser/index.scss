@@ -12,6 +12,7 @@
   justify-content: space-between;
   padding: 2rem 1.2rem;
   align-items: center;
+  position: relative;
   .first {
     padding-top: 8rem;
     display: flex;
@@ -179,5 +180,12 @@
         height: 200px;
       }
     }
+  }
+  .rotate {
+    font-size: 280px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 }

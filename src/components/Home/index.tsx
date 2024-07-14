@@ -57,7 +57,7 @@ function Home({ userInfo }: { userInfo: any }) {
         <div className="home-tg">Home for Telegram OGs</div>
         <div className="join-btn" onClick={() => {
           utils.openTelegramLink('https://t.me/dogscommunityc')
-        }}>Join</div>
+        }}>Join 💰</div>
       </div>
       <div className="reward">
         Your rewards
@@ -90,6 +90,7 @@ function Home({ userInfo }: { userInfo: any }) {
 function LeaderBoard({ userInfo }: { userInfo: any }) {
   const [total, setTotal] = useState('10.3M')
   const [holderList, setHolderList] = useState<any[]>([])
+  const [rank, setRank] = useState(1)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
 
@@ -107,11 +108,11 @@ function LeaderBoard({ userInfo }: { userInfo: any }) {
   }
   const getList = async () => {
     const res = await getUserListReq({ page })
-    setTotal(formatNumber(res.data.total))
+    setTotal(formatNumber(res.data.list.count))
     setPage((page => page + 1))
+    setRank(res.data.rank)
     return res.data.list.rows
   }
-
 
   return <div className="LeaderBoard">
     <div className="title">Telegram Wall of Fame</div>
@@ -126,13 +127,13 @@ function LeaderBoard({ userInfo }: { userInfo: any }) {
         </div>
       </div>
       <div className="right">
-        #{userInfo.user_id}
+        #{rank}
       </div>
     </div>
-    <Button color="primary" style={{ margin: '1rem 0', width: '100%', fontWeight: 'bold' }}>
+    {/* <Button color="primary" style={{ margin: '1rem 0', width: '100%', fontWeight: 'bold' }}>
       <img src={bIcon} alt="star" width={16} height={16} style={{ marginRight: '1rem' }} />
       Boost score
-    </Button>
+    </Button> */}
     <div className="holders">
       <div className="holder-title">{total}&nbsp;holders</div>
       <List>
@@ -211,7 +212,7 @@ function Friends({ userInfo }: { userInfo: any }) {
       </div>
     }
     <div className="invite-btn">
-      <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => handleShare()}>Invite friends</Button>
+      <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => handleShare()}>👆🏻 Invite friends</Button>
     </div>
   </div>
 }

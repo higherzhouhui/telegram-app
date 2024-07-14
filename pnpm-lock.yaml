@@ -14,6 +14,9 @@ importers:
       '@telegram-apps/react-router-integration':
         specifier: ^1.0.1
         version: 1.0.1(@telegram-apps/sdk@1.1.1)(@types/react@18.3.3)(react-router-dom@6.24.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      '@telegram-apps/sdk':
+        specifier: ^1.1.1
+        version: 1.1.1
       '@telegram-apps/sdk-react':
         specifier: ^1.1.1
         version: 1.1.1(@types/react@18.3.3)(react@18.3.1)

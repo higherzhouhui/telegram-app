@@ -10,9 +10,11 @@ import WebApp from '@twa-dev/sdk'
 import { loginReq } from '@/api/common';
 import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
+import { initInitData } from '@telegram-apps/sdk';
 
 export const IndexPage: FC = () => {
   WebApp.ready()
+
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance();
   const appRef: any = useRef(null);
@@ -22,11 +24,11 @@ export const IndexPage: FC = () => {
   const [newUserStep, setNewUserStep] = useState(0)
 
   const login = async () => {
-    const initData = WebApp.initDataUnsafe
+    const initData = initInitData();
+    console.log(initData, 1111111)
     let res: any;
-    if (initData?.user?.id) {
-      const user = WebApp.initDataUnsafe.user
-      delete initData.user
+    if (initData && initData.user && initData.user.id) {
+      const user = initData.user
       res = await loginReq({ ...initData, ...user })
     } else {
       res = await loginReq({

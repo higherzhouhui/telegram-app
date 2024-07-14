@@ -35,9 +35,9 @@ import './mockEnv';
 import '@telegram-apps/telegram-ui/dist/styles.css';
 import './index.scss';
 
-import eruda from "eruda";
+// import eruda from "eruda";
 
-eruda.init();
+// eruda.init();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<Root />);
 

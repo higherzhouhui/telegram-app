@@ -173,7 +173,7 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
 
 function Friends({ userInfo }: { userInfo: any }) {
   const utils = initUtils()
-  const link = `https://t.me/frenpetgame_bot/forkfrengame?startapp=${btoa(userInfo.user_id)}`;
+  const link = `https://t.me/dogehome_tg_bot/doge_home?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   const handleShare = () => {
     utils.shareURL(link, `Who is dogs fans`)

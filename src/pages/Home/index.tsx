@@ -6,15 +6,13 @@ import Begin from '@/components/Begin';
 import Home from '@/components/Home';
 import NewUser from '@/components/NewUser';
 import EventBus from '@/utils/eventBus';
-import WebApp from '@twa-dev/sdk'
 import { loginReq } from '@/api/common';
 import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 import { initInitData } from '@telegram-apps/sdk';
 
 export const IndexPage: FC = () => {
-  WebApp.ready()
-
+  console.log(222)
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance();
   const appRef: any = useRef(null);

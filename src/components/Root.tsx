@@ -1,6 +1,7 @@
 import { SDKProvider, useLaunchParams } from '@telegram-apps/sdk-react';
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import { type FC, useEffect, useMemo } from 'react';
+import eruda from "eruda";
 
 import { App } from '@/components/App';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -33,7 +34,7 @@ const Inner: FC = () => {
   // Enable debug mode to see all the methods sent and events received.
   useEffect(() => {
     if (debug) {
-      import('eruda').then((lib) => lib.default.init());
+      eruda.init()
     }
   }, [debug]);
 

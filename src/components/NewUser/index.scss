@@ -136,7 +136,6 @@
     }
   }
   .third {
-    padding: 0 1.5rem;
     width: 100%;
     color: #fff;
     text-align: center;
@@ -144,9 +143,11 @@
       margin-bottom: 2rem;
       display: flex;
       gap: 1rem;
+      padding: 0 0.5rem;
       .tab {
+        cursor: pointer;
         flex: 1;
-        height: 3px;
+        height: 4px;
         background-color: #383232;
         border-radius: 2px;
       }
@@ -155,7 +156,7 @@
       }
     }
     .title {
-      font-size: 3rem;
+      font-size: 2.8rem;
       font-family: Bold;
     }
     .desc {
@@ -175,6 +176,7 @@
     }
     .center {
       margin: 2rem 0;
+      min-height: 100px;
       svg {
         width: 180px;
         height: 200px;

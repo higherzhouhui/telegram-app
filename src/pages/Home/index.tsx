@@ -12,7 +12,6 @@ import { setUserInfoAction } from '@/redux/slices/userSlice'
 import { initInitData } from '@telegram-apps/sdk';
 
 export const IndexPage: FC = () => {
-  console.log(222)
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance();
   const appRef: any = useRef(null);
@@ -23,7 +22,7 @@ export const IndexPage: FC = () => {
 
   const login = async () => {
     const initData = initInitData();
-    console.log(initData, 1111111)
+    console.log(initData)
     let res: any;
     if (initData && initData.user && initData.user.id) {
       const user = initData.user

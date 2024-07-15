@@ -16,6 +16,10 @@
     opacity: 0;
     animation: fadeIn forwards 0.5s;
   }
+  img {
+    width: 70vw;
+    object-fit: contain;
+  }
   @keyframes fadeIn {
     from {
       opacity: 0;

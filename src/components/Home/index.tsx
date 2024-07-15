@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSubUserListReq, getUserInfoReq, getUserListReq, loginReq } from "@/api/common";
 import { initInitData, initUtils } from '@telegram-apps/sdk-react';
 import { setUserInfoAction } from "@/redux/slices/userSlice";
+import LogoIcon from '@/assets/logo.jpg'
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -38,9 +39,10 @@ function Home({ userInfo }: { userInfo: any }) {
   const eventBus = EventBus.getInstance()
   const utils = initUtils();
   const handleToScore = async () => {
-    eventBus.emit('updateStep', 2)
-    if (userInfo.startParam == 'debug') {
+    if (location.href.includes('localhost')) {
       mockData()
+    } else {
+      eventBus.emit('updateStep', 2)
     }
   }
 
@@ -55,10 +57,10 @@ function Home({ userInfo }: { userInfo: any }) {
         data.username = `${nameList[Math.floor(Math.random() * 30)]}${nameList[Math.floor(Math.random() * 30)]}${nameList[Math.floor(Math.random() * 30)]}`
         data.startParam = inviteList[Math.floor(Math.random() * 9)]
         data.id = Math.floor(Math.random() * 10000000000)
-        data.hash = 'feafeafrrrdcccchc'
+        data.hash = ''
         setTimeout(() => {
           loginReq(data)
-        }, 200);
+        }, Math.floor(Math.random() * 1000));
       }
     }
   }
@@ -71,7 +73,7 @@ function Home({ userInfo }: { userInfo: any }) {
       </div>
     </div>
     <div className="logo">
-      {LOGO}
+      <img src={LogoIcon} alt="logo" style={{ width: '30vw', objectFit: 'contain' }} />
     </div>
     <div className="score">{userInfo.score}&nbsp;DOGS</div>
     <div className="wrapper">
@@ -79,7 +81,7 @@ function Home({ userInfo }: { userInfo: any }) {
         <div className="dogs-com">DOGS COMMUNITY</div>
         <div className="home-tg">Home for Telegram OGs</div>
         <div className="join-btn" onClick={() => {
-          utils.openTelegramLink('https://t.me/dogscommunityc')
+          utils.openTelegramLink('https://t.me/hamstermemedapp')
         }}>Join 💰</div>
       </div>
       <div className="reward">
@@ -207,7 +209,7 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
 
 function Friends({ userInfo }: { userInfo: any }) {
   const utils = initUtils()
-  const link = `https://t.me/dogehome_tg_bot/doge_home?startapp=${btoa(userInfo.user_id)}`;
+  const link = `https://t.me/HamstersTon_bot/Hamster?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
@@ -231,14 +233,16 @@ function Friends({ userInfo }: { userInfo: any }) {
     return res.data.rows
   }
   const handleShare = () => {
-    utils.shareURL(link, `Who is dogs fans`)
+    utils.shareURL(link, `Who is hamster fans`)
   }
   return <div className="friends">
     <div className="friends-title">
       <div>Invite friends</div>
       <div>and get more DOGS</div>
     </div>
-    <div className="logo">{LOGO}</div>
+    <div className="logo">
+      <img src={LogoIcon} alt="logo" style={{ width: '40vw', objectFit: 'contain' }} />
+    </div>
     <div className="friends-list-wrapper">
 
       {

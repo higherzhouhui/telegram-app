@@ -36,6 +36,7 @@ if (import.meta.env.DEV) {
       ['startParam', btoa('6223334')],
       ['chat_type', 'sender'],
       ['chat_instance', '8428209589180549439'],
+      ['authDate', '2024-07-15T19:48:29.000Z']
     ]).toString();
 
     mockTelegramEnv({

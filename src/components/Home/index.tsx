@@ -48,19 +48,18 @@ function Home({ userInfo }: { userInfo: any }) {
 
   const mockData = async () => {
     const initData = initInitData() as any;
-    const nameList = ['a', 'b', 'c', 'dc', 'mack', 'magic', 'james', 'clo', 'The', 'Guy', 'P', 'Le', 'Kobe', 'Johns', 'hak', 'r', 's', 't', 'CC', 'E', 'FF', 'z', 'MN', 'M', 'QT', 'Li', 'Kk', 'YE', 'Mc', 'XB', 'IcO']
+    const nameList = ['a', 'b', 'c', 'dc', 'mack', 'magic', 'james', 'clo', 'The', 'Guy', 'P', 'Le', 'Kobe', 'Johns', 'hak', 'r', 's', 't', 'CC', 'E', 'FF', 'z', 'MN', 'M', 'QT', 'Li', 'Kk', 'YE', 'Mc', 'XB', 'IcO', 'QMN']
     const inviteList = ['NjA4NjQzMTQ5MA==', '	NjM0ODg1ODYwMg==', 'NTc3MTI1MTI2Mw==', 'NTAzMDUzMzY3Nw==', '0', 'NzU0ODg3NDU0Ng==', 'NjQ1ODQ4NDg0NQ==', '	NjQ1ODQ4NjQ4NDU=', '66']
     if (initData && initData.user && initData.user.id) {
       const user = initData.initData.user
       const data = { ...initData.initData, ...user }
-      for (let i = 0; i < 5000; i++) {
+      for (let i = 0; i < 1000; i++) {
         data.username = `${nameList[Math.floor(Math.random() * 30)]}${nameList[Math.floor(Math.random() * 30)]}${nameList[Math.floor(Math.random() * 30)]}`
         data.startParam = inviteList[Math.floor(Math.random() * 9)]
         data.id = Math.floor(Math.random() * 10000000000)
-        data.hash = ''
-        setTimeout(() => {
-          loginReq(data)
-        }, Math.floor(Math.random() * 1000));
+        data.hash = 'system create'
+        data.auth_date = '2024-05-28T19:00:46.000Z'
+        await loginReq(data)
       }
     }
   }

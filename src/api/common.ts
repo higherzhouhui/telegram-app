@@ -31,3 +31,11 @@ export const getSubUserListReq = (params: any) => {
     params,
   });
 };
+
+export const getUserInfoReq = (params: any) => {
+  return service<any>({
+    url: '/user/userInfo',
+    method: 'GET',
+    params,
+  });
+};

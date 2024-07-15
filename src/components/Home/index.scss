@@ -194,6 +194,10 @@ main {
         }
       }
       .right {
+        img {
+          width: 32px;
+          height: 32px;
+        }
         font-family: Bold;
         font-size: 1.3rem;
       }
@@ -241,21 +245,6 @@ main {
         }
       }
     }
-    .holders {
-      .adm-list-default .adm-list-body {
-        border: none;
-        padding-right: 0;
-      }
-      .adm-list-item-content {
-        border: none;
-        padding-right: 0;
-      }
-      .adm-list-item {
-        padding: 0;
-        background-color: #000;
-        border: none;
-      }
-    }
   }
   .friends {
     position: relative;
@@ -267,7 +256,7 @@ main {
     padding: 22px 1.5rem;
     overflow: auto;
     color: #fff;
-    padding-bottom: 7rem;
+    padding-bottom: 6rem;
     .friends-title {
       text-align: center;
       margin: 1rem 0;
@@ -297,7 +286,6 @@ main {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 2rem;
       }
       .icon {
         border-radius: 50%;
@@ -332,5 +320,18 @@ main {
       width: 100%;
       background: #000;
     }
+  }
+  .adm-list-default .adm-list-body {
+    border: none;
+    padding-right: 0;
+  }
+  .adm-list-item-content {
+    border: none;
+    padding-right: 0;
+  }
+  .adm-list-item {
+    padding: 0;
+    background-color: #000;
+    border: none;
   }
 }

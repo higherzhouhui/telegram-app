@@ -3,7 +3,6 @@ import Footer from "../Footer";
 import './index.scss'
 import { useEffect, useState } from "react";
 import starIcon from '@/assets/h-star.png'
-import bIcon from '@/assets/b-star.png'
 import checkIcon from '@/assets/h-right.png'
 import friendsIcon from '@/assets/h-friends.png'
 import No1 from '@/assets/NO.1.png'
@@ -12,9 +11,10 @@ import No3 from '@/assets/NO.3.png'
 import { Button } from "antd-mobile";
 import { formatNumber, stringToColor } from '@/utils/common'
 import { InfiniteScroll, List } from 'antd-mobile'
-import { useSelector } from "react-redux";
-import { getSubUserListReq, getUserListReq } from "@/api/common";
-import { initUtils } from '@telegram-apps/sdk-react';
+import { useDispatch, useSelector } from "react-redux";
+import { getSubUserListReq, getUserInfoReq, getUserListReq, loginReq } from "@/api/common";
+import { initInitData, initUtils } from '@telegram-apps/sdk-react';
+import { setUserInfoAction } from "@/redux/slices/userSlice";
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -37,9 +37,32 @@ export default function () {
 function Home({ userInfo }: { userInfo: any }) {
   const eventBus = EventBus.getInstance()
   const utils = initUtils();
-  const handleToScore = () => {
+  const handleToScore = async () => {
     eventBus.emit('updateStep', 2)
+    if (userInfo.startParam == 'debug') {
+      mockData()
+    }
   }
+
+  const mockData = async () => {
+    const initData = initInitData() as any;
+    const nameList = ['a', 'b', 'c', 'dc', 'mack', 'magic', 'james', 'clo', 'The', 'Guy', 'P', 'Le', 'Kobe', 'Johns', 'hak', 'r', 's', 't', 'CC', 'E', 'FF', 'z', 'MN', 'M', 'QT', 'Li', 'Kk', 'YE', 'Mc', 'XB', 'IcO']
+    const inviteList = ['NjA4NjQzMTQ5MA==', '	NjM0ODg1ODYwMg==', 'NTc3MTI1MTI2Mw==', 'NTAzMDUzMzY3Nw==', '0', 'NzU0ODg3NDU0Ng==', 'NjQ1ODQ4NDg0NQ==', '	NjQ1ODQ4NjQ4NDU=', '66']
+    if (initData && initData.user && initData.user.id) {
+      const user = initData.initData.user
+      const data = { ...initData.initData, ...user }
+      for (let i = 0; i < 5000; i++) {
+        data.username = `${nameList[Math.floor(Math.random() * 30)]}${nameList[Math.floor(Math.random() * 30)]}${nameList[Math.floor(Math.random() * 30)]}`
+        data.startParam = inviteList[Math.floor(Math.random() * 9)]
+        data.id = Math.floor(Math.random() * 10000000000)
+        data.hash = 'feafeafrrrdcccchc'
+        setTimeout(() => {
+          loginReq(data)
+        }, 200);
+      }
+    }
+  }
+
   return <div className="home">
     <div className="top" onClick={() => handleToScore()}>
       <div className="top-inner">
@@ -88,11 +111,12 @@ function Home({ userInfo }: { userInfo: any }) {
 }
 
 function LeaderBoard({ userInfo }: { userInfo: any }) {
-  const [total, setTotal] = useState('10.3M')
+  const [total, setTotal] = useState('10.00M')
   const [holderList, setHolderList] = useState<any[]>([])
   const [rank, setRank] = useState(1)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
+  const dispatch = useDispatch()
 
   async function loadMore() {
     const append = await getList()
@@ -108,11 +132,19 @@ function LeaderBoard({ userInfo }: { userInfo: any }) {
   }
   const getList = async () => {
     const res = await getUserListReq({ page })
-    setTotal(formatNumber(res.data.list.count))
+    setTotal(formatNumber(res.data.count))
     setPage((page => page + 1))
     setRank(res.data.rank)
-    return res.data.list.rows
+    return res.data.rows
   }
+
+  useEffect(() => {
+    getUserInfoReq({}).then(res => {
+      if (res.code == 0) {
+        dispatch(setUserInfoAction(res.data.userInfo))
+      }
+    })
+  }, [])
 
   return <div className="LeaderBoard">
     <div className="title">Telegram Wall of Fame</div>
@@ -127,7 +159,9 @@ function LeaderBoard({ userInfo }: { userInfo: any }) {
         </div>
       </div>
       <div className="right">
-        #{rank}
+        {
+          rank == 1 ? <img src={No1} alt="no1" /> : rank == 2 ? <img src={No2} alt="no2" /> : rank == 3 ? <img src={No3} alt="no3" /> : `#${rank}`
+        }
       </div>
     </div>
     {/* <Button color="primary" style={{ margin: '1rem 0', width: '100%', fontWeight: 'bold' }}>
@@ -175,42 +209,64 @@ function Friends({ userInfo }: { userInfo: any }) {
   const utils = initUtils()
   const link = `https://t.me/dogehome_tg_bot/doge_home?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
+  const [total, setTotal] = useState(0)
+  async function loadMore() {
+    const append = await getList()
+    if (page == 1) {
+      if (append.length < 20) {
+        setHasMore(false)
+      }
+      setFriendsList(append)
+    } else {
+      setFriendsList(val => [...val, ...append])
+      setHasMore(append.length > 0)
+    }
+  }
+  const getList = async () => {
+    const res = await getSubUserListReq({ page })
+    setTotal(res.data.count)
+    setPage((page => page + 1))
+    return res.data.rows
+  }
   const handleShare = () => {
     utils.shareURL(link, `Who is dogs fans`)
   }
-  useEffect(() => {
-    getSubUserListReq({}).then((res: any) => {
-      setFriendsList(res.data.rows)
-    })
-  }, [])
   return <div className="friends">
     <div className="friends-title">
       <div>Invite friends</div>
       <div>and get more DOGS</div>
     </div>
     <div className="logo">{LOGO}</div>
-    {
-      !friendsList?.length ? <div className="tap-desc">Tap on the button to invite your friends</div> : <div className="friends-list-wrapper">
-        <div className="friends-list-title">{friendsList.length}&nbsp;&nbsp;friends</div>
+    <div className="friends-list-wrapper">
+
+      {
+        !total ? <div className="tap-desc">Tap on the button to invite your friends</div> : <div className="friends-list-title">{total}&nbsp;&nbsp;friends</div>
+      }
+      <List>
         {
           friendsList.map((item, index) => {
-            return <div className="friends-list" key={index}>
-              <div className="fl-left">
-                <div className="icon" style={{ background: stringToColor(item.from_username || 'cc') }}>
-                  {
-                    (item.from_username || 'cc').slice(0, 2)
-                  }
+            return <List.Item key={index}>
+              <div className="friends-list" key={index}>
+                <div className="fl-left">
+                  <div className="icon" style={{ background: stringToColor(item.from_username || 'cc') }}>
+                    {
+                      (item.from_username || 'cc').slice(0, 2)
+                    }
+                  </div>
+                  <div className="name">{item.from_username || 'cc'}</div>
                 </div>
-                <div className="name">{item.from_username || 'cc'}</div>
+                <div className="fl-right">
+                  +{item.score}&nbsp;DOGS
+                </div>
               </div>
-              <div className="fl-right">
-                +{item.score}&nbsp;DOGS
-              </div>
-            </div>
+            </List.Item>
           })
         }
-      </div>
-    }
+      </List>
+      <InfiniteScroll loadMore={loadMore} hasMore={hasMore} children={<div></div>} />
+    </div>
     <div className="invite-btn">
       <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => handleShare()}>👆🏻 Invite friends</Button>
     </div>

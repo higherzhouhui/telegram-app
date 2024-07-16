@@ -60,6 +60,7 @@ function Home({ userInfo }: { userInfo: any }) {
         <div className="join-btn" onClick={() => {
           utils.openTelegramLink('https://t.me/hamstermemedapp')
         }}>Join 💰</div>
+        <div className="heart">💖</div>
       </div>
       <div className="reward">
         Your rewards
@@ -70,12 +71,6 @@ function Home({ userInfo }: { userInfo: any }) {
           <span>Account age</span></div>
         <div className="right">+{userInfo.account_age_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
       </div>
-      <div className="list">
-        <div className="left">
-          <div className="img-wrapper"><img src={checkIcon} alt="star" /></div>
-          <span>Telegram Premium</span></div>
-        <div className="right">{userInfo.telegram_premium ? `+${userInfo.telegram_premium}` : 0}&nbsp;<span className="unit">Hamsters</span></div>
-      </div>
       {
         userInfo.invite_friends_score ? <div className="list">
           <div className="left">
@@ -84,6 +79,12 @@ function Home({ userInfo }: { userInfo: any }) {
           <div className="right">+{userInfo.invite_friends_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
         </div> : ''
       }
+      <div className="list">
+        <div className="left">
+          <div className="img-wrapper"><img src={checkIcon} alt="star" /></div>
+          <span>Telegram Premium</span></div>
+        <div className="right">{userInfo.telegram_premium ? `+${userInfo.telegram_premium}` : 0}&nbsp;<span className="unit">Hamsters</span></div>
+      </div>
     </div>
   </div>
 }

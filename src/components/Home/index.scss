@@ -68,7 +68,7 @@ main {
       font-family: Bold;
     }
     .wrapper {
-      padding: 1rem 1.5rem;
+      padding: 1rem 1rem 1rem 1.5rem;
     }
     .community {
       background: rgba($color: #fff, $alpha: 0.1);
@@ -123,7 +123,10 @@ main {
       margin-bottom: 3rem;
       .right {
         font-family: Bold;
-        padding-right: 1rem;
+        padding-right: 0.5rem;
+        .unit {
+          font-size: 1.1rem;
+        }
       }
       .left {
         display: flex;
@@ -303,14 +306,19 @@ main {
         font-size: 1.3rem;
         max-width: 160px;
         overflow: hidden;
+        flex: 1;
+        text-overflow: ellipsis;
       }
       .fl-left {
         display: flex;
         align-items: center;
+        flex: 1;
       }
       .fl-right {
         font-family: Bold;
         font-size: 1.3rem;
+         min-width: fit-content;
+         padding-left: 0.5rem;
       }
     }
     .invite-btn {

@@ -74,10 +74,10 @@ function Home({ userInfo }: { userInfo: any }) {
     <div className="logo">
       <img src={LogoIcon} alt="logo" style={{ width: '30vw', objectFit: 'contain' }} />
     </div>
-    <div className="score">{userInfo.score}&nbsp;Hamsters</div>
+    <div className="score">{userInfo.score}&nbsp;<span style={{ fontSize: '1.5rem' }}>Hamsters</span></div>
     <div className="wrapper">
       <div className="community">
-        <div className="Hamsters-com">Hamsters COMMUNITY</div>
+        <div className="Hamsters-com">Hamster COMMUNITY</div>
         <div className="home-tg">Home for Telegram OGs</div>
         <div className="join-btn" onClick={() => {
           utils.openTelegramLink('https://t.me/hamstermemedapp')
@@ -90,20 +90,20 @@ function Home({ userInfo }: { userInfo: any }) {
         <div className="left">
           <div className="img-wrapper"><img src={starIcon} alt="star" /></div>
           <span>Account age</span></div>
-        <div className="right">+{userInfo.account_age_score || 0}&nbsp;Hamsters</div>
+        <div className="right">+{userInfo.account_age_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
       </div>
       <div className="list">
         <div className="left">
           <div className="img-wrapper"><img src={checkIcon} alt="star" /></div>
           <span>Telegram Premium</span></div>
-        <div className="right">{userInfo.telegram_premium ? `+${userInfo.telegram_premium}` : 0}&nbsp;Hamsters</div>
+        <div className="right">{userInfo.telegram_premium ? `+${userInfo.telegram_premium}` : 0}&nbsp;<span className="unit">Hamsters</span></div>
       </div>
       {
         userInfo.invite_friends_score ? <div className="list">
           <div className="left">
             <div className="img-wrapper"><img src={friendsIcon} alt="star" /></div>
             <span>Invited friends</span></div>
-          <div className="right">+{userInfo.invite_friends_score || 0}&nbsp;Hamsters</div>
+          <div className="right">+{userInfo.invite_friends_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
         </div> : ''
       }
 

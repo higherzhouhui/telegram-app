@@ -116,7 +116,7 @@ function Third({ cIndex, handleClick }: { cIndex: number, handleClick: (index: n
     },
     {
       title: 'You are amazing!',
-      desc: `Here is your DOGS reward`,
+      desc: `Here is your Hamsters reward`,
       subTitle: userInfo.score,
       center: <img src={LogoIcon} alt='logo' style={{ width: '60vw', objectFit: 'contain' }} />,
       rank1: 'Thanks for your time on Telegram 🤝',

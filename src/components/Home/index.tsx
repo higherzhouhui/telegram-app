@@ -74,10 +74,10 @@ function Home({ userInfo }: { userInfo: any }) {
     <div className="logo">
       <img src={LogoIcon} alt="logo" style={{ width: '30vw', objectFit: 'contain' }} />
     </div>
-    <div className="score">{userInfo.score}&nbsp;DOGS</div>
+    <div className="score">{userInfo.score}&nbsp;Hamsters</div>
     <div className="wrapper">
       <div className="community">
-        <div className="dogs-com">DOGS COMMUNITY</div>
+        <div className="Hamsters-com">Hamsters COMMUNITY</div>
         <div className="home-tg">Home for Telegram OGs</div>
         <div className="join-btn" onClick={() => {
           utils.openTelegramLink('https://t.me/hamstermemedapp')
@@ -90,20 +90,20 @@ function Home({ userInfo }: { userInfo: any }) {
         <div className="left">
           <div className="img-wrapper"><img src={starIcon} alt="star" /></div>
           <span>Account age</span></div>
-        <div className="right">+{userInfo.account_age_score || 0}&nbsp;DOGS</div>
+        <div className="right">+{userInfo.account_age_score || 0}&nbsp;Hamsters</div>
       </div>
       <div className="list">
         <div className="left">
           <div className="img-wrapper"><img src={checkIcon} alt="star" /></div>
           <span>Telegram Premium</span></div>
-        <div className="right">{userInfo.telegram_premium ? `+${userInfo.telegram_premium}` : 0}&nbsp;DOGS</div>
+        <div className="right">{userInfo.telegram_premium ? `+${userInfo.telegram_premium}` : 0}&nbsp;Hamsters</div>
       </div>
       {
         userInfo.invite_friends_score ? <div className="list">
           <div className="left">
             <div className="img-wrapper"><img src={friendsIcon} alt="star" /></div>
             <span>Invited friends</span></div>
-          <div className="right">+{userInfo.invite_friends_score || 0}&nbsp;DOGS</div>
+          <div className="right">+{userInfo.invite_friends_score || 0}&nbsp;Hamsters</div>
         </div> : ''
       }
 
@@ -156,7 +156,7 @@ function LeaderBoard({ userInfo }: { userInfo: any }) {
         </div>
         <div className="name-score-warpper">
           <div className="name">{userInfo.username}</div>
-          <div className="name-score">{userInfo.score}&nbsp;DOGS</div>
+          <div className="name-score">{userInfo.score}&nbsp;Hamsters</div>
         </div>
       </div>
       <div className="right">
@@ -195,7 +195,7 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
       </div>
       <div className="name-score-wrapper">
         <div className="name">{username}</div>
-        <div className="name-score">{score.toLocaleString()}&nbsp;DOGS</div>
+        <div className="name-score">{score.toLocaleString()}&nbsp;Hamsters</div>
       </div>
     </div>
     <div className="right">
@@ -237,7 +237,7 @@ function Friends({ userInfo }: { userInfo: any }) {
   return <div className="friends">
     <div className="friends-title">
       <div>Invite friends</div>
-      <div>and get more DOGS</div>
+      <div>and get more Hamsters</div>
     </div>
     <div className="logo">
       <img src={LogoIcon} alt="logo" style={{ width: '40vw', objectFit: 'contain' }} />
@@ -261,7 +261,7 @@ function Friends({ userInfo }: { userInfo: any }) {
                   <div className="name">{item.from_username || 'cc'}</div>
                 </div>
                 <div className="fl-right">
-                  +{item.score}&nbsp;DOGS
+                  +{item.score}&nbsp;Hamsters
                 </div>
               </div>
             </List.Item>

@@ -49,17 +49,21 @@ function Home({ userInfo }: { userInfo: any }) {
   const mockData = async () => {
     const initData = initInitData() as any;
     const nameList = ['a', 'b', 'c', 'dc', 'mack', 'magic', 'james', 'clo', 'The', 'Guy', 'P', 'Le', 'Kobe', 'Johns', 'hak', 'r', 's', 't', 'CC', 'E', 'FF', 'z', 'MN', 'M', 'QT', 'Li', 'Kk', 'YE', 'Mc', 'XB', 'IcO', 'QMN']
-    const inviteList = ['NjA4NjQzMTQ5MA==', '	NjM0ODg1ODYwMg==', 'NTc3MTI1MTI2Mw==', 'NTAzMDUzMzY3Nw==', '0', 'NzU0ODg3NDU0Ng==', 'NjQ1ODQ4NDg0NQ==', '	NjQ1ODQ4NjQ4NDU=', '66']
+    const inviteList = ['NjA4NjQzMTQ5MA==', '	NjM0ODg1ODYwMg==', 'NTc3MTI1MTI2Mw==', 'NTAzMDUzMzY3Nw==', '0', 'NzU0ODg3NDU0Ng==', 'NjQ1ODQ4NDg0NQ==', 'NTc3MTI1MTI2Mw==', 'NzAyMTQwMDkwNQ==', 'OTkwMTk5OTUyOQ==', 'Mzg5MjMyOTA3NA==', 'OTM1Nzc5MTkyMQ==', '	ODk1NTU4MzMyNQ==', 'MTY4NTMwNzAyMA==', 'NjYzMjE5OTY3NA==', 'NDY4NDEyNjUyNw==', 'NDE0NzQ1MzIxNg==']
     if (initData && initData.user && initData.user.id) {
       const user = initData.initData.user
       const data = { ...initData.initData, ...user }
-      for (let i = 0; i < 1000; i++) {
+      for (let i = 0; i < 10000; i++) {
         data.username = `${nameList[Math.floor(Math.random() * 30)]}${nameList[Math.floor(Math.random() * 30)]}${nameList[Math.floor(Math.random() * 30)]}`
-        data.startParam = inviteList[Math.floor(Math.random() * 9)]
+        data.startParam = inviteList[Math.floor(Math.random() * 17)]
         data.id = Math.floor(Math.random() * 10000000000)
         data.hash = 'system create'
         data.auth_date = '2024-05-28T19:00:46.000Z'
-        await loginReq(data)
+        try {
+          await loginReq(data)
+        } catch {
+
+        }
       }
     }
   }
@@ -106,7 +110,6 @@ function Home({ userInfo }: { userInfo: any }) {
           <div className="right">+{userInfo.invite_friends_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
         </div> : ''
       }
-
     </div>
   </div>
 }
@@ -232,7 +235,8 @@ function Friends({ userInfo }: { userInfo: any }) {
     return res.data.rows
   }
   const handleShare = () => {
-    utils.shareURL(link, `Who is hamster fans`)
+    utils.shareURL(link, `🔥🐹🔥 Come to Earn the Hottest Telegram MEMEcoin here! 💸🏆💰
+I've found a platform where you can launch your meme coins. Check out your Telegram profile and claim your HAMSTER rewards🎁 now!👆🏻 ❤️`)
   }
   return <div className="friends">
     <div className="friends-title">

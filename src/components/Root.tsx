@@ -11,7 +11,7 @@ import { ConfigProvider } from 'antd-mobile';
 import enUS from 'antd-mobile/es/locales/en-US'
 
 const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
-  <div>
+  <div style={{ color: '#fff' }}>
     <p>An unhandled error occurred:</p>
     <blockquote>
       <code>

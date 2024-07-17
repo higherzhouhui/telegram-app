@@ -12,8 +12,8 @@ import { Button } from "antd-mobile";
 import { formatNumber, stringToColor } from '@/utils/common'
 import { InfiniteScroll, List } from 'antd-mobile'
 import { useDispatch, useSelector } from "react-redux";
-import { getSubUserListReq, getUserInfoReq, getUserListReq, loginReq } from "@/api/common";
-import { initInitData, initUtils } from '@telegram-apps/sdk-react';
+import { getSubUserListReq, getUserInfoReq, getUserListReq } from "@/api/common";
+import { initUtils } from '@telegram-apps/sdk-react';
 import { setUserInfoAction } from "@/redux/slices/userSlice";
 import LogoIcon from '@/assets/logo.jpg'
 
@@ -42,7 +42,7 @@ function Home({ userInfo }: { userInfo: any }) {
     eventBus.emit('updateStep', 2)
   }
 
-  return <div className="home">
+  return <div className="home fadeIn">
     <div className="top" onClick={() => handleToScore()}>
       <div className="top-inner">
         {videoIcon}
@@ -125,7 +125,7 @@ function LeaderBoard({ userInfo }: { userInfo: any }) {
     })
   }, [])
 
-  return <div className="LeaderBoard">
+  return <div className="LeaderBoard fadeIn">
     <div className="title">Telegram Wall of Fame</div>
     <div className="myself">
       <div className="left">
@@ -216,7 +216,7 @@ I've found a platform where you can launch your meme coins. Check out your Teleg
      */
     utils.shareURL(link, ``)
   }
-  return <div className="friends">
+  return <div className="friends fadeIn">
     <div className="friends-title">
       <div>Invite friends</div>
       <div>and get more Hamsters</div>

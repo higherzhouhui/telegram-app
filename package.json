@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host --force",
+    "dev": "vite --host --force --config config.dev.ts",
     "build1": "tsc && GH_PAGES=true vite build",
     "build:dev": "tsc && vite build",
     "preview": "vite preview",

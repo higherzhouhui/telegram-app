@@ -1,91 +1,92 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Phaser from 'phaser';
+import { useEffect, useRef, useState } from 'react';
+import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
+import MainMenu from '@/game/scenes/MainMenu';
+import { useSelector } from 'react-redux';
+import './index.scss'
 
-type DiceProps = {
-  sides: number;
-  probabilities: number[]; // Probabilities for each side (normalized to sum to 1)
-  onRoll: (result: number) => void;
-};
+function GameComp({ size }: { size: { width: number, height: number } }) {
+  // The sprite can only be moved in the MainMenu Scene
+  const userInfo = useSelector((state: any) => state.user.info);
 
-const Dice: React.FC<DiceProps> = ({ sides, probabilities, onRoll }) => {
-  const phaserContainer = useRef<HTMLDivElement>(null);
-  const [result, setResult] = useState<number | null>(null);
+  //  References to the PhaserGame component (game and scene are exposed)
+  const phaserRef = useRef<IRefPhaserGame | null>(null);
+  const [spritePosition, setSpritePosition] = useState({ x: 0, y: 0 });
+  const [currentScene, setCurrentScene] = useState('preLoad')
+  const changeScene = () => {
 
-  useEffect(() => {
-    if (!phaserContainer.current) return;
+    if (phaserRef.current) {
+      const scene = phaserRef.current.scene as MainMenu;
 
-    const config: Phaser.Types.Core.GameConfig = {
-      type: Phaser.AUTO,
-      parent: phaserContainer.current,
-      width: 100,
-      height: 100,
-      scene: {
-        preload: function () {
-          this.load.setPath('ass');
-
-          // Load dice images or spritesheets
-          // this.load.image('dice1', 'assets/d1.png');
-          // this.load.image('dice2', 'assets/d2.png');
-          // this.load.image('dice3', 'assets/d3.png');
-          // this.load.image('dice4', 'assets/d4.png');
-          // this.load.image('dice5', 'assets/d5.png');
-          // this.load.image('dice6', 'assets/d6.png');
-          // Load images or spritesheets for each dice side
-        },
-        create: function () {
-          // const dice = this.add.sprite(50, 50, 'dice');
-
-          // const rollDice = () => {
-          //   const randomNumber = Math.floor(Math.random() * 6) + 1;
-          //   setResult(randomNumber);
-
-          //   setTimeout(() => {
-          //     dice.setTexture(`dice${randomNumber}`);
-          //   }, 2000);
-          // };
-
-          // dice.setInteractive();
-          // dice.on('pointerdown', rollDice);
-        },
-        update: function () {
-          // Handle animation or rolling logic
-          // Example: this.dice.anims.play('roll');
-          // Implement animation for rolling the dice
-          // this.dice.anims.play('roll')
+      if (scene) {
+        if (currentScene == 'MainMenu') {
+          console.log(22222)
         }
       }
-    };
+    }
+  }
 
-    const game = new Phaser.Game(config);
+  const moveSprite = () => {
 
-    return () => {
-      game.destroy(true);
-    };
-  }, []);
+    if (phaserRef.current) {
 
-  // Function to roll the dice based on probabilities
-  const rollDice = () => {
-    let rand = Math.random();
-    let cumulativeProb = 0;
-    let result = 0;
+      const scene = phaserRef.current.scene as MainMenu;
 
-    for (let i = 0; i < sides; i++) {
-      cumulativeProb += probabilities[i];
-      if (rand < cumulativeProb) {
-        result = i + 1; // Dice sides are usually 1-indexed
-        break;
+      if (scene && scene.scene.key === 'MainMenu') {
+        // Get the update logo position
+        scene.moveLogo(({ x, y }) => {
+
+          setSpritePosition({ x, y });
+
+        });
       }
     }
 
-    onRoll(result);
-  };
+  }
+
+  const changeTotalScore = () => {
+
+    if (phaserRef.current) {
+      const scene = phaserRef.current.scene;
+      if (scene) {
+        if (currentScene == 'MainMenu') {
+          let mainScene = scene as any
+          mainScene.showTotal(userInfo, size)
+        }
+
+      }
+    }
+  }
+
+  // Event emitted from the PhaserGame component
+  const currentActiveScene = (scene: Phaser.Scene) => {
+
+    setCurrentScene(scene.scene.key);
+
+  }
+
+  useEffect(() => {
+    changeTotalScore()
+  }, [phaserRef.current?.scene])
 
   return (
     <div>
-      <div ref={phaserContainer}></div>
-      <button onClick={rollDice}>Roll Dice</button>
+      <PhaserGame ref={phaserRef} currentActiveScene={currentActiveScene} size={size} />
+      {/* <div className='game-op'>
+        <div>
+          <button className="button" onClick={changeScene}>Change Scene</button>
+        </div>
+        <div>
+          <button disabled={canMoveSprite} className="button" onClick={moveSprite}>Toggle Movement</button>
+        </div>
+        <div className="spritePosition">Sprite Position:
+          <pre>{`{\n  x: ${spritePosition.x}\n  y: ${spritePosition.y}\n}`}</pre>
+        </div>
+        <div>
+          <button className="button" onClick={addSprite}>Add New Sprite</button>
+        </div>
+      </div> */}
     </div>
-  );
-};
+  )
+}
 
-export default Dice;
+export default GameComp

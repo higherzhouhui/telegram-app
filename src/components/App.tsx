@@ -41,7 +41,6 @@ export const App: FC = () => {
   // it and listen to its changes.
   const navigator = useMemo(() => initNavigator('app-navigation-state'), []);
   const [location, reactNavigator] = useIntegration(navigator);
-
   // Don't forget to attach the navigator to allow it to control the BackButton state as well
   // as browser history.
   // useEffect(() => {

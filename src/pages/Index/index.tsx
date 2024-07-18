@@ -10,6 +10,7 @@ import { loginReq } from '@/api/common';
 import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 import { initInitData } from '@telegram-apps/sdk';
+import GameComp from '@/components/Game';
 
 export const IndexPage: FC = () => {
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ export const IndexPage: FC = () => {
       res = await loginReq(data)
     }
     if (res.code == 0) {
+
       dispatch(setUserInfoAction(res.data))
       localStorage.setItem('authorization', res.data.user_id)
       if (res.data.is_New) {
@@ -47,6 +49,7 @@ export const IndexPage: FC = () => {
     if (size && size.height && size.width) {
       setAppSize(size)
     }
+    console.log(size)
   }, [size])
 
   useEffect(() => {
@@ -60,8 +63,11 @@ export const IndexPage: FC = () => {
   }, [])
   return (
     <div className="app" ref={appRef}>
-      {
+      {/* {
         step == 1 ? <Begin /> : step == 2 ? <NewUser cStep={newUserStep} /> : <Home />
+      } */}
+      {
+        appSize.width ? <GameComp size={appSize} /> : null
       }
     </div>
   )

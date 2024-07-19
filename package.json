@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host --force --config config.dev.ts",
-    "build1": "tsc && GH_PAGES=true vite build",
+    "build1": "tsc && GH_PAGES=true vite build --config config.prod.ts",
     "build:dev": "tsc && vite build",
     "preview": "vite preview",
     "delete": "rmdir /s /q ..\\telegram-mini\\assets",

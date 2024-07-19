@@ -56,8 +56,7 @@ export default class MainGame extends Phaser.Scene {
         this.shakeTimer;
     }
 
-    init ()
-    {
+    init() {
         // Fadein camera
         this.cameras.main.fadeIn(500);
     }
@@ -70,7 +69,7 @@ export default class MainGame extends Phaser.Scene {
         this.height = height
 
         this.add.image(width / 2, height / 2, 'dark');
-        
+
         this.circle1 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0xf8960e);
         this.circle2 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0x00ff00);
 
@@ -93,10 +92,10 @@ export default class MainGame extends Phaser.Scene {
                 position: 0
             }
         });
-       
+
 
         this.timerText = this.add.text(60, 60, '30:00', this.fontStyle).setOrigin(0.5, 0.5);
-        this.scoreText = this.add.text(width - 80, 60, 'Found: 0', this.fontStyle).setOrigin(0.5, 0.5);
+        this.scoreText = this.add.text(width - 80, 60, `Found:${this.score}`, this.fontStyle).setOrigin(0.5, 0.5);
 
         let children = this.emojis.getChildren();
 
@@ -119,43 +118,11 @@ export default class MainGame extends Phaser.Scene {
         this.matched = false;
 
         this.timer = this.time.addEvent({ delay: 30000, callback: this.gameOver, callbackScope: this });
-        this.shakeTimer = this.time.addEvent({ delay: 27000, callback: this.shake, callbackScope: this });
+        // this.shakeTimer = this.time.addEvent({ delay: 27000, callback: this.shake, callbackScope: this });
 
         this.sound.play('countdown', { delay: 27 });
 
-
     }
-    
-    volumeButton ()
-    {
-        const volumeIcon = this.add.image(25, 30, "volume-icon").setName("volume-icon");
-        volumeIcon.setInteractive();
-
-        // Mouse enter
-        volumeIcon.on(Phaser.Input.Events.POINTER_OVER, () => {
-            this.input.setDefaultCursor("pointer");
-        });
-        // Mouse leave
-        volumeIcon.on(Phaser.Input.Events.POINTER_OUT, () => {
-            console.log("Mouse leave");
-            this.input.setDefaultCursor("default");
-        });
-
-
-        volumeIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
-
-            if (this.sound.volume === 0) {
-                this.sound.setVolume(1);
-                volumeIcon.setTexture("volume-icon");
-                volumeIcon.setAlpha(1);
-            } else {
-                this.sound.setVolume(0);
-                volumeIcon.setTexture("volume-icon_off");
-                volumeIcon.setAlpha(.5)
-            }
-        });
-    }
-
 
     shake() {
         this.cameras.main.shake(100, 0.01);
@@ -297,9 +264,6 @@ export default class MainGame extends Phaser.Scene {
                 this.totalScoreText?.setText(`Score:${this.newTotalScore}`)
                 this.score = 0
                 this.totalScoreText = undefined
-                this.input.once('pointerdown', () => {
-                    this.scene.start('MainMenu');
-                }, this);
             } else {
                 this.totalScoreText?.setText(`Score:${Math.min(this.totalScore, this.newTotalScore)}`)
             }
@@ -316,7 +280,7 @@ export default class MainGame extends Phaser.Scene {
         this.registry.set('found', this.score);
 
         this.totalScore = this.registry.get('totalScore')
-        const res: any = await endGameReq({found: this.score})
+        const res: any = await endGameReq({ found: this.score })
         if (res.code == 0) {
             const data = res.data
             this.registry.set('totalScore', data.score)
@@ -348,7 +312,7 @@ export default class MainGame extends Phaser.Scene {
                         blur: 6
                     }
                 };
-                
+
                 const gameOverText = this.add.text(this.width / 2, 0, 'Game Over', {
                     fontFamily: 'Arial Black', fontSize: 50, color: '#ffffff',
                     stroke: '#000000', strokeThickness: 8,
@@ -362,25 +326,25 @@ export default class MainGame extends Phaser.Scene {
                     ease: 'bounce.out',
                     complete: () => {
 
-                        const addFenText = this.add.text(this.width / 2, this.height / 2 - 230, `+${this.newTotalScore - this.totalScore}`, {...this.fontStyle, fontSize: 22, color: '#ec3942'}).setOrigin(0.5, 0.5);
+                        const addFenText = this.add.text(this.width / 2, this.height / 2 - 230, `+${this.newTotalScore - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);
                         this.tweens.add({
                             targets: addFenText,
                             alpha: { from: 1, to: 0 },
                             duration: 2000,
                         });
 
-                        this.totalScoreText =  this.add.text(this.width / 2, this.height / 2 - 200, `Score:${this.totalScore}`, {
+                        this.totalScoreText = this.add.text(this.width / 2, this.height / 2 - 200, `Score:${this.totalScore}`, {
                             fontFamily: 'Arial Black', fontSize: 32, color: '#ffffff',
                             stroke: '#000000', strokeThickness: 4,
                             align: 'center'
                         }).setOrigin(0.5, 0.5).setDepth(60);
                     }
                 })
-                if (!this.score) {
-                    this.input.once('pointerdown', () => {
-                        this.scene.start('MainMenu');
-                    }, this);
-                }
+                this.input.once('pointerdown', () => {
+                    this.score = 0
+                    this.totalScoreText = undefined
+                    this.scene.start('MainMenu');
+                }, this);
             }
         });
     }

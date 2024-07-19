@@ -57,7 +57,6 @@ export default class MainMenu extends Phaser.Scene {
             duration: 800,
             ease: (value: any) => (value > .8),
             alpha: 0,
-            repeat: -1,
             yoyo: true,
         });
         if (!this.music) {
@@ -76,8 +75,8 @@ export default class MainMenu extends Phaser.Scene {
             ease: 'bounce.out',
             duration: 1200,
         });
-        
-        titleText.on('pointerdown', async() => {
+
+        titleText.on('pointerdown', async () => {
             // 暂停click动画和隐藏click to play
             titleTextAnimation.stop()
             titleText.setAlpha(0)
@@ -88,7 +87,7 @@ export default class MainMenu extends Phaser.Scene {
                 this.totalScoreText.setColor('#e20f0f')
                 this.cameras.main.shake(300, 0.01);
             } else {
-                const kouFenText = this.add.text(width / 2, height / 2 - 230, `${res.data.score - this.totalScore}`, {...this.fontStyle, fontSize: 22, color: '#ec3942'}).setOrigin(0.5, 0.5);
+                const kouFenText = this.add.text(width / 2, height / 2 - 230, `${res.data.score - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);
                 this.tweens.add({
                     targets: kouFenText,
                     alpha: { from: 1, to: 0 },

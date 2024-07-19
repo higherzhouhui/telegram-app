@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import starIcon from '@/assets/h-star.png'
 import checkIcon from '@/assets/h-right.png'
 import friendsIcon from '@/assets/h-friends.png'
+import gameIcon from '@/assets/game.png'
 import No1 from '@/assets/NO.1.png'
 import No2 from '@/assets/NO.2.png'
 import No3 from '@/assets/NO.3.png'
@@ -23,12 +24,22 @@ export default function () {
   const eventBus = EventBus.getInstance()
   const [currentTab, setCurrentTab] = useState<any>('Home')
   const [showGame, setShowGame] = useState(false)
+  const dispatch = useDispatch()
   useEffect(() => {
     const onMessage = (title: string) => {
       setCurrentTab(title)
     }
     eventBus.addListener('changeFooterTab', onMessage)
   }, [])
+  useEffect(() => {
+    if (!showGame) {
+      getUserInfoReq({}).then(res => {
+        if (res.code == 0) {
+          dispatch(setUserInfoAction(res.data.userInfo))
+        }
+      })
+    }
+  }, [showGame])
   return <main>
     {
       currentTab == 'Home' ? <Home userInfo={userInfo} setShowGame={() => setShowGame(true)} /> : currentTab == 'Leaderboard' ? <LeaderBoard userInfo={userInfo} /> : <Friends userInfo={userInfo} />
@@ -91,6 +102,14 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
             <div className="img-wrapper"><img src={friendsIcon} alt="star" /></div>
             <span>Invited friends</span></div>
           <div className="right">+{userInfo.invite_friends_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
+        </div> : ''
+      }
+      {
+        userInfo.game_score ? <div className="list">
+          <div className="left">
+            <div className="img-wrapper"><img src={gameIcon} alt="star" /></div>
+            <span>Play game</span></div>
+          <div className="right">{userInfo.game_score > 0 ? `+${userInfo.game_score}` : userInfo.game_score}&nbsp;<span className="unit">Hamsters</span></div>
         </div> : ''
       }
       <div className="list">

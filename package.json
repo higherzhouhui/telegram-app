@@ -11,7 +11,7 @@
     "delete": "rmdir /s /q ..\\telegram-mini\\assets",
     "move": "xcopy .\\docs ..\\telegram-mini /s /e /i /Y",
     "execBat": "cd ..\\ && cd telegram-mini && auto_commit.bat",
-    "build": "tsc && set GH_PAGES=true && vite build && npm run delete && npm run move && npm run execBat"
+    "build": "tsc && set GH_PAGES=true && vite build --config config.prod.ts && npm run delete && npm run move && npm run execBat"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",

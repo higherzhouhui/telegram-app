@@ -119,7 +119,6 @@ export default class MainGame extends Phaser.Scene {
 
         this.timer = this.time.addEvent({ delay: 30000, callback: this.gameOver, callbackScope: this });
         // this.shakeTimer = this.time.addEvent({ delay: 27000, callback: this.shake, callbackScope: this });
-
         this.sound.play('countdown', { delay: 27 });
 
     }
@@ -274,6 +273,7 @@ export default class MainGame extends Phaser.Scene {
         //  Show them where the match actually was
         this.circle1.setStrokeStyle(4, 0xfc29a6).setPosition(this.child1.x, this.child1.y).setVisible(true);
         this.circle2.setStrokeStyle(4, 0xfc29a6).setPosition(this.child2.x, this.child2.y).setVisible(true);
+        this.time.removeEvent(this.timer)
 
         this.input.off('gameobjectdown', this.selectEmoji, this);
 

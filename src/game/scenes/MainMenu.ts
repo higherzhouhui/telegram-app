@@ -42,9 +42,7 @@ export default class MainMenu extends Phaser.Scene {
             duration: 1000
         });
 
-        this.add.text(width / 2, height / 2 + 200, 'Warning: Find two matching expressions among many\n and eliminate them before clearing the level;\nThe more rewards there are, the higher the reward', { ...this.fontStyle, fontSize: 12 }).setOrigin(0.5, 0.5);
-
-      
+        this.add.text(width / 2, height / 2 + 200, 'warning: Find two matching expressions among many\n and eliminate them before clearing the level;\nThe more rewards there are, the higher the reward', { ...this.fontStyle, fontSize: 12 }).setOrigin(0.5, 0.5);
 
         const titleText = this.add.text(width / 2, height / 2 + 120,
             "Click to Play",
@@ -155,7 +153,7 @@ export default class MainMenu extends Phaser.Scene {
             this.totalScore = this.totalScore - 10
             if (this.totalScore < this.target) {
                 this.totalScoreText.setText(`Score: ${this.target}`)
-                if (this.target - this.totalScore > 1200) {
+                if (this.target - this.totalScore > 800) {
                     this.scene.start('MainGame');
                     this.kouFen = false
                 }

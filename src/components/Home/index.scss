@@ -16,6 +16,11 @@ main {
       z-index: 1001;
       right: 10px;
       top: 14px;
+      opacity: 0;
+    }
+    .close-fadeIn {
+      opacity: 1;
+      animation: fadeIn forwards 6s;
     }
   }
   .home {
@@ -91,6 +96,7 @@ main {
       width: fit-content;
       margin: 0 auto;
       padding: 2px 6px;
+      color: #fff;
       span {
         margin-right: 6px;
       }

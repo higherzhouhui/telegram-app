@@ -41,7 +41,9 @@ export class Preloader extends Scene {
         this.load.image('background', 'background.png');
         this.load.image('logo', 'logo.png');
         this.load.atlas('emojis', 'emojis.png', 'emojis.json');
-
+        this.load.image("volume-icon", "volume-icon.png");
+        this.load.image("volume-icon_off", "volume-icon_off.png");
+        
         //  Audio ...
         this.load.setPath('assets/games/emoji-match/sounds/');
         this.load.audio("card-mismatch", "card-mismatch.mp3");

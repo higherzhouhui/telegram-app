@@ -43,6 +43,12 @@ export default class MainGame extends Phaser.Scene {
         this.shakeTimer;
     }
 
+    init ()
+    {
+        // Fadein camera
+        this.cameras.main.fadeIn(500);
+    }
+
     create() {
         const screen = document.getElementsByClassName('app')
         const width = screen[0].clientWidth
@@ -51,7 +57,7 @@ export default class MainGame extends Phaser.Scene {
         this.height = height
 
         this.add.image(width / 2, height / 2, 'dark');
-
+        
         this.circle1 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0xf8960e);
         this.circle2 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0x00ff00);
 
@@ -70,7 +76,7 @@ export default class MainGame extends Phaser.Scene {
                 cellWidth: 80,
                 cellHeight: 80,
                 x: width / 2 - 160,
-                y: height / 2 - 160,
+                y: height / 2 - 120,
                 position: 0
             }
         });
@@ -89,8 +95,8 @@ export default class MainGame extends Phaser.Scene {
             }
         };
 
-        this.timerText = this.add.text(60, 40, '30:00', fontStyle).setOrigin(0.5, 0.5);
-        this.scoreText = this.add.text(width - 80, 40, 'Found: 0', fontStyle).setOrigin(0.5, 0.5);
+        this.timerText = this.add.text(60, 60, '30:00', fontStyle).setOrigin(0.5, 0.5);
+        this.scoreText = this.add.text(width - 80, 60, 'Found: 0', fontStyle).setOrigin(0.5, 0.5);
 
         let children = this.emojis.getChildren();
 
@@ -120,11 +126,45 @@ export default class MainGame extends Phaser.Scene {
 
     }
     
+    volumeButton ()
+    {
+        const volumeIcon = this.add.image(25, 30, "volume-icon").setName("volume-icon");
+        volumeIcon.setInteractive();
+
+        // Mouse enter
+        volumeIcon.on(Phaser.Input.Events.POINTER_OVER, () => {
+            this.input.setDefaultCursor("pointer");
+        });
+        // Mouse leave
+        volumeIcon.on(Phaser.Input.Events.POINTER_OUT, () => {
+            console.log("Mouse leave");
+            this.input.setDefaultCursor("default");
+        });
+
+
+        volumeIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
+
+            if (this.sound.volume === 0) {
+                this.sound.setVolume(1);
+                volumeIcon.setTexture("volume-icon");
+                volumeIcon.setAlpha(1);
+            } else {
+                this.sound.setVolume(0);
+                volumeIcon.setTexture("volume-icon_off");
+                volumeIcon.setAlpha(.5)
+            }
+        });
+    }
+
+
     shake() {
         this.cameras.main.shake(100, 0.01);
     }
 
     selectEmoji(pointer: any, emoji: any) {
+        if (emoji.name && emoji.name.includes('volume')) {
+            return
+        }
         if (this.matched) {
             return;
         }
@@ -276,16 +316,14 @@ export default class MainGame extends Phaser.Scene {
         this.registry.set('found', this.score);
 
         this.totalScore = this.registry.get('totalScore')
-        if (this.score) {
-            const res: any = await endGameReq({found: this.score})
-            if (res.code == 0) {
-                const data = res.data
-                this.registry.set('totalScore', data.score)
-                this.registry.set('maxScore', data.game_max_score)
-                this.newTotalScore = data.score
-            } else {
-                console.error(res.msg)
-            }
+        const res: any = await endGameReq({found: this.score})
+        if (res.code == 0) {
+            const data = res.data
+            this.registry.set('totalScore', data.score)
+            this.registry.set('maxScore', data.game_max_score)
+            this.newTotalScore = data.score
+        } else {
+            console.error(res.msg)
         }
         this.tweens.add({
             targets: [this.circle1, this.circle2],

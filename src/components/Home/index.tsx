@@ -16,11 +16,13 @@ import { getSubUserListReq, getUserInfoReq, getUserListReq } from "@/api/common"
 import { initUtils } from '@telegram-apps/sdk-react';
 import { setUserInfoAction } from "@/redux/slices/userSlice";
 import LogoIcon from '@/assets/logo.jpg'
+import GameComp from "@/components/Game";
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
   const eventBus = EventBus.getInstance()
   const [currentTab, setCurrentTab] = useState<any>('Home')
+  const [showGame, setShowGame] = useState(false)
   useEffect(() => {
     const onMessage = (title: string) => {
       setCurrentTab(title)
@@ -29,13 +31,21 @@ export default function () {
   }, [])
   return <main>
     {
-      currentTab == 'Home' ? <Home userInfo={userInfo} /> : currentTab == 'Leaderboard' ? <LeaderBoard userInfo={userInfo} /> : <Friends userInfo={userInfo} />
+      currentTab == 'Home' ? <Home userInfo={userInfo} setShowGame={() => setShowGame(true)} /> : currentTab == 'Leaderboard' ? <LeaderBoard userInfo={userInfo} /> : <Friends userInfo={userInfo} />
     }
     <Footer />
+    {
+      showGame ? <div className="gameComp">
+        <GameComp />
+        <div className="close" onClick={() => setShowGame(false)}>
+          <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1802" width="32" height="32"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#F55300" p-id="1803"></path><path d="M258.56 358.912l434.432 434.432a51.2 51.2 0 0 0 72.3968-72.3968L330.9568 286.5152A51.2 51.2 0 1 0 258.56 358.912z" fill="#F9F9F9" p-id="1804"></path><path d="M258.56 712.192l434.432-434.432a51.2 51.2 0 0 1 72.448 72.3968l-434.4832 434.432A51.2 51.2 0 1 1 258.56 712.192z" fill="#F9F9F9" p-id="1805"></path></svg>
+        </div>
+      </div> : null
+    }
   </main>
 }
 
-function Home({ userInfo }: { userInfo: any }) {
+function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => void }) {
   const eventBus = EventBus.getInstance()
   const utils = initUtils();
   const handleToScore = async () => {
@@ -53,6 +63,10 @@ function Home({ userInfo }: { userInfo: any }) {
       <img src={LogoIcon} alt="logo" style={{ width: '30vw', objectFit: 'contain' }} />
     </div>
     <div className="score">{userInfo.score}&nbsp;<span style={{ fontSize: '1.5rem' }}>Hamsters</span></div>
+    <div onClick={() => setShowGame()} className="earn-more">
+      <span>Get more</span>
+      <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3989" width="20" height="20"><path d="M378.496 213.333333C217.216 213.333333 85.333333 346.410667 85.333333 512s131.925333 298.666667 293.162667 298.666667a12.16 12.16 0 0 0 11.52-8.32l2.602667-7.893334a142.08 142.08 0 0 1 134.954666-97.578666h40.746667a42.666667 42.666667 0 1 1 0 85.333333h-40.746667a56.746667 56.746667 0 0 0-53.888 38.997333l-2.602666 7.850667A97.493333 97.493333 0 0 1 378.453333 896C168.832 896 0 723.413333 0 512s168.832-384 378.496-384h267.008C855.210667 128 1024 300.586667 1024 512s-168.789333 384-378.496 384a42.666667 42.666667 0 1 1 0-85.333333C806.784 810.666667 938.666667 677.589333 938.666667 512s-131.925333-298.666667-293.162667-298.666667H378.453333z" fill="#ffffff" p-id="3990"></path><path d="M327.125333 359.637333a42.666667 42.666667 0 0 1 42.666667 42.666667V469.333333h66.346667a42.666667 42.666667 0 1 1 0 85.333334H369.792v67.029333a42.666667 42.666667 0 0 1-85.333333 0V554.666667H218.026667a42.666667 42.666667 0 0 1 0-85.333334h66.389333V402.304a42.666667 42.666667 0 0 1 42.666667-42.666667zM708.736 359.637333a42.666667 42.666667 0 0 1 42.666667 42.666667V426.666667a42.666667 42.666667 0 1 1-85.333334 0v-24.362667a42.666667 42.666667 0 0 1 42.666667-42.666667z m0 195.029334a42.666667 42.666667 0 0 1 42.666667 42.666666v24.362667a42.666667 42.666667 0 0 1-85.333334 0V597.333333a42.666667 42.666667 0 0 1 42.666667-42.666666z" fill="#ffffff" p-id="3991"></path></svg>
+    </div>
     <div className="wrapper">
       <div className="community">
         <div className="Hamsters-com">Hamster COMMUNITY</div>

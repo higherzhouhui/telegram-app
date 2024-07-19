@@ -4,7 +4,7 @@ import MainMenu from '@/game/scenes/MainMenu';
 import { useSelector } from 'react-redux';
 import './index.scss'
 
-function GameComp({ size }: { size: { width: number, height: number } }) {
+function GameComp() {
   // The sprite can only be moved in the MainMenu Scene
   const userInfo = useSelector((state: any) => state.user.info);
 
@@ -50,7 +50,7 @@ function GameComp({ size }: { size: { width: number, height: number } }) {
       if (scene) {
         if (currentScene == 'MainMenu') {
           let mainScene = scene as any
-          mainScene.showTotal(userInfo, size)
+          mainScene.showTotal(userInfo)
         }
 
       }
@@ -70,7 +70,7 @@ function GameComp({ size }: { size: { width: number, height: number } }) {
 
   return (
     <div>
-      <PhaserGame ref={phaserRef} currentActiveScene={currentActiveScene} size={size} />
+      <PhaserGame ref={phaserRef} currentActiveScene={currentActiveScene} />
       {/* <div className='game-op'>
         <div>
           <button className="button" onClick={changeScene}>Change Scene</button>

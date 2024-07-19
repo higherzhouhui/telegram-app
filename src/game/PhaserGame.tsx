@@ -9,7 +9,7 @@ export interface IRefPhaserGame {
 
 interface IProps {
     currentActiveScene?: (scene_instance: Phaser.Scene) => void
-    size: { width: number, height: number }
+    size?: { width: number, height: number }
 }
 
 export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(function PhaserGame({ currentActiveScene, size }, ref) {
@@ -17,7 +17,7 @@ export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(function PhaserGame
     useLayoutEffect(() => {
         if (game.current === null) {
 
-            game.current = StartGame(size, "game-container");
+            game.current = StartGame("game-container");
 
             if (typeof ref === 'function') {
                 ref({ game: game.current, scene: null });

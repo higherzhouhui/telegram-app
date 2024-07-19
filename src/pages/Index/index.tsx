@@ -30,7 +30,6 @@ export const IndexPage: FC = () => {
       res = await loginReq(data)
     }
     if (res.code == 0) {
-
       dispatch(setUserInfoAction(res.data))
       localStorage.setItem('authorization', res.data.user_id)
       if (res.data.is_New) {
@@ -63,11 +62,8 @@ export const IndexPage: FC = () => {
   }, [])
   return (
     <div className="app" ref={appRef}>
-      {/* {
-        step == 1 ? <Begin /> : step == 2 ? <NewUser cStep={newUserStep} /> : <Home />
-      } */}
       {
-        appSize.width ? <GameComp size={appSize} /> : null
+        step == 1 ? <Begin /> : step == 2 ? <NewUser cStep={newUserStep} /> : <Home />
       }
     </div>
   )

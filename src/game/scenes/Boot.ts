@@ -13,7 +13,7 @@ export class Boot extends Scene
         //  The smaller the file size of the assets, the better, as the Boot Scene itself has no preloader.
         this.load.setPath('assets/games/emoji-match/');
 
-        this.load.image('dark', 'dark.png');
+        this.load.image('dark', 'darkBg.png');
     }
 
     create ()

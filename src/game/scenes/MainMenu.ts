@@ -159,7 +159,7 @@ export default class MainMenu extends Phaser.Scene {
             this.totalScore = this.totalScore - 10
             if (this.totalScore < this.target) {
                 this.totalScoreText.setText(`Score: ${this.target}`)
-                if (this.target - this.totalScore > 800) {
+                if (this.target - this.totalScore > 500) {
                     this.scene.start('MainGame');
                     this.kouFen = false
                 }

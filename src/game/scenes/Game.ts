@@ -291,7 +291,7 @@ export default class MainGame extends Phaser.Scene {
             }
         }
         if (this.score && this.totalScoreText) {
-            this.totalScore = this.totalScore + 3
+            this.totalScore = this.totalScore + 10
 
             if (this.totalScore - this.newTotalScore > 30) {
                 this.totalScoreText?.setText(`Score:${this.newTotalScore}`)
@@ -366,7 +366,7 @@ export default class MainGame extends Phaser.Scene {
                         this.tweens.add({
                             targets: addFenText,
                             alpha: { from: 1, to: 0 },
-                            duration: 1500,
+                            duration: 2000,
                         });
 
                         this.totalScoreText =  this.add.text(this.width / 2, this.height / 2 - 200, `Score:${this.totalScore}`, {

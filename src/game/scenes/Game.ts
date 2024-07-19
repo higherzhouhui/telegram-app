@@ -20,7 +20,20 @@ export default class MainGame extends Phaser.Scene {
     private totalScoreText: Phaser.GameObjects.Text | undefined;
     private totalScore: number = 0;
     private newTotalScore: number = 0;
-
+    private fontStyle: any = {
+        fontFamily: 'Arial',
+        fontSize: 22,
+        color: '#ffffff',
+        fontStyle: 'bold',
+        padding: 16,
+        shadow: {
+            color: '#000000',
+            fill: true,
+            offsetX: 2,
+            offsetY: 2,
+            blur: 4
+        }
+    };;
     constructor() {
         super('MainGame');
 
@@ -80,23 +93,10 @@ export default class MainGame extends Phaser.Scene {
                 position: 0
             }
         });
-        const fontStyle: any = {
-            fontFamily: 'Arial',
-            fontSize: 22,
-            color: '#ffffff',
-            fontStyle: 'bold',
-            padding: 16,
-            shadow: {
-                color: '#000000',
-                fill: true,
-                offsetX: 2,
-                offsetY: 2,
-                blur: 4
-            }
-        };
+       
 
-        this.timerText = this.add.text(60, 60, '30:00', fontStyle).setOrigin(0.5, 0.5);
-        this.scoreText = this.add.text(width - 80, 60, 'Found: 0', fontStyle).setOrigin(0.5, 0.5);
+        this.timerText = this.add.text(60, 60, '30:00', this.fontStyle).setOrigin(0.5, 0.5);
+        this.scoreText = this.add.text(width - 80, 60, 'Found: 0', this.fontStyle).setOrigin(0.5, 0.5);
 
         let children = this.emojis.getChildren();
 
@@ -325,6 +325,7 @@ export default class MainGame extends Phaser.Scene {
         } else {
             console.error(res.msg)
         }
+
         this.tweens.add({
             targets: [this.circle1, this.circle2],
             alpha: 0,
@@ -360,6 +361,14 @@ export default class MainGame extends Phaser.Scene {
                     y: this.height / 2,
                     ease: 'bounce.out',
                     complete: () => {
+
+                        const addFenText = this.add.text(this.width / 2, this.height / 2 - 230, `+${this.newTotalScore - this.totalScore}`, {...this.fontStyle, fontSize: 22, color: '#ec3942'}).setOrigin(0.5, 0.5);
+                        this.tweens.add({
+                            targets: addFenText,
+                            alpha: { from: 1, to: 0 },
+                            duration: 1500,
+                        });
+
                         this.totalScoreText =  this.add.text(this.width / 2, this.height / 2 - 200, `Score:${this.totalScore}`, {
                             fontFamily: 'Arial Black', fontSize: 32, color: '#ffffff',
                             stroke: '#000000', strokeThickness: 4,

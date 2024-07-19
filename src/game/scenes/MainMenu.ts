@@ -88,6 +88,12 @@ export default class MainMenu extends Phaser.Scene {
                 this.totalScoreText.setColor('#e20f0f')
                 this.cameras.main.shake(300, 0.01);
             } else {
+                const kouFenText = this.add.text(width / 2, height / 2 - 230, `${res.data.score - this.totalScore}`, {...this.fontStyle, fontSize: 22, color: '#ec3942'}).setOrigin(0.5, 0.5);
+                this.tweens.add({
+                    targets: kouFenText,
+                    alpha: { from: 1, to: 0 },
+                    duration: 1500,
+                });
                 this.kouFen = true
                 this.target = res.data.score
                 this.registry.set('totalScore', res.data.score)

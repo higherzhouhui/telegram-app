@@ -340,7 +340,7 @@ export default class MainGame extends Phaser.Scene {
             duration: 250,
             ease: 'sine.inout',
             onComplete: () => {
-                const gameOverText = this.add.text(this.width / 2, 0, 'Game Over', {
+                const gameOverText = this.add.text(this.width / 2, this.height / 2, 'Game Over', {
                     fontFamily: 'Arial Black', fontSize: 50, color: '#ffffff',
                     stroke: '#000000', strokeThickness: 8,
                     align: 'center'
@@ -349,8 +349,9 @@ export default class MainGame extends Phaser.Scene {
 
                 this.tweens.add({
                     targets: gameOverText,
-                    y: this.height / 2,
-                    ease: 'bounce.out',
+                    angle: { from: 0, to: 360 },
+                    ease: 'Linear',
+                    duration: 1000,
                     complete: () => {
 
                         const addFenText = this.add.text(this.width / 2, this.height / 2 - 230, `+${this.newTotalScore - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);

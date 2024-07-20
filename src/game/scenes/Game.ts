@@ -20,6 +20,7 @@ export default class MainGame extends Phaser.Scene {
     private totalScoreText: Phaser.GameObjects.Text | undefined;
     private totalScore: number = 0;
     private newTotalScore: number = 0;
+    private isStart: Boolean = false;
     private fontStyle: any = {
         fontFamily: 'Arial',
         fontSize: 22,
@@ -33,7 +34,7 @@ export default class MainGame extends Phaser.Scene {
             offsetY: 2,
             blur: 4
         }
-    };;
+    };
     constructor() {
         super('MainGame');
 
@@ -54,11 +55,44 @@ export default class MainGame extends Phaser.Scene {
         this.timer;
         this.timerText;
         this.shakeTimer;
+
     }
 
     init() {
         // Fadein camera
         this.cameras.main.fadeIn(500);
+    }
+
+    volumeButton() {
+        const volumeIcon = this.add.image(25, 30, "volume-icon").setName("volume-icon");
+        volumeIcon.setInteractive();
+
+        // Mouse enter
+        volumeIcon.on(Phaser.Input.Events.POINTER_OVER, () => {
+            this.input.setDefaultCursor("pointer");
+        });
+        // Mouse leave
+        volumeIcon.on(Phaser.Input.Events.POINTER_OUT, () => {
+            console.log("Mouse leave");
+            this.input.setDefaultCursor("default");
+        });
+        const volume = localStorage.getItem('volume') || 1 as any
+        volumeIcon.setTexture(`${volume == 1 ? 'volume-icon' : 'volume-icon_off'}`)
+        volumeIcon.setAlpha(volume == 1 ? 1 : 0.5);
+        console.log(volume)
+        volumeIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            if (this.sound.volume === 0) {
+                this.sound.setVolume(1);
+                localStorage.setItem('volume', '1')
+                volumeIcon.setTexture("volume-icon");
+                volumeIcon.setAlpha(1);
+            } else {
+                localStorage.setItem('volume', '0')
+                this.sound.setVolume(0);
+                volumeIcon.setTexture("volume-icon_off");
+                volumeIcon.setAlpha(.5)
+            }
+        });
     }
 
     create() {
@@ -68,8 +102,8 @@ export default class MainGame extends Phaser.Scene {
         this.width = width
         this.height = height
 
-        this.add.image(width / 2, height / 2, 'dark');
-
+        this.add.image(width / 2, height / 2, 'dark').setInteractive;
+        this.volumeButton()
         this.circle1 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0xf8960e);
         this.circle2 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0x00ff00);
 
@@ -106,21 +140,24 @@ export default class MainGame extends Phaser.Scene {
         });
 
         this.input.on('gameobjectdown', this.selectEmoji, this);
-        this.input.once('pointerdown', this.start, this);
+        // this.input.once('pointerdown', this.start, this);
 
         this.arrangeGrid();
 
         EventBus.emit('current-scene-ready', this);
     }
 
-    start() {
+    start(pointer: any, emoji: any) {
+        if (emoji.type && emoji.name == 'volume-icon') {
+            return
+        }
         this.score = 0;
         this.matched = false;
 
         this.timer = this.time.addEvent({ delay: 30000, callback: this.gameOver, callbackScope: this });
         // this.shakeTimer = this.time.addEvent({ delay: 27000, callback: this.shake, callbackScope: this });
         this.sound.play('countdown', { delay: 27 });
-
+        this.isStart = true
     }
 
     shake() {
@@ -128,9 +165,14 @@ export default class MainGame extends Phaser.Scene {
     }
 
     selectEmoji(pointer: any, emoji: any) {
-        if (emoji.name && emoji.name.includes('volume')) {
+        if (!this.isStart) {
+            this.start(pointer, emoji)
+        }
+
+        if (emoji.type && emoji.name == 'volume-icon') {
             return
         }
+
         if (this.matched) {
             return;
         }

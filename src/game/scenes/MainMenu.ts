@@ -11,12 +11,13 @@ export default class MainMenu extends Phaser.Scene {
         align: 'center',
         lineHeight: 36,
         shadow: {
-            color: '#000000',
+            color: '#ffffff',
             fill: true,
-            offsetX: 2,
-            offsetY: 2,
-            blur: 4
+            offsetX: 4,
+            offsetY: 3,
+            blur: 6
         }
+
     };
     private music: any;
     private totalScoreText: any;
@@ -34,7 +35,7 @@ export default class MainMenu extends Phaser.Scene {
         const width = screen[0].clientWidth
         const height = screen[0].clientHeight
 
-        let background = this.add.image(width / 2, height / 2, 'dark');
+        let background = this.add.image(width / 2, height / 2, 'dark').setInteractive();;
         this.volumeButton()
         this.tweens.add({
             targets: background,
@@ -42,11 +43,11 @@ export default class MainMenu extends Phaser.Scene {
             duration: 1000
         });
 
-        this.add.text(width / 2, height / 2 + 200, 'warning: Find two matching expressions among many\n and eliminate them before clearing the level;\nThe more rewards there are, the higher the reward', { ...this.fontStyle, fontSize: 12 }).setOrigin(0.5, 0.5);
+        this.add.text(width / 2, height / 2 + 200, 'warning: Find two matching expressions among many\n and eliminate them before clearing the level;\nThe more rewards there are, the higher the reward', { ...this.fontStyle, fontSize: 12, color: '#f0b3c9' }).setOrigin(0.5, 0.5);
 
         const titleText = this.add.text(width / 2, height / 2 + 120,
             "Click to Play",
-            { align: "center", strokeThickness: 4, fontSize: 32, fontStyle: "bold", color: "#8c7ae6" }
+            { align: "center", strokeThickness: 4, fontSize: 32, fontStyle: "bold", color: "#d2d52e" }
         )
             .setOrigin(.5)
             .setDepth(3)
@@ -58,6 +59,7 @@ export default class MainMenu extends Phaser.Scene {
             ease: (value: any) => (value > .8),
             alpha: 0,
             yoyo: true,
+            repeat: -1,
         });
         if (!this.music) {
             this.music = this.sound.play('music', { loop: true });
@@ -70,13 +72,16 @@ export default class MainMenu extends Phaser.Scene {
         let logo = this.add.image(width / 2, 0, 'logo');
         this.tweens.add({
             targets: logo,
-            y: height / 2,
+            y: height / 2 - 50,
             alpha: { from: 0, to: 1 },
             ease: 'bounce.out',
             duration: 1200,
         });
 
-        titleText.on('pointerdown', async () => {
+        background.on(Phaser.Input.Events.POINTER_DOWN, async () => {
+            if (this.kouFen) {
+                return
+            }
             // 暂停click动画和隐藏click to play
             titleTextAnimation.stop()
             titleText.setAlpha(0)
@@ -87,7 +92,7 @@ export default class MainMenu extends Phaser.Scene {
                 this.totalScoreText.setColor('#e20f0f')
                 this.cameras.main.shake(300, 0.01);
             } else {
-                const kouFenText = this.add.text(width / 2, height / 2 - 230, `${res.data.score - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);
+                const kouFenText = this.add.text(width / 2, height / 2 - 250, `${res.data.score - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);
                 this.tweens.add({
                     targets: kouFenText,
                     alpha: { from: 1, to: 0 },
@@ -184,7 +189,7 @@ export default class MainMenu extends Phaser.Scene {
             this.maxScore = this.registry.get('maxScore')
         }
 
-        this.totalScoreText = this.add.text(width / 2, height / 2 - 200, `Score:${this.totalScore || 0}`, this.fontStyle).setOrigin(0.5, 0.5);
+        this.totalScoreText = this.add.text(width / 2, height / 2 - 220, `Score:${this.totalScore || 0}`, this.fontStyle).setOrigin(0.5, 0.5);
 
         this.tweens.add({
             targets: this.totalScoreText,
@@ -194,7 +199,7 @@ export default class MainMenu extends Phaser.Scene {
         })
 
 
-        const highScoreText = this.add.text(width / 2, height / 2 - 150, 'High Score: ' + `${this.maxScore || 0}`, { ...this.fontStyle, fontSize: 24 }).setOrigin(0.5, 0.5).setAlpha(0);
+        const highScoreText = this.add.text(width / 2, height / 2 - 180, 'High Score: ' + `${this.maxScore || 0}`, { ...this.fontStyle, fontSize: 24 }).setOrigin(0.5, 0.5).setAlpha(0);
         this.tweens.add({
             targets: highScoreText,
             alpha: { from: 0, to: 1 },

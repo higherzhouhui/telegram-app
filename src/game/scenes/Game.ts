@@ -298,21 +298,6 @@ export default class MainGame extends Phaser.Scene {
             duration: 250,
             ease: 'sine.inout',
             onComplete: () => {
-                const fontStyle: any = {
-                    fontFamily: 'Arial',
-                    fontSize: 32,
-                    color: '#ffffff',
-                    fontStyle: 'bold',
-                    stroke: '#000000',
-                    shadow: {
-                        color: '#000000',
-                        fill: true,
-                        offsetX: 4,
-                        offsetY: 5,
-                        blur: 6
-                    }
-                };
-
                 const gameOverText = this.add.text(this.width / 2, 0, 'Game Over', {
                     fontFamily: 'Arial Black', fontSize: 50, color: '#ffffff',
                     stroke: '#000000', strokeThickness: 8,

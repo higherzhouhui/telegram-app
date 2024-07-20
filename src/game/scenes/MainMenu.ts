@@ -10,14 +10,6 @@ export default class MainMenu extends Phaser.Scene {
         padding: 16,
         align: 'center',
         lineHeight: 36,
-        shadow: {
-            color: '#ffffff',
-            fill: true,
-            offsetX: 4,
-            offsetY: 3,
-            blur: 6
-        }
-
     };
     private music: any;
     private totalScoreText: any;

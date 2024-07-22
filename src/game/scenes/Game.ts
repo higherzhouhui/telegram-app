@@ -285,6 +285,7 @@ export default class MainGame extends Phaser.Scene {
         if (this.timer) {
             if (this.timer.getProgress() === 1) {
                 this.timerText.setText('00:00');
+                this.timer = null
             }
             else {
                 const remaining = (30 - this.timer.getElapsedSeconds()).toPrecision(4);
@@ -316,7 +317,7 @@ export default class MainGame extends Phaser.Scene {
         this.circle1.setStrokeStyle(4, 0xfc29a6).setPosition(this.child1.x, this.child1.y).setVisible(true);
         this.circle2.setStrokeStyle(4, 0xfc29a6).setPosition(this.child2.x, this.child2.y).setVisible(true);
         this.time.removeEvent(this.timer)
-
+        this.isStart = false
         this.input.off('gameobjectdown', this.selectEmoji, this);
 
         this.registry.set('found', this.score);

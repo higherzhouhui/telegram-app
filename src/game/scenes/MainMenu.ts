@@ -35,7 +35,7 @@ export default class MainMenu extends Phaser.Scene {
             duration: 1000
         });
 
-        this.add.text(width / 2, height / 2 + 200, 'warning: Find two matching expressions among many\n and eliminate them before clearing the level;\nThe more rewards there are, the higher the reward', { ...this.fontStyle, fontSize: 12, color: '#f0b3c9' }).setOrigin(0.5, 0.5);
+        this.add.text(width / 2, height / 2 + 200, 'warning: Find two identical expressions\n and eliminate them before clearing the level', { ...this.fontStyle, fontSize: 13, color: '#ff0000' }).setOrigin(0.5, 0.5);
 
         const titleText = this.add.text(width / 2, height / 2 + 120,
             "Click to Play",

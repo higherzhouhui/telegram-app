@@ -6,18 +6,21 @@ import starIcon from '@/assets/h-star.png'
 import checkIcon from '@/assets/h-right.png'
 import friendsIcon from '@/assets/h-friends.png'
 import gameIcon from '@/assets/game.png'
+import taskIcon from '@/assets/task.png'
+import walletIcon from '@/assets/wallet.png'
 import No1 from '@/assets/NO.1.png'
 import No2 from '@/assets/NO.2.png'
 import No3 from '@/assets/NO.3.png'
 import { Button } from "antd-mobile";
-import { formatNumber, stringToColor } from '@/utils/common'
+import { formatNumber, formatWalletAddress, judgeIsCheckIn, stringToColor } from '@/utils/common'
 import { InfiniteScroll, List } from 'antd-mobile'
 import { useDispatch, useSelector } from "react-redux";
-import { getSubUserListReq, getUserInfoReq, getUserListReq } from "@/api/common";
+import { getSubUserListReq, getUserInfoReq, getUserListReq, userCheckReq, bindWalletReq } from "@/api/common";
 import { initUtils } from '@telegram-apps/sdk-react';
 import { setUserInfoAction } from "@/redux/slices/userSlice";
 import LogoIcon from '@/assets/logo.jpg'
 import GameComp from "@/components/Game";
+import { TonConnectButton, useTonConnectModal, useTonWallet } from "@tonconnect/ui-react";
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -59,10 +62,42 @@ export default function () {
 function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => void }) {
   const eventBus = EventBus.getInstance()
   const utils = initUtils();
+  const [loading, setLoading] = useState(false)
+  const modal = useTonConnectModal()
+  const wallet = useTonWallet()
+  const dispatch = useDispatch()
   const handleToScore = async () => {
     eventBus.emit('updateStep', 2)
   }
+  const [isCheckIn, setIsCheckIn] = useState(false)
+  const handleCheckIn = async () => {
+    if (isCheckIn) {
+      return
+    }
+    setLoading(true)
+    const res = await userCheckReq()
+    if (res.code == 0) {
+      setIsCheckIn(true)
+    }
+    setLoading(false)
+  }
+  const handleConnect = () => {
+    if (!wallet?.account) {
+      modal.open()
+    }
+  }
+  useEffect(() => {
+    const isCheck = judgeIsCheckIn(userInfo.check_date)
+    setIsCheckIn(isCheck)
+  }, [])
 
+  useEffect(() => {
+    if (wallet?.account) {
+      bindWalletReq({ wallet: wallet?.account?.address }).then(res => {
+        dispatch(setUserInfoAction(res.data))
+      })
+    }
+  }, [wallet])
   return <div className="home fadeIn">
     <div className="top" onClick={() => handleToScore()}>
       <div className="top-inner">
@@ -72,11 +107,22 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
     </div>
     <div className="logo">
       <img src={LogoIcon} alt="logo" style={{ width: '30vw', objectFit: 'contain' }} />
+      <Button className="sign" onClick={() => handleCheckIn()} size="small" loading={loading}>
+        {isCheckIn ? 'checked' : 'Check in'}
+      </Button>
     </div>
-    <div className="score">{userInfo.score}&nbsp;<span style={{ fontSize: '1.5rem' }}>Hamsters</span></div>
-    <div onClick={() => setShowGame()} className="earn-more">
-      <span>Get more</span>
-      <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3989" width="20" height="20"><path d="M378.496 213.333333C217.216 213.333333 85.333333 346.410667 85.333333 512s131.925333 298.666667 293.162667 298.666667a12.16 12.16 0 0 0 11.52-8.32l2.602667-7.893334a142.08 142.08 0 0 1 134.954666-97.578666h40.746667a42.666667 42.666667 0 1 1 0 85.333333h-40.746667a56.746667 56.746667 0 0 0-53.888 38.997333l-2.602666 7.850667A97.493333 97.493333 0 0 1 378.453333 896C168.832 896 0 723.413333 0 512s168.832-384 378.496-384h267.008C855.210667 128 1024 300.586667 1024 512s-168.789333 384-378.496 384a42.666667 42.666667 0 1 1 0-85.333333C806.784 810.666667 938.666667 677.589333 938.666667 512s-131.925333-298.666667-293.162667-298.666667H378.453333z" fill="#ffffff" p-id="3990"></path><path d="M327.125333 359.637333a42.666667 42.666667 0 0 1 42.666667 42.666667V469.333333h66.346667a42.666667 42.666667 0 1 1 0 85.333334H369.792v67.029333a42.666667 42.666667 0 0 1-85.333333 0V554.666667H218.026667a42.666667 42.666667 0 0 1 0-85.333334h66.389333V402.304a42.666667 42.666667 0 0 1 42.666667-42.666667zM708.736 359.637333a42.666667 42.666667 0 0 1 42.666667 42.666667V426.666667a42.666667 42.666667 0 1 1-85.333334 0v-24.362667a42.666667 42.666667 0 0 1 42.666667-42.666667z m0 195.029334a42.666667 42.666667 0 0 1 42.666667 42.666666v24.362667a42.666667 42.666667 0 0 1-85.333334 0V597.333333a42.666667 42.666667 0 0 1 42.666667-42.666666z" fill="#ffffff" p-id="3991"></path></svg>
+    <div className="score">{userInfo.score.toLocaleString()}&nbsp;<span style={{ fontSize: '1.5rem' }}>Hamsters</span></div>
+    <div className="wallet">
+      <Button color="default" style={{ width: '100%', borderRadius: '10px', fontWeight: 'bold' }} onClick={() => handleConnect()}>
+
+        {
+          wallet?.account ? formatWalletAddress(wallet.account.address) :
+            <div className="connect">
+              <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4695" width="20" height="20"><path d="M128 341.333333C55.466667 341.333333 0 285.866667 0 213.333333s55.466667-128 128-128c25.6 0 42.666667 17.066667 42.666667 42.666667S153.6 170.666667 128 170.666667C102.4 170.666667 85.333333 187.733333 85.333333 213.333333s17.066667 42.666667 42.666667 42.666667c25.6 0 42.666667 17.066667 42.666667 42.666667S153.6 341.333333 128 341.333333z" p-id="4696" fill="#2c2c2c"></path><path d="M128 938.666667c-72.533333 0-128-55.466667-128-128 0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667c0 25.6 17.066667 42.666667 42.666667 42.666667 25.6 0 42.666667 17.066667 42.666667 42.666667S153.6 938.666667 128 938.666667z" p-id="4697" fill="#2c2c2c"></path><path d="M981.333333 938.666667 128 938.666667c-25.6 0-42.666667-17.066667-42.666667-42.666667s17.066667-42.666667 42.666667-42.666667l810.666667 0L938.666667 341.333333 128 341.333333C102.4 341.333333 85.333333 324.266667 85.333333 298.666667s17.066667-42.666667 42.666667-42.666667l853.333333 0c25.6 0 42.666667 17.066667 42.666667 42.666667l0 597.333333C1024 921.6 1006.933333 938.666667 981.333333 938.666667z" p-id="4698" fill="#2c2c2c"></path><path d="M896 341.333333c-25.6 0-42.666667-17.066667-42.666667-42.666667L853.333333 170.666667 128 170.666667C102.4 170.666667 85.333333 153.6 85.333333 128s17.066667-42.666667 42.666667-42.666667l768 0c25.6 0 42.666667 17.066667 42.666667 42.666667l0 170.666667C938.666667 324.266667 921.6 341.333333 896 341.333333z" p-id="4699" fill="#2c2c2c"></path><path d="M42.666667 853.333333c-25.6 0-42.666667-17.066667-42.666667-42.666667L0 213.333333c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 597.333333C85.333333 836.266667 68.266667 853.333333 42.666667 853.333333z" p-id="4700" fill="#2c2c2c"></path><path d="M768 597.333333m-85.333333 0a2 2 0 1 0 170.666667 0 2 2 0 1 0-170.666667 0Z" p-id="4701" fill="#2c2c2c"></path></svg>
+              Connect Wallet
+            </div>
+        }
+      </Button>
     </div>
     <div className="wrapper">
       <div className="community">
@@ -87,20 +133,24 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
         }}>Join 💰</div>
         <div className="heart">💖</div>
       </div>
+      <div onClick={() => setShowGame()} className="earn-more">
+        <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3576" width="24" height="24"><path d="M687.36 260.352c134.101333-0.938667 245.376 99.626667 251.093333 230.997333 0.213333 5.290667 0.256 10.581333 0.128 15.829334v183.765333a239.445333 239.445333 0 0 1-66.986666 171.733333 239.786667 239.786667 0 0 1-185.130667 74.325334 9757.866667 9757.866667 0 0 1-176.725333 1.536c-58.453333 0-116.736-0.469333-173.952-1.493334-131.626667 6.528-244.394667-97.792-250.24-230.912a278.698667 278.698667 0 0 1-0.170667-15.786666v-183.893334c-2.901333-132.608 103.168-243.370667 236.373333-246.272 5.205333-0.085333 10.496 0 15.829334 0.213334l168.96-0.042667v-9.813333a53.589333 53.589333 0 0 0-53.589334-52.437334H410.453333c-22.058667-0.938667-43.050667-8.234667-59.008-23.936a83.029333 83.029333 0 0 1-25.045333-58.752A29.781333 29.781333 0 0 1 355.84 85.333333h0.341333c16.256 0 29.568 13.141333 29.738667 29.482667a23.466667 23.466667 0 0 0 7.253333 16.853333 23.722667 23.722667 0 0 0 16.682667 6.869334h43.349333a113.365333 113.365333 0 0 1 112.896 111.658666v39.893334a29.781333 29.781333 0 0 1-29.781333 29.781333H334.677333a182.314667 182.314667 0 0 0-189.781333 185.941333v185.130667a181.845333 181.845333 0 0 0 190.08 186.624c115.968 1.962667 233.856 1.962667 352.256-0.042667a180.736 180.736 0 0 0 141.354667-56.021333 180.650667 180.650667 0 0 0 50.474666-129.92V506.453333a151.04 151.04 0 0 0-0.128-12.586666c-4.394667-100.565333-86.4-176.085333-190.805333-173.994667a29.525333 29.525333 0 0 1-30.122667-29.354667 29.781333 29.781333 0 0 1 29.354667-30.165333z m-267.264 410.88a32.768 32.768 0 0 1-32.512 32.256h-0.384a32.384 32.384 0 0 1-32.085333-32.256V628.48h-43.093334a32.554667 32.554667 0 0 1-31.018666-14.933333 32.042667 32.042667 0 0 1 0-34.261334 32.554667 32.554667 0 0 1 31.018666-14.933333h43.093334v-42.410667c0-17.834667 14.506667-32.256 32.469333-32.256 17.92 0 32.512 14.421333 32.512 32.256v42.368h43.093333a32.554667 32.554667 0 0 1 31.018667 14.933334 32.085333 32.085333 0 0 1 0 34.261333 32.597333 32.597333 0 0 1-31.061333 14.933333h-43.093334v42.794667z m197.589333-166.186667a29.141333 29.141333 0 0 1 10.24-7.125333 32 32 0 0 1 24.149334 0c4.053333 1.706667 7.765333 4.138667 10.965333 7.125333a32.128 32.128 0 0 1 7.168 34.901334 26.282667 26.282667 0 0 1-7.168 10.496 33.066667 33.066667 0 0 1-45.354667 0 31.018667 31.018667 0 0 1 0-45.397334z m72.192 142.933334a31.701333 31.701333 0 0 0 0.170667 44.970666c12.544 12.373333 32.810667 12.373333 45.354667 0a31.701333 31.701333 0 0 0-10.410667-52.096 32.682667 32.682667 0 0 0-35.114667 7.125334z" fill="#200E32" p-id="3577"></path></svg>
+        <span>Get more</span>
+      </div>
       <div className="reward">
         Your rewards
       </div>
       <div className="list">
         <div className="left">
           <div className="img-wrapper"><img src={starIcon} alt="star" /></div>
-          <span>Account age</span></div>
+          <span>Account Age</span></div>
         <div className="right">+{userInfo.account_age_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
       </div>
       {
         userInfo.invite_friends_score ? <div className="list">
           <div className="left">
             <div className="img-wrapper"><img src={friendsIcon} alt="star" /></div>
-            <span>Invited friends</span></div>
+            <span>Invited Friends</span></div>
           <div className="right">+{userInfo.invite_friends_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
         </div> : ''
       }
@@ -108,8 +158,24 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
         userInfo.game_score ? <div className="list">
           <div className="left">
             <div className="img-wrapper"><img src={gameIcon} alt="star" /></div>
-            <span>Play game</span></div>
+            <span>Play Game</span></div>
           <div className="right">{userInfo.game_score > 0 ? `+${userInfo.game_score}` : userInfo.game_score}&nbsp;<span className="unit">Hamsters</span></div>
+        </div> : ''
+      }
+      {
+        userInfo.check_score ? <div className="list">
+          <div className="left">
+            <div className="img-wrapper"><img src={taskIcon} alt="star" /></div>
+            <span>Daily Check-in</span></div>
+          <div className="right">+{userInfo.check_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
+        </div> : ''
+      }
+      {
+        userInfo.bind_wallet_score ? <div className="list">
+          <div className="left">
+            <div className="img-wrapper"><img src={walletIcon} alt="star" /></div>
+            <span>Connect Wallet</span></div>
+          <div className="right">+{userInfo.bind_wallet_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
         </div> : ''
       }
       <div className="list">
@@ -167,7 +233,7 @@ function LeaderBoard({ userInfo }: { userInfo: any }) {
         </div>
         <div className="name-score-warpper">
           <div className="name">{userInfo.username}</div>
-          <div className="name-score">{userInfo.score}&nbsp;Hamsters</div>
+          <div className="name-score">{userInfo.score.toLocaleString()}&nbsp;Hamsters</div>
         </div>
       </div>
       <div className="right">

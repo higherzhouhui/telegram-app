@@ -39,3 +39,19 @@ export const getUserInfoReq = (params: any) => {
     params,
   });
 };
+
+export const userCheckReq = () => {
+  return service<any>({
+    url: '/user/check',
+    method: 'POST',
+  });
+};
+
+
+export const bindWalletReq = (data: any) => {
+  return service<any>({
+    url: '/user/bindWallet',
+    method: 'POST',
+    data,
+  });
+};

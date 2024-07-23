@@ -4,6 +4,16 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  .wallet {
+    margin: 12px 0 0 0;
+    padding: 0 12px;
+    .connect {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+  }
   .gameComp {
     position: fixed;
     width: 100%;
@@ -75,7 +85,16 @@ main {
     .logo {
       text-align: center;
       margin: 1rem 0;
-
+      position: relative;
+      .sign {
+        position: absolute;
+        right: 10px;
+        top: 0px;
+        background: #fff;
+        color: #000;
+        padding: 4px 8px;
+        border-radius: 12px;
+      }
     }
     .score {
       text-align: center;
@@ -93,13 +112,18 @@ main {
       justify-content: center;
       border: 1px solid #fff;
       border-radius: 10px;
-      width: fit-content;
-      margin: 0 auto;
-      padding: 2px 6px;
+      padding: 7px 0;
       color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      color: #000;
+      background: #fff;
+      margin-top: 12px;
+      gap: 4px;
       span {
         margin-right: 6px;
       }
+     
     }
     .wrapper {
       padding: 1rem 1rem 1rem 1.5rem;

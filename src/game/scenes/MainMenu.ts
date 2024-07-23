@@ -35,11 +35,11 @@ export default class MainMenu extends Phaser.Scene {
             duration: 1000
         });
 
-        this.add.text(width / 2, height / 2 + 200, 'warning: Find two identical expressions\n and eliminate them before clearing the level', { ...this.fontStyle, fontSize: 13, color: '#ff0000' }).setOrigin(0.5, 0.5);
+        this.add.text(width / 2, height / 2 + 200, 'warning: find two identical expressions\n and eliminate them before clearing the level', { ...this.fontStyle, fontSize: 13, color: '#f5f5f5' }).setOrigin(0.5, 0.5);
 
         const titleText = this.add.text(width / 2, height / 2 + 120,
             "Click to Play",
-            { align: "center", strokeThickness: 4, fontSize: 32, fontStyle: "bold", color: "#d2d52e" }
+            { align: "center", strokeThickness: 4, fontSize: 32, fontStyle: "bold", color: "#000000" }
         )
             .setOrigin(.5)
             .setDepth(3)

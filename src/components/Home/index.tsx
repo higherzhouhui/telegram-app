@@ -78,6 +78,7 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
     const res = await userCheckReq()
     if (res.code == 0) {
       setIsCheckIn(true)
+      dispatch(setUserInfoAction(res.data))
     }
     setLoading(false)
   }
@@ -113,7 +114,7 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
     </div>
     <div className="score">{userInfo.score.toLocaleString()}&nbsp;<span style={{ fontSize: '1.5rem' }}>Hamsters</span></div>
     <div className="wallet">
-      <Button color="default" style={{ width: '100%', borderRadius: '10px', fontWeight: 'bold' }} onClick={() => handleConnect()}>
+      {/* <Button color="default" style={{ width: '100%', borderRadius: '10px', fontWeight: 'bold' }} onClick={() => handleConnect()}>
 
         {
           wallet?.account ? formatWalletAddress(wallet?.account?.publicKey) :
@@ -122,7 +123,8 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
               Connect Wallet
             </div>
         }
-      </Button>
+      </Button> */}
+      <TonConnectButton className="connect-btn" />
     </div>
     <div className="wrapper">
       <div className="community">

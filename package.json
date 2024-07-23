@@ -25,6 +25,7 @@
     "antd-mobile": "^5.33.1",
     "axios": "^1.7.2",
     "eruda": "^2.11.3",
+    "moment": "^2.30.1",
     "phaser": "^3.80.1",
     "react": "^18",
     "react-dom": "^18",

@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function stringToColor(string: string) {
   let hash = 0;
   let i;
@@ -47,7 +49,7 @@ export function judgeIsCheckIn(time: any) {
       const month = currentDate.getMonth() + 1
       const day = currentDate.getDate()
       const currentArr = [year, month, day]
-      const timeymd = time.split(' ')[0].split('-')
+      const timeymd = moment(time).format('YYYY-MM-DD').split('-')
       flag = timeymd.every((item: any, index: number) => {
         return parseInt(item) == currentArr[index]
       })
@@ -60,7 +62,7 @@ export function judgeIsCheckIn(time: any) {
 }
 
 
-export function formatWalletAddress(address: string) {
+export function formatWalletAddress(address: any) {
   let str = address
   try {
     if (address) {

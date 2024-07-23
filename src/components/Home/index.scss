@@ -7,7 +7,9 @@ main {
   .wallet {
     margin: 12px 0 0 0;
     padding: 0 1rem 0 1.5rem;
-    .connect-btn {
+    display: flex;
+    justify-content: center;
+    .connect-btn1 {
       width: 100%!important;
       >div {
         width: 100%;
@@ -16,13 +18,11 @@ main {
           justify-content: center;
           border-radius: 10px;
           background: #222;
+          color: #fff!important;
           >div {
             font-weight: bold;
             font-size: 16px;
-          }
-          >svg {
-            fill: red!important;
-            color: red!important;
+            color: #fff!important;
           }
         }
       }

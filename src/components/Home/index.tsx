@@ -318,7 +318,7 @@ I've found a platform where you can launch your meme coins. Check out your Teleg
     utils.shareURL(link, ``)
   }
   const copy = () => {
-    const textToCopy = "这是想要复制的内容"; // 替换为你想要复制的内容  
+    const textToCopy = link; // 替换为你想要复制的内容  
     const textArea = document.createElement("textarea");
     textArea.value = textToCopy;
     document.body.appendChild(textArea);

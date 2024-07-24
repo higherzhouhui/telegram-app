@@ -4,6 +4,11 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  #ton-connect-button {
+    width: 100%!important;
+    display: flex;
+    justify-content: center;
+  }
   .wallet {
     margin: 12px 0 0 0;
     padding: 0 1rem 0 1.5rem;
@@ -413,6 +418,15 @@ main {
       padding: 1rem 1.5rem;
       width: 100%;
       background: #000;
+      display: flex;
+      gap: 4px;
+      .copy {
+        font-weight: bold;
+        span {
+          display: flex;
+          align-items: center;
+        }
+      }
     }
   }
   .adm-list-default .adm-list-body {

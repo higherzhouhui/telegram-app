@@ -50,6 +50,7 @@ export function judgeIsCheckIn(time: any) {
       const day = currentDate.getDate()
       const currentArr = [year, month, day]
       const timeymd = moment(time).format('YYYY-MM-DD').split('-')
+      console.log(timeymd, 111111)
       flag = timeymd.every((item: any, index: number) => {
         return parseInt(item) == currentArr[index]
       })

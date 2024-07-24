@@ -11,7 +11,7 @@ import walletIcon from '@/assets/wallet.png'
 import No1 from '@/assets/NO.1.png'
 import No2 from '@/assets/NO.2.png'
 import No3 from '@/assets/NO.3.png'
-import { Button } from "antd-mobile";
+import { Button, Toast } from "antd-mobile";
 import { formatNumber, formatWalletAddress, judgeIsCheckIn, stringToColor } from '@/utils/common'
 import { InfiniteScroll, List } from 'antd-mobile'
 import { useDispatch, useSelector } from "react-redux";
@@ -69,15 +69,18 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
   const handleToScore = async () => {
     eventBus.emit('updateStep', 2)
   }
-  const [isCheckIn, setIsCheckIn] = useState(false)
   const handleCheckIn = async () => {
-    if (isCheckIn) {
+    if (judgeIsCheckIn(userInfo.check_date)) {
       return
     }
     setLoading(true)
     const res = await userCheckReq()
     if (res.code == 0) {
-      setIsCheckIn(true)
+      Toast.show({
+        icon: 'success',
+        content: 'Congratulations check-in successful',
+        duration: 3000,
+      })
       dispatch(setUserInfoAction(res.data))
     }
     setLoading(false)
@@ -87,10 +90,6 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
       modal.open()
     }
   }
-  useEffect(() => {
-    const isCheck = judgeIsCheckIn(userInfo.check_date)
-    setIsCheckIn(isCheck)
-  }, [])
 
   useEffect(() => {
     if (wallet?.account) {
@@ -109,7 +108,7 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
     <div className="logo">
       <img src={LogoIcon} alt="logo" style={{ width: '30vw', objectFit: 'contain' }} />
       <Button className="sign" onClick={() => handleCheckIn()} size="small" loading={loading}>
-        {isCheckIn ? 'checked' : 'Check In'}
+        {judgeIsCheckIn(userInfo.check_date) ? 'checked' : 'Check In'}
       </Button>
     </div>
     <div className="score">{userInfo.score.toLocaleString()}&nbsp;<span style={{ fontSize: '1.5rem' }}>Hamsters</span></div>
@@ -287,6 +286,7 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
 
 function Friends({ userInfo }: { userInfo: any }) {
   const utils = initUtils()
+  const [isCopy, setIsCopy] = useState(false)
   const link = `https://t.me/HamstersTon_bot/Hamster?startapp=${btoa(userInfo.user_id)}`;
   const [friendsList, setFriendsList] = useState<any[]>([])
   const [page, setPage] = useState(1)
@@ -316,6 +316,17 @@ function Friends({ userInfo }: { userInfo: any }) {
 I've found a platform where you can launch your meme coins. Check out your Telegram profile and claim your HAMSTER rewards🎁 now!👆🏻 ❤️
      */
     utils.shareURL(link, ``)
+  }
+  const copy = () => {
+    navigator.clipboard.writeText(link).then(() => {
+      console.log('URL 已复制到剪切板:', link);
+    }).catch(err => {
+      console.error('复制失败:', err);
+    });
+    setIsCopy(true)
+    setTimeout(() => {
+      setIsCopy(false)
+    }, 3000);
   }
   return <div className="friends fadeIn">
     <div className="friends-title">
@@ -354,7 +365,12 @@ I've found a platform where you can launch your meme coins. Check out your Teleg
       <InfiniteScroll loadMore={loadMore} hasMore={hasMore} children={<div></div>} />
     </div>
     <div className="invite-btn">
-      <Button color="default" style={{ fontWeight: 'bold', width: '100%' }} onClick={() => handleShare()}>👆🏻 Invite friends</Button>
+      <Button color="default" style={{ fontWeight: 'bold', flex: 1 }} onClick={() => handleShare()}>👆🏻 Invite friends</Button>
+      <Button color="default" className="copy" onClick={() => copy()}>
+        {
+          isCopy ? <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3786" width="18" height="18"><path d="M416.832 798.08C400.64 798.08 384.512 791.872 372.16 779.52L119.424 525.76C94.784 500.992 94.784 460.8 119.424 436.032 144.128 411.264 184.128 411.264 208.768 436.032L416.832 644.928 814.4 245.76C839.04 220.928 879.04 220.928 903.744 245.76 928.384 270.528 928.384 310.656 903.744 335.424L461.504 779.52C449.152 791.872 432.96 798.08 416.832 798.08Z" fill="#272636" p-id="3787"></path></svg> : <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2452" width="18" height="18"><path d="M878.272 981.312H375.36a104.64 104.64 0 0 1-104.64-104.64V375.36c0-57.792 46.848-104.64 104.64-104.64h502.912c57.792 0 104.64 46.848 104.64 104.64v502.912c-1.6 56.192-48.448 103.04-104.64 103.04z m-502.912-616.96a10.688 10.688 0 0 0-10.944 11.008v502.912c0 6.208 4.672 10.88 10.88 10.88h502.976c6.208 0 10.88-4.672 10.88-10.88V375.36a10.688 10.688 0 0 0-10.88-10.944H375.36z" fill="#2c2c2c" p-id="2453"></path><path d="M192.64 753.28h-45.312a104.64 104.64 0 0 1-104.64-104.64V147.328c0-57.792 46.848-104.64 104.64-104.64h502.912c57.792 0 104.64 46.848 104.64 104.64v49.92a46.016 46.016 0 0 1-46.848 46.912 46.08 46.08 0 0 1-46.848-46.848v-49.984a10.688 10.688 0 0 0-10.944-10.944H147.328a10.688 10.688 0 0 0-10.944 10.88v502.976c0 6.208 4.672 10.88 10.88 10.88h45.312a46.08 46.08 0 0 1 46.848 46.912c0 26.496-21.824 45.248-46.848 45.248z" fill="#2c2c2c" p-id="2454"></path></svg>
+        }
+      </Button>
     </div>
   </div>
 }

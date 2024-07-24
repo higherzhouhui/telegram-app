@@ -318,11 +318,14 @@ I've found a platform where you can launch your meme coins. Check out your Teleg
     utils.shareURL(link, ``)
   }
   const copy = () => {
-    navigator.clipboard.writeText(link).then(() => {
-      console.log('URL 已复制到剪切板:', link);
-    }).catch(err => {
-      console.error('复制失败:', err);
-    });
+    const textToCopy = "这是想要复制的内容"; // 替换为你想要复制的内容  
+    const textArea = document.createElement("textarea");
+    textArea.value = textToCopy;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+
     setIsCopy(true)
     setTimeout(() => {
       setIsCopy(false)

@@ -5,39 +5,14 @@ main {
   flex-direction: column;
   justify-content: space-between;
   #ton-connect-button {
-    width: 100%!important;
-    display: flex;
-    justify-content: center;
+    margin: 0 auto;
+    button {
+      border-radius: 1rem;
+    }
   }
   .wallet {
     margin: 12px 0 0 0;
     padding: 0 1rem 0 1.5rem;
-    display: flex;
-    justify-content: center;
-    .connect-btn1 {
-      width: 100%!important;
-      >div {
-        width: 100%;
-        button {
-          width: 100%;
-          justify-content: center;
-          border-radius: 10px;
-          background: #222;
-          color: #fff!important;
-          >div {
-            font-weight: bold;
-            font-size: 16px;
-            color: #fff!important;
-          }
-        }
-      }
-    }
-    .connect {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
   }
   .gameComp {
     position: fixed;

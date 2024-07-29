@@ -32,6 +32,29 @@ main {
       opacity: 1;
       animation: fadeIn forwards 6s;
     }
+    .gameComp-img {
+      background: #000;
+      z-index: 1002;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
+      .btn-wrapper {
+        width: 100%;
+        padding: 0 1rem;
+        position: absolute;
+        bottom: 1rem;
+      }
+      button {
+        width: 100%;
+        font-weight: bold;
+      }
+    }
   }
   .home {
     flex: 1;

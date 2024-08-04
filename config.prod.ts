@@ -61,7 +61,7 @@ export default defineConfig({
     }
   },
   // @ts-ignore
-  // base: process.env.GH_PAGES ? '/telegram-mini/' : './',
+  base: process.env.GH_PAGES ? '/telegram-mini/' : './',
   server: {
     proxy: {
       '/api': {

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 import { initInitData } from '@telegram-apps/sdk';
 import Link from '@/components/Link'
+import WebApp from '@twa-dev/sdk';
 export const HomePage: FC = () => {
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance();
@@ -38,6 +39,8 @@ export const HomePage: FC = () => {
 
   useEffect(() => {
     // login()
+    WebApp.BackButton.isVisible && WebApp.BackButton.hide();
+
   }, [])
 
   useEffect(() => {

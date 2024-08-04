@@ -4,6 +4,7 @@ import './index.scss'
 import { Button, Popup } from 'antd-mobile';
 import WebApp from '@twa-dev/sdk';
 import { initUtils } from '@telegram-apps/sdk';
+import { useNavigate } from 'react-router-dom';
 
 function GamePage() {
   //  References to the PhaserGame component (game and scene are exposed)
@@ -12,17 +13,19 @@ function GamePage() {
   const [score, setScore] = useState(0)
   const [link, setLink] = useState('')
   const [showPopUp, setShowPopUp] = useState(false)
+  const navigate = useNavigate();
+
   // Event emitted from the PhaserGame component
   const currentActiveScene = (scene: Phaser.Scene) => {
     setCurrentScene(scene.scene.key);
     if (scene.scene.key == 'GameOver') {
       const _score = localStorage.getItem('currentScore') || 0
       setScore(_score as any)
-      WebApp.BackButton.isVisible = true
-      WebApp.BackButton.onClick = () => {
-        WebApp.BackButton.isVisible = false
-        WebApp.openLink('/')
+      !WebApp.BackButton.isVisible && WebApp.BackButton.show()
+      function onClick() {
+        navigate(-1);
       }
+      WebApp.BackButton.onClick(onClick);
     }
   }
 
@@ -83,7 +86,7 @@ function GamePage() {
               <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3559" width="26" height="26"><path d="M384 768 640 512 384 256Z" p-id="3560"></path></svg>
             </div>
             <div className='game-over-btn' style={{ background: '#333' }} onClick={() => restartGame()}>
-              <div className='game-over-bot-middle'>Play (2 Attempts Left)</div>
+              <div className='game-over-bot-middle' style={{ color: '#fff' }}>Play (2 Attempts Left)</div>
             </div>
           </div>
         </div> : null
@@ -101,7 +104,7 @@ function GamePage() {
         <div className='popup-result'>
           <div className='popup-title'>
             Share Results
-            <svg className="close-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5777" width="16" height="16"><path d="M597.795527 511.488347 813.564755 295.718095c23.833825-23.833825 23.833825-62.47489 0.001023-86.307691-23.832801-23.832801-62.47489-23.833825-86.307691 0L511.487835 425.180656 295.717583 209.410404c-23.833825-23.833825-62.475913-23.833825-86.307691 0-23.832801 23.832801-23.833825 62.47489 0 86.308715l215.769228 215.769228L209.410915 727.258599c-23.833825 23.833825-23.833825 62.47489 0 86.307691 23.832801 23.833825 62.473867 23.833825 86.307691 0l215.768205-215.768205 215.769228 215.769228c23.834848 23.833825 62.475913 23.832801 86.308715 0 23.833825-23.833825 23.833825-62.47489 0-86.307691L597.795527 511.488347z" fill="#272636" p-id="5778"></path></svg>
+            <svg onClick={() => setShowPopUp(false)} className="close-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5777" width="16" height="16"><path d="M597.795527 511.488347 813.564755 295.718095c23.833825-23.833825 23.833825-62.47489 0.001023-86.307691-23.832801-23.832801-62.47489-23.833825-86.307691 0L511.487835 425.180656 295.717583 209.410404c-23.833825-23.833825-62.475913-23.833825-86.307691 0-23.832801 23.832801-23.833825 62.47489 0 86.308715l215.769228 215.769228L209.410915 727.258599c-23.833825 23.833825-23.833825 62.47489 0 86.307691 23.832801 23.833825 62.473867 23.833825 86.307691 0l215.768205-215.768205 215.769228 215.769228c23.834848 23.833825 62.475913 23.832801 86.308715 0 23.833825-23.833825 23.833825-62.47489 0-86.307691L597.795527 511.488347z" fill="#272636" p-id="5778"></path></svg>
           </div>
           <div className='popup-content'>
             <div className='popup-content-jb'>🏆</div>

@@ -23,7 +23,7 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     create() {
-        const screen = document.getElementsByClassName('app')
+        const screen = document.getElementsByClassName('layout')
         const width = screen[0].clientWidth
         const height = screen[0].clientHeight
 
@@ -165,7 +165,7 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     showTotal(userInfo: any) {
-        const screen = document.getElementsByClassName('app')
+        const screen = document.getElementsByClassName('layout')
         const width = screen[0].clientWidth
         const height = screen[0].clientHeight
 

@@ -1,6 +1,7 @@
 import type { ComponentType, JSX } from 'react';
 
-import IndexPage from '@/pages/Index';
+import HomePage from '@/pages/Home';
+import GamePage from '@/pages/Game';
 
 interface Route {
   path: string;
@@ -10,10 +11,13 @@ interface Route {
 }
 
 function Tab() {
-  return <div style={{ color: 'red', width: '100vw', height: '100vh', position: 'fixed' }}>1111</div>
+  return <div style={{ color: 'red', }}>{Math.random()}</div>
 }
 
 export const routes: Route[] = [
-  { path: '/', Component: IndexPage },
-  { path: '/abc', Component: Tab },
+  { path: '/', Component: HomePage },
+  { path: '/game', Component: GamePage },
+  { path: '/task', Component: Tab },
+  { path: '/frens', Component: Tab },
+  { path: '/wallet', Component: Tab },
 ];

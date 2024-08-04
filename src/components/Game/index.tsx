@@ -19,7 +19,6 @@ function GameComp() {
 
       if (scene) {
         if (currentScene == 'MainMenu') {
-          console.log(22222)
         }
       }
     }
@@ -53,20 +52,6 @@ function GameComp() {
   return (
     <div>
       <PhaserGame ref={phaserRef} currentActiveScene={currentActiveScene} />
-      {/* <div className='game-op'>
-        <div>
-          <button className="button" onClick={changeScene}>Change Scene</button>
-        </div>
-        <div>
-          <button disabled={canMoveSprite} className="button" onClick={moveSprite}>Toggle Movement</button>
-        </div>
-        <div className="spritePosition">Sprite Position:
-          <pre>{`{\n  x: ${spritePosition.x}\n  y: ${spritePosition.y}\n}`}</pre>
-        </div>
-        <div>
-          <button className="button" onClick={addSprite}>Add New Sprite</button>
-        </div>
-      </div> */}
     </div>
   )
 }

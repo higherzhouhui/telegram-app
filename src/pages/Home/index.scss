@@ -1,0 +1,79 @@
+.home-page {
+  height: 100%;
+  background-image: url('/assets/farm-bg-1WT0s-as.gif');
+  width: 100%;
+  background-size: 100% 100%;
+  position: relative;
+  .top-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 3rem;
+    .score {
+      color: red;
+      font-size: 3rem;
+      font-weight: bold;
+      font-family: 'number';
+      text-shadow: -1px -1px 0 #e2d4d4;
+    }
+    .unit {
+      display: flex;
+      align-items: center;
+      margin-top: 0.5rem;
+      gap: 6px;
+      color: #000;
+      font-family: 'bold';
+      img {
+        width: 18px;
+        object-fit: contain;
+      }
+    }
+  }
+  .tree {
+    position: absolute;
+    left: 50%;
+    top: 43%;
+    transform: translate(-50%, -50%);
+    img {
+      width: 22rem;
+      object-fit: contain;
+    }    
+  }
+  .btn-container {
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+    padding: 0 1rem;
+    .btn-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .question {
+        margin-bottom: 1rem;
+      }
+      .btn-top-right {
+        color: #000;
+        font-size: 1.4rem;
+        font-weight: bold;
+      }
+    }
+    .btn-bot {
+      margin-top: 3rem;
+      width: 100%;
+      position: relative;
+      border-radius: 50rem;
+      background: rgb(49, 197, 62);
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000000;
+      font-family: 'bold';
+      font-size: 1.2rem;
+      .btn-bot-content {
+        color: #fff;
+      }
+    }
+  }
+}

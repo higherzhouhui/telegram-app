@@ -1,15 +1,5 @@
-import { getSubUserListReq } from "@/api/common";
 import { EventBus } from "../EventBus";
-import { endGameReq } from "@/api/game";
-
 export default class MainGame extends Phaser.Scene {
-    private emojis: any;
-    private circle1: any;
-    private circle2: any;
-    private child1: any;
-    private child2: any;
-    private selectedEmoji: any;
-    private matched: any;
     private score: any;
     private scoreText: any;
     private timer: any;
@@ -17,45 +7,25 @@ export default class MainGame extends Phaser.Scene {
     private timerText: any;
     private width: number = 0;
     private height: number = 0;
-    private totalScoreText: Phaser.GameObjects.Text | undefined;
-    private totalScore: number = 0;
-    private newTotalScore: number = 0;
-    private isStart: Boolean = false;
+    private autoCreateTimer: any;
+    private images: any[] = [];
+    private freeze: Boolean = false;
+    private timerCount: number = 20;
     private fontStyle: any = {
         fontFamily: 'Arial',
-        fontSize: 22,
-        color: '#ffffff',
+        fontSize: 20,
+        color: '#000000',
         fontStyle: 'bold',
-        padding: 16,
-        shadow: {
-            color: '#000000',
-            fill: true,
-            offsetX: 2,
-            offsetY: 2,
-            blur: 4
-        }
     };
     constructor() {
         super('MainGame');
 
-        this.emojis;
-
-        this.circle1;
-        this.circle2;
-
-        this.child1;
-        this.child2;
-
-        this.selectedEmoji = null;
-        this.matched = false;
-
         this.score = 0;
         this.scoreText;
-
-        this.timer;
+        this.timer = null;
         this.timerText;
         this.shakeTimer;
-
+        this.freeze = false
     }
 
     init() {
@@ -63,222 +33,147 @@ export default class MainGame extends Phaser.Scene {
         this.cameras.main.fadeIn(500);
     }
 
-    volumeButton() {
-        const volumeIcon = this.add.image(25, 30, "volume-icon").setName("volume-icon");
-        volumeIcon.setInteractive();
-
-        // Mouse enter
-        volumeIcon.on(Phaser.Input.Events.POINTER_OVER, () => {
-            this.input.setDefaultCursor("pointer");
-        });
-        // Mouse leave
-        volumeIcon.on(Phaser.Input.Events.POINTER_OUT, () => {
-            console.log("Mouse leave");
-            this.input.setDefaultCursor("default");
-        });
-        const volume = localStorage.getItem('volume') || 1 as any
-        volumeIcon.setTexture(`${volume == 1 ? 'volume-icon' : 'volume-icon_off'}`)
-        volumeIcon.setAlpha(volume == 1 ? 1 : 0.5);
-        console.log(volume)
-        volumeIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            if (this.sound.volume === 0) {
-                this.sound.setVolume(1);
-                localStorage.setItem('volume', '1')
-                volumeIcon.setTexture("volume-icon");
-                volumeIcon.setAlpha(1);
-            } else {
-                localStorage.setItem('volume', '0')
-                this.sound.setVolume(0);
-                volumeIcon.setTexture("volume-icon_off");
-                volumeIcon.setAlpha(.5)
-            }
-        });
-    }
-
     create() {
-        const screen = document.getElementsByClassName('app')
+        const screen = document.getElementsByClassName('layout')
         const width = screen[0].clientWidth
         const height = screen[0].clientHeight
         this.width = width
         this.height = height
+        const bgWidth = 1125
+        const bgHeight = 2115
+        this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight)
+        // 倒计时背景框
+        const graphics = this.add.graphics({ x: 50, y: 50 }).setDepth(1000);
+        graphics.fillStyle(0xffffff, 0.3);
 
-        this.add.image(width / 2, height / 2, 'dark').setInteractive;
-        this.volumeButton()
-        this.circle1 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0xf8960e);
-        this.circle2 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0x00ff00);
+        graphics.fillRoundedRect(0, 0, 70, 30, 12).setPosition(10, 5);
 
-        this.circle1.setVisible(false);
-        this.circle2.setVisible(false);
+        graphics.fillStyle(0xff00ff, 1);
 
-        //  Create a 4x4 grid aligned group to hold our sprites
-
-        this.emojis = this.add.group({
-            key: 'emojis',
-            frameQuantity: 1,
-            repeat: 15,
-            gridAlign: {
-                width: 4,
-                height: 4,
-                cellWidth: 80,
-                cellHeight: 80,
-                x: width / 2 - 160,
-                y: height / 2 - 120,
-                position: 0
-            }
-        });
-
-
-        this.timerText = this.add.text(60, 60, '30:00', this.fontStyle).setOrigin(0.5, 0.5);
-        this.scoreText = this.add.text(width - 80, 60, `Found:${this.score}`, this.fontStyle).setOrigin(0.5, 0.5);
-
-        let children = this.emojis.getChildren();
-
-        children.forEach((child: any) => {
-
-            child.setInteractive();
-
-        });
-
-        this.input.on('gameobjectdown', this.selectEmoji, this);
-        // this.input.once('pointerdown', this.start, this);
-
-        this.arrangeGrid();
+        // 倒计时和得分
+        this.timerText = this.add.text(45, 20, `${this.timerCount}:00`, this.fontStyle).setOrigin(0.5, 0.5).setDepth(1000);
+        this.scoreText = this.add.text(width - 30, 20, `${this.score}`, this.fontStyle).setOrigin(0.5, 0.5).setDepth(1000);
+        this.add.image(width - 60, 20, 'tomato').setScale(0.7, 0.7).setDepth(1000)
 
         EventBus.emit('current-scene-ready', this);
+        // 延时1秒后执行
+        setTimeout(() => {
+            this.start()
+        }, 1000);
     }
 
-    start(pointer: any, emoji: any) {
-        if (emoji.type && emoji.name == 'volume-icon') {
-            return
-        }
+    start() {
         this.score = 0;
-        this.matched = false;
+        this.timer = this.time.addEvent({ delay: this.timerCount * 1000, callback: this.gameOver, callbackScope: this });
+        this.autoCreateTimer = setInterval(() => {
+            this.autoCreateIcon()
+        }, 200);
+    }
 
-        this.timer = this.time.addEvent({ delay: 30000, callback: this.gameOver, callbackScope: this });
-        // this.shakeTimer = this.time.addEvent({ delay: 27000, callback: this.shake, callbackScope: this });
-        this.sound.play('countdown', { delay: 27 });
-        this.isStart = true
+    reStart() {
+        this.freeze = false
+        this.timer = this.time.addEvent({ delay: this.timerCount * 1000, callback: this.gameOver, callbackScope: this });
+        this.autoCreateTimer = setInterval(() => {
+            this.autoCreateIcon()
+        }, 200);
+    }
+    autoCreateIcon() {
+        let type = 'tomato'
+        let speed = Math.max(Math.random() * 3, 0.5)
+        let iconWidth = Math.random() * 80 + 20
+        let tomatoWidth = 32
+        let random = Math.random()
+        if (random < 0.95) {
+            type = 'tomato'
+        } else if (random < 0.98) {
+            // 不让同屏出现两个冻结
+            if (!this.images.filter(item => { return item.type == 'freeze' }).length) {
+                type = 'freeze'
+                iconWidth = 48
+                speed = 2
+            }
+        } else {
+            type = 'boom'
+            iconWidth = 48
+            speed = 2
+        }
+
+        let iconX = Math.random() * this.width
+        if (iconX < iconWidth / 2) {
+            iconX = iconWidth / 2 + 12
+        }
+        if (iconX > this.width - iconWidth / 2) {
+            iconX = this.width - iconWidth / 2 - 12
+        }
+        let score = 1
+        if (iconWidth > 50) {
+            score = 3
+        }
+        if (iconWidth > 80) {
+            score = 5
+        }
+
+        let icon = this.add.image(iconX, 0, type).setInteractive().setScale(0.3, 0.3).setDepth(10)
+        if (type == 'tomato') {
+            icon.setScale(iconWidth / tomatoWidth, iconWidth / tomatoWidth).setDepth(5)
+        }
+
+        this.images.push({
+            icon: icon,
+            speed: speed,
+            maxY: this.height + 200,
+            type: type,
+        })
+        icon.on('pointerdown', () => {
+            if (type == 'boom') {
+                this.shake()
+                this.score = Math.max(this.score - 200, 0)
+                this.scoreText.setText(this.score).setColor('#ffffff')
+                const bgWidth = 1125
+                const bgHeight = 2115
+                const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
+                setTimeout(() => {
+                    boomBgImg.destroy()
+                    this.scoreText.setColor('#000000')
+                }, 1000);
+            }
+            if (type == 'freeze') {
+                this.freeze = true
+                this.timerCount = Math.round((this.timer.delay - this.timer.elapsed) / 1000)
+                this.time.removeEvent(this.timer)
+                this.timer = null
+                clearInterval(this.autoCreateTimer)
+                const bgWidth = 1125
+                const bgHeight = 2115
+                const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
+                EventBus.emit('execTypeCmd', type)
+                setTimeout(() => {
+                    this.reStart()
+                    boomBgImg.destroy()
+                    EventBus.emit('execTypeCmd', '')
+                }, 4000);
+            }
+            if (type == 'tomato') {
+                const scoreTextTween = this.add.text(icon.x, icon.y, `+${score}`, { fontSize: 24, color: '#ffffff', stroke: '#000000', strokeThickness: 2, fontStyle: 'bold' }).setDepth(10)
+                this.add.tween({
+                    targets: scoreTextTween,
+                    alpha: { from: 1, to: 0 },
+                    ease: 'Linear',
+                    duration: 1000,
+                })
+                this.score += score
+                this.scoreText.setText(this.score)
+                EventBus.emit('execBoom', { left: icon.x, top: icon.y, show: true })
+                setTimeout(() => {
+                    EventBus.emit('execBoom', { left: icon.x, top: icon.y, show: false })
+                }, 300);
+            }
+            icon.destroy()
+        })
     }
 
     shake() {
         this.cameras.main.shake(100, 0.01);
-    }
-
-    selectEmoji(pointer: any, emoji: any) {
-        if (!this.isStart) {
-            this.start(pointer, emoji)
-        }
-
-        if (emoji.type && emoji.name == 'volume-icon') {
-            return
-        }
-
-        if (this.matched) {
-            return;
-        }
-
-        //  Is this the first or second selection?
-        if (!this.selectedEmoji) {
-            //  Our first emoji
-            this.circle1.setPosition(emoji.x, emoji.y);
-            this.circle1.setVisible(true);
-
-            this.selectedEmoji = emoji;
-        }
-        else if (emoji !== this.selectedEmoji) {
-            //  Our second emoji
-
-            //  Is it a match?
-            if (emoji.frame.name === this.selectedEmoji.frame.name) {
-                this.circle1.setStrokeStyle(3, 0x00ff00);
-                this.circle2.setPosition(emoji.x, emoji.y);
-                this.circle2.setVisible(true);
-
-                this.tweens.add({
-                    targets: [this.child1, this.child2],
-                    scale: 1.4,
-                    angle: '-=30',
-                    yoyo: true,
-                    ease: 'sine.inout',
-                    duration: 200,
-                    completeDelay: 200,
-                    onComplete: () => this.newRound()
-                });
-
-                this.sound.play('match');
-            }
-            else {
-                this.circle1.setPosition(emoji.x, emoji.y);
-                this.circle1.setVisible(true);
-
-                this.selectedEmoji = emoji;
-            }
-        }
-    }
-
-    newRound() {
-        this.matched = false;
-
-        this.score++;
-
-        this.scoreText.setText('Found: ' + this.score);
-
-        this.circle1.setStrokeStyle(3, 0xf8960e);
-
-        this.circle1.setVisible(false);
-        this.circle2.setVisible(false);
-
-        //  Stagger tween them all out
-        this.tweens.add({
-            targets: this.emojis.getChildren(),
-            scale: 0,
-            ease: 'power2',
-            duration: 600,
-            delay: this.tweens.stagger(100, { grid: [4, 4], from: 'center' }),
-            onComplete: () => this.arrangeGrid()
-        });
-    }
-
-    arrangeGrid() {
-        //  We need to make sure there is only one pair in the grid
-        //  Let's create an array with all possible frames in it:
-
-        let frames = Phaser.Utils.Array.NumberArray(1, 40);
-        let selected = Phaser.Utils.Array.NumberArray(0, 15);
-        let children = this.emojis.getChildren();
-
-        //  Now we pick 16 random values, removing each one from the array so we can't pick it again
-        //  and set those into the sprites
-
-        for (let i = 0; i < 16; i++) {
-            let frame = Phaser.Utils.Array.RemoveRandomElement(frames);
-
-            children[i].setFrame('smile' + frame);
-        }
-
-        //  Finally, pick two random children and make them a pair:
-        let index1 = Phaser.Utils.Array.RemoveRandomElement(selected) as any;
-        let index2 = Phaser.Utils.Array.RemoveRandomElement(selected) as any;
-
-        this.child1 = children[index1];
-        this.child2 = children[index2];
-
-        //  Set the frame to match
-        this.child2.setFrame(this.child1.frame.name);
-
-        console.log('Pair: ', index1, index2);
-
-        //  Clear the currently selected emojis (if any)
-        this.selectedEmoji = null;
-
-        //  Stagger tween them all in
-        this.tweens.add({
-            targets: children,
-            scale: { start: 0, from: 0, to: 1 },
-            ease: 'bounce.out',
-            duration: 600,
-            delay: this.tweens.stagger(100, { grid: [4, 4], from: 'center' })
-        });
     }
 
     update() {
@@ -286,9 +181,9 @@ export default class MainGame extends Phaser.Scene {
             if (this.timer.getProgress() === 1) {
                 this.timerText.setText('00:00');
                 this.timer = null
-            }
-            else {
-                const remaining = (30 - this.timer.getElapsedSeconds()).toPrecision(4);
+                clearInterval(this.autoCreateTimer)
+            } else {
+                const remaining = (this.timerCount - this.timer.getElapsedSeconds()).toPrecision(4);
                 const pos = remaining.indexOf('.');
 
                 let seconds = remaining.substring(0, pos);
@@ -297,84 +192,25 @@ export default class MainGame extends Phaser.Scene {
                 seconds = Phaser.Utils.String.Pad(seconds, 2, '0', 1);
 
                 this.timerText.setText(seconds + ':' + ms);
-            }
-        }
-        if (this.score && this.totalScoreText) {
-            this.totalScore = this.totalScore + 10
 
-            if (this.totalScore - this.newTotalScore > 30) {
-                this.totalScoreText?.setText(`Score:${this.newTotalScore}`)
-                this.score = 0
-                this.totalScoreText = undefined
-            } else {
-                this.totalScoreText?.setText(`Score:${Math.min(this.totalScore, this.newTotalScore)}`)
+                if (!this.freeze) {
+                    this.images.map((item, index) => {
+                        item.icon.y += item.speed
+                        if (item.icon.y > item.maxY) {
+                            this.images.splice(index, 1)
+                        }
+                        if (item.type !== 'tomato') {
+                            item.icon.rotation += 0.01
+                        }
+                    })
+                }
             }
         }
     }
 
     async gameOver() {
-        //  Show them where the match actually was
-        this.circle1.setStrokeStyle(4, 0xfc29a6).setPosition(this.child1.x, this.child1.y).setVisible(true);
-        this.circle2.setStrokeStyle(4, 0xfc29a6).setPosition(this.child2.x, this.child2.y).setVisible(true);
         this.time.removeEvent(this.timer)
-        this.isStart = false
-        this.input.off('gameobjectdown', this.selectEmoji, this);
-
-        this.registry.set('found', this.score);
-
-        this.totalScore = this.registry.get('totalScore')
-        const res: any = await endGameReq({ found: this.score })
-        if (res.code == 0) {
-            const data = res.data
-            this.registry.set('totalScore', data.score)
-            this.registry.set('maxScore', data.game_max_score)
-            this.newTotalScore = data.score
-        } else {
-            console.error(res.msg)
-        }
-
-        this.tweens.add({
-            targets: [this.circle1, this.circle2],
-            alpha: 0,
-            yoyo: true,
-            repeat: 2,
-            duration: 250,
-            ease: 'sine.inout',
-            onComplete: () => {
-                const gameOverText = this.add.text(this.width / 2, this.height / 2, 'Game Over', {
-                    fontFamily: 'Arial Black', fontSize: 50, color: '#ffffff',
-                    stroke: '#000000', strokeThickness: 8,
-                    align: 'center'
-                }).setOrigin(0.5, 0.5).setDepth(100);
-
-
-                this.tweens.add({
-                    targets: gameOverText,
-                    angle: { from: 0, to: 360 },
-                    ease: 'Linear',
-                    duration: 1000,
-                    complete: () => {
-
-                        const addFenText = this.add.text(this.width / 2, this.height / 2 - 230, `+${this.newTotalScore - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);
-                        this.tweens.add({
-                            targets: addFenText,
-                            alpha: { from: 1, to: 0 },
-                            duration: 2000,
-                        });
-
-                        this.totalScoreText = this.add.text(this.width / 2, this.height / 2 - 200, `Score:${this.totalScore}`, {
-                            fontFamily: 'Arial Black', fontSize: 32, color: '#ffffff',
-                            stroke: '#000000', strokeThickness: 4,
-                            align: 'center'
-                        }).setOrigin(0.5, 0.5).setDepth(60);
-                    }
-                })
-                this.input.once('pointerdown', () => {
-                    this.score = 0
-                    this.totalScoreText = undefined
-                    this.scene.start('MainMenu');
-                }, this);
-            }
-        });
+        localStorage.setItem('currentScore', this.score)
+        this.scene.start('GameOver')
     }
 }

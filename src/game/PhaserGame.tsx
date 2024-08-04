@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
+import { forwardRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import StartGame from './main';
 import { EventBus } from './EventBus';
 
@@ -14,6 +14,13 @@ interface IProps {
 
 export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(function PhaserGame({ currentActiveScene, size }, ref) {
     const game = useRef<Phaser.Game | null>(null!);
+    const gameWrapper: any = useRef()
+    const [execTypeCmd, setExecTypeCmd] = useState('')
+    const [clickTomato, setClickTomato] = useState({
+        show: false,
+        top: 0,
+        left: 0
+    })
     useLayoutEffect(() => {
         if (game.current === null) {
 
@@ -52,13 +59,29 @@ export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(function PhaserGame
             }
 
         });
+        EventBus.on('execTypeCmd', (type: string) => {
+            setExecTypeCmd(type)
+        })
+        EventBus.on('execBoom', (data: any) => {
+            setClickTomato(data)
+        })
         return () => {
             EventBus.removeListener('current-scene-ready');
+            EventBus.removeListener('execTypeCmd');
+            EventBus.removeListener('execBoom');
         }
     }, [currentActiveScene, ref]);
 
     return (
-        <div id="game-container"></div>
+        <div ref={gameWrapper}>
+            <div id='game-container' />
+            <div className='freeze-gif' style={{ opacity: execTypeCmd == 'freeze' ? 1 : 0, zIndex: execTypeCmd == 'freeze' ? 10 : -1 }}>
+                <img src='/assets/dec-time-BT6zB6Ta.gif' alt='gif' className='tl' />
+                <img src='/assets/dec-time-BT6zB6Ta.gif' alt='gif' className='tr' />
+                <img src='/assets/dec-time-BT6zB6Ta.gif' alt='gif' className='bl' />
+                <img src='/assets/dec-time-BT6zB6Ta.gif' alt='gif' className='br' />
+            </div>
+            <img src='/assets/effect-qVjb36sg.gif' alt='boom' className='get-score' style={{ left: clickTomato.left, top: clickTomato.top, opacity: clickTomato.show ? 1 : 0, zIndex: clickTomato ? 10 : -1 }} />
+        </div>
     );
-
 });

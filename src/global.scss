@@ -10,11 +10,19 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'number';
+  src: url('./assets/font/Oxanium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 html, body, #root {
   height: 100%;
   font-family: 'Regular';
   background: #000;
+  font-size: 1rem;
 }
 
 body::-webkit-scrollbar {
@@ -52,7 +60,7 @@ html {
 }
 
 :root {
-  --font-display: -apple-system, "SF Pro Text", "SF UI Text", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-display: -apple-system, "SF Pro Text", "SF UI Text", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
     --font-display-ios-rounded: "SF Pro Rounded", -apple-system, "SF Pro Text", "SF UI Text", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
     --palette-white: #fff;
     --k-device-pixel-ratio: 2;
@@ -103,4 +111,51 @@ html {
     opacity: 0;
   }
   to {opacity: 1;}
+}
+
+
+.layout {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .content {
+    flex: 1;
+  }
+}
+.freeze-gif {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  img {
+    width: 30px;
+    position: absolute;
+  }
+  .tl {
+    top: 0;
+    left: 0;
+  }
+  .tr {
+    top: 0;
+    right: 0;
+    transform: rotate(90deg);
+  }
+  .bl {
+    bottom: 0;
+    left: 0;
+    transform: rotate(-90deg);
+  }
+  .br {
+    bottom: 0;
+    right: 0;
+    transform: rotate(180deg);
+  }
+}
+.get-score {
+  position: fixed;
+  z-index: 9;
+  width: 60px;
+  transform: translate(-50%, 0%);
 }

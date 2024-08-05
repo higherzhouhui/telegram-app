@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
 import './index.scss'
 import { Popup, Toast } from 'antd-mobile';
-import WebApp from '@twa-dev/sdk';
-import { initUtils } from '@telegram-apps/sdk';
-import { useNavigate } from 'react-router-dom';
+import { initUtils, initBackButton } from '@telegram-apps/sdk';
 
 function GamePage() {
   //  References to the PhaserGame component (game and scene are exposed)
@@ -14,7 +12,8 @@ function GamePage() {
   const [isShowGif, setIsShowGif] = useState(true)
   const [link, setLink] = useState('https://t.me/frenpetgame_bot/forkfrengame')
   const [showPopUp, setShowPopUp] = useState(false)
-  const navigate = useNavigate();
+  const [backButton] = initBackButton();
+  const utils = initUtils()
 
   // Event emitted from the PhaserGame component
   const currentActiveScene = (scene: Phaser.Scene) => {
@@ -23,7 +22,7 @@ function GamePage() {
       setIsShowGif(true)
       const _score = localStorage.getItem('currentScore') || 0
       setScore(_score as any)
-      !WebApp.BackButton.isVisible && WebApp.BackButton.show()
+      backButton.show();
     }
   }
 
@@ -47,7 +46,6 @@ function GamePage() {
   }
 
   const handleSendLink = () => {
-    const utils = initUtils()
     const text = `I scored ${score} points in Tomato Game!\n
                   I dare you to challenge me!\n
                   Farm 🍅 $TOMATO with me and secure your token allocation through Tomarket.ai.\n
@@ -56,12 +54,10 @@ function GamePage() {
   }
 
   useEffect(() => {
-    function onClick() {
-      console.log(222)
-      WebApp.openTelegramLink('https://t.me/frenpetgame_bot/forkfrengame')
-      // navigate(-1);
-    }
-    WebApp.BackButton.onClick(onClick);
+    backButton.on('click', () => {
+      console.log(3333)
+      utils.openTelegramLink(link)
+    })
   }, [])
 
   useEffect(() => {

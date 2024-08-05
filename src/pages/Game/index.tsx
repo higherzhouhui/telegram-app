@@ -55,8 +55,7 @@ function GamePage() {
 
   useEffect(() => {
     backButton.on('click', () => {
-      console.log(3333)
-      utils.openTelegramLink(link)
+      utils.openLink('/')
     })
   }, [])
 

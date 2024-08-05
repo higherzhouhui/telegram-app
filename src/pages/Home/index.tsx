@@ -4,20 +4,25 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useSize } from 'ahooks';
 import EventBus from '@/utils/eventBus';
 import { loginReq } from '@/api/common';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 import { initBackButton, initInitData } from '@telegram-apps/sdk';
 import Link from '@/components/Link'
-import WebApp from '@twa-dev/sdk';
+import Loading from '@/components/Loading';
+import CheckIn from '@/components/CheckIn';
+import moment from 'moment';
+
 export const HomePage: FC = () => {
   const dispatch = useDispatch()
+  const userInfo = useSelector((state: any) => state.user.info);
   const eventBus = EventBus.getInstance();
   const appRef: any = useRef(null);
   const size = useSize(appRef);
   const [appSize, setAppSize] = useState({ width: 0, height: 0 })
   const [step, setStep] = useState(1)
   const [backButton] = initBackButton();
-
+  const [loading, setLoading] = useState(true)
+  const [isCheck, setIsCheck] = useState(false)
   const login = async () => {
     const initData = initInitData() as any;
     let res: any;
@@ -29,16 +34,18 @@ export const HomePage: FC = () => {
     if (res.code == 0) {
       dispatch(setUserInfoAction(res.data))
       localStorage.setItem('authorization', res.data.user_id)
-      if (res.data.is_New) {
-        setStep(2)
-      } else {
-        setStep(0)
+      setLoading(false)
+      if (res.data.check_date) {
+        const today = moment().format('MM-DD')
+        if (res.data.check_date == today) {
+          setIsCheck(true)
+        }
       }
     }
   }
 
   useEffect(() => {
-    // login()
+    login()
     backButton.hide()
   }, [])
 
@@ -46,14 +53,16 @@ export const HomePage: FC = () => {
     if (size && size.height && size.width) {
       setAppSize(size)
     }
-    console.log(size)
   }, [size])
 
 
   return (
     <div className="home-page">
+      {
+        loading ? <Loading /> : !isCheck ? <CheckIn handleCallBack={() => setIsCheck(true)} /> : null
+      }
       <div className='top-title'>
-        <div className='score'>3,365</div>
+        <div className='score'>{userInfo?.score?.toLocaleString()}</div>
         <div className='unit'>
           <img src='/assets/tomato-32x32.webp' alt='unit' />
           <span>$TOMATO</span>

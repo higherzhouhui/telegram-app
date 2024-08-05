@@ -24,6 +24,8 @@ function GamePage() {
       const _score = localStorage.getItem('currentScore') || 0
       setScore(_score as any)
       backButton.show();
+    } else {
+      backButton.hide();
     }
   }
 

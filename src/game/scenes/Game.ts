@@ -214,6 +214,8 @@ export default class MainGame extends Phaser.Scene {
     async gameOver() {
         this.time.removeEvent(this.timer)
         localStorage.setItem('currentScore', this.score)
-        this.scene.start('GameOver')
+        setTimeout(() => {
+            this.scene.start('GameOver')
+        }, 1000);
     }
 }

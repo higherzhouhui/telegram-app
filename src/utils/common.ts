@@ -20,7 +20,7 @@ export function stringToColor(string: string) {
   return color;
 }
 
-export function formatNumber(num: any) {
+export function formatNumber(num: any, hz?: number) {
   if (isNaN(num)) {
     return num
   }
@@ -28,14 +28,17 @@ export function formatNumber(num: any) {
   if (num < 1000) {
     return num;
   }
-
+  let fixed = 2
+  if (hz != undefined) {
+    fixed = hz
+  }
   // 超过千  
   if (num < 1000000) {
-    return (num / 1000).toFixed(2) + 'K';
+    return (num / 1000).toFixed(fixed) + 'K';
   } else if (num < 1000000000) {
-    return (num / 1000000).toFixed(2) + 'M';
+    return (num / 1000000).toFixed(fixed) + 'M';
   } else {
-    return (num / 1000000000).toFixed(2) + 'B';
+    return (num / 1000000000).toFixed(fixed) + 'B';
   }
 }
 

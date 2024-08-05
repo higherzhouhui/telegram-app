@@ -1,0 +1,155 @@
+.checkIn-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  z-index: 999;
+  background: #222;
+
+  .checkIn-first {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    .hooray {
+      width: 80vw;
+      opacity: 0;
+      animation: fadeIn forwards 2s 0.8s;
+      transition:  all 1s;
+      margin-top: 15vh;
+    }
+    .change-hooray {
+      margin-top: 5vh;
+      width: 60vw;
+    }
+    .day {
+      text-align: center;
+      font-size: 3rem;
+      color: red;
+      animation: displayNone forwards 0.2s 3s;
+    }
+
+    .daily-reward {
+      font-size: 2rem;
+      font-family: 'bold';
+      animation: scaleBig forwards 1s;
+      transition: all 1s;
+    }
+    .change-daily {
+      font-size: 1.6rem;
+    }
+    .rewards-container {
+      background: rgb(224, 201, 201);
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+      padding: 6px 14px;
+      margin-top: 24px;
+      gap: 4px;
+      font-size: 1.3rem;
+      color: rgb(233, 13, 13);
+      opacity: 0;
+      .rewards-logo {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+      }
+    }
+    @keyframes scaleBig {
+      from {
+        transform: scale(0.5);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    }
+    @keyframes displayNone {
+      from {
+        display: block;
+      }
+      to {
+        display: none;
+      }
+    }
+  }
+  .rewards-detail {
+    padding: 18px 12px;
+    width: 100%;
+    opacity: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .rewards-two {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    .rewards-one {
+      flex: 1;
+      text-align: center;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 8px 0;
+      img {
+        width: 30px;
+        height: 30px;
+      }
+      .reward-number {
+        color: red;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      .unit {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+  .check-in-title {
+    margin: 2rem 0 1rem 0;
+  }
+  .rewards-list {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    .rewards-item {
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      padding: 0.7rem 0.8rem;
+      align-items: center;
+      .rewards-item-right {
+        line-height: 16px;
+        font-size: 0.9rem;
+        .score-ticket {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          font-family: 'number';
+        }
+        img {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+    .rewards-item:last-child {
+      position: absolute;
+      width: 100%;
+      top: calc(100% + 2px);
+    }
+  }
+  .rewards-detail-top {
+    width: 100%;
+    button {
+      width: 100%;
+      border-radius: 12px;
+      color: #fff;
+      background-color: rgb(236, 36, 36);
+      border: none;
+    }
+  }
+}

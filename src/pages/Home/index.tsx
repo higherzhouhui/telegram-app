@@ -6,7 +6,7 @@ import EventBus from '@/utils/eventBus';
 import { loginReq } from '@/api/common';
 import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
-import { initInitData } from '@telegram-apps/sdk';
+import { initBackButton, initInitData } from '@telegram-apps/sdk';
 import Link from '@/components/Link'
 import WebApp from '@twa-dev/sdk';
 export const HomePage: FC = () => {
@@ -16,7 +16,7 @@ export const HomePage: FC = () => {
   const size = useSize(appRef);
   const [appSize, setAppSize] = useState({ width: 0, height: 0 })
   const [step, setStep] = useState(1)
-  const [newUserStep, setNewUserStep] = useState(0)
+  const [backButton] = initBackButton();
 
   const login = async () => {
     const initData = initInitData() as any;
@@ -39,8 +39,7 @@ export const HomePage: FC = () => {
 
   useEffect(() => {
     // login()
-    WebApp.BackButton.isVisible && WebApp.BackButton.hide();
-
+    backButton.hide()
   }, [])
 
   useEffect(() => {

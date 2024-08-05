@@ -4,7 +4,7 @@
   overflow: hidden;
   position: fixed;
   z-index: 999;
-  background: #222;
+  background: #f5f5f5;
 
   .checkIn-first {
     display: flex;
@@ -35,12 +35,13 @@
       font-family: 'bold';
       animation: scaleBig forwards 1s;
       transition: all 1s;
+      color: #000;
     }
     .change-daily {
       font-size: 1.6rem;
     }
     .rewards-container {
-      background: rgb(224, 201, 201);
+      background: rgba(0,0,0,0.1);
       display: flex;
       align-items: center;
       border-radius: 10px;
@@ -90,7 +91,7 @@
     .rewards-one {
       flex: 1;
       text-align: center;
-      background: rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.7);
       border-radius: 12px;
       padding: 8px 0;
       img {
@@ -109,6 +110,7 @@
   }
   .check-in-title {
     margin: 2rem 0 1rem 0;
+    color: #111;
   }
   .rewards-list {
     display: grid;
@@ -116,7 +118,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
     .rewards-item {
-      background: rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.7);
       display: flex;
       justify-content: space-between;
       padding: 0.7rem 0.8rem;

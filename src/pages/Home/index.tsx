@@ -83,7 +83,7 @@ export const HomePage: FC = () => {
           </div>
           <div className='btn-top-right'>
             <Link to={'/game'}>
-              play now
+              play now {userInfo.ticket + userInfo.every_day_ticket}
             </Link>
           </div>
         </div>

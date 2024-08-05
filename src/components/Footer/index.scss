@@ -1,28 +1,40 @@
 .footer {
-  background: #000;
-  padding: 1rem 3rem;
-  border-top: 1px solid #111;
+  background: #f5f5f5;
+  padding: 0.5rem 0;
+  border-top: 1px solid #999;
+
   .list {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .menu-wrapper {
+      flex: 1;
+    }
+
     .menu {
       text-align: center;
       cursor: pointer;
     }
+
     .active {
       svg {
-        fill: #fff;
+        fill: #000;
+        transform: scale(1.2);
       }
+
       p {
-        color: #fff;
+        color: #000;
+        font-weight: bold;
       }
     }
+
     svg {
       width: 26px;
       height: 26px;
       fill: #857f7f;
     }
+
     p {
       color: #857f7f;
       margin: 0;

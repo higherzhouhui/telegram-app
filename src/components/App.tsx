@@ -12,6 +12,7 @@ import { AppRoot } from '@telegram-apps/telegram-ui';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import {
   BrowserRouter,
+  HashRouter,
   Navigate,
   Route,
   Routes,
@@ -55,7 +56,7 @@ export const App: FC = () => {
       appearance={miniApp.isDark ? 'dark' : 'light'}
       platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
     >
-      <BrowserRouter>
+      <HashRouter>
         <div className='layout'>
           <div className='content'>
             <Routes>
@@ -65,7 +66,7 @@ export const App: FC = () => {
           </div>
           <Footer />
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </AppRoot>
   );
 };

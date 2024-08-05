@@ -1,6 +1,6 @@
 import { EventBus } from "../EventBus";
 export default class MainGame extends Phaser.Scene {
-    private score: any;
+    private score: number = 0;
     private scoreText: any;
     private timer: any;
     private shakeTimer: any;

@@ -11,7 +11,7 @@ function GamePage() {
   const phaserRef = useRef<IRefPhaserGame | null>(null);
   const [currentScene, setCurrentScene] = useState('Preloader')
   const [score, setScore] = useState(0)
-  const [link, setLink] = useState('')
+  const [link, setLink] = useState('https://t.me/frenpetgame_bot/forkfrengame')
   const [showPopUp, setShowPopUp] = useState(false)
   const navigate = useNavigate();
 
@@ -23,7 +23,9 @@ function GamePage() {
       setScore(_score as any)
       !WebApp.BackButton.isVisible && WebApp.BackButton.show()
       function onClick() {
-        navigate(-1);
+        console.log(222)
+        WebApp.openTelegramLink('https://t.me/frenpetgame_bot/forkfrengame')
+        // navigate(-1);
       }
       WebApp.BackButton.onClick(onClick);
     }
@@ -35,7 +37,6 @@ function GamePage() {
 
   const shareResult = () => {
     setShowPopUp(true)
-
   }
 
   const handleCopyLink = () => {
@@ -86,7 +87,7 @@ function GamePage() {
               <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3559" width="26" height="26"><path d="M384 768 640 512 384 256Z" p-id="3560"></path></svg>
             </div>
             <div className='game-over-btn' style={{ background: '#333' }} onClick={() => restartGame()}>
-              <div className='game-over-bot-middle' style={{ color: '#fff' }}>Play (2 Attempts Left)</div>
+              <div className='game-over-bot-middle'>Play (2 Attempts Left)</div>
             </div>
           </div>
         </div> : null

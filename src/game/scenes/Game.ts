@@ -106,7 +106,10 @@ export default class MainGame extends Phaser.Scene {
             iconX = this.width - iconWidth / 2 - 12
         }
         let score = 1
-        if (iconWidth > 50) {
+        if (iconWidth > 40) {
+            score = 2
+        }
+        if (iconWidth > 60) {
             score = 3
         }
         if (iconWidth > 80) {

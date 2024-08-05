@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
 import './index.scss'
-import { Button, Popup } from 'antd-mobile';
+import { Popup, Toast } from 'antd-mobile';
 import WebApp from '@twa-dev/sdk';
 import { initUtils } from '@telegram-apps/sdk';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ function GamePage() {
   const phaserRef = useRef<IRefPhaserGame | null>(null);
   const [currentScene, setCurrentScene] = useState('Preloader')
   const [score, setScore] = useState(0)
+  const [isShowGif, setIsShowGif] = useState(true)
   const [link, setLink] = useState('https://t.me/frenpetgame_bot/forkfrengame')
   const [showPopUp, setShowPopUp] = useState(false)
   const navigate = useNavigate();
@@ -19,15 +20,10 @@ function GamePage() {
   const currentActiveScene = (scene: Phaser.Scene) => {
     setCurrentScene(scene.scene.key);
     if (scene.scene.key == 'GameOver') {
+      setIsShowGif(true)
       const _score = localStorage.getItem('currentScore') || 0
       setScore(_score as any)
       !WebApp.BackButton.isVisible && WebApp.BackButton.show()
-      function onClick() {
-        console.log(222)
-        WebApp.openTelegramLink('https://t.me/frenpetgame_bot/forkfrengame')
-        // navigate(-1);
-      }
-      WebApp.BackButton.onClick(onClick);
     }
   }
 
@@ -47,6 +43,7 @@ function GamePage() {
     textArea.select();
     document.execCommand("copy");
     document.body.removeChild(textArea);
+    Toast.show({ content: 'copied', position: 'top' })
   }
 
   const handleSendLink = () => {
@@ -57,6 +54,25 @@ function GamePage() {
                   Use my link to get 2,000 🍅 $TOMATO!`
     utils.shareURL(link, text)
   }
+
+  useEffect(() => {
+    function onClick() {
+      console.log(222)
+      WebApp.openTelegramLink('https://t.me/frenpetgame_bot/forkfrengame')
+      // navigate(-1);
+    }
+    WebApp.BackButton.onClick(onClick);
+  }, [])
+
+  useEffect(() => {
+    let timer: any;
+    if (isShowGif) {
+      timer = setTimeout(() => {
+        setIsShowGif(false)
+      }, 1000);
+    }
+    return () => clearTimeout(timer)
+  }, [isShowGif])
 
   return (
     <div className='game-wrapper'>
@@ -77,6 +93,11 @@ function GamePage() {
               <img src="/assets/tomato-32x32.webp" alt="tomato" />
             </div>
           </div>
+          {
+            isShowGif ? <div className='penalty'>
+              <img src="/assets/dec-penalty-1-2TQXhsXO.gif" alt="penalty" />
+            </div> : null
+          }
           <div className='game-over-bot'>
             <div className='game-over-btn' onClick={() => shareResult()}>
               <img src="/assets/kid-cYicWGds.webp" alt="avatar" className='avatar' />

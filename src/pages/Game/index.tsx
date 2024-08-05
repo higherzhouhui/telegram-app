@@ -3,7 +3,7 @@ import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
 import './index.scss'
 import { Popup, Toast } from 'antd-mobile';
 import { initUtils, initBackButton } from '@telegram-apps/sdk';
-
+import { useNavigate } from 'react-router-dom';
 function GamePage() {
   //  References to the PhaserGame component (game and scene are exposed)
   const phaserRef = useRef<IRefPhaserGame | null>(null);
@@ -14,6 +14,7 @@ function GamePage() {
   const [showPopUp, setShowPopUp] = useState(false)
   const [backButton] = initBackButton();
   const utils = initUtils()
+  const navigate = useNavigate();
 
   // Event emitted from the PhaserGame component
   const currentActiveScene = (scene: Phaser.Scene) => {
@@ -55,7 +56,7 @@ function GamePage() {
 
   useEffect(() => {
     backButton.on('click', () => {
-      utils.openLink('/')
+      navigate(-1)
     })
   }, [])
 

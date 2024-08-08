@@ -20,12 +20,16 @@ import {
 
 import { routes } from '@/navigation/routes';
 import Footer from './Footer';
+import Congrates from './Congrates';
+import EventBus from '@/utils/eventBus';
 
 export const App: FC = () => {
   const lp = useLaunchParams();
   const miniApp = useMiniApp();
   const themeParams = useThemeParams();
   const viewport = useViewport();
+  const eventBus = EventBus.getInstance()
+  const [isShowCongrates, setShowCongrates] = useState(false)
   useEffect(() => {
     return bindMiniAppCSSVars(miniApp, themeParams);
   }, [miniApp, themeParams]);
@@ -38,6 +42,12 @@ export const App: FC = () => {
     return viewport && bindViewportCSSVars(viewport);
   }, [viewport]);
 
+  useEffect(() => {
+    const onMessage = (flag: boolean) => {
+      setShowCongrates(true)
+    }
+    eventBus.addListener('showCongrates', onMessage)
+  }, [])
 
   // Create a new application navigator and attach it to the browser history, so it could modify
   // it and listen to its changes.
@@ -65,6 +75,7 @@ export const App: FC = () => {
             </Routes>
           </div>
           <Footer />
+          <Congrates visible={isShowCongrates} callBack={() => setShowCongrates(false)} />
         </div>
       </HashRouter>
     </AppRoot>

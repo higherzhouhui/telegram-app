@@ -64,6 +64,41 @@ export function judgeIsCheckIn(time: any) {
   return flag
 }
 
+export function judgeIsStartFarming(end_farm_time: any, last_farming_time: any) {
+  let canFarming = true
+  let score: any = 0
+  let percent = 0
+  let leftTime = 180
+  const total = 1080
+  if (end_farm_time && last_farming_time) {
+    const now = new Date().getTime()
+    const end = new Date(end_farm_time).getTime()
+    const last = new Date(last_farming_time).getTime()
+    const start = end - 3 * 60 * 60 * 1000
+    // 如果采摘时间大于结束时间，说明已经完全收完，可以开始下一次
+    if (now < end) {
+      canFarming = false
+      score = Math.round((now - start) / 1000) * 0.1
+      score = score.toFixed(1)
+      percent = Math.ceil(score / total * 100)
+      leftTime = Math.ceil(180 * (100 - percent) / 100) || 1
+    } else {
+      if (last < end) {
+        canFarming = false
+        score = total
+        percent = 100
+        leftTime = 0
+      }
+    }
+  }
+  return {
+    canFarming,
+    score,
+    percent,
+    leftTime
+  }
+}
+
 
 export function formatWalletAddress(address: any) {
   let str = address

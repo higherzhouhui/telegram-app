@@ -2,6 +2,7 @@ import type { ComponentType, JSX } from 'react';
 
 import HomePage from '@/pages/Home';
 import GamePage from '@/pages/Game';
+import TaskPage from '@/pages/Task';
 
 interface Route {
   path: string;
@@ -17,7 +18,7 @@ function Tab() {
 export const routes: Route[] = [
   { path: '/', Component: HomePage },
   { path: '/game', Component: GamePage },
-  { path: '/task', Component: Tab },
+  { path: '/task', Component: TaskPage },
   { path: '/frens', Component: Tab },
   { path: '/wallet', Component: Tab },
 ];

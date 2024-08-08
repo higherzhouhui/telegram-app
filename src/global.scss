@@ -110,7 +110,7 @@ html {
 
 .fadeIn {
   opacity: 0;
-  animation: fadeIn forwards 0.8s;
+  animation: fadeIn forwards 1.5s;
 }
 
 @keyframes fadeIn {
@@ -125,7 +125,7 @@ html {
 
 .fadeOut {
   opacity: 0;
-  animation: fadeOut forwards 0.8s;
+  animation: fadeOut forwards 3s;
 }
 
 @keyframes fadeOut {

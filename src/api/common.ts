@@ -63,3 +63,17 @@ export const getCheckInRewardListReq = () => {
     method: 'GET',
   });
 };
+
+export const startFarmingReq = () => {
+  return service<any>({
+    url: '/user/startFarming',
+    method: 'GET',
+  });
+};
+
+export const getRewardFarmingReq = () => {
+  return service<any>({
+    url: '/user/getRewardFarming',
+    method: 'GET',
+  });
+};

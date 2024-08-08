@@ -4,32 +4,57 @@ import './index.scss'
 import { Popup, Toast } from 'antd-mobile';
 import { initUtils, initBackButton } from '@telegram-apps/sdk';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { beginGameReq, endGameReq } from '@/api/game';
+import { setUserInfoAction } from '@/redux/slices/userSlice';
+import EventBus from '@/utils/eventBus';
 function GamePage() {
   //  References to the PhaserGame component (game and scene are exposed)
   const phaserRef = useRef<IRefPhaserGame | null>(null);
   const [currentScene, setCurrentScene] = useState('Preloader')
   const [score, setScore] = useState(0)
-  const [isShowGif, setIsShowGif] = useState(true)
   const [link, setLink] = useState('https://t.me/frenpetgame_bot/forkfrengame')
   const [showPopUp, setShowPopUp] = useState(false)
   const [backButton] = initBackButton();
   const utils = initUtils()
   const navigate = useNavigate();
+  const userInfo = useSelector((state: any) => state.user.info);
+  const dispatch = useDispatch()
+  const eventBus = EventBus.getInstance()
 
   // Event emitted from the PhaserGame component
-  const currentActiveScene = (scene: Phaser.Scene) => {
+  const currentActiveScene = async (scene: Phaser.Scene) => {
     setCurrentScene(scene.scene.key);
     if (scene.scene.key == 'GameOver') {
-      setIsShowGif(true)
-      const _score = localStorage.getItem('currentScore') || 0
+      eventBus.emit('showCongrates', true)
+      const _score = (localStorage.getItem('currentScore') || 0) as any
       setScore(_score as any)
+      endGameReq({ score: _score * 1 }).then(res => {
+        if (res.code == 0) {
+          dispatch(setUserInfoAction(res.data))
+        }
+      }).catch(error => {
+        console.error(error)
+      })
       backButton.show();
     } else {
       backButton.hide();
     }
+    if (scene.scene.key == 'MainGame') {
+      const res = await beginGameReq()
+      if (res.code != 0) {
+        navigate(-1)
+      } else {
+        dispatch(setUserInfoAction(res.data))
+      }
+    }
   }
 
   const restartGame = () => {
+    if (userInfo.ticket == 0) {
+      Toast.show({ content: '0 Attempts Left', position: 'top' })
+      return
+    }
     phaserRef?.current?.game?.scene?.start('MainGame')
   }
 
@@ -62,15 +87,6 @@ function GamePage() {
     })
   }, [])
 
-  useEffect(() => {
-    let timer: any;
-    if (isShowGif) {
-      timer = setTimeout(() => {
-        setIsShowGif(false)
-      }, 1000);
-    }
-    return () => clearTimeout(timer)
-  }, [isShowGif])
 
   return (
     <div className='game-wrapper'>
@@ -91,11 +107,6 @@ function GamePage() {
               <img src="/assets/tomato-32x32.webp" alt="tomato" />
             </div>
           </div>
-          {
-            isShowGif ? <div className='penalty'>
-              <img src="/assets/dec-penalty-1-2TQXhsXO.gif" alt="penalty" />
-            </div> : null
-          }
           <div className='game-over-bot'>
             <div className='game-over-btn' onClick={() => shareResult()}>
               <img src="/assets/kid-cYicWGds.webp" alt="avatar" className='avatar' />
@@ -106,7 +117,7 @@ function GamePage() {
               <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3559" width="26" height="26"><path d="M384 768 640 512 384 256Z" p-id="3560"></path></svg>
             </div>
             <div className='game-over-btn' style={{ background: '#333' }} onClick={() => restartGame()}>
-              <div className='game-over-bot-middle'>Play (2 Attempts Left)</div>
+              <div className='game-over-bot-middle'>Play ({userInfo.ticket} Attempts Left)</div>
             </div>
           </div>
         </div> : null
@@ -133,7 +144,7 @@ function GamePage() {
               <span>{score} </span>
               <img src="/assets/tomato-32x32.webp" alt="tomato" />
             </div>
-            <div>I scored 10 points in Tomato Game!</div>
+            <div>I scored {score} points in Tomato Game!</div>
             <div>I dare you to challenge me!</div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>

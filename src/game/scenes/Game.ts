@@ -10,7 +10,7 @@ export default class MainGame extends Phaser.Scene {
     private autoCreateTimer: any;
     private images: any[] = [];
     private freeze: Boolean = false;
-    private timerCount: number = 20;
+    private timerCount: number = 10;
     private fontStyle: any = {
         fontFamily: 'Arial',
         fontSize: 20,
@@ -67,7 +67,7 @@ export default class MainGame extends Phaser.Scene {
         this.timer = this.time.addEvent({ delay: this.timerCount * 1000, callback: this.gameOver, callbackScope: this });
         this.autoCreateTimer = setInterval(() => {
             this.autoCreateIcon()
-        }, 200);
+        }, 150);
     }
 
     reStart() {
@@ -75,7 +75,7 @@ export default class MainGame extends Phaser.Scene {
         this.timer = this.time.addEvent({ delay: this.timerCount * 1000, callback: this.gameOver, callbackScope: this });
         this.autoCreateTimer = setInterval(() => {
             this.autoCreateIcon()
-        }, 200);
+        }, 150);
     }
     autoCreateIcon() {
         let type = 'tomato'
@@ -203,7 +203,7 @@ export default class MainGame extends Phaser.Scene {
                             this.images.splice(index, 1)
                         }
                         if (item.type !== 'tomato') {
-                            item.icon.rotation += 0.01
+                            item.icon.rotation += Math.random() * 0.05
                         }
                     })
                 }

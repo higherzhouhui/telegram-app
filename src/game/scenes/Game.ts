@@ -101,8 +101,9 @@ export default class MainGame extends Phaser.Scene {
         const height = screen[0].clientHeight
         this.width = width
         this.height = height
-
-        this.add.image(width / 2, height / 2, 'dark').setInteractive;
+        const bgWidth = 1080
+        const bgHeight = 2297
+        this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight).setInteractive;
         this.volumeButton()
         this.circle1 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0xf8960e);
         this.circle2 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0x00ff00);
@@ -121,15 +122,31 @@ export default class MainGame extends Phaser.Scene {
                 height: 4,
                 cellWidth: 80,
                 cellHeight: 80,
-                x: width / 2 - 160,
+                x: width / 2 - 150,
                 y: height / 2 - 120,
                 position: 0
             }
         });
 
 
-        this.timerText = this.add.text(60, 60, '30:00', this.fontStyle).setOrigin(0.5, 0.5);
-        this.scoreText = this.add.text(width - 80, 60, `Found:${this.score}`, this.fontStyle).setOrigin(0.5, 0.5);
+        this.timerText = this.add.text(60, 70, '30:00', this.fontStyle).setOrigin(0.5, 0.5);
+        this.scoreText = this.add.text(width - 80, 70, `Found:${this.score}`, { ...this.fontStyle, color: '#ff0000' }).setOrigin(0.5, 0.5);
+
+        // 假设 game 是 Phaser 游戏实例
+        let graphics = this.add.graphics();
+
+        // 圆角半径
+        let cornerRadius = 4;
+
+        // 边框宽度
+        let borderWidth = 2;
+
+        // 边框颜色
+        let borderColor = 0xffffff; // 红色
+
+        // 绘制圆角矩形
+        graphics.lineStyle(borderWidth, borderColor);
+        graphics.strokeRoundedRect(25, 55, 70, 30, cornerRadius);
 
         let children = this.emojis.getChildren();
 

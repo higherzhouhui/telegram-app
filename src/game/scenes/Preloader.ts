@@ -13,7 +13,9 @@ export class Preloader extends Scene {
         const screen = document.getElementsByClassName('app')
         const width = screen[0].clientWidth
         const height = screen[0].clientHeight
-        this.add.image(width / 2, height / 2, 'dark');
+        const bgWidth = 1080
+        const bgHeight = 2297
+        this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight);
         //  A simple progress bar. This is the outline of the bar.
         const barWidth = Math.max(width / 2, 280)
         this.add.rectangle(width / 2, height / 2, barWidth, 14).setStrokeStyle(1, 0xffffff);
@@ -43,7 +45,7 @@ export class Preloader extends Scene {
         this.load.atlas('emojis', 'emojis.png', 'emojis.json');
         this.load.image("volume-icon", "volume-icon.png");
         this.load.image("volume-icon_off", "volume-icon_off.png");
-        
+
         //  Audio ...
         this.load.setPath('assets/games/emoji-match/sounds/');
         this.load.audio("card-mismatch", "card-mismatch.mp3");

@@ -349,10 +349,6 @@ function Friends({ userInfo }: { userInfo: any }) {
     return res.data.rows
   }
   const handleShare = () => {
-    /**
-     * 🔥🐹🔥 Come to Earn the Hottest Telegram MEMEcoin here! 💸🏆💰
-I've found a platform where you can launch your meme coins. Check out your Telegram profile and claim your HAMSTER rewards🎁 now!👆🏻 ❤️
-     */
     utils.shareURL(link, ``)
   }
   const copy = () => {

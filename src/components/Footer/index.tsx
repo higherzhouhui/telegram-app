@@ -2,8 +2,10 @@ import './index.scss';
 import { useEffect, useState } from 'react';
 import Link from '../Link';
 import { useLocation } from 'react-router-dom';
+import { initBackButton } from '@telegram-apps/sdk';
 
 export default function () {
+    const [backButton] = initBackButton()
     const myLocation = useLocation()
     const [isShowFooter, setShowFooter] = useState(true)
     const [menu, setMenu] = useState([
@@ -36,13 +38,18 @@ export default function () {
     ])
 
     useEffect(() => {
+        let flag = true
         if (myLocation.pathname) {
-            setShowFooter(menu.map((item) => { return item.to }).includes(myLocation.pathname))
+            flag = menu.map((item) => { return item.to }).includes(myLocation.pathname)
+            setShowFooter(flag)
         } else {
             setShowFooter(true)
         }
-    }, [myLocation.pathname])
+        if (flag) {
+            backButton.hide()
+        }
 
+    }, [myLocation.pathname])
     return <footer className="footer" style={{ display: isShowFooter ? 'block' : 'none' }}>
         <div className='list'>
             {

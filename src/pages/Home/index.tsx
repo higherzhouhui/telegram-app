@@ -4,7 +4,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { getRewardFarmingReq, loginReq, startFarmingReq } from '@/api/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
-import { initBackButton, initInitData } from '@telegram-apps/sdk';
+import { initInitData } from '@telegram-apps/sdk';
 import Loading from '@/components/Loading';
 import CheckIn from '@/components/CheckIn';
 import moment from 'moment';
@@ -17,7 +17,6 @@ export const HomePage: FC = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const userInfo = useSelector((state: any) => state.user.info);
-  const [backButton] = initBackButton();
   const [loading, setLoading] = useState(true)
   const [isCheck, setIsCheck] = useState(false)
   const [isShowRules, setShowRules] = useState(false)
@@ -67,7 +66,9 @@ export const HomePage: FC = () => {
     setIsShaking(true)
     if (!farmObj.canFarming) {
       const res = await getRewardFarmingReq()
-      setIsShaking(false)
+      setTimeout(() => {
+        setIsShaking(false)
+      }, 1500);
       setShakeTree(true)
       if (res.code == 0) {
         dispatch(setUserInfoAction(res.data))
@@ -90,7 +91,6 @@ export const HomePage: FC = () => {
 
   useEffect(() => {
     login()
-    backButton.hide()
   }, [])
 
   useEffect(() => {
@@ -129,7 +129,7 @@ export const HomePage: FC = () => {
     }
   }, [userInfo])
   return (
-    <div className="home-page">
+    <div className="home-page fadeIn">
       {
         loading ? <Loading /> : !isCheck ? <CheckIn handleCallBack={() => setIsCheck(true)} /> : null
       }

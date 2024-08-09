@@ -6,3 +6,13 @@ export const taskListReq = () => {
     method: 'GET',
   });
 };
+
+
+
+export const handleTakReq = (data: any) => {
+  return service<any>({
+    url: '/task/handle',
+    method: 'POST',
+    data,
+  });
+};

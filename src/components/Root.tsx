@@ -40,15 +40,13 @@ const Inner: FC = () => {
   }, [debug]);
 
   return (
-    <TonConnectUIProvider manifestUrl={manifestUrl}>
-      <SDKProvider acceptCustomStyles debug={debug}>
-        <Provider store={store}>
-          <ConfigProvider locale={enUS}>
-            <App />
-          </ConfigProvider>
-        </Provider>
-      </SDKProvider>
-    </TonConnectUIProvider >
+    <SDKProvider acceptCustomStyles debug={debug}>
+      <Provider store={store}>
+        <ConfigProvider locale={enUS}>
+          <App />
+        </ConfigProvider>
+      </Provider>
+    </SDKProvider>
   );
 };
 

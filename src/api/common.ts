@@ -32,6 +32,14 @@ export const getSubUserListReq = (params: any) => {
   });
 };
 
+export const getSubUserTotalReq = () => {
+  return service<any>({
+    url: '/user/subTotal',
+    method: 'GET',
+  });
+};
+
+
 export const getUserInfoReq = (params: any) => {
   return service<any>({
     url: '/user/userInfo',
@@ -77,3 +85,10 @@ export const getRewardFarmingReq = () => {
     method: 'GET',
   });
 };
+
+export const getSystemConfigReq = () => {
+  return service<any>({
+    url: '/system/getConfig',
+    method: 'GET'
+  })
+}

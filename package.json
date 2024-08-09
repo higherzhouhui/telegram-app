@@ -14,6 +14,8 @@
     "build": "tsc && set GH_PAGES=true && vite build --config config.prod.ts && npm run delete && npm run move && npm run execBat"
   },
   "dependencies": {
+    "@portkey/did": "^2.8.0",
+    "@portkey/did-ui-react": "^2.8.0",
     "@reduxjs/toolkit": "^2.2.6",
     "@telegram-apps/react-router-integration": "^1.0.1",
     "@telegram-apps/sdk": "^1.1.1",

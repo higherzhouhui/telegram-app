@@ -41,10 +41,10 @@ export const HomePage: FC = () => {
       const data = { ...initData.initData, ...user }
       res = await loginReq(data)
     }
+    setLoading(false)
     if (res.code == 0) {
       dispatch(setUserInfoAction(res.data))
       localStorage.setItem('authorization', res.data.user_id)
-      setLoading(false)
       if (res.data.check_date) {
         const today = moment().format('MM-DD')
         if (res.data.check_date == today) {

@@ -45,8 +45,7 @@ export const HomePage: FC = () => {
       dispatch(setUserInfoAction(res.data))
       localStorage.setItem('authorization', res.data.user_id)
       if (res.data.check_date) {
-        const today = moment().format('MM-DD')
-        console.log(today, 111111)
+        const today = moment().utc().format('MM-DD')
         if (res.data.check_date == today) {
           setIsCheck(true)
         }

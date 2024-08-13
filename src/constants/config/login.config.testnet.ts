@@ -1,7 +1,7 @@
 import { NetworkEnum, TChainId } from "@aelf-web-login/wallet-adapter-base";
 
 export const CHAIN_ID = "tDVW" satisfies TChainId;
-export const TELEGRAM_BOT_ID = '7329439364';
+export const TELEGRAM_BOT_ID = '7186075668';
 
 export const NETWORK_TYPE = NetworkEnum.TESTNET;
 export const RPC_SERVER_AELF = "https://explorer-test.aelf.io/chain";

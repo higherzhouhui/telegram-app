@@ -12,15 +12,30 @@ const PcApp = lazy(() => import('./Pc'))
 
 export const App: FC = () => {
   // 判断当前环境
-  const [isMobile, setIsMobile] = useState(true)
-
+  const [isTgMini, setIsTgMini] = useState(true)
+  const currentTest: string = 'PC'
   useEffect(() => {
-    // 逻辑重写
+    // 本地开发特殊处理
+    if (location.href.includes('localhost')) {
+      if (currentTest == 'TG') {
+        setIsTgMini(true)
+      } else {
+        setIsTgMini(false)
+      }
+    } else {
+      // 逻辑重写1。先判断是否为tg小程序
+      const search = location.search
+      if (search.includes('tgWebApp')) {
+        setIsTgMini(true)
+      } else {
+        setIsTgMini(false)
+      }
+    }
   }, [])
   return (
     <Suspense fallback={<Loading />}>
       {
-        isMobile ? <SDKProvider>
+        isTgMini ? <SDKProvider>
           <TgApp />
         </SDKProvider> : <PcApp />
       }

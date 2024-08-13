@@ -2,12 +2,13 @@ import { InfiniteScroll, List } from 'antd-mobile'
 import './index.scss'
 import { useEffect, useState } from 'react'
 import { getSubUserListReq } from '@/api/common'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { initBackButton } from '@telegram-apps/sdk'
 import { stringToColor } from '@/utils/common'
 import moment from 'moment'
 
-export default function () {
+function FrensDetailPage() {
+  const navigate = useNavigate();
   const [list, setList] = useState<any>([])
   const [hasMore, setHasMore] = useState(true)
   const [page, setPage] = useState(1)
@@ -16,7 +17,6 @@ export default function () {
   const [backButton] = initBackButton()
   const getList = async () => {
     const res = await getSubUserListReq({ page })
-
     setPage((page => page + 1))
     return res.data.rows
   }
@@ -54,7 +54,11 @@ export default function () {
       const _total = search.replace('?total=', '') as any
       setTotal(_total)
     }
+    backButton.on('click', () => {
+      navigate(-1)
+    })
   }, [])
+
   return <div className="frens-detail-page">
     <div className="frens-title">{total}&nbsp;frens</div>
     <List>
@@ -83,3 +87,5 @@ export default function () {
     <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
   </div>
 }
+
+export default FrensDetailPage

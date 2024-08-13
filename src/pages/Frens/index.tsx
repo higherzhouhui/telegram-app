@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { initUtils } from '@telegram-apps/sdk'
 import { useNavigate } from 'react-router-dom'
 
-export default function () {
+function FrensPage() {
   const userInfo = useSelector((state: any) => state.user.info);
   const navigate = useNavigate()
   const utils = initUtils()
@@ -57,11 +57,13 @@ export default function () {
         <div className='invite-earn'>Invite to Earn</div>
         <div className='frens-unit'>$TOMATO</div>
       </div>
-      <div className='sub-container' onClick={() => routeToDetail()}>
-        <div className='total'>{total}</div>
-        <div className='frens'>Frens</div>
-        <div className='view-frens'>View Frens Detail&nbsp;&nbsp;&gt;</div>
-      </div>
+      {
+        total ? <div className='sub-container' onClick={() => routeToDetail()}>
+          <div className='total'>{total}</div>
+          <div className='frens'>Frens</div>
+          <div className='view-frens'>View Frens Detail&nbsp;&nbsp;&gt;</div>
+        </div> : null
+      }
       <div className='rules-container'>
         <div className='rules-title'>Referral Rules</div>
         <div className='rules-content'>
@@ -104,3 +106,5 @@ export default function () {
     </div>
   </div>
 }
+
+export default FrensPage;

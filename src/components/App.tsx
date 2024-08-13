@@ -61,22 +61,18 @@ export const App: FC = () => {
 
 
   return (
-    <AppRoot
-      appearance={miniApp.isDark ? 'dark' : 'light'}
-      platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
-    >
-      <HashRouter>
-        <div className='layout'>
-          <div className='content'>
-            <Routes>
-              {routes.map((route) => <Route key={route.path} {...route} />)}
-              <Route path='*' element={<Navigate to='/' />} />
-            </Routes>
-          </div>
-          <Footer />
-          <Congrates visible={isShowCongrates} callBack={() => setShowCongrates(false)} />
+
+    <HashRouter>
+      <div className='layout'>
+        <div className='content'>
+          <Routes>
+            {routes.map((route) => <Route key={route.path} {...route} />)}
+            <Route path='*' element={<Navigate to='/' />} />
+          </Routes>
         </div>
-      </HashRouter>
-    </AppRoot>
+        <Footer />
+        <Congrates visible={isShowCongrates} callBack={() => setShowCongrates(false)} />
+      </div>
+    </HashRouter>
   );
 };

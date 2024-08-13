@@ -39,7 +39,7 @@ function TaskPage() {
     if (handleLoading) {
       setTimeout(() => {
         setHandleLoading(false)
-      }, 3000);
+      }, 10000);
     }
   }, [handleLoading])
   useEffect(() => {

@@ -22,16 +22,19 @@ function FrensDetailPage() {
   }
   const getType = (type: string) => {
     if (type == 'register') {
-      type = 'register'
+      type = 'Inviting'
     }
     if (type == 'checkIn_parent') {
-      type = 'checkIn'
+      type = 'Checking In'
     }
     if (type == 'play_game_reward_parent') {
-      type = 'game'
+      type = 'Drop Game'
     }
     if (type == 'harvest_farming') {
-      type = 'harvest'
+      type = 'Farming'
+    }
+    if (type == 'share_playGame') {
+      type = 'Share Game'
     }
     return type
   }

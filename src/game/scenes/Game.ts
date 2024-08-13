@@ -80,7 +80,7 @@ export default class MainGame extends Phaser.Scene {
     autoCreateIcon() {
         let type = 'tomato'
         let speed = Math.max(Math.random() * 5, 1)
-        let iconWidth = Math.random() * 80 + 20
+        let iconWidth = Math.random() * 80 + 30
         const tomatoWidth = 32
         const random = Math.random()
         if (random < 0.95) {
@@ -89,13 +89,13 @@ export default class MainGame extends Phaser.Scene {
             // 不让同屏出现两个冻结
             if (!this.images.filter(item => { return item.type == 'freeze' }).length) {
                 type = 'freeze'
-                iconWidth = 48
-                speed = 2
+                iconWidth = 40 * (Math.random() + 1)
+                speed = 2.5
             }
         } else {
             type = 'boom'
-            iconWidth = 48
-            speed = 2
+            iconWidth = 40 * (Math.random() + 1)
+            speed = 2.5
         }
 
         let iconX = Math.random() * this.width
@@ -116,7 +116,7 @@ export default class MainGame extends Phaser.Scene {
             score = 5
         }
 
-        const icon = this.add.image(iconX, 0, type).setInteractive().setScale(0.3, 0.3).setDepth(10)
+        const icon = this.add.image(iconX, 0, type).setInteractive().setScale(iconWidth / 160, iconWidth / 160).setDepth(10)
         if (type == 'tomato') {
             icon.setScale(iconWidth / tomatoWidth, iconWidth / tomatoWidth).setDepth(5)
         }

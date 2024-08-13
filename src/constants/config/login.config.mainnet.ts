@@ -12,3 +12,4 @@ export const GRAPHQL_SERVER =
 export const CONNECT_SERVER = "https://auth-aa-portkey.portkey.finance";
 
 export const PORTKEY_SERVER_URL = "https://aa-portkey.portkey.finance";
+export const TG_LINK = "https://t.me/frenpetgame_bot/forkfrengame"

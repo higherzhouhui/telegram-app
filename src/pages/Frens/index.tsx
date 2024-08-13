@@ -6,13 +6,14 @@ import { Button } from 'antd-mobile'
 import { useSelector } from 'react-redux'
 import { initUtils } from '@telegram-apps/sdk'
 import { useNavigate } from 'react-router-dom'
+import loginConfig from "@/constants/config/login.config";
 
 function FrensPage() {
   const userInfo = useSelector((state: any) => state.user.info);
   const navigate = useNavigate()
   const utils = initUtils()
   const [isCopy, setIsCopy] = useState(false)
-  const link = `https://t.me/HamstersTon_bot/Hamster?startapp=${btoa(userInfo.user_id)}`;
+  const link = `${loginConfig.TG_LINK}?startapp=${btoa(userInfo.user_id)}`;
   const [systemConfig, setSystemConfig] = useState<any>({})
   const [loading, setLoading] = useState(true)
   const [total, setTotal] = useState(0)

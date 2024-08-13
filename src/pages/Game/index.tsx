@@ -7,18 +7,20 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { beginGameReq, endGameReq } from '@/api/game';
 import { setUserInfoAction } from '@/redux/slices/userSlice';
+import loginConfig from "@/constants/config/login.config";
 import EventBus from '@/utils/eventBus';
+
 function GamePage() {
   //  References to the PhaserGame component (game and scene are exposed)
   const phaserRef = useRef<IRefPhaserGame | null>(null);
+  const userInfo = useSelector((state: any) => state.user.info);
   const [currentScene, setCurrentScene] = useState('Preloader')
   const [score, setScore] = useState(0)
-  const [link, setLink] = useState('https://t.me/frenpetgame_bot/forkfrengame')
+  const link = `${loginConfig.TG_LINK}?startapp=${btoa(userInfo.user_id)}SHAREGAME`
   const [showPopUp, setShowPopUp] = useState(false)
   const [backButton] = initBackButton();
   const utils = initUtils()
   const navigate = useNavigate();
-  const userInfo = useSelector((state: any) => state.user.info);
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance()
 
@@ -74,10 +76,7 @@ function GamePage() {
   }
 
   const handleSendLink = () => {
-    const text = `I scored ${score} points in Tomato Game!\n
-                  I dare you to challenge me!\n
-                  Farm 🍅 $TOMATO with me and secure your token allocation through Tomarket.ai.\n
-                  Use my link to get 2,000 🍅 $TOMATO!`
+    const text = `I scored ${score} points in Tomato Game!\nI dare you to challenge me!\nFarm 🍅 $TOMATO with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $TOMATO!`
     utils.shareURL(link, text)
   }
 

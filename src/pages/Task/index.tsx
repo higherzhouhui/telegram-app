@@ -3,25 +3,39 @@ import './index.scss'
 import { taskListReq, handleTakReq } from '@/api/task'
 import Loading from '@/components/Loading'
 import { initUtils } from '@telegram-apps/sdk'
-import { Button } from 'antd-mobile'
+import { Button, Toast } from 'antd-mobile'
+import { useNavigate } from 'react-router-dom'
 
-export default function () {
+function TaskPage() {
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
   const [handleLoading, setHandleLoading] = useState(false)
+  const navigate = useNavigate()
   const handleDoTask = async (item: any, index: number) => {
     if (item.status != 'done') {
       setHandleLoading(true)
       const res = await handleTakReq(item)
-      const _list = JSON.parse(JSON.stringify(list))
-      _list[index] = res.data
-      setList(_list)
+      if (res.code == 0) {
+        const _list = JSON.parse(JSON.stringify(list))
+        _list[index].status = res.data.status
+        setList(_list)
+      } else {
+        Toast.show({ content: res.msg, position: 'top' })
+        setHandleLoading(false)
+      }
       if (item.status == null) {
-        const utils = initUtils()
-        utils.openLink(item.link)
+        if (item.type.includes('telegram')) {
+          const utils = initUtils()
+          utils.openLink(item.link)
+        } else if (item.type == 'twitter') {
+          window.open(item.link)
+        } else if (item.type == 'wallet') {
+          navigate('/wallet')
+        }
       }
     }
   }
+
   useEffect(() => {
     if (handleLoading) {
       setTimeout(() => {
@@ -61,9 +75,9 @@ export default function () {
               </div>
             </div>
             <div className='task-list-right'>
-              <Button className={`task-list-right-btn ${item.status == 'claim' ? 'claim' : item.status == 'done' ? 'done' : ''}`} onClick={() => handleDoTask(item, index)} loading={handleLoading}>
+              <Button className={`task-list-right-btn ${item.status}`} onClick={() => handleDoTask(item, index)} loading={handleLoading}>
                 {
-                  item.status == null ? 'Start' : item.status == 'claim' ? 'Claim' : 'Done'
+                  item.status || 'Start'
                 }
               </Button>
             </div>
@@ -73,3 +87,4 @@ export default function () {
     </div>
   </div>
 }
+export default TaskPage

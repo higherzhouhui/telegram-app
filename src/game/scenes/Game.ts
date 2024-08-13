@@ -79,7 +79,7 @@ export default class MainGame extends Phaser.Scene {
     }
     autoCreateIcon() {
         let type = 'tomato'
-        let speed = Math.max(Math.random() * 3, 0.5)
+        let speed = Math.max(Math.random() * 5, 1)
         let iconWidth = Math.random() * 80 + 20
         const tomatoWidth = 32
         const random = Math.random()

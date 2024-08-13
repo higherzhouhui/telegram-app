@@ -12,15 +12,10 @@ const PcApp = lazy(() => import('./Pc'))
 
 export const App: FC = () => {
   // 判断当前环境
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(true)
 
   useEffect(() => {
-    const screen = window.screen
-    if (screen.availWidth > 700) {
-      setIsMobile(false)
-    } else {
-      setIsMobile(true)
-    }
+    // 逻辑重写
   }, [])
   return (
     <Suspense fallback={<Loading />}>

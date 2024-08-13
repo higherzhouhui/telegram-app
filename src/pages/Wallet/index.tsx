@@ -7,9 +7,9 @@ function WalletPage() {
   const onConnectBtnClickHandler = async () => {
     try {
       const rs = await connectWallet();
-      console.log(rs)
+      console.log(rs, 22222222222222)
     } catch (e: any) {
-      console.error(e.message);
+      console.error(`${e}`, 'connectError');
     }
   };
   return <div className='wallet-page fadeIn'>

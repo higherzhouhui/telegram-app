@@ -6,6 +6,7 @@ import {
 import { useEffect, useState, type FC } from 'react';
 import Loading from '@/components/Loading';
 import TgApp from './Tg';
+import PcApp from './Pc';
 
 export const App: FC = () => {
   // 判断当前环境
@@ -13,15 +14,22 @@ export const App: FC = () => {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const userAgent = navigator.userAgent
-    console.log(userAgent, 11111111111)
+    const screen = window.screen
+    if (screen.availWidth > 700) {
+      setIsMobile(false)
+    } else {
+      setIsMobile(true)
+    }
     setLoading(false)
   }, [])
   return (
     <>
-      <SDKProvider>
-        <TgApp />
-      </SDKProvider>
+      {
+        isMobile ? <SDKProvider>
+          <TgApp />
+        </SDKProvider> : <PcApp />
+      }
+
       {
         loading ? <Loading /> : null
       }

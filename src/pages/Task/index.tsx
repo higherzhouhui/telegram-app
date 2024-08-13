@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import './index.scss'
 import { taskListReq, handleTakReq } from '@/api/task'
-import Loading from '@/components/Loading'
 import { initUtils } from '@telegram-apps/sdk'
 import { Button, Skeleton, Toast } from 'antd-mobile'
 import { useNavigate } from 'react-router-dom'
@@ -12,7 +11,7 @@ function TaskPage() {
   const [handleLoading, setHandleLoading] = useState(false)
   const navigate = useNavigate()
   const handleDoTask = async (item: any, index: number) => {
-    if (item.status != 'done') {
+    if (item.status != 'Done') {
       setHandleLoading(true)
       const res = await handleTakReq(item)
       if (res.code == 0) {

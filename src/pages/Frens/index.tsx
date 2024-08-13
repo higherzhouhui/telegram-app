@@ -49,9 +49,6 @@ function FrensPage() {
     initSystemConfig()
   }, [])
   return <div className='frens-page fadeIn'>
-    {
-      loading ? <Loading /> : null
-    }
     <div className='frens-page-top'>
       <div className='frens-title'>
         <img src="/assets/user-friends.png" alt="friends" />

@@ -3,7 +3,7 @@ import './index.scss'
 import { taskListReq, handleTakReq } from '@/api/task'
 import Loading from '@/components/Loading'
 import { initUtils } from '@telegram-apps/sdk'
-import { Button, Toast } from 'antd-mobile'
+import { Button, Skeleton, Toast } from 'antd-mobile'
 import { useNavigate } from 'react-router-dom'
 
 function TaskPage() {
@@ -51,15 +51,17 @@ function TaskPage() {
     })
   }, [])
   return <div className='task-page fadeIn'>
-    {
-      loading ? <Loading /> : null
-    }
     <div className='task-title'>
       <img src='/assets/task-logo.png' alt='task' width={64} />
       <div className='task'>Tasks</div>
       <div className='desc'>Complete tasks to earn $TOMATO</div>
     </div>
     <div className='task-list'>
+      {
+        !loading ? [...Array(5)].map((_, index) => {
+          return <Skeleton key={index} />
+        }) : null
+      }
       {
         list.map((item: any, index) => {
           return <div key={index} className='task-list-item'>

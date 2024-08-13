@@ -3,14 +3,15 @@ import {
   SDKProvider
 } from '@telegram-apps/sdk-react';
 
-import { useEffect, useState, type FC } from 'react';
+import { lazy, Suspense, useEffect, useState, type FC } from 'react';
 import Loading from '@/components/Loading';
-import TgApp from './Tg';
-import PcApp from './Pc';
+
+const TgApp = lazy(() => import('./Tg'))
+const PcApp = lazy(() => import('./Pc'))
+
 
 export const App: FC = () => {
   // 判断当前环境
-  const [loading, setLoading] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -20,20 +21,16 @@ export const App: FC = () => {
     } else {
       setIsMobile(true)
     }
-    setLoading(false)
   }, [])
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       {
         isMobile ? <SDKProvider>
           <TgApp />
         </SDKProvider> : <PcApp />
       }
 
-      {
-        loading ? <Loading /> : null
-      }
-    </>
+    </Suspense>
 
   );
 };

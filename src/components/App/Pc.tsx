@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 import { routes } from '@/navigation/routes';
-import Footer from '@/components/Footer';
 import Congrates from '@/components/Congrates';
 import EventBus from '@/utils/eventBus';
 
@@ -30,7 +29,6 @@ const PcApp: FC = () => {
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>
       </div>
-      <Footer />
       <Congrates visible={isShowCongrates} callBack={() => setShowCongrates(false)} />
     </div>
   );

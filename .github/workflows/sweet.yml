@@ -24,9 +24,8 @@ jobs:
 
     - name: Install and Build
       run: |
-        npm install pnpm -g
-        pnpm install
-        npm run build1
+        yarn
+        npm run build
 
     - name: Deploy to Server   # 使用别人包装好的步骤，推送文件模块到远程服务器
       uses: easingthemes/ssh-deploy@v2.1.5

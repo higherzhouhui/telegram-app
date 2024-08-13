@@ -37,7 +37,7 @@ const didConfig = {
   serviceUrl: PORTKEY_SERVER_URL,
   requestDefaults: {
     baseURL: PORTKEY_SERVER_URL,
-    timeout: 30000,
+    timeout: 80000,
   },
 
   socialLogin: {
@@ -68,7 +68,7 @@ const wallets = [
     appName: APP_NAME,
     chainId: CHAIN_ID,
     autoShowUnlock: true,
-    noNeedForConfirm: false,
+    // noNeedForConfirm: false,
   }),
   new PortkeyDiscoverWallet({
     networkType: NETWORK_TYPE,

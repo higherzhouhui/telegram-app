@@ -48,7 +48,7 @@ const didConfig = {
 };
 
 const baseConfig: IConfigProps["baseConfig"] = {
-  showVconsole: false,
+  showVconsole: true,
   networkType: NETWORK_TYPE,
   chainId: CHAIN_ID,
   keyboard: true,

@@ -1,17 +1,21 @@
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import './index.scss'
 import { Button } from 'antd-mobile';
+import { useEffect } from 'react';
 
 function WalletPage() {
-  const { connectWallet } = useConnectWallet();
+  const { connectWallet, isConnected, walletInfo } = useConnectWallet();
   const onConnectBtnClickHandler = async () => {
     try {
-      const rs = await connectWallet();
-      console.log(rs, 22222222222222)
+      await connectWallet();
     } catch (e: any) {
-      console.error(`${e}`, 'connectError');
+      console.error(e.message);
     }
   };
+  useEffect(() => {
+    console.log('isConnected:', isConnected)
+    console.log('walletInfo:', walletInfo)
+  }, [isConnected, walletInfo])
   return <div className='wallet-page fadeIn'>
     <img src="/assets/wallet-logo.png" alt="wallet" />
     <div className='wallet-page-title'>The time has come.</div>

@@ -1,5 +1,4 @@
 import './index.scss';
-import '@/trackers'
 import { FC, useEffect, useRef, useState } from 'react';
 import { getRewardFarmingReq, loginReq, startFarmingReq } from '@/api/common';
 import { useDispatch, useSelector } from 'react-redux';

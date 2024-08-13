@@ -1,8 +1,4 @@
-import { SDKProvider, useLaunchParams } from '@telegram-apps/sdk-react';
-import { type FC, useEffect, useMemo } from 'react';
-import eruda from "eruda";
-
-import { App } from '@/components/App';
+import { type FC } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -17,6 +13,8 @@ import { SignInDesignEnum } from "@aelf-web-login/wallet-adapter-base";
 import loginConfig from "@/constants/config/login.config";
 import { APP_NAME, WEBSITE_ICON } from "@/constants/website";
 import BridgeUpdater from '@/components/BridgeUpdater';
+import { HashRouter } from 'react-router-dom';
+import { App } from '@/components/App';
 const {
   CHAIN_ID,
   CONNECT_SERVER,
@@ -28,8 +26,6 @@ const {
   PORTKEY_SERVER_URL,
   TELEGRAM_BOT_ID
 } = loginConfig;
-
-
 
 const didConfig = {
   graphQLUrl: GRAPHQL_SERVER,
@@ -124,33 +120,18 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
 );
 
 const Inner: FC = () => {
-  const debug = useLaunchParams().startParam === 'debug';
-  console.log(NETWORK_TYPE)
-
   const bridgeAPI = init(config)
-  const manifestUrl = useMemo(() => {
-    return new URL('tonconnect-manifest.json', window.location.href).toString();
-  }, []);
-
-  // Enable debug mode to see all the methods sent and events received.
-  useEffect(() => {
-    if (debug) {
-      // import('eruda').then((lib) => lib.default.init());
-      eruda.init()
-    }
-  }, [debug]);
-
   return (
-    <WebLoginProvider bridgeAPI={bridgeAPI}>
-      <SDKProvider acceptCustomStyles debug={debug}>
-        <Provider store={store}>
-          <ConfigProvider locale={enUS}>
+    <Provider store={store}>
+      <ConfigProvider locale={enUS}>
+        <WebLoginProvider bridgeAPI={bridgeAPI}>
+          <HashRouter>
             <App />
-            <BridgeUpdater />
-          </ConfigProvider>
-        </Provider>
-      </SDKProvider>
-    </WebLoginProvider>
+          </HashRouter>
+          <BridgeUpdater />
+        </WebLoginProvider>
+      </ConfigProvider>
+    </Provider>
   );
 };
 

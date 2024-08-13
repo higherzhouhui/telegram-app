@@ -1,34 +1,41 @@
-import { useIntegration } from '@telegram-apps/react-router-integration';
+
+import '@/mockEnv';
+import eruda from "eruda";
+// import '@/trackers'
+
 import {
   bindMiniAppCSSVars,
   bindThemeParamsCSSVars,
   bindViewportCSSVars,
-  initNavigator, useLaunchParams,
+  useLaunchParams,
   useMiniApp,
   useThemeParams,
   useViewport,
 } from '@telegram-apps/sdk-react';
-import { AppRoot } from '@telegram-apps/telegram-ui';
-import { type FC, useEffect, useMemo, useState } from 'react';
+
 import {
-  HashRouter,
   Navigate,
   Route,
   Routes,
 } from 'react-router-dom';
 
 import { routes } from '@/navigation/routes';
-import Footer from './Footer';
-import Congrates from './Congrates';
+import Footer from '@/components/Footer';
+import Congrates from '@/components/Congrates';
 import EventBus from '@/utils/eventBus';
+import { AppRoot } from '@telegram-apps/telegram-ui';
+import { type FC, useEffect, useMemo, useState } from 'react';
 
-export const App: FC = () => {
+
+const TgApp: FC = () => {
+  const debug = useLaunchParams().startParam === 'debug';
   const lp = useLaunchParams();
   const miniApp = useMiniApp();
   const themeParams = useThemeParams();
   const viewport = useViewport();
-  const eventBus = EventBus.getInstance()
-  const [isShowCongrates, setShowCongrates] = useState(false)
+  const manifestUrl = useMemo(() => {
+    return new URL('tonconnect-manifest.json', window.location.href).toString();
+  }, []);
   useEffect(() => {
     return bindMiniAppCSSVars(miniApp, themeParams);
   }, [miniApp, themeParams]);
@@ -40,6 +47,8 @@ export const App: FC = () => {
   useEffect(() => {
     return viewport && bindViewportCSSVars(viewport);
   }, [viewport]);
+  const eventBus = EventBus.getInstance()
+  const [isShowCongrates, setShowCongrates] = useState(false)
 
   useEffect(() => {
     const onMessage = (flag: boolean) => {
@@ -48,21 +57,17 @@ export const App: FC = () => {
     eventBus.addListener('showCongrates', onMessage)
   }, [])
 
-  // Create a new application navigator and attach it to the browser history, so it could modify
-  // it and listen to its changes.
-  const navigator = useMemo(() => initNavigator('app-navigation-state'), []);
-  const [location, reactNavigator] = useIntegration(navigator);
-  // Don't forget to attach the navigator to allow it to control the BackButton state as well
-  // as browser history.
-  // useEffect(() => {
-  //   navigator.attach();
-  //   return () => navigator.detach();
-  // }, [navigator]);
-
+  useEffect(() => {
+    if (debug) {
+      eruda.init()
+    }
+  }, [debug]);
 
   return (
-
-    <HashRouter>
+    <AppRoot
+      appearance={miniApp.isDark ? 'dark' : 'light'}
+      platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
+    >
       <div className='layout'>
         <div className='content'>
           <Routes>
@@ -73,6 +78,8 @@ export const App: FC = () => {
         <Footer />
         <Congrates visible={isShowCongrates} callBack={() => setShowCongrates(false)} />
       </div>
-    </HashRouter>
+    </AppRoot>
   );
 };
+
+export default TgApp

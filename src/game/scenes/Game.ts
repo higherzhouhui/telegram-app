@@ -9,8 +9,8 @@ export default class MainGame extends Phaser.Scene {
     private height: number = 0;
     private autoCreateTimer: any;
     private images: any[] = [];
-    private freeze: Boolean = false;
-    private timerCount: number = 10;
+    private freeze: boolean = false;
+    private timerCount: number = 60;
     private fontStyle: any = {
         fontFamily: 'Arial',
         fontSize: 20,
@@ -81,8 +81,8 @@ export default class MainGame extends Phaser.Scene {
         let type = 'tomato'
         let speed = Math.max(Math.random() * 3, 0.5)
         let iconWidth = Math.random() * 80 + 20
-        let tomatoWidth = 32
-        let random = Math.random()
+        const tomatoWidth = 32
+        const random = Math.random()
         if (random < 0.95) {
             type = 'tomato'
         } else if (random < 0.98) {
@@ -116,7 +116,7 @@ export default class MainGame extends Phaser.Scene {
             score = 5
         }
 
-        let icon = this.add.image(iconX, 0, type).setInteractive().setScale(0.3, 0.3).setDepth(10)
+        const icon = this.add.image(iconX, 0, type).setInteractive().setScale(0.3, 0.3).setDepth(10)
         if (type == 'tomato') {
             icon.setScale(iconWidth / tomatoWidth, iconWidth / tomatoWidth).setDepth(5)
         }

@@ -10,7 +10,6 @@ import { loginReq } from '@/api/common';
 import { useDispatch } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 import { initInitData } from '@telegram-apps/sdk';
-import GameComp from '@/components/Game';
 
 export const IndexPage: FC = () => {
   const dispatch = useDispatch()

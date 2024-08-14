@@ -62,6 +62,13 @@ export default class MainGame extends Phaser.Scene {
         // Fadein camera
         this.cameras.main.fadeIn(500);
     }
+    closeButton(width: number) {
+        const closeIcon = this.add.image(width - 25, 30, "exit").setName("exit").setScale(0.5, 0.5)
+        closeIcon.setInteractive();
+        closeIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            EventBus.emit('exit', true)
+        });
+    }
 
     volumeButton() {
         const volumeIcon = this.add.image(25, 30, "volume-icon").setName("volume-icon");
@@ -105,6 +112,7 @@ export default class MainGame extends Phaser.Scene {
         const bgHeight = 2297
         this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight).setInteractive;
         this.volumeButton()
+        this.closeButton(width)
         this.circle1 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0xf8960e);
         this.circle2 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0x00ff00);
 

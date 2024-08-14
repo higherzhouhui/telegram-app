@@ -18,15 +18,15 @@ export class Preloader extends Scene {
         this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight);
         //  A simple progress bar. This is the outline of the bar.
         const barWidth = Math.max(width / 2, 280)
-        this.add.rectangle(width / 2, height / 2, barWidth, 14).setStrokeStyle(1, 0xffffff);
+        this.add.rectangle(width / 2, height / 2, barWidth, 19).setStrokeStyle(1, 0xffffff);
         //  This is the progress bar itself. It will increase in size from the left based on the % of progress.
-        const bar = this.add.rectangle(width / 2 - barWidth / 2 + 4, height / 2, 4, 10, 0xffffff);
+        const bar = this.add.rectangle(width / 2 - barWidth / 2 + 5, height / 2, 4, 14, 0xffffff);
         this.loadText = this.add.text(width / 2, height / 2 - 40, `${0}%`, { fontFamily: 'Arial', fontSize: 24, color: '#e3f2ed' }).setOrigin(0.5, 0.5);
         //  Use the 'progress' event emitted by the LoaderPlugin to update the loading bar
         this.load.on('progress', (progress: number) => {
 
             //  Update the progress bar (our bar is 464px wide, so 100% = 464px)
-            bar.width = (barWidth * progress - 4);
+            bar.width = (barWidth * progress - 5);
             this.loadText.setText(`${Math.floor(progress * 100)}%`)
         });
     }
@@ -45,6 +45,7 @@ export class Preloader extends Scene {
         this.load.atlas('emojis', 'emojis.png', 'emojis.json');
         this.load.image("volume-icon", "volume-icon.png");
         this.load.image("volume-icon_off", "volume-icon_off.png");
+        this.load.image("exit", "exit.png");
 
         //  Audio ...
         this.load.setPath('assets/games/emoji-match/sounds/');

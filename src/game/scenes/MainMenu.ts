@@ -1,6 +1,5 @@
 import { beginGameReq } from "@/api/game";
 import { EventBus } from "../EventBus";
-
 export default class MainMenu extends Phaser.Scene {
     private fontStyle: any = {
         fontFamily: 'Arial',
@@ -30,6 +29,7 @@ export default class MainMenu extends Phaser.Scene {
         const bgHeight = 2297
         let background = this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight).setInteractive();
         this.volumeButton()
+        this.closeButton(width)
         this.tweens.add({
             targets: background,
             alpha: { from: 0, to: 1 },
@@ -117,6 +117,14 @@ export default class MainMenu extends Phaser.Scene {
         EventBus.emit('current-scene-ready', this);
     }
 
+    closeButton(width: number) {
+        const closeIcon = this.add.image(width - 25, 30, "exit").setName("exit").setScale(0.5, 0.5)
+        closeIcon.setInteractive();
+        closeIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            EventBus.emit('exit', true)
+        });
+    }
+
     volumeButton() {
         const volumeIcon = this.add.image(25, 30, "volume-icon").setName("volume-icon");
         volumeIcon.setInteractive();
@@ -133,7 +141,6 @@ export default class MainMenu extends Phaser.Scene {
         const volume = localStorage.getItem('volume') || 1 as any
         volumeIcon.setTexture(`${volume == 1 ? 'volume-icon' : 'volume-icon_off'}`)
         volumeIcon.setAlpha(volume == 1 ? 1 : 0.5);
-        console.log(volume)
         volumeIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
             if (this.sound.volume === 0) {
                 this.sound.setVolume(1);

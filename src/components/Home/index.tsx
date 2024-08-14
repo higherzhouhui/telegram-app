@@ -12,7 +12,7 @@ import No1 from '@/assets/NO.1.png'
 import No2 from '@/assets/NO.2.png'
 import No3 from '@/assets/NO.3.png'
 import gameInfoIcon from '@/assets/gameinfo.png'
-import { Button, Toast } from "antd-mobile";
+import { Button, Swiper, Toast } from "antd-mobile";
 import { formatNumber, formatWalletAddress, judgeIsCheckIn, stringToColor } from '@/utils/common'
 import { InfiniteScroll, List } from 'antd-mobile'
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +35,13 @@ export default function () {
       setCurrentTab(title)
     }
     eventBus.addListener('changeFooterTab', onMessage)
+  }, [])
+
+  useEffect(() => {
+    const onMessage = () => {
+      setShowGame(false)
+    }
+    eventBus.addListener('exit', onMessage)
   }, [])
 
   const handleGameNext = () => {
@@ -66,12 +73,7 @@ export default function () {
       showGame ? <div className="gameComp">
         {
           isLookGameInfo ?
-            <>
-              <GameComp />
-              <div className={`close ${showGame ? 'close-fadeIn' : ''}`} onClick={() => setShowGame(false)}>
-                <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1802" width="30" height="30"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#F55300" p-id="1803"></path><path d="M258.56 358.912l434.432 434.432a51.2 51.2 0 0 0 72.3968-72.3968L330.9568 286.5152A51.2 51.2 0 1 0 258.56 358.912z" fill="#F9F9F9" p-id="1804"></path><path d="M258.56 712.192l434.432-434.432a51.2 51.2 0 0 1 72.448 72.3968l-434.4832 434.432A51.2 51.2 0 1 1 258.56 712.192z" fill="#F9F9F9" p-id="1805"></path></svg>
-              </div>
-            </>
+            <GameComp />
             : <div className="gameComp-img">
               <img src={gameInfoIcon} alt="gameInfo" />
               <div className="btn-wrapper"><Button onClick={() => handleGameNext()}>Continue</Button></div>
@@ -161,14 +163,28 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
       <TonConnectButton className="connect-btn" />
     </div>
     <div className="wrapper">
-      <div className="community">
-        <div className="Hamsters-com">Hamster COMMUNITY</div>
-        <div className="home-tg">Home for Telegram OGs</div>
-        <div className="join-btn" onClick={() => {
-          utils.openTelegramLink('https://t.me/hamstermemedapp')
-        }}>Join 💰</div>
-        <div className="heart">💖</div>
-      </div>
+      <Swiper autoplay loop>
+        <Swiper.Item key={1}>
+          <div className="community">
+            <div className="Hamsters-com">Hamster COMMUNITY</div>
+            <div className="home-tg">Home for Telegram OGs</div>
+            <div className="join-btn" onClick={() => {
+              utils.openTelegramLink('https://t.me/hamstermemedapp')
+            }}>Join 💰</div>
+            <div className="heart">💖</div>
+          </div>
+        </Swiper.Item>
+        <Swiper.Item key={2}>
+          <div className="community">
+            <div className="Hamsters-com">FOLOW US ON X.COM</div>
+            <div className="home-tg">stay updated with the latest news</div>
+            <div className="join-btn" onClick={() => {
+              window.open('https://x.com/Hamster_meme_')
+            }}>Follow 🐹</div>
+            <div className="heart">💥</div>
+          </div>
+        </Swiper.Item>
+      </Swiper>
       <div onClick={() => handlePlayGame()} className="earn-more">
         {/* <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3576" width="24" height="24"><path d="M687.36 260.352c134.101333-0.938667 245.376 99.626667 251.093333 230.997333 0.213333 5.290667 0.256 10.581333 0.128 15.829334v183.765333a239.445333 239.445333 0 0 1-66.986666 171.733333 239.786667 239.786667 0 0 1-185.130667 74.325334 9757.866667 9757.866667 0 0 1-176.725333 1.536c-58.453333 0-116.736-0.469333-173.952-1.493334-131.626667 6.528-244.394667-97.792-250.24-230.912a278.698667 278.698667 0 0 1-0.170667-15.786666v-183.893334c-2.901333-132.608 103.168-243.370667 236.373333-246.272 5.205333-0.085333 10.496 0 15.829334 0.213334l168.96-0.042667v-9.813333a53.589333 53.589333 0 0 0-53.589334-52.437334H410.453333c-22.058667-0.938667-43.050667-8.234667-59.008-23.936a83.029333 83.029333 0 0 1-25.045333-58.752A29.781333 29.781333 0 0 1 355.84 85.333333h0.341333c16.256 0 29.568 13.141333 29.738667 29.482667a23.466667 23.466667 0 0 0 7.253333 16.853333 23.722667 23.722667 0 0 0 16.682667 6.869334h43.349333a113.365333 113.365333 0 0 1 112.896 111.658666v39.893334a29.781333 29.781333 0 0 1-29.781333 29.781333H334.677333a182.314667 182.314667 0 0 0-189.781333 185.941333v185.130667a181.845333 181.845333 0 0 0 190.08 186.624c115.968 1.962667 233.856 1.962667 352.256-0.042667a180.736 180.736 0 0 0 141.354667-56.021333 180.650667 180.650667 0 0 0 50.474666-129.92V506.453333a151.04 151.04 0 0 0-0.128-12.586666c-4.394667-100.565333-86.4-176.085333-190.805333-173.994667a29.525333 29.525333 0 0 1-30.122667-29.354667 29.781333 29.781333 0 0 1 29.354667-30.165333z m-267.264 410.88a32.768 32.768 0 0 1-32.512 32.256h-0.384a32.384 32.384 0 0 1-32.085333-32.256V628.48h-43.093334a32.554667 32.554667 0 0 1-31.018666-14.933333 32.042667 32.042667 0 0 1 0-34.261334 32.554667 32.554667 0 0 1 31.018666-14.933333h43.093334v-42.410667c0-17.834667 14.506667-32.256 32.469333-32.256 17.92 0 32.512 14.421333 32.512 32.256v42.368h43.093333a32.554667 32.554667 0 0 1 31.018667 14.933334 32.085333 32.085333 0 0 1 0 34.261333 32.597333 32.597333 0 0 1-31.061333 14.933333h-43.093334v42.794667z m197.589333-166.186667a29.141333 29.141333 0 0 1 10.24-7.125333 32 32 0 0 1 24.149334 0c4.053333 1.706667 7.765333 4.138667 10.965333 7.125333a32.128 32.128 0 0 1 7.168 34.901334 26.282667 26.282667 0 0 1-7.168 10.496 33.066667 33.066667 0 0 1-45.354667 0 31.018667 31.018667 0 0 1 0-45.397334z m72.192 142.933334a31.701333 31.701333 0 0 0 0.170667 44.970666c12.544 12.373333 32.810667 12.373333 45.354667 0a31.701333 31.701333 0 0 0-10.410667-52.096 32.682667 32.682667 0 0 0-35.114667 7.125334z" fill="#200E32" p-id="3577"></path></svg> */}
         <span>Play Game</span>

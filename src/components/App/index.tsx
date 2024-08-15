@@ -13,7 +13,7 @@ const PcApp = lazy(() => import('./Pc'))
 export const App: FC = () => {
   // 判断当前环境
   const [isTgMini, setIsTgMini] = useState(true)
-  const currentTest: string = 'PC'
+  const currentTest: string = 'TG'
   useEffect(() => {
     // 本地开发特殊处理
     if (location.href.includes('localhost')) {

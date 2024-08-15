@@ -38,9 +38,6 @@ function GamePage() {
       }).catch(error => {
         console.error(error)
       })
-      backButton.show();
-    } else {
-      backButton.hide();
     }
     if (scene.scene.key == 'MainGame') {
       const res = await beginGameReq()
@@ -81,6 +78,7 @@ function GamePage() {
   }
 
   useEffect(() => {
+    backButton.show();
     backButton.on('click', () => {
       navigate(-1)
     })

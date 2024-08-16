@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { useEffect, type FC } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -15,6 +15,8 @@ import { APP_NAME, WEBSITE_ICON } from "@/constants/website";
 import BridgeUpdater from '@/components/BridgeUpdater';
 import { HashRouter } from 'react-router-dom';
 import { App } from '@/components/App';
+import { TelegramPlatform, did } from "@portkey/did-ui-react";
+
 const {
   CHAIN_ID,
   CONNECT_SERVER,
@@ -121,6 +123,18 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
 
 const Inner: FC = () => {
   const bridgeAPI = init(config)
+  const handleLogout = async () => {
+    // logout
+    await did.logout({
+      chainId: CHAIN_ID
+    }).then(res => {
+      console.log(res, 'logout')
+    });
+  };
+  useEffect(() => {
+    TelegramPlatform.initializeTelegramWebApp({ handleLogout });
+
+  }, [])
   return (
     <Provider store={store}>
       <ConfigProvider locale={enUS}>

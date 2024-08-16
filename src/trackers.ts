@@ -1,10 +1,10 @@
-import {UserActionEvent, SdkActionEvent} from "@tonconnect/ui-react";
+import { UserActionEvent, SdkActionEvent } from "@tonconnect/ui-react";
 
 const logEvent = (scope: string): (event: Event) => void => {
   scope = scope.startsWith('ton-connect-ui-') ? 'TonConnectUI' : 'TonConnect';
 
-  return (event: Event): void => {
-    if (!(event instanceof CustomEvent<UserActionEvent | SdkActionEvent>)) {
+  return (event: Event | any): void => {
+    if (!event) {
       return;
     }
     const detail: UserActionEvent | SdkActionEvent = event.detail;
@@ -52,5 +52,5 @@ const events = [
 for (const event of events) {
   try {
     window.addEventListener(`${event}`, logEvent(event));
-  } catch (e) {}
+  } catch (e) { }
 }

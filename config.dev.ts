@@ -25,8 +25,6 @@ export default defineConfig({
   build: {
     outDir: 'docs'
   },
-  // @ts-ignore
-  // base: process.env.GH_PAGES ? '/telegram-mini/' : './',
   server: {
     proxy: {
       '/api': {

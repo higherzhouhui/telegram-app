@@ -24,12 +24,12 @@ export const App: FC = () => {
       }
     } else {
       // 逻辑重写1。先判断是否为tg小程序
-      const search = location.search
-      if (search.includes('tgWebApp')) {
-        setIsTgMini(true)
-      } else {
-        setIsTgMini(false)
-      }
+      // const search = location.search
+      // if (search.includes('tgWebApp')) {
+      //   setIsTgMini(true)
+      // } else {
+      //   setIsTgMini(false)
+      // }
     }
   }, [])
   return (

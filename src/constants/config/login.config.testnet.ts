@@ -1,12 +1,12 @@
 import { NetworkEnum, TChainId } from "@aelf-web-login/wallet-adapter-base";
 
-export const CHAIN_ID = "tDVW" satisfies TChainId;
+export const CHAIN_ID = "AELF" satisfies TChainId;
 export const TELEGRAM_BOT_ID = '7186075668';
 
 export const NETWORK_TYPE = NetworkEnum.TESTNET;
-export const RPC_SERVER_AELF = "https://explorer-test.aelf.io/chain";
-export const RPC_SERVER_TDVV = "https://explorer-test-side02.aelf.io/chain";
-export const RPC_SERVER_TDVW = "https://explorer-test-side02.aelf.io/chain";
+export const RPC_SERVER_AELF = "https://aelf-test-node.aelf.io";
+export const RPC_SERVER_TDVV = "https://tdvv-public-node.aelf.io";
+export const RPC_SERVER_TDVW = "https://tdvw-test-node.aelf.io";
 export const GRAPHQL_SERVER =
   "https://dapp-aa-portkey-test.portkey.finance/Portkey_DID/PortKeyIndexerCASchema/graphql";
 

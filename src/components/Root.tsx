@@ -44,7 +44,7 @@ const didConfig = {
       websiteIcon: WEBSITE_ICON,
     },
     Telegram: {
-      botId: "7219104891",
+      botId: TELEGRAM_BOT_ID,
     }
   },
 };

@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths';
-import react from '@vitejs/plugin-react-swc';
+import react from "@vitejs/plugin-react";
 import basicSsl from '@vitejs/plugin-basic-ssl';
+import { nodePolyfills } from "vite-plugin-node-polyfills";
+
 import path from 'path';
 
 // 定义一个函数来解析路径
@@ -21,6 +23,7 @@ export default defineConfig({
     // Allows using self-signed certificates to run the dev server using HTTPS.
     // https://www.npmjs.com/package/@vitejs/plugin-basic-ssl
     basicSsl(),
+    nodePolyfills(),
   ],
   build: {
     outDir: 'docs'

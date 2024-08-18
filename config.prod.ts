@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths';
 import react from '@vitejs/plugin-react-swc';
 import basicSsl from '@vitejs/plugin-basic-ssl';
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 import path from 'path';
 
 // 定义一个函数来解析路径
@@ -39,6 +40,7 @@ export default defineConfig({
     // https://www.npmjs.com/package/@vitejs/plugin-basic-ssl
     basicSsl(),
     phaserMsg(),
+    nodePolyfills(),
   ],
   build: {
     outDir: 'docs',

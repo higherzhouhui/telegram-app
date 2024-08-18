@@ -3,9 +3,10 @@ import './index.scss'
 import { Button } from 'antd-mobile';
 import { useSelector } from 'react-redux';
 import { formatWalletAddress, handleCopyLink } from '@/utils/common';
+import loginConfig from '@/constants/config/login.config';
 
 function WalletPage() {
-  const { connectWallet, isConnected } = useConnectWallet();
+  const { connectWallet, isConnected, walletInfo } = useConnectWallet();
   const userInfo = useSelector((state: any) => state.user.info);
   const onConnectBtnClickHandler = async () => {
     try {
@@ -23,7 +24,10 @@ function WalletPage() {
       <div className='connect-desc'>Connect your PortKey Wallet</div>
       <div className='connect-intro'>The best Wallet to Explore TON Ecosystem</div>
       {
-        isConnected ? <div className='wallet-address' onClick={() => handleCopyLink(userInfo.wallet)}>{formatWalletAddress(userInfo.wallet)}</div> : <Button onClick={onConnectBtnClickHandler} style={{ marginTop: '1rem' }}>connect</Button>
+        isConnected ? <div className='chain' onClick={() => handleCopyLink(loginConfig.CHAIN_ID)}>Network: {loginConfig.CHAIN_ID}</div> : null
+      }
+      {
+        isConnected ? <div className='wallet-address' onClick={() => handleCopyLink(userInfo.wallet)}>Address: {formatWalletAddress(userInfo.wallet)}</div> : <Button onClick={onConnectBtnClickHandler} style={{ marginTop: '1rem' }}>connect</Button>
       }
     </div>
     <div className='happing'>What's happening?</div>

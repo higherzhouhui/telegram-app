@@ -79,7 +79,7 @@ export function judgeIsStartFarming(end_farm_time: any, last_farming_time: any) 
     // 如果采摘时间大于结束时间，说明已经完全收完，可以开始下一次
     if (now < end) {
       canFarming = false
-      score = Math.round((now - start) / 1000) * 0.1
+      score = Math.abs(Math.round((now - start) / 1000) * 0.1)
       score = score.toFixed(1)
       percent = Math.ceil(score / total * 100)
       leftTime = Math.ceil(180 * (100 - percent) / 100) || 1

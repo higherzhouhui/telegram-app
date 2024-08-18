@@ -9,7 +9,11 @@ export default function () {
     const myLocation = useLocation()
     const [isShowFooter, setShowFooter] = useState(true)
     const [menu, setMenu] = useState([
-
+        {
+            title: 'Home',
+            icon: HomeIcon,
+            to: '/',
+        },
         {
             title: 'Task',
             icon: TaskIcon,
@@ -19,11 +23,6 @@ export default function () {
             title: 'Frens',
             icon: FriendsIcon,
             to: '/frens',
-        },
-        {
-            title: 'Home',
-            icon: HomeIcon,
-            to: '/',
         },
         {
             title: 'LeaderBoard',

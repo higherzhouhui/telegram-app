@@ -35,7 +35,7 @@ const didConfig = {
   serviceUrl: PORTKEY_SERVER_URL,
   requestDefaults: {
     baseURL: PORTKEY_SERVER_URL,
-    timeout: 80000,
+    timeout: 30000,
   },
 
   socialLogin: {
@@ -50,7 +50,7 @@ const didConfig = {
 };
 
 const baseConfig: IConfigProps["baseConfig"] = {
-  showVconsole: true,
+  showVconsole: false,
   networkType: NETWORK_TYPE,
   chainId: CHAIN_ID,
   keyboard: true,

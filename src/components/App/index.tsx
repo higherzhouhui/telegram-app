@@ -16,6 +16,5 @@ export const App: FC = () => {
         <TgApp />
       </SDKProvider>
     </Suspense>
-
   );
 };

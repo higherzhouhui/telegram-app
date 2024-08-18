@@ -29,7 +29,7 @@ function TaskPage() {
         } else if (item.type == 'twitter') {
           window.open(item.link)
         } else if (item.type == 'wallet') {
-          navigate('/wallet')
+          // navigate('/wallet')
         }
       }
     }
@@ -39,7 +39,7 @@ function TaskPage() {
     if (handleLoading) {
       setTimeout(() => {
         setHandleLoading(false)
-      }, 10000);
+      }, 5000);
     }
   }, [handleLoading])
   useEffect(() => {

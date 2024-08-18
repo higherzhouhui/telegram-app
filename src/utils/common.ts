@@ -2,6 +2,9 @@ import { Toast } from "antd-mobile";
 import moment from "moment";
 
 export function stringToColor(string: string) {
+  if (!string) {
+    return '#fff'
+  }
   let hash = 0;
   let i;
 

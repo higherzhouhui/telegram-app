@@ -42,13 +42,6 @@ code {
     monospace;
 }
 
-html {
-  font-size: 12px;
-
-  @media (min-width: 400px) {
-    font-size: 14px;
-  }
-}
 
 :root {
   --font-display: -apple-system, "SF Pro Text", "SF UI Text", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -107,6 +100,15 @@ body,
   overflow: hidden;
   color: var(--color);
 }
+
+html {
+  font-size: 12px;
+
+  @media (min-width: 400px) {
+    font-size: 14px;
+  }
+}
+
 
 .fadeIn {
   opacity: 0;

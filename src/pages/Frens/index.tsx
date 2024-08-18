@@ -7,6 +7,7 @@ import { initUtils } from '@telegram-apps/sdk'
 import { useNavigate } from 'react-router-dom'
 import loginConfig from "@/constants/config/login.config";
 import { stringToColor } from '@/utils/common'
+import moment from 'moment'
 
 function FrensPage() {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -31,6 +32,24 @@ function FrensPage() {
   }
   const handleShare = () => {
     utils.shareURL(link, ``)
+  }
+  const getType = (type: string) => {
+    if (type == 'register') {
+      type = 'Inviting'
+    }
+    if (type == 'checkIn_parent') {
+      type = 'Checking In'
+    }
+    if (type == 'play_game_reward_parent') {
+      type = 'Drop Game'
+    }
+    if (type == 'harvest_farming') {
+      type = 'Farming'
+    }
+    if (type == 'share_playGame') {
+      type = 'Share Game'
+    }
+    return type
   }
   const copy = () => {
     const textToCopy = link; // 替换为你想要复制的内容  
@@ -57,7 +76,9 @@ function FrensPage() {
         <div className='invite-earn'>Invite to Earn</div>
         <div className='frens-unit'>$CAT</div>
       </div>
-      <div className='rules-title'>Your Referrer</div>
+      {
+        !total && parentUser?.username ? <div className='rules-title'>Your Referrer</div> : null
+      }
       {
         total ? <div className='sub-container' onClick={() => routeToDetail()}>
           <div className='total'>{total}</div>
@@ -68,8 +89,22 @@ function FrensPage() {
             {parentUser.username.slice(0, 2)}
           </div>
           <div className='parent-name'>{parentUser.username}</div>
-          <div className='parent-score'>{parentUser.totalScore}<img src='/assets/common/cat.webp' width={20} /></div>
+          <div className='parent-score'>+&nbsp;{parentUser.totalScore.toLocaleString()}<img src='/assets/common/cat.webp' width={20} /></div>
           <div className='view-sharing'>Obtained through invitee's points sharing</div>
+          {
+            parentUser.list.map((item: any) => {
+              return <div className='list-score' key={item.createdAt}>
+                <div className='list-score-top'>
+                  <div className='list-score-num'>+{item.score.toLocaleString()}</div>
+                  <div className='list-name'><span>by</span>&nbsp;{item.from_username}</div>
+                </div>
+                <div className='list-score-top'>
+                  <div className='list-time'>{moment(item.createdAt).format('YYYY.MM.DD HH:mm:ss')}</div>
+                  <div className='list-type'>{getType(item.type)}</div>
+                </div>
+              </div>
+            })
+          }
         </div> : null
       }
       <div className='rules-container'>

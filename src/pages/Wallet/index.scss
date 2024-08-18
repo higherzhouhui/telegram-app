@@ -1,5 +1,4 @@
 .wallet-page {
-  color: #000;
   padding: 18px 12px;
   text-align: center;
   .wallet-page-title {
@@ -7,17 +6,16 @@
     font-family: 'bold';
   }
   .connect-wrapper {
-    background: rgba($color: #000000, $alpha: 0.1);
     border-radius: 12px;
     margin: 22px 0;
     padding: 22px 12px;
+    background: rgba($color: #000000, $alpha: 0.7);
     .connect-desc {
       margin: 12px 0;
       font-weight: bold;
       font-size: 1.22rem;
     }
     .connect-intro {
-      background: rgba($color: #000000, $alpha: 0.3);
       color: #eee;
       width: fit-content;
       margin: 0 auto;
@@ -33,17 +31,16 @@
   }
   .activity {
     text-align: left;
-    color: #333;
     line-height: 1.5rem;
+    opacity: 0.8;
     span {
-      color: #000;
       font-weight: bold;
     }
   }
   .wallet-address {
     font-size: 1.2rem;
     font-weight: bold;
-    background: rgba(0,0,0,0.1);
+    background: black;
     width: fit-content;
     display: flex;
     align-items: center;
@@ -59,6 +56,7 @@
     margin: 12px auto 0 auto;
     padding: 4px 8px;
     border-radius: 4px;
+    background: black;
   }
 }
 

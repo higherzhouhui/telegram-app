@@ -107,7 +107,7 @@ const config: IConfigProps = {
 };
 
 const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
-  <div style={{ color: '#000' }}>
+  <div>
     <p>An unhandled error occurred:</p>
     <blockquote>
       <code>

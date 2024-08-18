@@ -46,12 +46,12 @@ export default function LeaderBoard() {
     <div className="title">Telegram Wall of Fame</div>
     <div className="myself">
       <div className="left">
-        <div className="icon" style={{ background: stringToColor(userInfo.username) }}>
-          {userInfo.username.slice(0, 2)}
+        <div className="icon" style={{ background: stringToColor(userInfo?.username) }}>
+          {userInfo?.username?.slice(0, 2)}
         </div>
         <div className="name-score-warpper">
-          <div className="name">{userInfo.username}</div>
-          <div className="name-score">{userInfo.score.toLocaleString()}&nbsp;TOMATO</div>
+          <div className="name">{userInfo?.username}</div>
+          <div className="name-score">{userInfo?.score?.toLocaleString()}&nbsp;TOMATO</div>
         </div>
       </div>
       <div className="right">

@@ -20,15 +20,6 @@
 }
 
 
-html,
-body,
-#root {
-  height: 100%;
-  font-family: 'Regular';
-  background: #f5f5f5;
-  font-size: 1rem;
-  overflow: hidden;
-}
 
 body::-webkit-scrollbar {
   display: none;
@@ -100,6 +91,21 @@ html {
   --elevation-light-1: 0px 10px 60px rgba(0, 0, 0, .1);
   --elevation-dark-1: 0px 10px 60px rgba(0, 0, 0, .7);
   --tg-theme-button-color: red;
+  --bgColor: #181818;
+  --color: #fff;
+  --btnBg: #FFBE1D;
+  --highColor: #FFF200;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  font-family: 'Regular';
+  background: var(--bgColor);
+  font-size: 1rem;
+  overflow: hidden;
+  color: var(--color);
 }
 
 .fadeIn {

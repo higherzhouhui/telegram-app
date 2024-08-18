@@ -4,16 +4,15 @@
     text-align: center;
     .task {
       font-size: 2rem;
-      color: #000;
       font-family: 'bold';
     }
     .desc {
-      color: #333;
       margin-top: 1rem;
+      opacity: 0.8;
     }
   }
   .task-list {
-    background-color: #f0eaea;
+    background-color: #313131;
     border-radius: 6px;
     padding: 1.5rem;
     margin-top: 1.5rem;
@@ -27,11 +26,10 @@
     }
     .task-list-item {
       display: flex;
-      color: #000;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 0;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #111;
     }
     .task-list-item:last-child {
       border-bottom: none;
@@ -72,6 +70,7 @@
       background: #000;
       font-size: 1rem;
       width: 60px;
+      border: none;
     }
     .Claim {
       background: #ff0000;

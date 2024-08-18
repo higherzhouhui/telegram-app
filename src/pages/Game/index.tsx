@@ -9,6 +9,7 @@ import { beginGameReq, endGameReq } from '@/api/game';
 import { setUserInfoAction } from '@/redux/slices/userSlice';
 import loginConfig from "@/constants/config/login.config";
 import EventBus from '@/utils/eventBus';
+import Loading from '@/components/Loading';
 
 function GamePage() {
   //  References to the PhaserGame component (game and scene are exposed)
@@ -73,7 +74,7 @@ function GamePage() {
   }
 
   const handleSendLink = () => {
-    const text = `I scored ${score} points in Tomato Game!\nI dare you to challenge me!\nFarm 🍅 $TOMATO with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $TOMATO!`
+    const text = `I scored ${score} points in Tomato Game!\nI dare you to challenge me!\nFarm 🍅 $CAT with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $CAT!`
     utils.shareURL(link, text)
   }
 
@@ -88,14 +89,12 @@ function GamePage() {
   return (
     <div className='game-wrapper'>
       {
-        currentScene == 'Preloader' ? <div className='loading'>
-          <img src='/assets/loading.gif' />
-        </div> : null
+        currentScene == 'Preloader' ? <Loading /> : null
       }
       {
         currentScene == 'GameOver' ? <div className='game-over'>
           <div className='game-over-top'>
-            <img src='/assets/hooray-8Kybc2vw.gif' alt='gif' className='congrats-img' />
+            <img src='/assets/game/reward.png' alt='gif' className='congrats-img' />
             <div className='congrats'>Congrats!</div>
             <div className='congrats'>bountiful harvest</div>
             <div className='score-wrapper'>
@@ -104,16 +103,11 @@ function GamePage() {
               <img src="/assets/tomato-32x32.webp" alt="tomato" />
             </div>
           </div>
-          <div className='game-over-bot'>
+          <div className='game-over-bots'>
             <div className='game-over-btn' onClick={() => shareResult()}>
-              <img src="/assets/kid-cYicWGds.webp" alt="avatar" className='avatar' />
-              <div className='game-over-bot-middle'>
-                Share Your Results +50
-                <img src="/assets/tomato-32x32.webp" alt="tomato" className='tomato' />
-              </div>
-              <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3559" width="26" height="26"><path d="M384 768 640 512 384 256Z" p-id="3560"></path></svg>
+              Share Your Results +50
             </div>
-            <div className='game-over-btn' style={{ background: '#333' }} onClick={() => restartGame()}>
+            <div className='game-over-btn play-btn' onClick={() => restartGame()}>
               <div className='game-over-bot-middle'>Play ({userInfo.ticket} Attempts Left)</div>
             </div>
           </div>

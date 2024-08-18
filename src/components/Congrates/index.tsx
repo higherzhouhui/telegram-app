@@ -9,13 +9,13 @@ export default function ({ visible, callBack }: { visible: boolean, callBack: ()
       setTimeout(() => {
         setIsVisible(false)
         callBack()
-      }, 2000);
+      }, 3000);
     }
   }, [visible])
   return <>
     {
       isVisible ? <div className='penalty'>
-        <img src="/assets/dec-penalty-1-2TQXhsXO.gif" alt="penalty" />
+        <img src="/assets/common/boom.gif" alt="penalty" />
       </div> : null
     }
   </>

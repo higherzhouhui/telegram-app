@@ -25,7 +25,7 @@ export default function () {
             to: '/frens',
         },
         {
-            title: 'LeaderBoard',
+            title: 'LB',
             icon: LeaderBoard,
             to: '/leaderboard',
         },
@@ -56,7 +56,7 @@ export default function () {
                     return <Link to={item.to} key={item.title} className='menu-wrapper'>
                         <div className={`menu ${myLocation.pathname == item.to ? 'active' : ''}`} key={item.title}>
                             {item.icon}
-                            <p>{item.title}</p>
+                            <div className='title'>{item.title}</div>
                         </div>
                     </Link>
                 }))

@@ -53,7 +53,7 @@ function TaskPage() {
     <div className='task-title'>
       <img src='/assets/task-logo.png' alt='task' width={64} />
       <div className='task'>Tasks</div>
-      <div className='desc'>Complete tasks to earn $TOMATO</div>
+      <div className='desc'>Complete tasks to earn $CAT</div>
     </div>
     <div className='task-list'>
       {
@@ -71,7 +71,7 @@ function TaskPage() {
                 <div className='reward'>
                   <span>+{item.score.toLocaleString()}</span>
                   &nbsp;<img src='/assets/tomato-32x32.webp' alt='tomato' className='unit-img' />
-                  &nbsp;$TOMATO
+                  &nbsp;$CAT
                 </div>
               </div>
             </div>

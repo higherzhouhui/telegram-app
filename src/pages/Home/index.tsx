@@ -22,10 +22,19 @@ export const HomePage: FC = () => {
   const [isSleep, setIsSleep] = useState(true)
   const [shakeTree, setShakeTree] = useState(false)
   const [isShaking, setIsShaking] = useState(false)
-  const farmingTimer = useRef<any>()
-  const shakingTimer = useRef<any>()
+  const farmingTimer = useRef<any>(null)
+  const shakingTimer = useRef<any>(null)
   const eventBus = EventBus.getInstance()
-
+  const messageList = [
+    'Invite friends to get more $CAT!',
+    `I've got lots of surprises ready, but i can't tell yet!`,
+    `What fun tasks are updated today? Go check!`,
+    `Cat...Cat,my $CAT!`,
+    'Need a web3 wallet? I love portkey wallet!',
+    'Ticket will be reset at 00:00 UTC!',
+  ]
+  const [currentMessage, setCurrentMessage] = useState(0)
+  const [typeStr, setTypeStr] = useState('')
   const [farmObj, setFarmObj] = useState({
     score: 0,
     canFarming: true,
@@ -93,18 +102,57 @@ export const HomePage: FC = () => {
   }, [])
 
   useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentMessage((val) => val + 1)
+    }, 10000);
+    return () => clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
+    const index = currentMessage % messageList.length
+    const str = messageList[index]
+    let i = 1
+    const timer = setInterval(() => {
+      i = Math.min(str.length, i + 1)
+      setTypeStr(str.slice(0, i))
+      if (i == str.length) {
+        clearInterval(timer)
+      }
+    }, 50);
+    const hideTimer = setTimeout(() => {
+      setTypeStr('')
+    }, 5000);
+    return () => {
+      clearInterval(timer)
+      clearTimeout(hideTimer)
+    }
+  }, [currentMessage])
+
+  useEffect(() => {
+    let timer
     if (!isSleep) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         setIsSleep(true)
-      }, 1000);
+      }, 5000);
+    }
+    return () => {
+      if (timer) {
+        clearInterval(timer)
+      }
     }
   }, [isSleep])
 
   useEffect(() => {
+    let timer
     if (shakeTree) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         setShakeTree(false)
       }, 1500);
+    }
+    return () => {
+      if (timer) {
+        clearInterval(timer)
+      }
     }
   }, [shakeTree])
 
@@ -136,34 +184,39 @@ export const HomePage: FC = () => {
         <div className='score'>{userInfo?.score?.toLocaleString()}</div>
         <div className='unit'>
           <img src='/assets/tomato-32x32.webp' alt='unit' />
-          <span>$TOMATO</span>
+          <span>$CAT</span>
+        </div>
+        <div className={`add-score ${shakeTree ? 'fadeOut' : ''}`}>
+          + {userInfo.farm_reward_score}
         </div>
       </div>
       <div className='tree' onClick={() => getRewardFarming()}>
         {
-          farmObj.canFarming ? <img src='/assets/start.gif' alt='tree' /> : farmObj.percent != 100 ? <img src={`/assets/${isShaking ? 'shake' : 'progress'}.gif`} alt='tree' /> : <img src='/assets/full.gif' alt='tree' />
+          farmObj.canFarming ? <img src='/assets/home/start.gif' alt='tree' /> : farmObj.percent != 100 ? <img src={`/assets/home/${isShaking ? 'shake' : 'progress'}.gif`} alt='tree' /> : <img src='/assets/home/full.gif' alt='tree' />
         }
-        <div className={`add-score ${shakeTree ? 'fadeOut' : ''}`}>
-          + {userInfo.farm_reward_score}
-        </div>
       </div>
       <div className='btn-container'>
         <div className='btn-top'>
           <div className='btn-top-left'>
             <div className='question' onClick={() => setShowRules(true)}>
-              <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5414" width="32" height="32"><path d="M845.902988 0.000232H178.097244A177.864812 177.864812 0 0 0 0.000232 178.097244v667.805744a177.864812 177.864812 0 0 0 178.097012 178.097012h667.805744a177.864812 177.864812 0 0 0 178.097012-178.097012V178.097244A177.864812 177.864812 0 0 0 845.902988 0.000232zM512.000116 911.615445A75.929234 75.929234 0 1 1 587.929351 835.91841a77.090232 77.090232 0 0 1-75.929235 75.697035z m75.929235-340.172258v51.548287a75.929234 75.929234 0 0 1-151.858469 0v-114.938749a75.697035 75.697035 0 0 1 75.929234-75.929235A84.056217 84.056217 0 1 0 428.176099 348.299473a76.161434 76.161434 0 1 1-152.090669 0 235.914686 235.914686 0 1 1 311.843921 223.375913z" fill="#040000" p-id="5415"></path></svg>
+              <img src='/assets/home/question.png' width={30} />
             </div>
-            {
-              farmObj.canFarming ? <div className='anima' onClick={() => setIsSleep(false)}>
-                {
-                  isSleep ? <img src="/assets/cat-C2MDjmcF.gif" alt="cat" width={32} /> : <img src="/assets/cat-touched-Bmke-Bss.gif" alt="cat" width={32} />
-                }
-              </div> : null
-            }
-
+            <div className='anima' onClick={() => setIsSleep(false)}>
+              {
+                isSleep ? <img src="/assets/home/cat-wait.gif" alt="cat" width={80} /> : <img src="/assets/home/cat-touch.gif" alt="cat" width={80} />
+              }
+            </div>
           </div>
           <div className='btn-top-right' onClick={() => handlePlayGame()}>
-            play now {userInfo.ticket}
+            <img src='/assets/home/hint.png' alt='hint' className='hint-img' />
+            <img src='/assets/home/cat.gif' className='cat-img' />
+            <div className='count'>{userInfo?.ticket}</div>
+            <div className='play-now'>Play now</div>
+            {
+              typeStr ? <div className='message'>
+                <span>{typeStr}</span>
+              </div> : null
+            }
           </div>
         </div>
         <div className='btn-bot'>
@@ -197,6 +250,7 @@ export const HomePage: FC = () => {
           borderTopLeftRadius: '8px',
           borderTopRightRadius: '8px',
         }}
+        className='popup-rule'
       >
         <div className='popup-rule-title'>
           <div>Rules</div>

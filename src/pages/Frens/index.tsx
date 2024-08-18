@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import './index.scss'
 import { getSystemConfigReq, getSubUserTotalReq } from '@/api/common'
-import Loading from '@/components/Loading'
 import { Button } from 'antd-mobile'
 import { useSelector } from 'react-redux'
 import { initUtils } from '@telegram-apps/sdk'
 import { useNavigate } from 'react-router-dom'
 import loginConfig from "@/constants/config/login.config";
+import { stringToColor } from '@/utils/common'
 
 function FrensPage() {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -17,11 +17,13 @@ function FrensPage() {
   const [systemConfig, setSystemConfig] = useState<any>({})
   const [loading, setLoading] = useState(true)
   const [total, setTotal] = useState(0)
+  const [parentUser, setParentUser] = useState<any>({})
   const initSystemConfig = async () => {
     setLoading(true)
     const [res, resTotal] = await Promise.all([getSystemConfigReq(), getSubUserTotalReq()])
     setSystemConfig(res.data)
     setTotal(resTotal.data.total)
+    setParentUser(resTotal.data)
     setLoading(false)
   }
   const routeToDetail = () => {
@@ -53,13 +55,21 @@ function FrensPage() {
       <div className='frens-title'>
         <img src="/assets/user-friends.png" alt="friends" />
         <div className='invite-earn'>Invite to Earn</div>
-        <div className='frens-unit'>$TOMATO</div>
+        <div className='frens-unit'>$CAT</div>
       </div>
+      <div className='rules-title'>Your Referrer</div>
       {
         total ? <div className='sub-container' onClick={() => routeToDetail()}>
           <div className='total'>{total}</div>
           <div className='frens'>Frens</div>
           <div className='view-frens'>View Frens Detail&nbsp;&nbsp;&gt;</div>
+        </div> : parentUser?.username ? <div className='sub-container'>
+          <div className='avatar' style={{ background: stringToColor(userInfo.username) }}>
+            {parentUser.username.slice(0, 2)}
+          </div>
+          <div className='parent-name'>{parentUser.username}</div>
+          <div className='parent-score'>{parentUser.totalScore}<img src='/assets/common/cat.webp' width={20} /></div>
+          <div className='view-sharing'>Obtained through invitee's points sharing</div>
         </div> : null
       }
       <div className='rules-container'>
@@ -69,25 +79,25 @@ function FrensPage() {
             <div className='rules-list-title'>Invite a Friends</div>
             <div className='rules-desc'>
               You will both get {systemConfig?.invite_normalAccount_score}
-              &nbsp;<img src="/assets/tomato-32x32.webp" alt="unit" />
+              &nbsp;<img src="/assets/common/cat.webp" alt="unit" />
               &nbsp;and {systemConfig?.invite_normalAccount_ticket}
-              &nbsp;<img src="/assets/ticket-32x32.webp" alt="unit" />.
+              &nbsp;<img src="/assets/common/ticket.webp" alt="unit" />.
             </div>
           </div>
           <div className='rules-list'>
             <div className='rules-list-title'>Invite a Friends with a Telegram Premium Account</div>
             <div className='rules-desc'>
               You will both get {systemConfig?.invite_premiumAccount_score}
-              &nbsp;<img src="/assets/tomato-32x32.webp" alt="unit" />
+              &nbsp;<img src="/assets/common/cat.webp" alt="unit" />
               &nbsp;and {systemConfig?.invite_premiumAccount_ticket}
-              &nbsp;<img src="/assets/ticket-32x32.webp" alt="unit" />.
+              &nbsp;<img src="/assets/common/ticket.webp" alt="unit" />.
             </div>
           </div>
           <div className='rules-list'>
             <div className='rules-list-title'>Additional Incentives</div>
-            <div className='rules-desc'>
+            <div className='rules-desc-special'>
               Get {systemConfig?.invite_friends_ratio}% of Your Fren's
-              &nbsp;<img src="/assets/tomato-32x32.webp" alt="unit" />
+              &nbsp;<img src="/assets/common/cat.webp" alt="unit" />
               &nbsp;Yields in Rewards
             </div>
           </div>

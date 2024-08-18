@@ -16,6 +16,7 @@ export default class MainGame extends Phaser.Scene {
         fontSize: 20,
         color: '#000000',
         fontStyle: 'bold',
+
     };
     constructor() {
         super('MainGame');
@@ -44,7 +45,7 @@ export default class MainGame extends Phaser.Scene {
         this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight)
         // 倒计时背景框
         const graphics = this.add.graphics({ x: 50, y: 50 }).setDepth(1000);
-        graphics.fillStyle(0xffffff, 0.3);
+        graphics.fillStyle(0xffffff, 0.8);
 
         graphics.fillRoundedRect(0, 0, 70, 30, 12).setPosition(10, 5);
 
@@ -52,8 +53,9 @@ export default class MainGame extends Phaser.Scene {
 
         // 倒计时和得分
         this.timerText = this.add.text(45, 20, `${this.timerCount}:00`, this.fontStyle).setOrigin(0.5, 0.5).setDepth(1000);
-        this.scoreText = this.add.text(width - 30, 20, `${this.score}`, this.fontStyle).setOrigin(0.5, 0.5).setDepth(1000);
-        this.add.image(width - 60, 20, 'tomato').setScale(0.7, 0.7).setDepth(1000)
+        this.scoreText = this.add.text(width - 30, 20, `${this.score}`, { ...this.fontStyle, color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(1000);
+        this.scoreText.setShadow(1, 1, '#000000', 2);
+        this.add.image(width - 60, 20, 'cat').setScale(0.5, 0.5).setDepth(1000)
 
         EventBus.emit('current-scene-ready', this);
         // 延时1秒后执行
@@ -78,101 +80,106 @@ export default class MainGame extends Phaser.Scene {
         }, 150);
     }
     autoCreateIcon() {
-        let type = 'tomato'
-        let speed = Math.max(Math.random() * 5, 1)
-        let iconWidth = Math.random() * 80 + 30
-        const tomatoWidth = 32
-        const random = Math.random()
-        if (random < 0.95) {
-            type = 'tomato'
-        } else if (random < 0.98) {
-            // 不让同屏出现两个冻结
-            if (!this.images.filter(item => { return item.type == 'freeze' }).length) {
-                type = 'freeze'
+        try {
+            let type = 'cat'
+            let speed = Math.max(Math.random() * 5, 1)
+            let iconWidth = Math.random() * 80 + 30
+            const tomatoWidth = 170
+            const random = Math.random()
+            if (random < 0.95) {
+                type = 'cat'
+            } else if (random < 0.98) {
+                // 不让同屏出现两个冻结
+                if (!this.images.filter(item => { return item.type == 'freeze' }).length) {
+                    type = 'freeze'
+                    iconWidth = 40 * (Math.random() + 1)
+                    speed = 2.5
+                }
+            } else {
+                type = 'boom'
                 iconWidth = 40 * (Math.random() + 1)
                 speed = 2.5
             }
-        } else {
-            type = 'boom'
-            iconWidth = 40 * (Math.random() + 1)
-            speed = 2.5
-        }
 
-        let iconX = Math.random() * this.width
-        if (iconX < iconWidth / 2) {
-            iconX = iconWidth / 2 + 12
-        }
-        if (iconX > this.width - iconWidth / 2) {
-            iconX = this.width - iconWidth / 2 - 12
-        }
-        let score = 1
-        if (iconWidth > 40) {
-            score = 2
-        }
-        if (iconWidth > 60) {
-            score = 3
-        }
-        if (iconWidth > 80) {
-            score = 5
-        }
+            let iconX = Math.random() * this.width
+            if (iconX < iconWidth / 2) {
+                iconX = iconWidth / 2 + 12
+            }
+            if (iconX > this.width - iconWidth / 2) {
+                iconX = this.width - iconWidth / 2 - 12
+            }
+            let score = 1
+            if (iconWidth > 40) {
+                score = 2
+            }
+            if (iconWidth > 60) {
+                score = 3
+            }
+            if (iconWidth > 80) {
+                score = 5
+            }
 
-        const icon = this.add.image(iconX, 0, type).setInteractive().setScale(iconWidth / 160, iconWidth / 160).setDepth(10)
-        if (type == 'tomato') {
-            icon.setScale(iconWidth / tomatoWidth, iconWidth / tomatoWidth).setDepth(5)
-        }
+            let icon;
+            if (type == 'cat') {
+                icon = this.add.image(iconX, 0, 'game-cat').setInteractive().setScale(iconWidth / tomatoWidth, iconWidth / tomatoWidth).setDepth(10)
+            } else {
+                icon = this.add.image(iconX, 0, type).setInteractive().setScale(iconWidth / 200, iconWidth / 200).setDepth(10)
+            }
 
-        this.images.push({
-            icon: icon,
-            speed: speed,
-            maxY: this.height + 200,
-            type: type,
-        })
-        icon.on('pointerdown', () => {
-            if (type == 'boom') {
-                this.shake()
-                this.score = Math.max(this.score - 200, 0)
-                this.scoreText.setText(this.score).setColor('#ffffff')
-                const bgWidth = 1125
-                const bgHeight = 2115
-                const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
-                setTimeout(() => {
-                    boomBgImg.destroy()
-                    this.scoreText.setColor('#000000')
-                }, 1000);
-            }
-            if (type == 'freeze') {
-                this.freeze = true
-                this.timerCount = Math.round((this.timer.delay - this.timer.elapsed) / 1000)
-                this.time.removeEvent(this.timer)
-                this.timer = null
-                clearInterval(this.autoCreateTimer)
-                const bgWidth = 1125
-                const bgHeight = 2115
-                const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
-                EventBus.emit('execTypeCmd', type)
-                setTimeout(() => {
-                    this.reStart()
-                    boomBgImg.destroy()
-                    EventBus.emit('execTypeCmd', '')
-                }, 4000);
-            }
-            if (type == 'tomato') {
-                const scoreTextTween = this.add.text(icon.x, icon.y, `+${score}`, { fontSize: 24, color: '#ffffff', stroke: '#000000', strokeThickness: 2, fontStyle: 'bold' }).setDepth(10)
-                this.add.tween({
-                    targets: scoreTextTween,
-                    alpha: { from: 1, to: 0 },
-                    ease: 'Linear',
-                    duration: 1000,
-                })
-                this.score += score
-                this.scoreText.setText(this.score)
-                EventBus.emit('execBoom', { left: icon.x, top: icon.y, show: true })
-                setTimeout(() => {
-                    EventBus.emit('execBoom', { left: icon.x, top: icon.y, show: false })
-                }, 300);
-            }
-            icon.destroy()
-        })
+            this.images.push({
+                icon: icon,
+                speed: speed,
+                maxY: this.height + 200,
+                type: type,
+            })
+            icon.on('pointerdown', () => {
+                if (type == 'boom') {
+                    this.shake()
+                    this.score = Math.max(this.score - 200, 0)
+                    this.scoreText.setText(this.score).setColor('#ffffff')
+                    const bgWidth = 1125
+                    const bgHeight = 2115
+                    const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
+                    setTimeout(() => {
+                        boomBgImg.destroy()
+                    }, 1000);
+                }
+                if (type == 'freeze') {
+                    this.freeze = true
+                    this.timerCount = Math.round((this.timer.delay - this.timer.elapsed) / 1000)
+                    this.time.removeEvent(this.timer)
+                    this.timer = null
+                    clearInterval(this.autoCreateTimer)
+                    const bgWidth = 1125
+                    const bgHeight = 2115
+                    const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
+                    EventBus.emit('execTypeCmd', type)
+                    setTimeout(() => {
+                        this.reStart()
+                        boomBgImg.destroy()
+                        EventBus.emit('execTypeCmd', '')
+                    }, 4000);
+                }
+                if (type == 'cat') {
+                    const scoreTextTween = this.add.text(icon.x, icon.y, `+${score}`, { fontSize: 24, color: '#ffffff', stroke: '#000000', strokeThickness: 2, fontStyle: 'bold' }).setDepth(10)
+                    this.add.tween({
+                        targets: scoreTextTween,
+                        alpha: { from: 1, to: 0 },
+                        ease: 'Linear',
+                        duration: 1000,
+                    })
+                    this.score += score
+                    this.scoreText.setText(this.score)
+                    EventBus.emit('execBoom', { left: icon.x, top: icon.y, show: true })
+                    setTimeout(() => {
+                        EventBus.emit('execBoom', { left: icon.x, top: icon.y, show: false })
+                    }, 300);
+                }
+                icon.destroy()
+            })
+        } catch {
+            clearInterval(this.autoCreateTimer)
+        }
     }
 
     shake() {
@@ -202,7 +209,7 @@ export default class MainGame extends Phaser.Scene {
                         if (item.icon.y > item.maxY) {
                             this.images.splice(index, 1)
                         }
-                        if (item.type !== 'tomato') {
+                        if (item.type !== 'cat') {
                             item.icon.rotation += Math.random() * 0.05
                         }
                     })
@@ -212,7 +219,8 @@ export default class MainGame extends Phaser.Scene {
     }
 
     async gameOver() {
-        this.time.removeEvent(this.timer)
+        this.time.removeAllEvents()
+        clearInterval(this.autoCreateTimer)
         localStorage.setItem('currentScore', this.score)
         setTimeout(() => {
             this.scene.start('GameOver')

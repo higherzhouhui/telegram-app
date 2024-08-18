@@ -14,12 +14,14 @@ export class Preloader extends Scene {
 
     preload() {
         // main
-        this.load.setPath('assets/');
-        this.load.image('tomato', 'tomato-32x32.webp')
-        this.load.image('freezeBg', 'bg-time-CYBkBj7x.webp')
-        this.load.image('boomBg', 'bg-penalty-DosdTnzw.webp')
-        this.load.image('freeze', 'time-CffWGaET.gif')
-        this.load.image('boom', 'penalty-vbtx_mmt.gif')
+        this.load.setPath('assets/game');
+        this.load.image('game-cat', 'game-cat.png')
+        this.load.image('cat', 'cat.png')
+        this.load.image('unit', 'unit.png')
+        this.load.image('freezeBg', 'freezeBg.png')
+        this.load.image('boomBg', 'boomBg.png')
+        this.load.image('freeze', 'freeze.gif')
+        this.load.image('boom', 'boom.gif')
     }
 
     create() {

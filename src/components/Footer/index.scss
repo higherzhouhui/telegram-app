@@ -1,7 +1,6 @@
 .footer {
-  background: #f5f5f5;
+  background: #2F2F2F;
   padding: 0.5rem 0;
-  border-top: 1px solid #999;
   min-height: fit-content;
   .list {
     display: flex;
@@ -16,29 +15,28 @@
       text-align: center;
       cursor: pointer;
     }
-
+    .title {
+      color: #fff;
+      font-size: 0.9rem;
+      line-height: 1rem;
+    }
+    svg {
+      fill: #fff;
+    }
     .active {
       svg {
-        fill: #000;
+        fill: var(--btnBg);
       }
 
-      p {
-        color: #000;
-        font-weight: bold;
+      .title {
+        color: var(--btnBg);
       }
     }
 
     svg {
       width: 26px;
       height: 26px;
-      fill: #857f7f;
-    }
-
-    p {
-      color: #857f7f;
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.4rem;
+      fill: #fff;
     }
   }
 }

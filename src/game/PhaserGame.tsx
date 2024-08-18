@@ -76,12 +76,12 @@ export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(function PhaserGame
         <div ref={gameWrapper}>
             <div id='game-container' />
             <div className='freeze-gif' style={{ opacity: execTypeCmd == 'freeze' ? 1 : 0, zIndex: execTypeCmd == 'freeze' ? 10 : -1 }}>
-                <img src='/assets/dec-time-BT6zB6Ta.gif' alt='gif' className='tl' />
-                <img src='/assets/dec-time-BT6zB6Ta.gif' alt='gif' className='tr' />
-                <img src='/assets/dec-time-BT6zB6Ta.gif' alt='gif' className='bl' />
-                <img src='/assets/dec-time-BT6zB6Ta.gif' alt='gif' className='br' />
+                <img src='/assets/game/freezeAg.gif' alt='gif' className='tl' />
+                <img src='/assets/game/freezeAg.gif' alt='gif' className='tr' />
+                <img src='/assets/game/freezeAg.gif' alt='gif' className='bl' />
+                <img src='/assets/game/freezeAg.gif' alt='gif' className='br' />
             </div>
-            <img src='/assets/effect-qVjb36sg.gif' alt='boom' className='get-score' style={{ left: clickTomato.left, top: clickTomato.top, opacity: clickTomato.show ? 1 : 0, zIndex: clickTomato ? 10 : -1 }} />
+            <img src='/assets/game/click.gif' alt='boom' className='get-score' style={{ left: clickTomato.left, top: clickTomato.top, opacity: clickTomato.show ? 1 : 0, zIndex: clickTomato ? 10 : -1 }} />
         </div>
     );
 });

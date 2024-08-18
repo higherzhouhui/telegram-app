@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 import EventBus from '@/utils/eventBus'
 
-export default function ({ handleCallBack }: { handleCallBack: () => void }) {
+function CheckInPage({ handleCallBack }: { handleCallBack: () => void }) {
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance()
   const [checkObj, setCheckObj] = useState<any>()
@@ -17,7 +17,9 @@ export default function ({ handleCallBack }: { handleCallBack: () => void }) {
     const res = await userCheckReq()
     setCheckObj(res.data)
     dispatch(setUserInfoAction(res.data))
-    eventBus.emit('showCongrates', true)
+    setTimeout(() => {
+      eventBus.emit('showCongrates', true)
+    }, 2000);
   }
 
   const handleContinue = () => {
@@ -35,13 +37,13 @@ export default function ({ handleCallBack }: { handleCallBack: () => void }) {
     if (checkObj?.day) {
       setTimeout(() => {
         setChangeScale(true)
-      }, 3000);
+      }, 4000);
     }
   }, [checkObj])
 
   return <div className='checkIn-container'>
     <div className='checkIn-first'>
-      <img src='/assets/hooray-8Kybc2vw.gif' alt='hooray' className={`hooray ${changeScale ? 'change-hooray' : ''}`} />
+      <img src='/assets/common/gift.webp' alt='hooray' className={`hooray ${changeScale ? 'change-hooray' : ''}`} />
       <div className={`daily-reward ${changeScale ? 'change-daily' : ''}`}>
         {
           !changeScale ? <div className='day'>
@@ -53,7 +55,7 @@ export default function ({ handleCallBack }: { handleCallBack: () => void }) {
       {
         !changeScale ? <div className={`rewards-container ${checkObj?.reward_score ? 'fadeIn' : ''}`}>
           <span>Rewards</span>
-          <img src="/assets/tomato-32x32.webp" alt="logo" className='rewards-logo' />
+          <img src="/assets/common/cat.webp" alt="logo" className='rewards-logo' />
           {checkObj?.reward_score}
         </div> : null
       }
@@ -61,12 +63,12 @@ export default function ({ handleCallBack }: { handleCallBack: () => void }) {
         <div className='rewards-detail-top'>
           <div className='rewards-two'>
             <div className='rewards-one'>
-              <img src='/assets/tomato-32x32.webp' alt='logo' />
+              <img src='/assets/common/cat.webp' alt='logo' />
               <div className='reward-number'>{checkObj?.reward_score}</div>
-              <div className='unit'>$TOMATO</div>
+              <div className='unit'>$CAT</div>
             </div>
             <div className='rewards-one'>
-              <img src='/assets/ticket-32x32.webp' alt='logo' />
+              <img src='/assets/common/ticket.webp' alt='logo' />
               <div className='reward-number'>{checkObj?.reward_ticket}</div>
               <div className='unit'>Tickets</div>
             </div>
@@ -84,12 +86,12 @@ export default function ({ handleCallBack }: { handleCallBack: () => void }) {
                     {
                       checkObj?.day > index ? <img src="/assets/toast-success.webp" alt="check" /> : <>
                         <div className='score-ticket'>
-                          {formatNumber(item.score, 0)}
-                          <img src='/assets/tomato-32x32.webp' alt='logo' />
+                          {formatNumber(item.score, 0)}&nbsp;
+                          <img src='/assets/common/cat.webp' alt='logo' />
                         </div>
-                        <div className='score-ticket'>
-                          {item.ticket}
-                          <img src='/assets/ticket-32x32.webp' alt='logo' />
+                        <div className='score-ticket ticket-pic'>
+                          {item.ticket}&nbsp;
+                          <img src='/assets/common/ticket.webp' alt='logo' />
                         </div>
                       </>
                     }
@@ -106,3 +108,5 @@ export default function ({ handleCallBack }: { handleCallBack: () => void }) {
     </div>
   </div>
 }
+
+export default CheckInPage

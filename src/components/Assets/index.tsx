@@ -18,6 +18,8 @@ export default function MyAsset() {
   }, []);
 
   useEffect(() => {
+    console.log(walletType)
+    console.log(walletInfo)
     if (walletType !== WalletTypeEnum.aa) {
       navigate('/')
     }

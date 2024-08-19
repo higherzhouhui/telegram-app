@@ -100,7 +100,7 @@ function GamePage() {
             <div className='score-wrapper'>
               <span>+</span>
               <span>{score} </span>
-              <img src="/assets/tomato-32x32.webp" alt="tomato" />
+              <img src="/assets/common/cat.webp" alt="tomato" />
             </div>
           </div>
           <div className='game-over-bots'>
@@ -133,7 +133,7 @@ function GamePage() {
             <div className='score-wrapper'>
               <span>+</span>
               <span>{score} </span>
-              <img src="/assets/tomato-32x32.webp" alt="tomato" />
+              <img src="/assets/common/cat.webp" alt="tomato" />
             </div>
             <div>I scored {score} points in Tomato Game!</div>
             <div>I dare you to challenge me!</div>

@@ -183,7 +183,7 @@ export const HomePage: FC = () => {
       <div className='top-title'>
         <div className='score'>{userInfo?.score?.toLocaleString()}</div>
         <div className='unit'>
-          <img src='/assets/tomato-32x32.webp' alt='unit' />
+          <img src='/assets/common/cat.webp' alt='unit' />
           <span>$CAT</span>
         </div>
         <div className={`add-score ${shakeTree ? 'fadeOut' : ''}`}>
@@ -232,7 +232,7 @@ export const HomePage: FC = () => {
                     &nbsp;&nbsp;Harvest
                   </div> : 'Farming'
               }</span>
-              <img src='/assets/tomato-32x32.webp' alt='logo' />
+              <img src='/assets/common/cat.webp' alt='logo' />
               <span className='btn-number'>{farmObj.score} / 1080</span>
               {
                 farmObj.score != 1080 ? <div className='left-time'>{farmObj.leftTime}m</div> : null
@@ -261,19 +261,19 @@ export const HomePage: FC = () => {
             <div className='popup-rule-content-title'>
               <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5414" width="16" height="16"><path d="M845.902988 0.000232H178.097244A177.864812 177.864812 0 0 0 0.000232 178.097244v667.805744a177.864812 177.864812 0 0 0 178.097012 178.097012h667.805744a177.864812 177.864812 0 0 0 178.097012-178.097012V178.097244A177.864812 177.864812 0 0 0 845.902988 0.000232zM512.000116 911.615445A75.929234 75.929234 0 1 1 587.929351 835.91841a77.090232 77.090232 0 0 1-75.929235 75.697035z m75.929235-340.172258v51.548287a75.929234 75.929234 0 0 1-151.858469 0v-114.938749a75.697035 75.697035 0 0 1 75.929234-75.929235A84.056217 84.056217 0 1 0 428.176099 348.299473a76.161434 76.161434 0 1 1-152.090669 0 235.914686 235.914686 0 1 1 311.843921 223.375913z" fill="#040000" p-id="5415"></path></svg>
               How to Earn
-              <img src='/assets/tomato-32x32.webp' alt='logo' width={16} height={16} />
+              <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} />
             </div>
             <ul>
-              <li>Check in daily to get <img src='/assets/tomato-32x32.webp' alt='logo' width={16} height={16} /> and an additional <img src='/assets/tomato-32x32.webp' alt='logo' width={16} height={16} /> if you do it consecutively!</li>
-              <li>Grow your tomatoes to harvest <img src='/assets/tomato-32x32.webp' alt='logo' width={16} height={16} /> rewards!</li>
-              <li>Check in daily to receive <img src='/assets/ticket-32x32.webp' alt='logo' width={16} height={16} /> and earn more <img src='/assets/tomato-32x32.webp' alt='logo' width={16} height={16} />.</li>
-              <li>Invite frens to earn more <img src='/assets/tomato-32x32.webp' alt='logo' width={16} height={16} />.</li>
+              <li>Check in daily to get <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} /> and an additional <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} /> if you do it consecutively!</li>
+              <li>Grow your tomatoes to harvest <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} /> rewards!</li>
+              <li>Check in daily to receive <img src='/assets/common/ticket.webp' alt='logo' width={16} height={16} /> and earn more <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} />.</li>
+              <li>Invite frens to earn more <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} />.</li>
               <li>
                 <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3174" data-spm-anchor-id="a313x.search_index.0.i5.2b3c3a81TUgFeH" width="16" height="16"><path d="M42.666667 896l938.666667 0-469.333333-810.666667-469.333333 810.666667zM554.666667 768l-85.333333 0 0-85.333333 85.333333 0 0 85.333333zM554.666667 597.333333l-85.333333 0 0-170.666667 85.333333 0 0 170.666667z" fill="#ecc115" p-id="3175" data-spm-anchor-id="a313x.search_index.0.i0.2b3c3a81TUgFeH" ></path></svg>
-                &nbsp;<img src='/assets/ticket-32x32.webp' alt='logo' width={16} height={16} /> will be reset at 8:00 AM (UTC+8) every day!</li>
+                &nbsp;<img src='/assets/common/ticket.webp' alt='logo' width={16} height={16} /> will be reset at 8:00 AM (UTC+8) every day!</li>
               <li>
                 <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3174" data-spm-anchor-id="a313x.search_index.0.i5.2b3c3a81TUgFeH" width="16" height="16"><path d="M42.666667 896l938.666667 0-469.333333-810.666667-469.333333 810.666667zM554.666667 768l-85.333333 0 0-85.333333 85.333333 0 0 85.333333zM554.666667 597.333333l-85.333333 0 0-170.666667 85.333333 0 0 170.666667z" fill="#ecc115" p-id="3175" data-spm-anchor-id="a313x.search_index.0.i0.2b3c3a81TUgFeH" ></path></svg>
-                &nbsp;Harvest your ripe <img src='/assets/tomato-32x32.webp' alt='logo' width={16} height={16} /> within 6 hours!</li>
+                &nbsp;Harvest your ripe <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} /> within 6 hours!</li>
             </ul>
           </div>
         </div>

@@ -70,7 +70,7 @@ function TaskPage() {
                 <div className='middle-name'>{item.name}</div>
                 <div className='reward'>
                   <span>+{item.score.toLocaleString()}</span>
-                  &nbsp;<img src='/assets/tomato-32x32.webp' alt='tomato' className='unit-img' />
+                  &nbsp;<img src='/assets/common/cat.webp' alt='tomato' className='unit-img' />
                   &nbsp;$CAT
                 </div>
               </div>

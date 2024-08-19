@@ -29,12 +29,6 @@ html::-webkit-scrollbar {
   display: none;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 
 
 code {
@@ -88,6 +82,7 @@ code {
   --textColor: #fff;
   --btnBg: #FFBE1D;
   --highColor: #FFF200;
+  --tgui--text_color: '#000';
 }
 html {
   font-size: 12px;
@@ -97,6 +92,12 @@ html {
   }
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body,
 #root {
   height: 100%;
@@ -104,7 +105,7 @@ body,
   background: var(--bgColor);
   font-size: 1rem;
   overflow: hidden;
-  color: var(--textColor)!important;
+  color: var(--tgui--text_color);
 }
 
 

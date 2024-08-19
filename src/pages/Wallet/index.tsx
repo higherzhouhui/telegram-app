@@ -27,7 +27,7 @@ function WalletPage() {
         isConnected ? <div className='chain' onClick={() => handleCopyLink(loginConfig.CHAIN_ID)}>Network: {loginConfig.CHAIN_ID}</div> : null
       }
       {
-        isConnected ? <div className='wallet-address' onClick={() => handleCopyLink(userInfo.wallet)}>Address: {formatWalletAddress(userInfo.wallet)}</div> : <Button onClick={onConnectBtnClickHandler} style={{ marginTop: '1rem' }}>connect</Button>
+        isConnected ? <div className='wallet-address' onClick={() => handleCopyLink(userInfo.wallet)}>Address: {formatWalletAddress(userInfo.wallet)}</div> : <Button onClick={onConnectBtnClickHandler} style={{ marginTop: '1rem' }}><span color='#000'>connect</span></Button>
       }
     </div>
     <div className='happing'>What's happening?</div>

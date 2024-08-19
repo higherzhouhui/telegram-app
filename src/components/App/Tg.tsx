@@ -45,6 +45,9 @@ const TgApp: FC = () => {
   }, [themeParams]);
 
   useEffect(() => {
+    if (!viewport?.isExpanded) {
+      viewport?.expand(); // will expand the Mini App, if it's not
+    }
     return viewport && bindViewportCSSVars(viewport);
   }, [viewport]);
   const eventBus = EventBus.getInstance()
@@ -78,7 +81,7 @@ const TgApp: FC = () => {
         <Footer />
         <Congrates visible={isShowCongrates} callBack={() => setShowCongrates(false)} />
       </div>
-    </AppRoot>
+    </AppRoot >
   );
 };
 

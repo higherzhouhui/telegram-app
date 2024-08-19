@@ -52,7 +52,7 @@ if (import.meta.env.DEV) {
         sectionBgColor: '#17212b',
         sectionHeaderTextColor: '#6ab3f3',
         subtitleTextColor: '#708499',
-        textColor: '#f5f5f5',
+        textColor: '#000',
       },
       initData: parseInitData(initDataRaw),
       initDataRaw,

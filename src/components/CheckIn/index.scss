@@ -26,19 +26,19 @@
     }
     .day {
       text-align: center;
-      font-size: 2.5rem;
+      font-size: 3rem;
       color: #FFF200;
       animation: displayNone forwards 0.2s 4s;
     }
 
     .daily-reward {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       font-family: 'bold';
       animation: scaleBig forwards 1s;
       transition: all 1s;
     }
     .change-daily {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
     }
     .rewards-container {
       background: #515151;
@@ -99,18 +99,20 @@
       }
       .reward-number {
         color: var(--highColor);
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         font-weight: bold;
         font-family: 'number';
         margin-top: 8px;
       }
       .unit {
         margin-top: 5px;
+        font-size: 1.2rem;
       }
     }
   }
   .check-in-title {
     margin: 2rem 0 1rem 0;
+    font-size: 1.2rem;
   }
   .rewards-list {
     display: grid;
@@ -124,13 +126,13 @@
       padding: 0.7rem 0.8rem;
       align-items: center;
       font-family: 'number';
+      font-size: 1.2rem;
       .desc {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-family: 'regular';
       }
       .rewards-item-right {
         line-height: 16px;
-        font-size: 0.9rem;
         .score-ticket {
           display: flex;
           align-items: center;

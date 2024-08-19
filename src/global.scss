@@ -85,22 +85,10 @@ code {
   --elevation-dark-1: 0px 10px 60px rgba(0, 0, 0, .7);
   --tg-theme-button-color: red;
   --bgColor: #181818;
-  --color: #fff;
+  --textColor: #fff;
   --btnBg: #FFBE1D;
   --highColor: #FFF200;
 }
-
-html,
-body,
-#root {
-  height: 100%;
-  font-family: 'Regular';
-  background: var(--bgColor);
-  font-size: 1rem;
-  overflow: hidden;
-  color: var(--color);
-}
-
 html {
   font-size: 12px;
 
@@ -108,6 +96,18 @@ html {
     font-size: 14px;
   }
 }
+
+body,
+#root {
+  height: 100%;
+  font-family: 'Regular';
+  background: var(--bgColor);
+  font-size: 1rem;
+  overflow: hidden;
+  color: var(--textColor)!important;
+}
+
+
 
 
 .fadeIn {

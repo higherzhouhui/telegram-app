@@ -5,7 +5,7 @@ import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import { PortkeyDid } from '@aelf-web-login/wallet-adapter-bridge';
 import { ExtraInfoForPortkeyAA } from './type';
 import { useNavigate } from 'react-router-dom';
-
+import './index.scss'
 export default function MyAsset() {
   const navigate = useNavigate()
   const { walletType, walletInfo } = useConnectWallet();
@@ -34,7 +34,7 @@ export default function MyAsset() {
   }
 
   return (
-    <div className={styles['my-asset-wrapper']}>
+    <div className='my-asset-wrapper'>
       <PortkeyDid.PortkeyAssetProvider
         originChainId={portkeyAAInfo?.portkeyInfo?.chainId}
         pin={portkeyAAInfo?.portkeyInfo?.pin}>

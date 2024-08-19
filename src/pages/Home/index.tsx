@@ -86,8 +86,8 @@ export const HomePage: FC = () => {
 
   const handleHarvest = async () => {
     if (farmObj.score == 1080) {
-      await getRewardFarming()
       eventBus.emit('showCongrates', true)
+      await getRewardFarming()
     }
   }
 

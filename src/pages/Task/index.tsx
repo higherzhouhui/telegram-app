@@ -65,7 +65,7 @@ function TaskPage() {
         list.map((item: any, index) => {
           return <div key={index} className='task-list-item'>
             <div className='task-list-left'>
-              <img src={`/assets/${item.type}.png`} alt={item.type} className='type-img' />
+              <img src={`/assets/task/${item.type}.png`} alt={item.type} className='type-img' />
               <div className='middle'>
                 <div className='middle-name'>{item.name}</div>
                 <div className='reward'>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import BackTop from "@/components/BackTop"
 import './index.scss'
+import { useNavigate } from "react-router-dom"
 export default function LeaderBoard() {
   const userInfo = useSelector((state: any) => state.user.info);
   const [total, setTotal] = useState('10.00M')
@@ -14,7 +15,7 @@ export default function LeaderBoard() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   async function loadMore() {
     const append = await getList()
     if (page == 1) {
@@ -45,7 +46,7 @@ export default function LeaderBoard() {
 
   return <div className="LeaderBoard fadeIn">
     <div className="title">Telegram Wall of Fame</div>
-    <div className="myself">
+    <div className="myself" onClick={() => navigate('/frens-detail?myself=true')}>
       <div className="left">
         <div className="icon" style={{ background: stringToColor(userInfo?.username) }}>
           {userInfo?.username?.slice(0, 2)}

@@ -18,7 +18,7 @@ function WalletPage() {
   };
 
   return <div className='wallet-page fadeIn'>
-    <img src="/assets/wallet.png" alt="wallet" className='wallet-img' />
+    <img src="/assets/wallet-1.png" alt="wallet" className='wallet-img' />
     <div className='wallet-page-title'>The time has come.</div>
     <div className='connect-wrapper'>
       <img src="/assets/money.png" alt="wallet" width={32} />

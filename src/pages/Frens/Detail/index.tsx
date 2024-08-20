@@ -1,7 +1,7 @@
 import { InfiniteScroll, List } from 'antd-mobile'
 import './index.scss'
 import { useEffect, useState } from 'react'
-import { getSubUserListReq } from '@/api/common'
+import { getMyScoreHistoryReq, getSubUserListReq } from '@/api/common'
 import { useLocation } from 'react-router-dom'
 import { stringToColor } from '@/utils/common'
 import moment from 'moment'
@@ -13,8 +13,15 @@ function FrensDetailPage() {
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
   const myLocation = useLocation()
-  const getList = async () => {
-    const res = await getSubUserListReq({ page })
+  const [isMyself, setIsMyself] = useState(false)
+
+  const getList = async (mySelf: boolean) => {
+    let res: any
+    if (mySelf) {
+      res = await getMyScoreHistoryReq({ page })
+    } else {
+      res = await getSubUserListReq({ page })
+    }
     setPage((page => page + 1))
     return res.data.rows
   }
@@ -37,7 +44,16 @@ function FrensDetailPage() {
     return type
   }
   async function loadMore() {
-    const append = await getList()
+    const search = myLocation.search
+    let isMyself = false
+    if (search) {
+      if (search.includes('myself')) {
+        isMyself = true
+      }
+    }
+
+
+    const append = await getList(isMyself)
     if (page == 1) {
       if (append.length < 20) {
         setHasMore(false)
@@ -52,12 +68,24 @@ function FrensDetailPage() {
     const search = myLocation.search
     if (search) {
       const _total = search.replace('?total=', '') as any
-      setTotal(_total)
+      if (_total) {
+        setTotal(_total)
+      }
+      if (search.includes('myself')) {
+        setIsMyself(true)
+      } else {
+        setIsMyself(false)
+      }
     }
+
   }, [])
 
   return <div className="frens-detail-page">
-    <div className="frens-title"><span>{total}&nbsp;</span>frens</div>
+    <div className="frens-title">
+      {
+        isMyself ? <span>My Scores</span> : <span>{total}&nbsp;frens</span>
+      }
+    </div>
     <List>
       {
         list.map((item, index) => {

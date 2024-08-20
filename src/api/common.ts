@@ -31,6 +31,14 @@ export const getSubUserListReq = (params: any) => {
     params,
   });
 };
+export const getMyScoreHistoryReq = (params: any) => {
+  return service<any>({
+    url: '/user/getMyScoreHistory',
+    method: 'GET',
+    params,
+  });
+};
+
 
 export const getSubUserTotalReq = () => {
   return service<any>({

@@ -112,7 +112,7 @@ export default class MainGame extends Phaser.Scene {
         const bgHeight = 2297
         this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight).setInteractive;
         this.volumeButton()
-        this.closeButton(width)
+        // this.closeButton(width)
         this.circle1 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0xf8960e);
         this.circle2 = this.add.circle(0, 0, 36).setStrokeStyle(3, 0x00ff00);
 
@@ -138,7 +138,7 @@ export default class MainGame extends Phaser.Scene {
 
 
         this.timerText = this.add.text(50, 70, '30:00', this.fontStyle).setOrigin(0.5, 0.5);
-        this.scoreText = this.add.text(width - 60, 70, `Found:${this.score}`, { ...this.fontStyle, color: '#ff0000' }).setOrigin(0.5, 0.5);
+        this.scoreText = this.add.text(width - 60, 70, `Score:${this.score}`, { ...this.fontStyle, color: '#ff0000' }).setOrigin(0.5, 0.5);
 
         // 假设 game 是 Phaser 游戏实例
         let graphics = this.add.graphics();
@@ -246,7 +246,7 @@ export default class MainGame extends Phaser.Scene {
 
         this.score++;
 
-        this.scoreText.setText('Found: ' + this.score);
+        this.scoreText.setText('Score: ' + this.score * 100);
 
         this.circle1.setStrokeStyle(3, 0xf8960e);
 
@@ -341,65 +341,11 @@ export default class MainGame extends Phaser.Scene {
         //  Show them where the match actually was
         this.circle1.setStrokeStyle(4, 0xfc29a6).setPosition(this.child1.x, this.child1.y).setVisible(true);
         this.circle2.setStrokeStyle(4, 0xfc29a6).setPosition(this.child2.x, this.child2.y).setVisible(true);
-        this.time.removeEvent(this.timer)
-        this.isStart = false
-        this.input.off('gameobjectdown', this.selectEmoji, this);
-
-        this.registry.set('found', this.score);
-
-        this.totalScore = this.registry.get('totalScore')
-        const res: any = await endGameReq({ found: this.score })
-        if (res.code == 0) {
-            const data = res.data
-            this.registry.set('totalScore', data.score)
-            this.registry.set('maxScore', data.game_max_score)
-            this.newTotalScore = data.score
-        } else {
-            console.error(res.msg)
-        }
-
-        this.tweens.add({
-            targets: [this.circle1, this.circle2],
-            alpha: 0,
-            yoyo: true,
-            repeat: 2,
-            duration: 250,
-            ease: 'sine.inout',
-            onComplete: () => {
-                const gameOverText = this.add.text(this.width / 2, this.height / 2, 'Game Over', {
-                    fontFamily: 'Arial Black', fontSize: 50, color: '#ffffff',
-                    stroke: '#000000', strokeThickness: 8,
-                    align: 'center'
-                }).setOrigin(0.5, 0.5).setDepth(100);
-
-
-                this.tweens.add({
-                    targets: gameOverText,
-                    angle: { from: 0, to: 360 },
-                    ease: 'Linear',
-                    duration: 1000,
-                    complete: () => {
-
-                        const addFenText = this.add.text(this.width / 2, this.height / 2 - 220, `+${this.newTotalScore - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);
-                        this.tweens.add({
-                            targets: addFenText,
-                            alpha: { from: 1, to: 0 },
-                            duration: 2000,
-                        });
-
-                        this.totalScoreText = this.add.text(this.width / 2, this.height / 2 - 200, `Score:${this.totalScore}`, {
-                            fontFamily: 'Arial Black', fontSize: 32, color: '#ffffff',
-                            stroke: '#000000', strokeThickness: 4,
-                            align: 'center'
-                        }).setOrigin(0.5, 0.5).setDepth(60);
-                    }
-                })
-                this.input.once('pointerdown', () => {
-                    this.score = 0
-                    this.totalScoreText = undefined
-                    this.scene.start('MainMenu');
-                }, this);
-            }
-        });
+        this.time.removeAllEvents()
+        this.timer = null
+        setTimeout(() => {
+            localStorage.setItem('currentScore', this.score)
+            this.scene.start('GameOver')
+        }, 1000);
     }
 }

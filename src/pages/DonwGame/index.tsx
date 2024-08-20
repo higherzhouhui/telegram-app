@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
+import { useRef, useState } from 'react';
+import { IRefPhaserGame, PhaserGame } from '@/otherGame/PhaserGame';
 import './index.scss'
 import { Popup, Toast } from 'antd-mobile';
 import { initUtils } from '@telegram-apps/sdk';
@@ -78,25 +78,6 @@ function GamePage() {
     const text = `I scored ${score} points in Cat Game!\nI dare you to challenge me!\nFarm 🍅 $CAT with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $CAT!`
     utils.shareURL(link, text)
   }
-
-  const changeTotalScore = () => {
-
-    if (phaserRef.current) {
-      const scene = phaserRef.current.scene;
-      if (scene) {
-        if (currentScene == 'MainMenu') {
-          let mainScene = scene as any
-          mainScene.showTotal(userInfo)
-        }
-
-      }
-    }
-  }
-
-  useEffect(() => {
-    changeTotalScore()
-  }, [phaserRef.current?.scene])
-
 
   return (
     <div className='game-wrapper'>

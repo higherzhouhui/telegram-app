@@ -15,7 +15,13 @@ export const updateUserReq = (data: any) => {
     data,
   });
 };
-
+export const getMyScoreHistoryReq = (params: any) => {
+  return service<any>({
+    url: '/user/getMyScoreHistory',
+    method: 'GET',
+    params,
+  });
+};
 export const getUserListReq = (params: any) => {
   return service<any>({
     url: '/user/list',

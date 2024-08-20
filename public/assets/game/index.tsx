@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
 import './index.scss'
 import { Popup, Toast } from 'antd-mobile';
@@ -7,7 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { beginGameReq, endGameReq } from '@/api/game';
 import { setUserInfoAction } from '@/redux/slices/userSlice';
+import loginConfig from "@/constants/config/login.config";
 import EventBus from '@/utils/eventBus';
+import Loading from '@/components/Loading';
 
 function GamePage() {
   //  References to the PhaserGame component (game and scene are exposed)
@@ -15,7 +17,7 @@ function GamePage() {
   const userInfo = useSelector((state: any) => state.user.info);
   const [currentScene, setCurrentScene] = useState('Preloader')
   const [score, setScore] = useState(0)
-  const link = `https://t.me/HamstersTon_bot/Hamster?startapp=${btoa(userInfo.user_id)}`;
+  const link = `${loginConfig.TG_LINK}?startapp=${btoa(userInfo.user_id)}SHAREGAME`
   const [showPopUp, setShowPopUp] = useState(false)
   const utils = initUtils()
   const navigate = useNavigate();
@@ -79,27 +81,11 @@ function GamePage() {
     utils.shareURL(link, text)
   }
 
-  const changeTotalScore = () => {
-
-    if (phaserRef.current) {
-      const scene = phaserRef.current.scene;
-      if (scene) {
-        if (currentScene == 'MainMenu') {
-          let mainScene = scene as any
-          mainScene.showTotal(userInfo)
-        }
-
-      }
-    }
-  }
-
-  useEffect(() => {
-    changeTotalScore()
-  }, [phaserRef.current?.scene])
-
-
   return (
     <div className='game-wrapper'>
+      {
+        currentScene == 'Preloader' ? <Loading /> : null
+      }
       {
         currentScene == 'GameOver' ? <div className='game-over'>
           <div className='game-over-top'>

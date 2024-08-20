@@ -9,6 +9,7 @@ import No2 from '@/assets/NO.2.png'
 import No3 from '@/assets/NO.3.png'
 import './index.scss'
 import BackTop from '@/components/BackTop'
+import { useNavigate } from 'react-router-dom'
 
 export default function LeaderBoardPage() {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -18,7 +19,7 @@ export default function LeaderBoardPage() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   async function loadMore() {
     const append = await getList()
     if (page == 1) {
@@ -49,7 +50,7 @@ export default function LeaderBoardPage() {
 
   return <div className="LeaderBoard fadeIn">
     <div className="title">Telegram Wall of Fame</div>
-    <div className="myself">
+    <div className="myself" onClick={() => navigate('/detail?myself=true')}>
       <div className="left">
         <div className="icon" style={{ background: stringToColor(userInfo.username) }}>
           {userInfo.username.slice(0, 2)}

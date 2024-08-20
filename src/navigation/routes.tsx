@@ -1,10 +1,12 @@
 import type { ComponentType, JSX } from 'react';
 
 import IndexPage from '@/pages/Index';
-import EmjoyGamepAGE from '@/pages/EmjoyGame';
+import EmjoyGamePage from '@/pages/EmjoyGame';
 import LeaderBoardPage from '@/pages/LeaderBoard';
 import FrensPage from '@/pages/Frens';
 import GamePage from '@/pages/Game';
+import DonwGamePage from '@/pages/DonwGame';
+import DetailPage from '@/pages/Detail';
 
 interface Route {
   path: string;
@@ -19,8 +21,10 @@ function Tab() {
 
 export const routes: Route[] = [
   { path: '/', Component: IndexPage },
-  { path: '/emjoyGame', Component: EmjoyGamepAGE },
+  { path: '/emjoyGame', Component: EmjoyGamePage },
+  { path: '/downGame', Component: DonwGamePage },
   { path: '/leaderBoard', Component: LeaderBoardPage },
   { path: '/frens', Component: FrensPage },
   { path: '/game', Component: GamePage },
+  { path: '/detail', Component: DetailPage },
 ];

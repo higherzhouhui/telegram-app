@@ -1,4 +1,3 @@
-import { beginGameReq } from "@/api/game";
 import { EventBus } from "../EventBus";
 export default class MainMenu extends Phaser.Scene {
     private fontStyle: any = {
@@ -28,7 +27,7 @@ export default class MainMenu extends Phaser.Scene {
         const bgHeight = 2297
         let background = this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight).setInteractive();
         this.volumeButton()
-        this.closeButton(width)
+        // this.closeButton(width)
         this.tweens.add({
             targets: background,
             alpha: { from: 0, to: 1 },
@@ -63,36 +62,14 @@ export default class MainMenu extends Phaser.Scene {
         let logo = this.add.image(width / 2, 0, 'logo');
         this.tweens.add({
             targets: logo,
-            y: height / 2 - 50,
+            y: height / 2 - 100,
             alpha: { from: 0, to: 1 },
             ease: 'bounce.out',
             duration: 1200,
         });
 
         background.on(Phaser.Input.Events.POINTER_DOWN, async () => {
-            if (this.kouFen) {
-                return
-            }
-            // 暂停click动画和隐藏click to play
-            titleTextAnimation.stop()
-            titleText.setAlpha(0)
-            const res: any = await beginGameReq()
-            if (res.code != 0) {
-                this.sound.play("card-mismatch")
-                // this.sound.setVolume(0);
-                this.totalScoreText.setColor('#e20f0f')
-                this.cameras.main.shake(300, 0.01);
-            } else {
-                const kouFenText = this.add.text(width / 2, height / 2 - 250, `${res.data.score - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);
-                this.tweens.add({
-                    targets: kouFenText,
-                    alpha: { from: 1, to: 0 },
-                    duration: 1500,
-                });
-                this.kouFen = true
-                this.target = res.data.score
-                this.registry.set('totalScore', res.data.score)
-            }
+            this.scene.start('MainGame');
         });
 
 
@@ -172,38 +149,29 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     showTotal(userInfo: any) {
-        const screen = document.getElementById('root')!
-        const width = screen.clientWidth
-        const height = screen.clientHeight
+        // const screen = document.getElementById('root')!
+        // const width = screen.clientWidth
+        // const height = screen.clientHeight
 
-        if (!this.totalScore) {
-            this.totalScore = userInfo.score
-            this.maxScore = userInfo.game_max_score
+        // if (!this.totalScore) {
+        //     this.totalScore = userInfo.score
+        //     this.maxScore = userInfo.game_max_score
 
-            this.registry.set('totalScore', this.totalScore)
-            this.registry.set('maxScore', this.maxScore)
-        } else {
-            this.totalScore = this.registry.get('totalScore')
-            this.maxScore = this.registry.get('maxScore')
-        }
+        //     this.registry.set('totalScore', this.totalScore)
+        // } else {
+        //     this.totalScore = this.registry.get('totalScore')
+        // }
 
-        this.totalScoreText = this.add.text(width / 2, height / 2 - 220, `Score:${this.totalScore || 0}`, this.fontStyle).setOrigin(0.5, 0.5);
+        // this.totalScoreText = this.add.text(width / 2, height / 2 - 220, `Score:${this.totalScore || 0}`, this.fontStyle).setOrigin(0.5, 0.5);
 
-        this.tweens.add({
-            targets: this.totalScoreText,
-            alpha: { from: 0, to: 1 },
-            scale: { from: 0, to: 1 },
-            duration: 1000,
-        })
+        // this.tweens.add({
+        //     targets: this.totalScoreText,
+        //     alpha: { from: 0, to: 1 },
+        //     scale: { from: 0, to: 1 },
+        //     duration: 1000,
+        // })
 
 
-        const highScoreText = this.add.text(width / 2, height / 2 - 180, 'High Score: ' + `${this.maxScore || 0}`, { ...this.fontStyle, fontSize: 24 }).setOrigin(0.5, 0.5).setAlpha(0);
-        this.tweens.add({
-            targets: highScoreText,
-            alpha: { from: 0, to: 1 },
-            scale: { from: 0.5, to: 1 },
-            duration: 800,
-            delay: 500,
-        })
+
     }
 }

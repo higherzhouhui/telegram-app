@@ -23,20 +23,19 @@ if (import.meta.env.DEV) {
   if (shouldMock) {
     const initDataRaw = new URLSearchParams([
       ['user', JSON.stringify({
-        id: 6223334,
+        id: 645848634,
         first_name: 'Andrew',
-        last_name: 'Rogue',
-        username: 'rogue',
+        last_name: 'Rogue_child1',
+        username: 'child',
         language_code: 'en',
         is_premium: true,
         allows_write_to_pm: true,
       })],
       ['hash', '89d6079ad6762351f38c6dbbc41bb53048019256a9443988af7a48bcad16ba31'],
       ['auth_date', '1716922846'],
-      ['startParam', btoa('6223334')],
+      ['start_param', `${btoa('645848634')}`],
       ['chat_type', 'sender'],
       ['chat_instance', '8428209589180549439'],
-      ['authDate', '2024-07-15T19:48:29.000Z']
     ]).toString();
 
     mockTelegramEnv({
@@ -53,7 +52,7 @@ if (import.meta.env.DEV) {
         sectionBgColor: '#17212b',
         sectionHeaderTextColor: '#6ab3f3',
         subtitleTextColor: '#708499',
-        textColor: '#f5f5f5',
+        textColor: '#000',
       },
       initData: parseInitData(initDataRaw),
       initDataRaw,

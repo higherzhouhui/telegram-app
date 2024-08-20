@@ -1,4 +1,3 @@
-import { Button } from 'antd-mobile';
 import './index.scss';
 import { useState } from 'react';
 import EventBus from '@/utils/eventBus';

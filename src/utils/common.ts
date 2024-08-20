@@ -91,8 +91,8 @@ export function throttle(handler: ThrottleHandler, limit: number) {
   let inThrottle: boolean = false;
   let lastArgs: any[] = [];
 
-  return function (...args: any[]) {
-    const context = this;
+  return function (this: any, ...args: any) {
+    const context = this
 
     if (!inThrottle) {
       handler.apply(context, args);

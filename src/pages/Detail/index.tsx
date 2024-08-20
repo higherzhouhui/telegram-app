@@ -91,7 +91,7 @@ function FrensDetailPage() {
     </div>
     <List>
       {
-        list.map((item, index) => {
+        list.map((item: any, index: number) => {
           return <List.Item key={index}>
             <div className='frens-list'>
               <div className='frens-detail-left'>

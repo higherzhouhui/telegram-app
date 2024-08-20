@@ -83,7 +83,6 @@ export function handleCopyLink(link: string) {
   textArea.select();
   document.execCommand("copy");
   document.body.removeChild(textArea);
-  Toast.show({ content: 'copied', position: 'top' })
 }
 
 type ThrottleHandler = (args: any[]) => void;

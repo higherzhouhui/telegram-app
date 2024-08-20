@@ -55,7 +55,8 @@ function GamePage() {
       Toast.show({ content: '0 Attempts Left', position: 'top' })
       return
     }
-    phaserRef?.current?.game?.scene?.start('MainGame')
+    setCurrentScene('Preloader')
+    // phaserRef?.current?.game?.scene?.start('Preloader')
   }
 
   const shareResult = () => {
@@ -111,9 +112,9 @@ function GamePage() {
               <div className='game-over-bot-middle'>Play ({userInfo.ticket} Attempts Left)</div>
             </div>
           </div>
-        </div> : null
+        </div> : <PhaserGame ref={phaserRef} currentActiveScene={currentActiveScene} />
       }
-      <PhaserGame ref={phaserRef} currentActiveScene={currentActiveScene} />
+
       <Popup
         visible={showPopUp}
         onMaskClick={() => {

@@ -92,12 +92,12 @@
        }
        .message {
         border-radius: 6px;
-        padding: 4px 6px;
-        width: 150px;
+        padding: 4px;
+        width: 180px;
         border: 2px solid #FFFF84;
         position: absolute;
         left: -20px;
-        top: -40px;
+        top: -30px;
         transform: translate(0, -100%);
         font-size: 12px;
         &::after {
@@ -108,7 +108,7 @@
           border-right: 5px solid transparent;
           border-top: 10px solid var(--highColor);
           position: absolute;
-          left: 52px;
+          left: 53px;
           bottom: -2px;
           transform: translate(0, 100%);
         }
@@ -229,9 +229,18 @@
 
 @media screen and (min-height: 750px) {
   .btn-bot {
-    margin-bottom: 90px;
+    margin-bottom: 90px!important;
   }
   .btn-container {
-    bottom: 40px;
+    bottom: 40px!important;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .btn-bot {
+    margin-bottom: 60px!important;
+  }
+  .btn-container {
+    bottom: 0px!important;
   }
 }

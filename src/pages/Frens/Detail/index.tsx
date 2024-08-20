@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { initBackButton } from '@telegram-apps/sdk'
 import { stringToColor } from '@/utils/common'
 import moment from 'moment'
+import BackTop from '@/components/BackTop'
 
 function FrensDetailPage() {
   const navigate = useNavigate();
@@ -89,6 +90,8 @@ function FrensDetailPage() {
       }
     </List>
     <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
+    <BackTop scrollName={'content'} />
+
   </div>
 }
 

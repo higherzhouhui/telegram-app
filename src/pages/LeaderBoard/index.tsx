@@ -4,6 +4,7 @@ import { formatNumber, stringToColor } from "@/utils/common"
 import { InfiniteScroll, List } from "antd-mobile"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import BackTop from "@/components/BackTop"
 import './index.scss'
 export default function LeaderBoard() {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -94,5 +95,6 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
         rank == 1 ? <img src='/assets/no1.png' alt="no1" /> : rank == 2 ? <img src='/assets/no2.png' alt="no2" /> : rank == 3 ? <img src='/assets/no3.png' alt="no3" /> : `#${rank}`
       }
     </div>
+    <BackTop scrollName={'content'} />
   </div>
 }

@@ -71,7 +71,7 @@ const TgApp: FC = () => {
       appearance={miniApp.isDark ? 'dark' : 'light'}
       platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
     >
-      <div className='layout'>
+      <div className='layout' id='layout'>
         <div className='content'>
           <Routes>
             {routes.map((route) => <Route key={route.path} {...route} />)}

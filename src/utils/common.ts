@@ -129,3 +129,24 @@ export function handleCopyLink(link: string) {
   document.body.removeChild(textArea);
   Toast.show({ content: 'copied', position: 'top' })
 }
+
+type ThrottleHandler = (args: any[]) => void;
+
+export function throttle(handler: ThrottleHandler, limit: number) {
+  let inThrottle: boolean = false;
+  let lastArgs: any[] = [];
+
+  return function (...args: any[]) {
+    const context = this;
+
+    if (!inThrottle) {
+      handler.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => {
+        inThrottle = false;
+      }, limit);
+    } else {
+      lastArgs = args;
+    }
+  };
+}

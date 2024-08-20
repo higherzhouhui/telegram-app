@@ -74,3 +74,35 @@ export function formatWalletAddress(address: any) {
 
   return str
 }
+
+export function handleCopyLink(link: string) {
+  const textToCopy = link; // 替换为你想要复制的内容  
+  const textArea = document.createElement("textarea");
+  textArea.value = textToCopy;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textArea);
+  Toast.show({ content: 'copied', position: 'top' })
+}
+
+type ThrottleHandler = (args: any[]) => void;
+
+export function throttle(handler: ThrottleHandler, limit: number) {
+  let inThrottle: boolean = false;
+  let lastArgs: any[] = [];
+
+  return function (...args: any[]) {
+    const context = this;
+
+    if (!inThrottle) {
+      handler.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => {
+        inThrottle = false;
+      }, limit);
+    } else {
+      lastArgs = args;
+    }
+  };
+}

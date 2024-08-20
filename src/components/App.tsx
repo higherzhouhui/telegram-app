@@ -3,6 +3,8 @@ import {
   bindMiniAppCSSVars,
   bindThemeParamsCSSVars,
   bindViewportCSSVars,
+  initBackButton,
+  initInitData,
   initNavigator, useLaunchParams,
   useMiniApp,
   useThemeParams,
@@ -14,16 +16,23 @@ import {
   Navigate,
   Route,
   Routes,
+  useNavigate,
 } from 'react-router-dom';
 
 import { routes } from '@/navigation/routes';
 import Footer from './Footer';
+import { useDispatch } from 'react-redux';
+import { loginReq } from '@/api/common';
+import { setUserInfoAction } from '@/redux/slices/userSlice';
 
 export const App: FC = () => {
   const lp = useLaunchParams();
   const miniApp = useMiniApp();
   const themeParams = useThemeParams();
   const viewport = useViewport();
+  const [backButton] = initBackButton()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     return bindMiniAppCSSVars(miniApp, themeParams);
@@ -34,6 +43,9 @@ export const App: FC = () => {
   }, [themeParams]);
 
   useEffect(() => {
+    if (!viewport?.isExpanded) {
+      viewport?.expand(); // will expand the Mini App, if it's not
+    }
     return viewport && bindViewportCSSVars(viewport);
   }, [viewport]);
 
@@ -47,6 +59,30 @@ export const App: FC = () => {
   //   navigator.attach();
   //   return () => navigator.detach();
   // }, [navigator]);
+  useEffect(() => {
+    backButton.on('click', () => {
+      navigate(-1)
+    })
+  }, [])
+
+  const login = async () => {
+    const initData = initInitData() as any;
+    let res: any;
+    if (initData && initData.user && initData.user.id) {
+      const user = initData.initData.user
+      const data = { ...initData.initData, ...user }
+      res = await loginReq(data)
+    }
+    if (res.code == 0) {
+      dispatch(setUserInfoAction(res.data))
+      localStorage.setItem('authorization', res.data.user_id)
+    }
+  }
+
+  useEffect(() => {
+    login()
+  }, [])
+
 
   return (
     <AppRoot

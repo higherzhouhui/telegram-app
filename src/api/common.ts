@@ -86,6 +86,14 @@ export const getRewardFarmingReq = () => {
   });
 };
 
+export const getMagicPrizeReq = () => {
+  return service<any>({
+    url: '/user/getMagicPrize',
+    method: 'GET',
+  });
+};
+
+
 export const getSystemConfigReq = () => {
   return service<any>({
     url: '/system/getConfig',

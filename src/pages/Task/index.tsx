@@ -51,7 +51,7 @@ function TaskPage() {
   }, [])
   return <div className='task-page fadeIn'>
     <div className='task-title'>
-      <img src='/assets/task-logo.png' alt='task' width={64} />
+      <img src='/assets/tasks.gif' alt='task' width={150} />
       <div className='task'>Tasks</div>
       <div className='desc'>Complete tasks to earn $CAT</div>
     </div>

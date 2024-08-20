@@ -7,6 +7,7 @@ import {
   bindMiniAppCSSVars,
   bindThemeParamsCSSVars,
   bindViewportCSSVars,
+  initBackButton,
   useLaunchParams,
   useMiniApp,
   useThemeParams,
@@ -17,6 +18,7 @@ import {
   Navigate,
   Route,
   Routes,
+  useNavigate,
 } from 'react-router-dom';
 
 import { routes } from '@/navigation/routes';
@@ -33,6 +35,8 @@ const TgApp: FC = () => {
   const miniApp = useMiniApp();
   const themeParams = useThemeParams();
   const viewport = useViewport();
+  const [backButton] = initBackButton()
+  const navigate = useNavigate()
   const manifestUrl = useMemo(() => {
     return new URL('tonconnect-manifest.json', window.location.href).toString();
   }, []);
@@ -52,10 +56,11 @@ const TgApp: FC = () => {
   }, [viewport]);
   const eventBus = EventBus.getInstance()
   const [isShowCongrates, setShowCongrates] = useState(false)
-
+  const [showTime, setShowTime] = useState(1500)
   useEffect(() => {
-    const onMessage = (flag: boolean) => {
-      setShowCongrates(true)
+    const onMessage = ({ visible, time }: { visible: boolean, time?: number }) => {
+      setShowCongrates(visible)
+      setShowTime(time || 1500)
     }
     eventBus.addListener('showCongrates', onMessage)
   }, [])
@@ -65,6 +70,12 @@ const TgApp: FC = () => {
       eruda.init()
     }
   }, [debug]);
+
+  useEffect(() => {
+    backButton.on('click', () => {
+      navigate(-1)
+    })
+  }, [])
 
   return (
     <AppRoot
@@ -79,7 +90,7 @@ const TgApp: FC = () => {
           </Routes>
         </div>
         <Footer />
-        <Congrates visible={isShowCongrates} callBack={() => setShowCongrates(false)} />
+        <Congrates visible={isShowCongrates} time={showTime} callBack={() => setShowCongrates(false)} />
       </div>
     </AppRoot >
   );

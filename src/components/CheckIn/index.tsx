@@ -18,7 +18,7 @@ function CheckInPage({ handleCallBack }: { handleCallBack: () => void }) {
     setCheckObj(res.data)
     dispatch(setUserInfoAction(res.data))
     setTimeout(() => {
-      eventBus.emit('showCongrates', true)
+      eventBus.emit('showCongrates', { time: 1500, visible: true })
     }, 2000);
   }
 
@@ -28,7 +28,9 @@ function CheckInPage({ handleCallBack }: { handleCallBack: () => void }) {
   useEffect(() => {
     checkIn()
     getCheckInRewardListReq().then(res => {
-      setRewardList(res.data)
+      if (res.code == 0) {
+        setRewardList(res.data)
+      }
     })
   }, [])
 
@@ -43,7 +45,7 @@ function CheckInPage({ handleCallBack }: { handleCallBack: () => void }) {
 
   return <div className='checkIn-container'>
     <div className='checkIn-first'>
-      <img src='/assets/common/gift.webp' alt='hooray' className={`hooray ${changeScale ? 'change-hooray' : ''}`} />
+      <img src='/assets/common/congrate.png' alt='hooray' className={`hooray ${changeScale ? 'change-hooray' : ''}`} />
       <div className={`daily-reward ${changeScale ? 'change-daily' : ''}`}>
         {
           !changeScale ? <div className='day'>

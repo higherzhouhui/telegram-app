@@ -213,3 +213,59 @@ body,
     margin: 2rem 0;
   }
 }
+
+.popup-invite {
+  padding: 12px 0;
+  color: #000;
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    font-family: "bold";
+    font-size: 1.3rem;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    svg {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+  .content {
+    padding: 12px 12px 24px 12px;
+  }
+  .content-desc {
+    padding: 12px;
+    background-color: rgba(0, 0, 0, .05);
+    border-radius: 6px;
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    img {
+      width: 22px;
+      object-fit: contain;
+      margin: 0 2px;
+    }
+  }
+  .popup-content-btn {
+    height: 3.2rem;
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+    line-height: 3.2rem;
+    font-size: 1.3rem;
+    font-family: 'bold';
+    border-radius: 50px;
+    border: 1px solid;
+  }
+  .btn-send {
+    background: var(--btnBg);
+    color: #000;
+    border: none;
+  }
+}

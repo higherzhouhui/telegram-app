@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
 import './index.scss'
 import { Popup, Toast } from 'antd-mobile';
-import { initUtils, initBackButton } from '@telegram-apps/sdk';
+import { initUtils } from '@telegram-apps/sdk';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { beginGameReq, endGameReq } from '@/api/game';
@@ -19,26 +19,28 @@ function GamePage() {
   const [score, setScore] = useState(0)
   const link = `${loginConfig.TG_LINK}?startapp=${btoa(userInfo.user_id)}SHAREGAME`
   const [showPopUp, setShowPopUp] = useState(false)
-  const [backButton] = initBackButton();
   const utils = initUtils()
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance()
+  const [isShowInvite, setShowInvite] = useState(false)
 
   // Event emitted from the PhaserGame component
   const currentActiveScene = async (scene: Phaser.Scene) => {
     setCurrentScene(scene.scene.key);
     if (scene.scene.key == 'GameOver') {
-      eventBus.emit('showCongrates', true)
       const _score = (localStorage.getItem('currentScore') || 0) as any
-      setScore(_score as any)
-      endGameReq({ score: _score * 1 }).then(res => {
-        if (res.code == 0) {
-          dispatch(setUserInfoAction(res.data))
-        }
-      }).catch(error => {
-        console.error(error)
-      })
+      if (parseInt(_score)) {
+        eventBus.emit('showCongrates', { time: 1000, visible: true })
+        setScore(_score as any)
+        endGameReq({ score: _score * 1 }).then(res => {
+          if (res.code == 0) {
+            dispatch(setUserInfoAction(res.data))
+          }
+        }).catch(error => {
+          console.error(error)
+        })
+      }
     }
     if (scene.scene.key == 'MainGame') {
       const res = await beginGameReq()
@@ -52,7 +54,7 @@ function GamePage() {
 
   const restartGame = () => {
     if (userInfo.ticket == 0) {
-      Toast.show({ content: '0 Attempts Left', position: 'top' })
+      setShowInvite(true)
       return
     }
     setCurrentScene('Preloader')
@@ -78,14 +80,6 @@ function GamePage() {
     const text = `I scored ${score} points in Cat Game!\nI dare you to challenge me!\nFarm 🍅 $CAT with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $CAT!`
     utils.shareURL(link, text)
   }
-
-  useEffect(() => {
-    backButton.show();
-    backButton.on('click', () => {
-      navigate(-1)
-    })
-  }, [])
-
 
   return (
     <div className='game-wrapper'>
@@ -138,6 +132,32 @@ function GamePage() {
             </div>
             <div>I scored {score} points in Cat Game!</div>
             <div>I dare you to challenge me!</div>
+            <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
+            <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>
+          </div>
+        </div>
+      </Popup>
+      <Popup
+        visible={isShowInvite}
+        onMaskClick={() => {
+          setShowInvite(false)
+        }}
+        bodyStyle={{
+          borderTopLeftRadius: '8px',
+          borderTopRightRadius: '8px',
+        }}
+        className='popup-invite'
+      >
+        <div className='popup-frens'>
+          <div className='title'>
+            Invite a Fren
+            <svg onClick={() => setShowInvite(false)} className="close-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5777" width="18" height="18"><path d="M597.795527 511.488347 813.564755 295.718095c23.833825-23.833825 23.833825-62.47489 0.001023-86.307691-23.832801-23.832801-62.47489-23.833825-86.307691 0L511.487835 425.180656 295.717583 209.410404c-23.833825-23.833825-62.475913-23.833825-86.307691 0-23.832801 23.832801-23.833825 62.47489 0 86.308715l215.769228 215.769228L209.410915 727.258599c-23.833825 23.833825-23.833825 62.47489 0 86.307691 23.832801 23.833825 62.473867 23.833825 86.307691 0l215.768205-215.768205 215.769228 215.769228c23.834848 23.833825 62.475913 23.832801 86.308715 0 23.833825-23.833825 23.833825-62.47489 0-86.307691L597.795527 511.488347z" fill="#272636" p-id="5778"></path></svg>
+          </div>
+          <div className='content'>
+            <div className='content-desc'>
+              <div>Get 2000 <img src='/assets/common/cat.webp' />and 1 <img src='/assets/common/ticket.webp' />（Invite a Friend）</div>
+              <div>Get 20000 <img src='/assets/common/cat.webp' />and 5 <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
+            </div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>
           </div>

@@ -56,7 +56,7 @@ export default class MainGame extends Phaser.Scene {
         this.timerText = this.add.text(45, 20, `${this.timerCount}:00`, this.fontStyle).setOrigin(0.5, 0.5).setDepth(1000);
         this.scoreText = this.add.text(width - 30, 20, `${this.score}`, { ...this.fontStyle, color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(1000);
         this.scoreText.setShadow(1, 1, '#000000', 2);
-        this.add.image(width - 60, 20, 'cat').setScale(0.4, 0.4).setDepth(1000)
+        this.add.image(width - 60, 20, 'cat').setScale(0.45, 0.45).setDepth(1000)
 
         EventBus.emit('current-scene-ready', this);
         // 延时1秒后执行
@@ -88,7 +88,7 @@ export default class MainGame extends Phaser.Scene {
                 width: 80,
                 type: 'cat'
             }
-            const tomatoWidth = 170
+            const catWidth = 170
             const random = Math.random()
 
             if (random < 0.95) {
@@ -125,7 +125,7 @@ export default class MainGame extends Phaser.Scene {
                 // 不让同屏出现两个冻结
                 if (!this.images.filter(item => { return item.type == 'freeze' }).length) {
                     iconObj = {
-                        width: 50 + Math.random() * 10,
+                        width: 60 + Math.random() * 10,
                         score: 0,
                         speed: Math.random() + 3,
                         type: 'freeze',
@@ -135,8 +135,8 @@ export default class MainGame extends Phaser.Scene {
                 // 不让同屏出现两个炸弹
                 if (!this.images.filter(item => { return item.type == 'boom' }).length) {
                     iconObj = {
-                        width: 50 + Math.random() * 10,
-                        score: 0,
+                        width: 60 + Math.random() * 10,
+                        score: -100,
                         speed: Math.random() + 3,
                         type: 'boom',
                     }
@@ -154,7 +154,7 @@ export default class MainGame extends Phaser.Scene {
 
             let icon;
             if (iconObj.type == 'cat') {
-                icon = this.add.image(iconX, 0, 'game-cat').setInteractive().setScale(iconObj.width / tomatoWidth, iconObj.width / tomatoWidth).setDepth(10)
+                icon = this.add.image(iconX, 0, 'game-cat').setInteractive().setScale(iconObj.width / catWidth, iconObj.width / catWidth).setDepth(10)
             } else {
                 icon = this.add.image(iconX, 0, iconObj.type).setInteractive().setScale(iconObj.width / 200, iconObj.width / 200).setDepth(10)
             }
@@ -169,7 +169,14 @@ export default class MainGame extends Phaser.Scene {
             icon.on('pointerdown', () => {
                 if (iconObj.type == 'boom') {
                     this.shake()
-                    this.score = Math.max(this.score - 200, 0)
+                    const scoreTextTween = this.add.text(icon.x, icon.y, `${iconObj.score}`, { fontSize: 24, color: '#ff0000', stroke: '#000000', strokeThickness: 2, fontStyle: 'bold' }).setDepth(10)
+                    this.add.tween({
+                        targets: scoreTextTween,
+                        alpha: { from: 1, to: 0 },
+                        ease: 'Linear',
+                        duration: 1000,
+                    })
+                    this.score = Math.max(this.score - iconObj.score, 0)
                     this.scoreText.setText(this.score).setColor('#ffffff')
                     const bgWidth = 1125
                     const bgHeight = 2115
@@ -177,7 +184,14 @@ export default class MainGame extends Phaser.Scene {
                     setTimeout(() => {
                         boomBgImg.destroy()
                     }, 1000);
-                    icon.destroy()
+                    this.images = this.images.filter((item) => {
+                        if (Math.abs(item.icon.x - icon.x) < 200 && Math.abs(item.icon.y - icon.y) < 200) {
+                            item?.icon?.destroy()
+                            return false
+                        } else {
+                            return true
+                        }
+                    })
                 }
                 if (iconObj.type == 'freeze') {
                     this.freeze = true
@@ -270,8 +284,8 @@ export default class MainGame extends Phaser.Scene {
         this.time.removeAllEvents()
         clearInterval(this.autoCreateTimer)
         this.timer = null
-        localStorage.setItem('currentScore', this.score)
         setTimeout(() => {
+            localStorage.setItem('currentScore', this.score)
             this.scene.start('GameOver')
         }, 1000);
     }

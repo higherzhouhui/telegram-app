@@ -182,6 +182,41 @@
       }
     }
   }
+  .full-congrate {
+    font-size: 1.3rem;
+    font-family: bold;
+    z-index: 998;
+    bottom: 300px;
+    position: fixed;
+    color: #000;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .full-congrate-content {
+      width: fit-content;
+      background: rgba($color: #000000, $alpha: 0.6);
+      border-radius: 12px;
+      padding: 6px 12px;
+    }
+    .full-congrate-score {
+      color: #FF0000;
+      font-size: 2.2rem;
+      font-weight: bold;
+      font-family: 'number';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      img {
+        width: 20px;
+      }
+    }
+    .full-congrate-desc {
+      text-align: center;
+      color: var(--highColor);
+      text-decoration: underline;
+    }
+  }
 }
 .popup-rule {
   color: #000;
@@ -225,7 +260,6 @@
     }
   }
 }
-
 
 @media screen and (min-height: 750px) {
   .btn-bot {

@@ -1,9 +1,14 @@
 .wallet-page {
   padding: 18px 12px;
   text-align: center;
+  .wallet-img {
+    margin-top: 1rem;
+    width: 90px;
+  }
   .wallet-page-title {
     font-size: 2rem;
     font-family: 'bold';
+    margin-top: 1rem;
   }
   .connect-wrapper {
     border-radius: 12px;
@@ -40,7 +45,7 @@
   .wallet-address {
     font-size: 1.2rem;
     font-weight: bold;
-    background: black;
+    background: var(--btnBg);
     width: fit-content;
     display: flex;
     align-items: center;
@@ -48,6 +53,7 @@
     padding: 4px 8px;
     border-radius: 4px;
     margin: 6px auto 0 auto;
+    color: #000;
     svg {
       margin-left: 6px;
     }

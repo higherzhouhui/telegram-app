@@ -2,20 +2,17 @@ import { InfiniteScroll, List } from 'antd-mobile'
 import './index.scss'
 import { useEffect, useState } from 'react'
 import { getSubUserListReq } from '@/api/common'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { initBackButton } from '@telegram-apps/sdk'
+import { useLocation } from 'react-router-dom'
 import { stringToColor } from '@/utils/common'
 import moment from 'moment'
 import BackTop from '@/components/BackTop'
 
 function FrensDetailPage() {
-  const navigate = useNavigate();
   const [list, setList] = useState<any>([])
   const [hasMore, setHasMore] = useState(true)
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
   const myLocation = useLocation()
-  const [backButton] = initBackButton()
   const getList = async () => {
     const res = await getSubUserListReq({ page })
     setPage((page => page + 1))
@@ -52,15 +49,11 @@ function FrensDetailPage() {
     }
   }
   useEffect(() => {
-    backButton.show()
     const search = myLocation.search
     if (search) {
       const _total = search.replace('?total=', '') as any
       setTotal(_total)
     }
-    backButton.on('click', () => {
-      navigate(-1)
-    })
   }, [])
 
   return <div className="frens-detail-page">

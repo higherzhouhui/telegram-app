@@ -1,21 +1,23 @@
 import './index.scss';
 import { FC, useEffect, useRef, useState } from 'react';
-import { getRewardFarmingReq, loginReq, startFarmingReq } from '@/api/common';
+import { getMagicPrizeReq, getRewardFarmingReq, loginReq, startFarmingReq } from '@/api/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
-import { initInitData } from '@telegram-apps/sdk';
+import { initInitData, initUtils } from '@telegram-apps/sdk';
 import Loading from '@/components/Loading';
 import CheckIn from '@/components/CheckIn';
 import moment from 'moment';
-import { Button, Popup } from 'antd-mobile';
+import { Button, Popup, Toast } from 'antd-mobile';
 import { judgeIsStartFarming } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
 import EventBus from '@/utils/eventBus';
+import loginConfig from '@/constants/config/login.config';
 
 export const HomePage: FC = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const userInfo = useSelector((state: any) => state.user.info);
+  const link = `${loginConfig.TG_LINK}?startapp=${btoa(userInfo.user_id)}`
   const [loading, setLoading] = useState(true)
   const [isCheck, setIsCheck] = useState(false)
   const [isShowRules, setShowRules] = useState(false)
@@ -25,6 +27,10 @@ export const HomePage: FC = () => {
   const farmingTimer = useRef<any>(null)
   const shakingTimer = useRef<any>(null)
   const eventBus = EventBus.getInstance()
+  const utils = initUtils()
+  const [isShowInvite, setShowInvite] = useState(false)
+  const [isShowCongrate, setShowCongrates] = useState(false)
+  const [isGetBigReward, setGetBigReward] = useState(false)
   const messageList = [
     'Invite friends to get more $CAT!',
     `I've got lots of surprises ready, but i can't tell yet!`,
@@ -71,8 +77,8 @@ export const HomePage: FC = () => {
     if (isGettingScore) {
       return
     }
-    setGetScore(true)
     if (!farmObj.canFarming) {
+      setGetScore(true)
       const res = await getRewardFarmingReq()
       setTimeout(() => {
         setGetScore(false)
@@ -86,7 +92,8 @@ export const HomePage: FC = () => {
 
   const handleHarvest = async () => {
     if (farmObj.score == 1080) {
-      eventBus.emit('showCongrates', true)
+      setShowCongrates(true)
+      eventBus.emit('showCongrates', { time: 3000, visible: true })
       await getRewardFarming()
     }
   }
@@ -94,6 +101,8 @@ export const HomePage: FC = () => {
   const handlePlayGame = async () => {
     if (userInfo.ticket) {
       navigate('/game')
+    } else {
+      setShowInvite(true)
     }
   }
 
@@ -128,6 +137,45 @@ export const HomePage: FC = () => {
     }
   }, [currentMessage])
 
+  const handleCopyLink = () => {
+    const textToCopy = link; // 替换为你想要复制的内容  
+    const textArea = document.createElement("textarea");
+    textArea.value = textToCopy;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+    Toast.show({ content: 'copied', position: 'top' })
+  }
+
+  const handleSendLink = () => {
+    const text = `Hey, if you're a Hamster, DOGS, Blum or Catizen user... you have something very special to claim in the Cat app now.\nThe Cat airdrop is coming! 🪂\nClaim with this link.`
+    utils.shareURL(link, text)
+  }
+
+  const handleTouchCat = async () => {
+    if (userInfo.ticket) {
+      setIsSleep(false)
+    } else {
+      let isGetBigRewardDay = localStorage.getItem('isGetBigRewardDay') || false
+      const today = moment().format('YYYY-MM-DD')
+      if (isGetBigRewardDay) {
+        if (isGetBigRewardDay == today) {
+          isGetBigRewardDay = true
+        }
+      }
+      if (!isGetBigRewardDay) {
+        const res: any = await getMagicPrizeReq()
+        if (res.code == 0) {
+          setShowCongrates(true)
+          setGetBigReward(true)
+          eventBus.emit('showCongrates', { time: 3000, visible: true })
+          dispatch(setUserInfoAction(res.data))
+          localStorage.setItem('isGetBigRewardDay', today)
+        }
+      }
+    }
+  }
   useEffect(() => {
     let timer
     if (!isSleep) {
@@ -222,7 +270,7 @@ export const HomePage: FC = () => {
             <div className='question' onClick={() => setShowRules(true)}>
               <img src='/assets/home/question.png' width={30} />
             </div>
-            <div className='anima' onClick={() => setIsSleep(false)}>
+            <div className='anima' onClick={() => handleTouchCat()}>
               {
                 isSleep ? <img src="/assets/home/cat-wait.gif" alt="cat" width={80} /> : <img src="/assets/home/cat-touch.gif" alt="cat" width={80} />
               }
@@ -240,7 +288,7 @@ export const HomePage: FC = () => {
             }
           </div>
           <div className='btn-top-middle' onClick={() => handlePlayGame()}>
-            <Button style={{ background: 'var(--btnBg)', color: 'var(--textColor)', border: 'none', marginTop: '-40px' }} size='mini'>Play Drop Game</Button>
+            <Button style={{ background: 'var(--btnBg)', color: '#000', border: 'none', marginTop: '-40px' }} size='mini'>Play Drop Game</Button>
           </div>
         </div>
 
@@ -282,6 +330,40 @@ export const HomePage: FC = () => {
           </div>
         </div>
       </Popup>
+      <Popup
+        visible={isShowInvite}
+        onMaskClick={() => {
+          setShowInvite(false)
+        }}
+        bodyStyle={{
+          borderTopLeftRadius: '8px',
+          borderTopRightRadius: '8px',
+        }}
+        className='popup-invite'
+      >
+        <div className='popup-frens'>
+          <div className='title'>
+            Invite a Fren
+            <svg onClick={() => setShowInvite(false)} className="close-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5777" width="18" height="18"><path d="M597.795527 511.488347 813.564755 295.718095c23.833825-23.833825 23.833825-62.47489 0.001023-86.307691-23.832801-23.832801-62.47489-23.833825-86.307691 0L511.487835 425.180656 295.717583 209.410404c-23.833825-23.833825-62.475913-23.833825-86.307691 0-23.832801 23.832801-23.833825 62.47489 0 86.308715l215.769228 215.769228L209.410915 727.258599c-23.833825 23.833825-23.833825 62.47489 0 86.307691 23.832801 23.833825 62.473867 23.833825 86.307691 0l215.768205-215.768205 215.769228 215.769228c23.834848 23.833825 62.475913 23.832801 86.308715 0 23.833825-23.833825 23.833825-62.47489 0-86.307691L597.795527 511.488347z" fill="#272636" p-id="5778"></path></svg>
+          </div>
+          <div className='content'>
+            <div className='content-desc'>
+              <div>Get 2000 <img src='/assets/common/cat.webp' />and 1 <img src='/assets/common/ticket.webp' />（Invite a Friend）</div>
+              <div>Get 20000 <img src='/assets/common/cat.webp' />and 5 <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
+            </div>
+            <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
+            <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>
+          </div>
+        </div>
+      </Popup>
+      {
+        isShowCongrate ? <div className='full-congrate fadeIn' onClick={() => setShowCongrates(false)}>
+          <div className='full-congrate-content'>
+            <div className='full-congrate-score'>+ {isGetBigReward ? 2500 : 1080}<img src='/assets/common/cat.webp' /></div>
+            <div className='full-congrate-desc'>{isGetBigReward ? 'Mysterious Grand Prize' : 'Congratulations on farming 1100 $CAT'}</div>
+          </div>
+        </div> : null
+      }
     </div>
   )
 }

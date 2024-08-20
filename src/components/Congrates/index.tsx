@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './index.scss'
 
-export default function ({ visible, callBack }: { visible: boolean, callBack: () => void }) {
+function CongratesComp({ visible, time, callBack }: { visible: boolean, time: number, callBack: () => void }) {
   const [isVisible, setIsVisible] = useState(visible)
   useEffect(() => {
     setIsVisible(visible)
@@ -9,14 +9,16 @@ export default function ({ visible, callBack }: { visible: boolean, callBack: ()
       setTimeout(() => {
         setIsVisible(false)
         callBack()
-      }, 1500);
+      }, time);
     }
   }, [visible])
   return <>
     {
       isVisible ? <div className='penalty'>
-        <img src="/assets/common/boom.gif" alt="penalty" />
+        <img src="/assets/common/yhboom.gif" alt="penalty" />
       </div> : null
     }
   </>
 }
+
+export default CongratesComp;

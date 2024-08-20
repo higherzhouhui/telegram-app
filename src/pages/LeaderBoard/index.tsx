@@ -57,7 +57,7 @@ export default function LeaderBoard() {
       </div>
       <div className="right">
         {
-          rank == 1 ? <img src='/assets/no1.png' alt="no1" /> : rank == 2 ? <img src='/assets/no2.png' alt="no2" /> : rank == 3 ? <img src='/assets/no3.png' alt="no3" /> : `#${rank}`
+          rank == 1 ? <img src='/assets/first.png' alt="first" /> : rank == 2 ? <img src='/assets/second.png' alt="second" /> : rank == 3 ? <img src='/assets/third.png' alt="third" /> : `#${rank}`
         }
       </div>
     </div>
@@ -92,7 +92,7 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
     </div>
     <div className="right">
       {
-        rank == 1 ? <img src='/assets/no1.png' alt="no1" /> : rank == 2 ? <img src='/assets/no2.png' alt="no2" /> : rank == 3 ? <img src='/assets/no3.png' alt="no3" /> : `#${rank}`
+        rank == 1 ? <img src='/assets/first.png' alt="first" /> : rank == 2 ? <img src='/assets/second.png' alt="second" /> : rank == 3 ? <img src='/assets/third.png' alt="third" /> : <span>#{rank}</span>
       }
     </div>
     <BackTop scrollName={'content'} />

@@ -13,16 +13,16 @@
     height: 100%;
 
     .hooray {
-      width: 40vw;
+      width: 250px;
       opacity: 0;
       animation: fadeIn forwards 2s 0.8s;
       transition:  all 1s;
-      margin-top: 10vh;
+      margin-top: 5vh;
       margin-bottom: 2rem;
     }
     .change-hooray {
-      margin-top: 5vh;
-      width: 30vw;
+      margin-top: 2vh;
+      width: 200px;
     }
     .day {
       text-align: center;

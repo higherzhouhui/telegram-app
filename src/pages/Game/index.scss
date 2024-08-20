@@ -35,7 +35,7 @@
     }
     .congrats {
       font-family: 'bold';
-      font-size: 1.8rem;
+      font-size: 2rem;
       line-height: 2.4rem;
     }
     .score-wrapper {
@@ -148,8 +148,8 @@
       border-radius: 50px;
     }
     .btn-send {
-      background: #000;
-      color: #fff;
+      background: var(--btnBg);
+      border: none;
     }
   }
 }

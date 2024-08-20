@@ -10,7 +10,7 @@ export default class MainGame extends Phaser.Scene {
     private autoCreateTimer: any;
     private images: any[] = [];
     private freeze: boolean = false;
-    private timerCount: number = 60;
+    private timerCount: number = 30;
     private fontStyle: any = {
         fontFamily: 'Arial',
         fontSize: 20,
@@ -27,6 +27,7 @@ export default class MainGame extends Phaser.Scene {
         this.timerText;
         this.shakeTimer;
         this.freeze = false
+        this.timerCount = 30
     }
 
     init() {
@@ -55,7 +56,7 @@ export default class MainGame extends Phaser.Scene {
         this.timerText = this.add.text(45, 20, `${this.timerCount}:00`, this.fontStyle).setOrigin(0.5, 0.5).setDepth(1000);
         this.scoreText = this.add.text(width - 30, 20, `${this.score}`, { ...this.fontStyle, color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(1000);
         this.scoreText.setShadow(1, 1, '#000000', 2);
-        this.add.image(width - 60, 20, 'cat').setScale(0.5, 0.5).setDepth(1000)
+        this.add.image(width - 60, 20, 'cat').setScale(0.4, 0.4).setDepth(1000)
 
         EventBus.emit('current-scene-ready', this);
         // 延时1秒后执行
@@ -81,70 +82,102 @@ export default class MainGame extends Phaser.Scene {
     }
     autoCreateIcon() {
         try {
-            let type = 'cat'
-            let speed = Math.max(Math.random() * 5, 1)
-            let iconWidth = Math.random() * 80 + 30
+            let iconObj = {
+                score: 1,
+                speed: 4,
+                width: 80,
+                type: 'cat'
+            }
             const tomatoWidth = 170
             const random = Math.random()
+
             if (random < 0.95) {
-                type = 'cat'
-            } else if (random < 0.98) {
+                if (random > 0 && random <= 0.11) {
+                    iconObj = {
+                        width: 50,
+                        score: 1,
+                        speed: Math.random() + 2.2,
+                        type: 'cat',
+                    }
+                } else if (random > 0.11 && random <= 0.47) {
+                    iconObj = {
+                        width: 75,
+                        score: 3,
+                        speed: Math.random() + 2.5,
+                        type: 'cat',
+                    }
+                } else if (random > 0.47 && random <= 0.84) {
+                    iconObj = {
+                        width: 85,
+                        score: 4,
+                        speed: Math.random() + 2.5,
+                        type: 'cat',
+                    }
+                } else {
+                    iconObj = {
+                        width: 100,
+                        score: 6,
+                        speed: Math.random() + 3,
+                        type: 'cat',
+                    }
+                }
+            } else if (random < 0.98 && random >= 0.95) {
                 // 不让同屏出现两个冻结
                 if (!this.images.filter(item => { return item.type == 'freeze' }).length) {
-                    type = 'freeze'
-                    iconWidth = 40 * (Math.random() + 1)
-                    speed = 2.5
+                    iconObj = {
+                        width: 50 + Math.random() * 10,
+                        score: 0,
+                        speed: Math.random() + 3,
+                        type: 'freeze',
+                    }
                 }
             } else {
-                type = 'boom'
-                iconWidth = 40 * (Math.random() + 1)
-                speed = 2.5
+                // 不让同屏出现两个炸弹
+                if (!this.images.filter(item => { return item.type == 'boom' }).length) {
+                    iconObj = {
+                        width: 50 + Math.random() * 10,
+                        score: 0,
+                        speed: Math.random() + 3,
+                        type: 'boom',
+                    }
+                }
+
             }
 
             let iconX = Math.random() * this.width
-            if (iconX < iconWidth / 2) {
-                iconX = iconWidth / 2 + 12
+            if (iconX < iconObj.width / 2) {
+                iconX = iconObj.width / 2 + 12
             }
-            if (iconX > this.width - iconWidth / 2) {
-                iconX = this.width - iconWidth / 2 - 12
-            }
-            let score = 1
-            if (iconWidth > 40) {
-                score = 2
-            }
-            if (iconWidth > 60) {
-                score = 3
-            }
-            if (iconWidth > 80) {
-                score = 5
+            if (iconX > this.width - iconObj.width / 2) {
+                iconX = this.width - iconObj.width / 2 - 12
             }
 
             let icon;
-            if (type == 'cat') {
-                icon = this.add.image(iconX, 0, 'game-cat').setInteractive().setScale(iconWidth / tomatoWidth, iconWidth / tomatoWidth).setDepth(10)
+            if (iconObj.type == 'cat') {
+                icon = this.add.image(iconX, 0, 'game-cat').setInteractive().setScale(iconObj.width / tomatoWidth, iconObj.width / tomatoWidth).setDepth(10)
             } else {
-                icon = this.add.image(iconX, 0, type).setInteractive().setScale(iconWidth / 200, iconWidth / 200).setDepth(10)
+                icon = this.add.image(iconX, 0, iconObj.type).setInteractive().setScale(iconObj.width / 200, iconObj.width / 200).setDepth(10)
             }
 
             this.images.push({
                 icon: icon,
-                speed: speed,
+                speed: iconObj.speed,
                 maxY: this.height + 200,
-                type: type,
+                type: iconObj.type,
             })
             icon.on('pointerdown', () => {
-                if (type == 'boom') {
+                if (iconObj.type == 'boom') {
                     this.shake()
                     this.score = Math.max(this.score - 200, 0)
                     this.scoreText.setText(this.score).setColor('#ffffff')
                     const bgWidth = 1125
                     const bgHeight = 2115
-                    const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
+                    const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${iconObj.type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
                     setTimeout(() => {
                         boomBgImg.destroy()
                     }, 1000);
                 }
-                if (type == 'freeze') {
+                if (iconObj.type == 'freeze') {
                     this.freeze = true
                     this.timerCount = Math.round((this.timer.delay - this.timer.elapsed) / 1000)
                     this.time.removeEvent(this.timer)
@@ -152,23 +185,23 @@ export default class MainGame extends Phaser.Scene {
                     clearInterval(this.autoCreateTimer)
                     const bgWidth = 1125
                     const bgHeight = 2115
-                    const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
-                    EventBus.emit('execTypeCmd', type)
+                    const boomBgImg = this.add.image(this.width / 2, this.height / 2, `${iconObj.type}Bg`).setScale(this.width / bgWidth, this.height / bgHeight);
+                    EventBus.emit('execTypeCmd', iconObj.type)
                     setTimeout(() => {
                         this.reStart()
                         boomBgImg.destroy()
                         EventBus.emit('execTypeCmd', '')
                     }, 4000);
                 }
-                if (type == 'cat') {
-                    const scoreTextTween = this.add.text(icon.x, icon.y, `+${score}`, { fontSize: 24, color: '#ffffff', stroke: '#000000', strokeThickness: 2, fontStyle: 'bold' }).setDepth(10)
+                if (iconObj.type == 'cat') {
+                    const scoreTextTween = this.add.text(icon.x, icon.y, `+${iconObj.score}`, { fontSize: 24, color: '#ffffff', stroke: '#000000', strokeThickness: 2, fontStyle: 'bold' }).setDepth(10)
                     this.add.tween({
                         targets: scoreTextTween,
                         alpha: { from: 1, to: 0 },
                         ease: 'Linear',
                         duration: 1000,
                     })
-                    this.score += score
+                    this.score += iconObj.score
                     this.scoreText.setText(this.score)
                     EventBus.emit('execBoom', { left: icon.x, top: icon.y, show: true })
                     setTimeout(() => {
@@ -190,7 +223,9 @@ export default class MainGame extends Phaser.Scene {
         if (this.timer) {
             if (this.timer.getProgress() === 1) {
                 this.timerText.setText('00:00');
+                this.time.removeAllEvents()
                 this.timer = null
+                this.timerCount = 30
                 clearInterval(this.autoCreateTimer)
             } else {
                 const remaining = (this.timerCount - this.timer.getElapsedSeconds()).toPrecision(4);
@@ -221,6 +256,7 @@ export default class MainGame extends Phaser.Scene {
     async gameOver() {
         this.time.removeAllEvents()
         clearInterval(this.autoCreateTimer)
+        this.timer = null
         localStorage.setItem('currentScore', this.score)
         setTimeout(() => {
             this.scene.start('GameOver')

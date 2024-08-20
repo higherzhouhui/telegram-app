@@ -95,6 +95,7 @@ export function judgeIsStartFarming(end_farm_time: any, last_farming_time: any) 
       }
     }
   }
+
   return {
     canFarming,
     score,

@@ -29,7 +29,7 @@ function TaskPage() {
         } else if (item.type == 'twitter') {
           window.open(item.link)
         } else if (item.type == 'wallet') {
-          // navigate('/wallet')
+          navigate('/wallet')
         }
       }
     }

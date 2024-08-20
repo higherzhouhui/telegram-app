@@ -74,7 +74,7 @@ function GamePage() {
   }
 
   const handleSendLink = () => {
-    const text = `I scored ${score} points in Tomato Game!\nI dare you to challenge me!\nFarm 🍅 $CAT with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $CAT!`
+    const text = `I scored ${score} points in Cat Game!\nI dare you to challenge me!\nFarm 🍅 $CAT with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $CAT!`
     utils.shareURL(link, text)
   }
 
@@ -135,7 +135,7 @@ function GamePage() {
               <span>{score} </span>
               <img src="/assets/common/cat.webp" alt="tomato" />
             </div>
-            <div>I scored {score} points in Tomato Game!</div>
+            <div>I scored {score} points in Cat Game!</div>
             <div>I dare you to challenge me!</div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>

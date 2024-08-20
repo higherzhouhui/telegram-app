@@ -9,7 +9,7 @@ export default function ({ visible, callBack }: { visible: boolean, callBack: ()
       setTimeout(() => {
         setIsVisible(false)
         callBack()
-      }, 2500);
+      }, 1500);
     }
   }, [visible])
   return <>

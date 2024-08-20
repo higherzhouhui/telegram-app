@@ -63,23 +63,24 @@ function FrensDetailPage() {
   }, [])
 
   return <div className="frens-detail-page">
-    <div className="frens-title">{total}&nbsp;frens</div>
+    <div className="frens-title"><span>{total}&nbsp;</span>frens</div>
     <List>
       {
         list.map((item, index) => {
           return <List.Item key={index}>
             <div className='frens-list'>
               <div className='frens-detail-left'>
-                <div className="icon" style={{ background: stringToColor(item.from_username) }}>
-                  {item.from_username.slice(0, 2)}
-                </div>
-                <div className='frens-detail-name-container'>
-                  <div className='frens-detail-name'>{item.from_username}</div>
-                  <div className='frens-detail-time'>{moment(item.createdAt).format('YYYY-MM-DD HH:mm')}</div>
-                </div>
+                <div className='score'>+&nbsp;{item.score.toLocaleString()}</div>
+                <div className='frens-detail-time'>{moment(item.createdAt).format('YYYY-MM-DD HH:mm')}</div>
               </div>
               <div className='frens-detail-right'>
-                <div className='score'>+{item.score.toLocaleString()}</div>
+                <div className='by-user'>
+                  by<div className="user-icon" style={{ background: stringToColor(item.from_username) }}>
+                    {item.from_username.slice(0, 2)}
+                  </div>
+                  <div className='frens-detail-name'>{item.from_username}</div>
+
+                </div>
                 <div className='type'>{getType(item.type)}</div>
               </div>
             </div>

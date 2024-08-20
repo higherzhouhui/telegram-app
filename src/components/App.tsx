@@ -13,11 +13,11 @@ import { type FC, useEffect, useMemo } from 'react';
 import {
   Navigate,
   Route,
-  Router,
   Routes,
 } from 'react-router-dom';
 
 import { routes } from '@/navigation/routes';
+import Footer from './Footer';
 
 export const App: FC = () => {
   const lp = useLaunchParams();
@@ -53,12 +53,15 @@ export const App: FC = () => {
       appearance={miniApp.isDark ? 'dark' : 'light'}
       platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
     >
-      <Router location={location} navigator={reactNavigator}>
-        <Routes>
-          {routes.map((route) => <Route key={route.path} {...route} />)}
-          <Route path='*' element={<Navigate to='/' />} />
-        </Routes>
-      </Router>
+      <div className='layout'>
+        <div className='content'>
+          <Routes>
+            {routes.map((route) => <Route key={route.path} {...route} />)}
+            <Route path='*' element={<Navigate to='/' />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </AppRoot>
   );
 };

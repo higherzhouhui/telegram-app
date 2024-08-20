@@ -103,9 +103,9 @@ export default class MainGame extends Phaser.Scene {
     }
 
     create() {
-        const screen = document.getElementsByClassName('app')
-        const width = screen[0].clientWidth
-        const height = screen[0].clientHeight
+        const screen = document.getElementById('root')!
+        const width = screen.clientWidth
+        const height = screen.clientHeight
         this.width = width
         this.height = height
         const bgWidth = 1080
@@ -137,8 +137,8 @@ export default class MainGame extends Phaser.Scene {
         });
 
 
-        this.timerText = this.add.text(60, 70, '30:00', this.fontStyle).setOrigin(0.5, 0.5);
-        this.scoreText = this.add.text(width - 80, 70, `Found:${this.score}`, { ...this.fontStyle, color: '#ff0000' }).setOrigin(0.5, 0.5);
+        this.timerText = this.add.text(50, 70, '30:00', this.fontStyle).setOrigin(0.5, 0.5);
+        this.scoreText = this.add.text(width - 60, 70, `Found:${this.score}`, { ...this.fontStyle, color: '#ff0000' }).setOrigin(0.5, 0.5);
 
         // 假设 game 是 Phaser 游戏实例
         let graphics = this.add.graphics();
@@ -154,7 +154,7 @@ export default class MainGame extends Phaser.Scene {
 
         // 绘制圆角矩形
         graphics.lineStyle(borderWidth, borderColor);
-        graphics.strokeRoundedRect(25, 55, 70, 30, cornerRadius);
+        graphics.strokeRoundedRect(15, 55, 70, 30, cornerRadius);
 
         let children = this.emojis.getChildren();
 
@@ -380,7 +380,7 @@ export default class MainGame extends Phaser.Scene {
                     duration: 1000,
                     complete: () => {
 
-                        const addFenText = this.add.text(this.width / 2, this.height / 2 - 230, `+${this.newTotalScore - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);
+                        const addFenText = this.add.text(this.width / 2, this.height / 2 - 220, `+${this.newTotalScore - this.totalScore}`, { ...this.fontStyle, fontSize: 22, color: '#ec3942' }).setOrigin(0.5, 0.5);
                         this.tweens.add({
                             targets: addFenText,
                             alpha: { from: 1, to: 0 },

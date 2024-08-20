@@ -1,6 +1,7 @@
 import type { ComponentType, JSX } from 'react';
 
 import IndexPage from '@/pages/Index';
+import EmjoyGamepAGE from '@/pages/EmjoyGame';
 
 interface Route {
   path: string;
@@ -15,5 +16,5 @@ function Tab() {
 
 export const routes: Route[] = [
   { path: '/', Component: IndexPage },
-  { path: '/abc', Component: Tab },
+  { path: '/emjoyGame', Component: EmjoyGamepAGE },
 ];

@@ -7,7 +7,7 @@ import { Root } from '@/components/Root';
 import './mockEnv';
 
 import '@telegram-apps/telegram-ui/dist/styles.css';
-import './index.scss';
+import './global.scss';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<Root />);

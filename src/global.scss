@@ -104,3 +104,19 @@ html {
   }
   to {opacity: 1;}
 }
+.layout {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  .content {
+    flex: 1;
+    overflow: auto;
+  }
+  .footer {
+    height: fit-content;
+    min-height: 72px;
+  }
+}

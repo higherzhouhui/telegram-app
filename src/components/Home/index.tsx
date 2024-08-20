@@ -22,6 +22,7 @@ import { setUserInfoAction } from "@/redux/slices/userSlice";
 import LogoIcon from '@/assets/logo.jpg'
 import GameComp from "@/components/Game";
 import { TonConnectButton, useTonConnectModal, useTonWallet } from "@tonconnect/ui-react";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -68,19 +69,6 @@ export default function () {
     {
       currentTab == 'Home' ? <Home userInfo={userInfo} setShowGame={() => setShowGame(true)} /> : currentTab == 'Leaderboard' ? <LeaderBoard userInfo={userInfo} /> : <Friends userInfo={userInfo} />
     }
-    <Footer />
-    {
-      showGame ? <div className="gameComp">
-        {
-          isLookGameInfo ?
-            <GameComp />
-            : <div className="gameComp-img">
-              <img src={gameInfoIcon} alt="gameInfo" />
-              <div className="btn-wrapper"><Button onClick={() => handleGameNext()}>Continue</Button></div>
-            </div>
-        }
-      </div> : null
-    }
   </main>
 }
 
@@ -91,6 +79,7 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
   const modal = useTonConnectModal()
   const wallet = useTonWallet()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const handleToScore = async () => {
     eventBus.emit('updateStep', 2)
   }
@@ -110,14 +99,10 @@ function Home({ userInfo, setShowGame }: { userInfo: any, setShowGame: () => voi
     }
     setLoading(false)
   }
-  const handleConnect = () => {
-    if (!wallet?.account) {
-      modal.open()
-    }
-  }
+
   const handlePlayGame = () => {
     if (userInfo?.playGameTimes > 0) {
-      setShowGame()
+      navigate('/emjoyGame')
     } else {
       Toast.show({
         content: 'The number of times today has been used up',

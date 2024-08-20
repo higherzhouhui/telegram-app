@@ -10,20 +10,7 @@ function GameComp() {
 
   //  References to the PhaserGame component (game and scene are exposed)
   const phaserRef = useRef<IRefPhaserGame | null>(null);
-  const [spritePosition, setSpritePosition] = useState({ x: 0, y: 0 });
   const [currentScene, setCurrentScene] = useState('preLoad')
-  const changeScene = () => {
-
-    if (phaserRef.current) {
-      const scene = phaserRef.current.scene as MainMenu;
-
-      if (scene) {
-        if (currentScene == 'MainMenu') {
-          console.log(22222)
-        }
-      }
-    }
-  }
 
   const changeTotalScore = () => {
 
@@ -53,20 +40,6 @@ function GameComp() {
   return (
     <div>
       <PhaserGame ref={phaserRef} currentActiveScene={currentActiveScene} />
-      {/* <div className='game-op'>
-        <div>
-          <button className="button" onClick={changeScene}>Change Scene</button>
-        </div>
-        <div>
-          <button disabled={canMoveSprite} className="button" onClick={moveSprite}>Toggle Movement</button>
-        </div>
-        <div className="spritePosition">Sprite Position:
-          <pre>{`{\n  x: ${spritePosition.x}\n  y: ${spritePosition.y}\n}`}</pre>
-        </div>
-        <div>
-          <button className="button" onClick={addSprite}>Add New Sprite</button>
-        </div>
-      </div> */}
     </div>
   )
 }

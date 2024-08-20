@@ -1,22 +1,19 @@
 import { EventBus } from '../EventBus';
 import { Scene } from 'phaser';
 
-export class GameOver extends Scene
-{
+export class GameOver extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera | undefined;
     background: Phaser.GameObjects.Image | undefined;
-    gameOverText : Phaser.GameObjects.Text | undefined;
+    gameOverText: Phaser.GameObjects.Text | undefined;
     private scoreText: Phaser.GameObjects.Text | undefined;
     private totalScore: number = 0;
-    constructor ()
-    {
+    constructor() {
         super('GameOver');
     }
-    create ()
-    {
-        const screen = document.getElementsByClassName('app')
-        const width = screen[0].clientWidth
-        const height = screen[0].clientHeight
+    create() {
+        const screen = document.getElementById('root')!
+        const width = screen.clientWidth
+        const height = screen.clientHeight
         let background = this.add.image(width / 2, height / 2, 'background');
 
         this.tweens.add({
@@ -54,33 +51,32 @@ export class GameOver extends Scene
             y: height / 2,
             ease: 'bounce.out',
         })
-        
-        const foundText = this.add.text(width / 2, height / 2 - 200, 'Found: ' + `${this.registry.get('found') ? this.registry.get('found') : 0}`, fontStyle).setOrigin(0.5,0.5);
+
+        const foundText = this.add.text(width / 2, height / 2 - 200, 'Found: ' + `${this.registry.get('found') ? this.registry.get('found') : 0}`, fontStyle).setOrigin(0.5, 0.5);
         this.tweens.add({
             targets: foundText,
-            alpha: {from: 0, to: 1},
-            scale: {from: 0.5, to: 1},
+            alpha: { from: 0, to: 1 },
+            scale: { from: 0.5, to: 1 },
             duration: 1000,
         })
 
-        this.totalScore = this.registry.get('totalScore') 
+        this.totalScore = this.registry.get('totalScore')
         const maxFound = localStorage.getItem('maxFound') || 0
         if (this.registry.get('found') && this.registry.get('found') > maxFound) {
             localStorage.setItem('maxFound', this.registry.get('found'))
         }
-        this.scoreText = this.add.text(width / 2, height / 2 - 150, 'Score: ' + `${this.registry.get('totalScore') ? this.registry.get('totalScore') : 0}`, fontStyle).setOrigin(0.5,0.5);
+        this.scoreText = this.add.text(width / 2, height / 2 - 150, 'Score: ' + `${this.registry.get('totalScore') ? this.registry.get('totalScore') : 0}`, fontStyle).setOrigin(0.5, 0.5);
 
         this.input.once('pointerdown', () => {
 
             this.scene.start('MainMenu');
 
         });
-        
+
         EventBus.emit('current-scene-ready', this);
     }
 
-    changeScene ()
-    {
+    changeScene() {
         this.scene.start('MainMenu');
     }
     update() {

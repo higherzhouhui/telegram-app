@@ -28,8 +28,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        // target: 'http://localhost:8085', // 目标服务器地址
-        target: 'https://test.forkfrenpet.com', // 目标服务器地址
+        target: 'http://localhost:8085', // 目标服务器地址
+        // target: 'https://test.forkfrenpet.com', // 目标服务器地址
         changeOrigin: true, // 是否改变源地址
         rewrite: (path) => path.replace(/^\/api/, '/api/'), // 重写路径
       }

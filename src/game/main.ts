@@ -23,10 +23,10 @@ const config: Phaser.Types.Core.GameConfig = {
 };
 
 const StartGame = (parent: string) => {
-    const screen = document.getElementsByClassName('app')
-    const width = screen[0].clientWidth
-    const height = screen[0].clientHeight
-    return new Game({ ...config, parent, width, height});
+    const screen = document.getElementById('root')!
+    const width = screen.clientWidth
+    const height = screen.clientHeight
+    return new Game({ ...config, parent, width, height });
 }
 
 export default StartGame;

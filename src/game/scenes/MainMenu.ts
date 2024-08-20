@@ -18,13 +18,12 @@ export default class MainMenu extends Phaser.Scene {
     private target: number = 0;
     constructor() {
         super('MainMenu');
-
     }
 
     create() {
-        const screen = document.getElementsByClassName('app')
-        const width = screen[0].clientWidth
-        const height = screen[0].clientHeight
+        const screen = document.getElementById('root')!
+        const width = screen.clientWidth
+        const height = screen.clientHeight
         const bgWidth = 1080
         const bgHeight = 2297
         let background = this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight).setInteractive();
@@ -173,9 +172,9 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     showTotal(userInfo: any) {
-        const screen = document.getElementsByClassName('app')
-        const width = screen[0].clientWidth
-        const height = screen[0].clientHeight
+        const screen = document.getElementById('root')!
+        const width = screen.clientWidth
+        const height = screen.clientHeight
 
         if (!this.totalScore) {
             this.totalScore = userInfo.score

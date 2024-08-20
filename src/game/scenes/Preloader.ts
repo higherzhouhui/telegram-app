@@ -10,9 +10,9 @@ export class Preloader extends Scene {
 
     init() {
         //  We loaded this image in our Boot Scene, so we can display it here
-        const screen = document.getElementsByClassName('app')
-        const width = screen[0].clientWidth
-        const height = screen[0].clientHeight
+        const screen = document.getElementById('root')!
+        const width = screen.clientWidth
+        const height = screen.clientHeight
         const bgWidth = 1080
         const bgHeight = 2297
         this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight);

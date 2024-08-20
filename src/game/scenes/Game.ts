@@ -164,6 +164,7 @@ export default class MainGame extends Phaser.Scene {
                 speed: iconObj.speed,
                 maxY: this.height + 200,
                 type: iconObj.type,
+                score: iconObj.score,
             })
             icon.on('pointerdown', () => {
                 if (iconObj.type == 'boom') {
@@ -176,6 +177,7 @@ export default class MainGame extends Phaser.Scene {
                     setTimeout(() => {
                         boomBgImg.destroy()
                     }, 1000);
+                    icon.destroy()
                 }
                 if (iconObj.type == 'freeze') {
                     this.freeze = true
@@ -192,23 +194,34 @@ export default class MainGame extends Phaser.Scene {
                         boomBgImg.destroy()
                         EventBus.emit('execTypeCmd', '')
                     }, 4000);
+                    icon.destroy()
                 }
                 if (iconObj.type == 'cat') {
-                    const scoreTextTween = this.add.text(icon.x, icon.y, `+${iconObj.score}`, { fontSize: 24, color: '#ffffff', stroke: '#000000', strokeThickness: 2, fontStyle: 'bold' }).setDepth(10)
-                    this.add.tween({
-                        targets: scoreTextTween,
-                        alpha: { from: 1, to: 0 },
-                        ease: 'Linear',
-                        duration: 1000,
+                    // 找到距离附近的所有cat然后击碎
+                    this.images = this.images.filter((item) => {
+                        if (Math.abs(item.icon.x - icon.x) < 50 && Math.abs(item.icon.y - icon.y) < 50 && item.type == 'cat') {
+                            const scoreTextTween = this.add.text(item.icon.x, item.icon.y, `+${item.score}`, { fontSize: 24, color: '#ffffff', stroke: '#000000', strokeThickness: 2, fontStyle: 'bold' }).setDepth(10)
+                            this.add.tween({
+                                targets: scoreTextTween,
+                                alpha: { from: 1, to: 0 },
+                                ease: 'Linear',
+                                duration: 1000,
+                            })
+                            item?.icon?.destroy()
+                            this.score += item?.score
+                            return false
+                        } else {
+                            return true
+                        }
                     })
-                    this.score += iconObj.score
+
                     this.scoreText.setText(this.score)
+
                     EventBus.emit('execBoom', { left: icon.x, top: icon.y, show: true })
                     setTimeout(() => {
                         EventBus.emit('execBoom', { left: icon.x, top: icon.y, show: false })
                     }, 300);
                 }
-                icon.destroy()
             })
         } catch {
             clearInterval(this.autoCreateTimer)

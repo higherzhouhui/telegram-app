@@ -37,7 +37,7 @@ export default function Assets() {
     console.log('walletInfo', walletInfo)
     console.log('portkeyAAInfo', portkeyAAInfo)
     if (walletType !== WalletTypeEnum.aa) {
-      // navigate("/");
+      navigate("/");
     }
   }, [walletType, navigate]);
 
@@ -60,7 +60,7 @@ export default function Assets() {
             isShowRampBuy={false}
             isShowRampSell={false}
             backIcon={<LeftOutlined />}
-            onOverviewBack={() => navigate("/")}
+            onOverviewBack={() => navigate("/wallet")}
             onLifeCycleChange={(lifeCycle) => {
               console.log(lifeCycle, "onLifeCycleChange");
             }}

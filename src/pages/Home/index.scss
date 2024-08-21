@@ -64,6 +64,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .btn-top-middle {
+        button {
+          border-radius: 50%;
+          width: 80px;
+          height: 80px;
+          background: var(--btnBg);
+          border: none;
+          font-size: 1.4rem;
+          font-weight: bold;
+        }
+      }
       .btn-top-right {
        position: relative;
        .hint-img {
@@ -87,7 +98,7 @@
         position: absolute;
         left: 6px;
         top: 10px;
-        font-size: 12px;
+        font-size: 10px;
         color: #000;
        }
        .message {
@@ -96,7 +107,7 @@
         width: 180px;
         border: 2px solid #FFFF84;
         position: absolute;
-        left: -20px;
+        left: -5px;
         top: -30px;
         transform: translate(0, -100%);
         font-size: 12px;
@@ -108,7 +119,7 @@
           border-right: 5px solid transparent;
           border-top: 10px solid var(--highColor);
           position: absolute;
-          left: 53px;
+          left: 38px;
           bottom: -2px;
           transform: translate(0, 100%);
         }

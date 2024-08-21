@@ -266,6 +266,20 @@ export const HomePage: FC = () => {
           }
         </div>
         <div className='btn-top'>
+          <div className='btn-top-right'>
+            <img src='/assets/home/hint.png' alt='hint' className='hint-img' />
+            <img src='/assets/home/cat.gif' className='cat-img' />
+            <div className='count'>{userInfo?.ticket}</div>
+            <div className='play-now'>Drop Game</div>
+            {
+              typeStr ? <div className='message'>
+                <span>{typeStr}</span>
+              </div> : null
+            }
+          </div>
+          <div className='btn-top-middle' onClick={() => handlePlayGame()}>
+            <Button size='mini'>Play</Button>
+          </div>
           <div className='btn-top-left'>
             <div className='question' onClick={() => setShowRules(true)}>
               <img src='/assets/home/question.png' width={30} />
@@ -275,20 +289,6 @@ export const HomePage: FC = () => {
                 isSleep ? <img src="/assets/home/cat-wait.gif" alt="cat" width={80} /> : <img src="/assets/home/cat-touch.gif" alt="cat" width={80} />
               }
             </div>
-          </div>
-          <div className='btn-top-right'>
-            <img src='/assets/home/hint.png' alt='hint' className='hint-img' />
-            <img src='/assets/home/cat.gif' className='cat-img' />
-            <div className='count'>{userInfo?.ticket}</div>
-            <div className='play-now'>Play now</div>
-            {
-              typeStr ? <div className='message'>
-                <span>{typeStr}</span>
-              </div> : null
-            }
-          </div>
-          <div className='btn-top-middle' onClick={() => handlePlayGame()}>
-            <Button style={{ background: 'var(--btnBg)', color: '#000', border: 'none', marginTop: '-40px' }} size='mini'>Play Drop Game</Button>
           </div>
         </div>
 
@@ -360,7 +360,7 @@ export const HomePage: FC = () => {
         isShowCongrate ? <div className='full-congrate fadeIn' onClick={() => setShowCongrates(false)}>
           <div className='full-congrate-content'>
             <div className='full-congrate-score'>+ {isGetBigReward ? 2500 : 1080}<img src='/assets/common/cat.webp' /></div>
-            <div className='full-congrate-desc'>{isGetBigReward ? 'Mysterious Grand Prize' : 'Congratulations on farming 1100 $CAT'}</div>
+            <div className='full-congrate-desc'>{isGetBigReward ? 'Mysterious Grand Prize' : 'Congratulations on farming 1080 $CAT'}</div>
           </div>
         </div> : null
       }

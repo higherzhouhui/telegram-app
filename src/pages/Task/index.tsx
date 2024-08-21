@@ -23,18 +23,39 @@ function TaskPage() {
         setHandleLoading(false)
       }
       if (item.status == null) {
-        if (item.type.includes('telegram')) {
+        if (item.linkType.includes('telegram')) {
           const utils = initUtils()
           utils.openLink(item.link)
-        } else if (item.type == 'twitter') {
+        } else if (item.linkType == 'outside') {
           window.open(item.link)
-        } else if (item.type == 'wallet') {
-          navigate('/wallet')
+        } else if (item.linkType == 'self') {
+          navigate(item.link)
         }
       }
     }
   }
 
+  const groupByType = (arr: any) => {
+    return Object.values(
+      arr.reduce((acc, item) => {
+        const type = item.type;
+        if (!acc[type]) acc[type] = [];
+        acc[type].push(item);
+        return acc;
+      }, {})
+    );
+  }
+  const getImgSrc = (img: string) => {
+    if (img.includes('Game')) {
+      return 'game'
+    }
+    if (img.includes('Protkey')) {
+      return 'protkey'
+    }
+    if (img.includes('Aelf')) {
+      return 'aelf'
+    }
+  }
   useEffect(() => {
     if (handleLoading) {
       setTimeout(() => {
@@ -42,11 +63,15 @@ function TaskPage() {
       }, 5000);
     }
   }, [handleLoading])
+
   useEffect(() => {
     setLoading(true)
     taskListReq().then(res => {
       setLoading(false)
-      setList(res.data)
+      if (res.code == 0) {
+        const list = groupByType(res.data)
+        setList(list)
+      }
     })
   }, [])
   return <div className='task-page fadeIn'>
@@ -63,25 +88,37 @@ function TaskPage() {
       }
       {
         list.map((item: any, index) => {
-          return <div key={index} className='task-list-item'>
-            <div className='task-list-left'>
-              <img src={`/assets/task/${item.type}.png`} alt={item.type} className='type-img' />
-              <div className='middle'>
-                <div className='middle-name'>{item.name}</div>
-                <div className='reward'>
-                  <span>+{item.score.toLocaleString()}</span>
-                  &nbsp;<img src='/assets/common/cat.webp' alt='tomato' className='unit-img' />
-                  &nbsp;$CAT
+          return <div className='item-wrapper' key={index}>
+            <div className='item-wrapper-title'>
+              <img src={`/assets/task/${getImgSrc(item[0].type)}.png`} className='logo-pic' />
+              {
+                item[0].type
+              }
+              <img src='/assets/task/touch.png' className='touch' />
+            </div>
+            {
+              item.map((citem: any, cindex: number) => {
+                return <div key={cindex} className='task-list-item'>
+                  <div className='task-list-left'>
+                    <div className='middle'>
+                      <div className='middle-name'>{citem.name}</div>
+                      <div className='reward'>
+                        <span>+{citem?.score?.toLocaleString()}</span>
+                        &nbsp;<img src='/assets/common/cat.webp' alt='tomato' className='unit-img' />
+                        &nbsp;$CAT
+                      </div>
+                    </div>
+                  </div>
+                  <div className='task-list-right'>
+                    <Button className={`task-list-right-btn ${citem.status}`} onClick={() => handleDoTask(citem, index)} loading={handleLoading}>
+                      {
+                        citem.status || 'Start'
+                      }
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className='task-list-right'>
-              <Button className={`task-list-right-btn ${item.status}`} onClick={() => handleDoTask(item, index)} loading={handleLoading}>
-                {
-                  item.status || 'Start'
-                }
-              </Button>
-            </div>
+              })
+            }
           </div>
         })
       }

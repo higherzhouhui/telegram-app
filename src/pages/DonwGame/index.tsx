@@ -150,8 +150,8 @@ function GamePage() {
           </div>
           <div className='content'>
             <div className='content-desc'>
-              <div>Get 2000 $Hamster and 1 ticket（Invite a Friend）</div>
-              <div>Get 20000 $Hamster and 10 tickets（Invite a Telegram Premium）</div>
+              <div>Get 2000 $Hamster and 10 ticket（Invite a Friend）</div>
+              <div>Get 20000 $Hamster and 30 tickets（Invite a Telegram Premium）</div>
             </div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>

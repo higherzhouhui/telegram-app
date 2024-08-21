@@ -32,7 +32,7 @@ export default function () {
   }
 
   const handleSendLink = () => {
-    const text = `I scored ${score} points in Cat Game!\nI dare you to challenge me!\nFarm 🍅 $CAT with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $CAT!`
+    const text = `Hey, if you're a Pig, DOGS, Blum or Catizen user... you have something very special to claim in the Hamster app now.\nThe Hamster airdrop is coming! 🪂\nClaim with this link.`
     utils.shareURL(link, text)
   }
 
@@ -79,8 +79,8 @@ export default function () {
         </div>
         <div className='content'>
           <div className='content-desc'>
-            <div>Get 2000 $Hamster and 1 ticket（Invite a Friend）</div>
-            <div>Get 20000 $Hamster and 10 tickets（Invite a Telegram Premium）</div>
+            <div>Get 2000 $Hamster and 10 ticket（Invite a Friend）</div>
+            <div>Get 20000 $Hamster and 30 tickets（Invite a Telegram Premium）</div>
           </div>
           <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
           <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>

@@ -75,7 +75,7 @@ function GamePage() {
   }
 
   const handleSendLink = () => {
-    const text = `I scored ${score} points in Cat Game!\nI dare you to challenge me!\nFarm 🍅 $CAT with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $CAT!`
+    const text = `I scored ${score} points in Cat Game!\nI dare you to challenge me!\nFarm $Hamster with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 $Hamster!`
     utils.shareURL(link, text)
   }
 
@@ -142,9 +142,9 @@ function GamePage() {
             <div className='score-wrapper'>
               <span>+</span>
               <span>{score} </span>
-              <img src="/assets/common/cat.webp" alt="tomato" />
+              $Hamster
             </div>
-            <div>I scored {score} points in Cat Game!</div>
+            <div>I scored {score} points in Hamster Game!</div>
             <div>I dare you to challenge me!</div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>
@@ -169,8 +169,8 @@ function GamePage() {
           </div>
           <div className='content'>
             <div className='content-desc'>
-              <div>Get 2000 <img src='/assets/common/cat.webp' />and 1 <img src='/assets/common/ticket.webp' />（Invite a Friend）</div>
-              <div>Get 20000 <img src='/assets/common/cat.webp' />and 5 <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
+              <div>Get 2000 $Hamster and 1 ticket（Invite a Friend）</div>
+              <div>Get 20000 $Hamster and 10 tickets（Invite a Telegram Premium）</div>
             </div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>

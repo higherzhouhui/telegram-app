@@ -93,6 +93,7 @@ html {
     --elevation-dark-1: 0px 10px 60px rgba(0, 0, 0, .7);
     --tg-theme-button-color: red;
     --highColor: #ff4530;
+    --btnBg: #2ec06d;
 }
 
 .fadeIn {
@@ -177,4 +178,59 @@ html {
   z-index: 9;
   width: 60px;
   transform: translate(-50%, 0%);
+}
+
+.popup-invite {
+  padding: 12px 0;
+  color: #000;
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    font-family: "bold";
+    font-size: 1.3rem;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    svg {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+  .content {
+    padding: 12px 12px 24px 12px;
+  }
+  .content-desc {
+    padding: 12px;
+    background-color: rgba(0, 0, 0, .05);
+    border-radius: 6px;
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    img {
+      width: 22px;
+      object-fit: contain;
+      margin: 0 2px;
+    }
+  }
+  .popup-content-btn {
+    height: 3.2rem;
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+    line-height: 3.2rem;
+    font-size: 1.3rem;
+    font-family: 'bold';
+    border-radius: 50px;
+    border: 1px solid;
+  }
+  .btn-send {
+    background: var(--btnBg);
+    color: #000;
+    border: none;
+  }
 }

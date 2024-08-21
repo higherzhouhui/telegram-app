@@ -10,13 +10,13 @@ function TaskPage() {
   const [loading, setLoading] = useState(true)
   const [handleLoading, setHandleLoading] = useState(false)
   const navigate = useNavigate()
-  const handleDoTask = async (item: any, index: number) => {
+  const handleDoTask = async (item: any, index: number, cindex: number) => {
     if (item.status != 'Done') {
       setHandleLoading(true)
       const res = await handleTakReq(item)
       if (res.code == 0) {
         const _list = JSON.parse(JSON.stringify(list))
-        _list[index].status = res.data.status
+        _list[index][cindex].status = res.data.status
         setList(_list)
       } else {
         Toast.show({ content: res.msg, position: 'top' })
@@ -110,7 +110,7 @@ function TaskPage() {
                     </div>
                   </div>
                   <div className='task-list-right'>
-                    <Button className={`task-list-right-btn ${citem.status}`} onClick={() => handleDoTask(citem, index)} loading={handleLoading}>
+                    <Button className={`task-list-right-btn ${citem.status}`} onClick={() => handleDoTask(citem, index, cindex)} loading={handleLoading}>
                       {
                         citem.status || 'Start'
                       }

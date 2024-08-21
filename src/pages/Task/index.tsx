@@ -4,6 +4,7 @@ import { taskListReq, handleTakReq } from '@/api/task'
 import { initUtils } from '@telegram-apps/sdk'
 import { Button, Skeleton, Toast } from 'antd-mobile'
 import { useNavigate } from 'react-router-dom'
+import BackTop from '@/components/BackTop'
 
 function TaskPage() {
   const [list, setList] = useState([])
@@ -123,6 +124,7 @@ function TaskPage() {
         })
       }
     </div>
+    <BackTop scrollName='content' />
   </div>
 }
 export default TaskPage

@@ -99,6 +99,9 @@ export const HomePage: FC = () => {
   }
 
   const handlePlayGame = async () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(500)
+    }
     if (userInfo.ticket) {
       navigate('/game')
     } else {

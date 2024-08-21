@@ -23,10 +23,10 @@ function BackTop({ scrollName }: { scrollName: string }) {
   useEffect(() => {
     const layoutElement = document.getElementsByClassName(scrollName)[0]
     if (layoutElement) {
-      layoutElement.addEventListener('scroll', throttle(toggleVisibility, 500))
+      layoutElement.addEventListener('scroll', throttle(toggleVisibility, 50))
     }
     return () => {
-      layoutElement.removeEventListener('scroll', throttle(toggleVisibility, 500));
+      layoutElement.removeEventListener('scroll', throttle(toggleVisibility, 50));
     };
   }, []);
 

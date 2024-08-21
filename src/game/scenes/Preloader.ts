@@ -21,7 +21,7 @@ export class Preloader extends Scene {
         this.load.image('freezeBg', 'freezeBg.png')
         this.load.image('boomBg', 'boomBg.png')
         this.load.image('freeze', 'freeze.gif')
-        this.load.image('boom', 'boom.gif')
+        this.load.image('boom', 'boom.jpg')
     }
 
     create() {

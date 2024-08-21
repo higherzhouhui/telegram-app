@@ -6,8 +6,10 @@ import { useLocation } from 'react-router-dom'
 import { stringToColor } from '@/utils/common'
 import moment from 'moment'
 import BackTop from '@/components/BackTop'
+import { useSelector } from 'react-redux'
 
 function FrensDetailPage() {
+  const userInfo = useSelector((state: any) => state.user.info);
   const [list, setList] = useState<any>([])
   const [hasMore, setHasMore] = useState(true)
   const [page, setPage] = useState(1)
@@ -33,6 +35,9 @@ function FrensDetailPage() {
       type = 'Checking In'
     }
     if (type == 'play_game_reward_parent') {
+      type = 'Drop Game'
+    }
+    if (type == 'play_game_reward_parent' || type == 'play_game_reward') {
       type = 'Drop Game'
     }
     if (type == 'harvest_farming') {
@@ -100,7 +105,7 @@ function FrensDetailPage() {
                   by<div className="user-icon" style={{ background: stringToColor(item.from_username) }}>
                     {item.from_username.slice(0, 2)}
                   </div>
-                  <div className='frens-detail-name'>{item.from_username}</div>
+                  <div className='frens-detail-name'>{item.from_username == userInfo.username ? <span style={{ color: 'var(--highColor)' }}>me</span> : item.from_username}</div>
 
                 </div>
                 <div className='type'>{getType(item.type)}</div>

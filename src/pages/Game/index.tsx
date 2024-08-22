@@ -50,7 +50,7 @@ export default function () {
         </div>
       </div>
       <div className='intro-list'>
-        <img src='/assets/g2.png' />
+        <img src='/assets/wel.gif' />
         <div className='btn' onClick={() => handlePlayGame('/downGame')}>
           <span>Play Game</span>
           <span>

@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import './index.scss'
 
 import { Button } from "antd-mobile";
-import EventBus from '@/utils/eventBus';
 import { useSelector } from 'react-redux';
 import { updateUserReq } from '@/api/common';
 import LogoIcon from '@/assets/logo.jpg'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function ({ cStep }: { cStep?: number }) {
-  const eventBus = EventBus.getInstance();
   const [step, setStep] = useState(cStep || 0)
   const [isShowBtn, setIsShowBtn] = useState(true)
   const [thirdIndex, setThirdIndex] = useState(0)
-
+  const navigate = useNavigate()
+  const myLocation = useLocation()
   const handleNext = async () => {
     if (!isShowBtn) {
       return
@@ -31,7 +31,7 @@ export default function ({ cStep }: { cStep?: number }) {
     setStep(newStep)
     if (newStep == 3) {
       // 退出
-      eventBus.emit('updateStep', 0)
+      navigate('/')
     }
     if (newStep == 1) {
       setIsShowBtn(false)
@@ -43,6 +43,13 @@ export default function ({ cStep }: { cStep?: number }) {
   useEffect(() => {
     setStep(cStep || 0)
   }, [cStep])
+
+  useEffect(() => {
+    if (myLocation.search.includes('last')) {
+      setStep(2)
+    }
+  }, [myLocation.hash])
+
   const list = [
     {
       btn: `Wow, let's go!`,

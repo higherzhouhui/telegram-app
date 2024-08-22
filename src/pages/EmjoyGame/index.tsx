@@ -27,6 +27,7 @@ function GamePage() {
   const currentActiveScene = async (scene: Phaser.Scene) => {
     setCurrentScene(scene.scene.key);
     if (scene.scene.key == 'GameOver') {
+      eventBus.emit('showCongrates', { time: 2000, visible: true })
       const _score = (localStorage.getItem('currentScore') || 0) as any
       if (parseInt(_score)) {
         eventBus.emit('showCongrates', { time: 1000, visible: true })

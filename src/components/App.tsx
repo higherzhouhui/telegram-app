@@ -11,7 +11,7 @@ import {
   useViewport,
 } from '@telegram-apps/sdk-react';
 import { AppRoot } from '@telegram-apps/telegram-ui';
-import { type FC, useEffect, useMemo } from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 import {
   Navigate,
   Route,
@@ -24,6 +24,9 @@ import Footer from './Footer';
 import { useDispatch } from 'react-redux';
 import { loginReq } from '@/api/common';
 import { setUserInfoAction } from '@/redux/slices/userSlice';
+import Congrates from './Congrates';
+import EventBus from '@/utils/eventBus';
+import Loading from './Loading';
 
 export const App: FC = () => {
   const lp = useLaunchParams();
@@ -33,7 +36,10 @@ export const App: FC = () => {
   const [backButton] = initBackButton()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
+  const [isShowCongrates, setShowCongrates] = useState(false)
+  const [showTime, setShowTime] = useState(1500)
+  const eventBus = EventBus.getInstance()
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     return bindMiniAppCSSVars(miniApp, themeParams);
   }, [miniApp, themeParams]);
@@ -66,6 +72,7 @@ export const App: FC = () => {
   }, [])
 
   const login = async () => {
+    setLoading(true)
     const initData = initInitData() as any;
     let res: any;
     if (initData && initData.user && initData.user.id) {
@@ -75,12 +82,25 @@ export const App: FC = () => {
     }
     if (res.code == 0) {
       dispatch(setUserInfoAction(res.data))
+      if (res.data.is_New) {
+        navigate('/begin')
+      }
       localStorage.setItem('authorization', res.data.user_id)
     }
+    setLoading(false)
   }
 
   useEffect(() => {
     login()
+    const onMessage = ({ visible, time }: { visible: boolean, time?: number }) => {
+      setShowCongrates(visible)
+      setShowTime(time || 1500)
+    }
+    const onLoading = (flag: boolean) => {
+      setLoading(flag)
+    }
+    eventBus.addListener('showCongrates', onMessage)
+    eventBus.addListener('loading', onLoading)
   }, [])
 
 
@@ -97,6 +117,10 @@ export const App: FC = () => {
           </Routes>
         </div>
         <Footer />
+        <Congrates visible={isShowCongrates} time={showTime} callBack={() => setShowCongrates(false)} />
+        {
+          loading ? <Loading /> : null
+        }
       </div>
     </AppRoot>
   );

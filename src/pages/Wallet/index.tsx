@@ -4,6 +4,7 @@ import { Button } from 'antd-mobile';
 import { useSelector } from 'react-redux';
 import { formatWalletAddress, handleCopyLink } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function WalletPage() {
   const router = useNavigate()
@@ -16,6 +17,12 @@ function WalletPage() {
       console.error(e.message);
     }
   };
+
+  useEffect(() => {
+    if (!isConnected) {
+      connectWallet()
+    }
+  }, [isConnected])
 
   return <div className='wallet-page fadeIn'>
     <div className='my-assets' onClick={() => router('/assets')}>

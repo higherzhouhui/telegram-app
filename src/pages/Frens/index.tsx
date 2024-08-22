@@ -1,28 +1,24 @@
 import { useEffect, useState } from 'react'
 import './index.scss'
-import { getSystemConfigReq, getSubUserTotalReq } from '@/api/common'
+import { getSubUserTotalReq } from '@/api/common'
 import { Button, Skeleton } from 'antd-mobile'
 import { useSelector } from 'react-redux'
 import { initUtils } from '@telegram-apps/sdk'
 import { useNavigate } from 'react-router-dom'
-import loginConfig from "@/constants/config/login.config";
-import { stringToColor } from '@/utils/common'
-import moment from 'moment'
 
 function FrensPage() {
   const userInfo = useSelector((state: any) => state.user.info);
+  const systemConfig = useSelector((state: any) => state.user.system);
   const navigate = useNavigate()
   const utils = initUtils()
   const [isCopy, setIsCopy] = useState(false)
-  const link = `${loginConfig.TG_LINK}?startapp=${btoa(userInfo.user_id)}`;
-  const [systemConfig, setSystemConfig] = useState<any>({})
+  const link = `${systemConfig?.tg_link}?startapp=${btoa(userInfo.user_id)}`;
   const [loading, setLoading] = useState(true)
   const [total, setTotal] = useState(0)
   const [parentUser, setParentUser] = useState<any>({})
-  const initSystemConfig = async () => {
+  const initData = async () => {
     setLoading(true)
-    const [res, resTotal] = await Promise.all([getSystemConfigReq(), getSubUserTotalReq()])
-    setSystemConfig(res.data)
+    const [resTotal] = await Promise.all([getSubUserTotalReq()])
     setTotal(resTotal.data.total)
     setParentUser(resTotal.data)
     setLoading(false)
@@ -67,7 +63,7 @@ function FrensPage() {
   }
 
   useEffect(() => {
-    initSystemConfig()
+    initData()
   }, [])
   return <div className='frens-page fadeIn'>
     <div className='frens-page-top'>

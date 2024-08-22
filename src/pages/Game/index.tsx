@@ -7,17 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { beginGameReq, endGameReq } from '@/api/game';
 import { setUserInfoAction } from '@/redux/slices/userSlice';
-import loginConfig from "@/constants/config/login.config";
 import EventBus from '@/utils/eventBus';
 import Loading from '@/components/Loading';
 
 function GamePage() {
   //  References to the PhaserGame component (game and scene are exposed)
+  const systemConfig = useSelector((state: any) => state.user.system);
   const phaserRef = useRef<IRefPhaserGame | null>(null);
   const userInfo = useSelector((state: any) => state.user.info);
   const [currentScene, setCurrentScene] = useState('Preloader')
   const [score, setScore] = useState(0)
-  const link = `${loginConfig.TG_LINK}?startapp=${btoa(userInfo.user_id)}SHAREGAME`
+  const link = `${systemConfig?.tg_link}?startapp=${btoa(userInfo.user_id)}SHAREGAME`
   const [showPopUp, setShowPopUp] = useState(false)
   const utils = initUtils()
   const navigate = useNavigate();
@@ -155,8 +155,8 @@ function GamePage() {
           </div>
           <div className='content'>
             <div className='content-desc'>
-              <div>Get 2000 <img src='/assets/common/cat.webp' />and 1 <img src='/assets/common/ticket.webp' />（Invite a Friend）</div>
-              <div>Get 20000 <img src='/assets/common/cat.webp' />and 5 <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
+              <div>Get {systemConfig?.invite_normalAccount_score} <img src='/assets/common/cat.webp' />and {systemConfig?.invite_normalAccount_ticket} <img src='/assets/common/ticket.webp' />（Invite a Friend）</div>
+              <div>Get {systemConfig?.invite_premiumAccount_score} <img src='/assets/common/cat.webp' />and {systemConfig?.invite_premiumAccount_ticket} <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
             </div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>

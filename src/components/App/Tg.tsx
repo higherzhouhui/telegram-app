@@ -28,8 +28,8 @@ import Congrates from '@/components/Congrates';
 import EventBus from '@/utils/eventBus';
 import { AppRoot } from '@telegram-apps/telegram-ui';
 import { type FC, useEffect, useMemo, useState } from 'react';
-import { loginReq } from '@/api/common';
-import { setUserInfoAction } from '@/redux/slices/userSlice';
+import { getSystemConfigReq, loginReq } from '@/api/common';
+import { setSystemAction, setUserInfoAction } from '@/redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import Loading from '../Loading';
@@ -90,8 +90,33 @@ const TgApp: FC = () => {
   const eventBus = EventBus.getInstance()
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
+  const initApp = async () => {
+    const initData = initInitData() as any;
+    if (initData && initData.user && initData.user.id) {
+      const user = initData.initData.user
+      const data = { ...initData.initData, ...user }
+      setLoading(true)
+      const [res, sysInfo] = await Promise.all([loginReq(data), getSystemConfigReq()])
+      if (res.code == 0) {
+        dispatch(setUserInfoAction(res.data))
+        localStorage.setItem('authorization', res.data.user_id)
+        if (res.data.check_date) {
+          const today = moment().utc().format('MM-DD')
+          if (res.data.check_date != today) {
+            navigate('/checkIn')
+          }
+        } else {
+          navigate('/checkIn')
+        }
+      }
+      if (sysInfo.code == 0) {
+        dispatch(setSystemAction(sysInfo.data))
+      }
+      setLoading(false)
+    }
+  }
   useEffect(() => {
-    login()
+    initApp()
     const onMessage = ({ visible, time }: { visible: boolean, time?: number }) => {
       setShowCongrates(visible)
       setShowTime(time || 1500)

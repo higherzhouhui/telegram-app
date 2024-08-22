@@ -9,13 +9,13 @@ import { Button, Popup, Toast } from 'antd-mobile';
 import { judgeIsStartFarming } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
 import EventBus from '@/utils/eventBus';
-import loginConfig from '@/constants/config/login.config';
 
 export const HomePage: FC = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const userInfo = useSelector((state: any) => state.user.info);
-  const link = `${loginConfig.TG_LINK}?startapp=${btoa(userInfo.user_id)}`
+  const systemConfig = useSelector((state: any) => state.user.system);
+  const link = `${systemConfig.tg_link}?startapp=${btoa(userInfo.user_id)}`
   const [isShowRules, setShowRules] = useState(false)
   const [isSleep, setIsSleep] = useState(true)
   const [showAddScore, setShowScore] = useState(false)
@@ -343,8 +343,8 @@ export const HomePage: FC = () => {
           </div>
           <div className='content'>
             <div className='content-desc'>
-              <div>Get 2000 <img src='/assets/common/cat.webp' />and 1 <img src='/assets/common/ticket.webp' />（Invite a Friend）</div>
-              <div>Get 20000 <img src='/assets/common/cat.webp' />and 5 <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
+              <div>Get {systemConfig?.invite_normalAccount_score} <img src='/assets/common/cat.webp' />and {systemConfig?.invite_normalAccount_ticket} <img src='/assets/common/ticket.webp' />（Invite a Friend）</div>
+              <div>Get {systemConfig?.invite_premiumAccount_score} <img src='/assets/common/cat.webp' />and {systemConfig?.invite_premiumAccount_ticket} <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
             </div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>
@@ -354,7 +354,7 @@ export const HomePage: FC = () => {
       {
         isShowCongrate ? <div className='full-congrate fadeIn' onClick={() => setShowCongrates(false)}>
           <div className='full-congrate-content'>
-            <div className='full-congrate-score'>+ {isGetBigReward ? 2500 : 1080}<img src='/assets/common/cat.webp' /></div>
+            <div className='full-congrate-score'>+ {isGetBigReward ? systemConfig?.special_reward : systemConfig?.farm_score}<img src='/assets/common/cat.webp' /></div>
             <div className='full-congrate-desc'>{isGetBigReward ? 'Mysterious Grand Prize' : 'Congratulations on farming 1080 $CAT'}</div>
           </div>
         </div> : null

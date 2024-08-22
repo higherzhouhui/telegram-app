@@ -116,7 +116,7 @@ export const HomePage: FC = () => {
     let timer
     if (isShowCongrate) {
       timer = setTimeout(() => {
-        setShowScore(false)
+        setShowCongrates(false)
       }, 3000);
     }
     return () => {

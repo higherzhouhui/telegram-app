@@ -29,7 +29,7 @@ function FrensDetailPage() {
   }
   const getType = (type: string) => {
     if (type == 'register') {
-      type = 'Inviting'
+      type = 'Register'
     }
     if (type == 'checkIn_parent') {
       type = 'Checking In'
@@ -97,7 +97,10 @@ function FrensDetailPage() {
           return <List.Item key={index}>
             <div className='frens-list'>
               <div className='frens-detail-left'>
-                <div className='score'>+&nbsp;{item.score.toLocaleString()}</div>
+                <div className='score'>+&nbsp;{item.score.toLocaleString()}<img src='/assets/common/cat.webp' /></div>
+                {
+                  item.ticket ? <div className='score'>+&nbsp;{item.ticket}<img src='/assets/common/ticket.webp' /></div> : null
+                }
                 <div className='frens-detail-time'>{moment(item.createdAt).format('YYYY-MM-DD HH:mm')}</div>
               </div>
               <div className='frens-detail-right'>
@@ -106,7 +109,6 @@ function FrensDetailPage() {
                     {item.from_username.slice(0, 2)}
                   </div>
                   <div className='frens-detail-name'>{item.from_username == userInfo.username ? <span style={{ color: 'var(--highColor)' }}>me</span> : item.from_username}</div>
-
                 </div>
                 <div className='type'>{getType(item.type)}</div>
               </div>

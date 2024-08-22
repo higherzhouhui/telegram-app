@@ -35,6 +35,8 @@
     justify-content: center;
     color: #fff;
     min-width: 32px;
+    text-transform: uppercase;
+
   }
 
   .frens-list {
@@ -49,6 +51,12 @@
         font-weight: bold;
         font-size: 1.5rem;
         font-family: 'number';
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        img {
+          width: 16px;
+        }
       }
 
       .frens-detail-time {
@@ -77,14 +85,16 @@
       }
 
       .user-icon {
-        width: 22px;
-        height: 22px;
+        width: 28px;
+        height: 28px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: #fff;
         border-radius: 50%;
         font-size: 12px;
+        text-shadow: 1px 1px 0 #ff0000;
+        text-transform: uppercase;
       }
 
       .type {

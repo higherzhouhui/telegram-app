@@ -82,34 +82,10 @@ function FrensPage() {
         </div> : null
       }
       {
-        !total && parentUser?.username ? <div className='rules-title'>Your Referrer</div> : null
-      }
-      {
         total ? <div className='sub-container' onClick={() => routeToDetail()}>
           <div className='total'>{total}</div>
           <div className='frens'>Frens</div>
           <div className='view-frens'>View Frens Detail&nbsp;&nbsp;&gt;</div>
-        </div> : parentUser?.username ? <div className='sub-container'>
-          <div className='avatar' style={{ background: stringToColor(userInfo.username) }}>
-            {parentUser.username.slice(0, 2)}
-          </div>
-          <div className='parent-name'>{parentUser.username}</div>
-          <div className='parent-score'>+&nbsp;{parentUser.totalScore.toLocaleString()}<img src='/assets/common/cat.webp' width={20} /></div>
-          <div className='view-sharing'>Obtained through invitee's points sharing</div>
-          {
-            parentUser.list.map((item: any) => {
-              return <div className='list-score' key={item.createdAt}>
-                <div className='list-score-top'>
-                  <div className='list-score-num'>+{item.score.toLocaleString()}</div>
-                  <div className='list-name'><span>by</span>&nbsp;{item.from_username}</div>
-                </div>
-                <div className='list-score-top'>
-                  <div className='list-time'>{moment(item.createdAt).format('YYYY.MM.DD HH:mm:ss')}</div>
-                  <div className='list-type'>{getType(item.type)}</div>
-                </div>
-              </div>
-            })
-          }
         </div> : null
       }
       <div className='rules-container'>

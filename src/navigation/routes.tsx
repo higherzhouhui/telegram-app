@@ -8,6 +8,7 @@ import WalletPage from '@/pages/Wallet';
 import AssetsPage from '@/components/Assets';
 import LeaderBoardPage from '@/pages/LeaderBoard';
 import FrensDetailPage from '@/pages/Frens/Detail';
+import CheckInlPage from '@/pages/CheckIn';
 
 interface Route {
   path: string;
@@ -26,4 +27,5 @@ export const routes: Route[] = [
   { path: '/wallet', Component: WalletPage },
   { path: '/frens-detail', Component: FrensDetailPage },
   { path: '/assets', Component: AssetsPage },
+  { path: '/checkIn', Component: CheckInlPage },
 ];

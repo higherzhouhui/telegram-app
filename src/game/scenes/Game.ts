@@ -176,7 +176,7 @@ export default class MainGame extends Phaser.Scene {
                         ease: 'Linear',
                         duration: 1000,
                     })
-                    this.score = Math.max(this.score - iconObj.score, 0)
+                    this.score = Math.max(this.score - Math.abs(iconObj.score), 0)
                     this.scoreText.setText(this.score).setColor('#ffffff')
                     const bgWidth = 1125
                     const bgHeight = 2115

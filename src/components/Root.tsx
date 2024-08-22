@@ -132,7 +132,7 @@ const Inner: FC = () => {
     });
   };
   useEffect(() => {
-    TelegramPlatform.initializeTelegramWebApp({ handleLogout });
+    // TelegramPlatform.initializeTelegramWebApp({ handleLogout });
 
   }, [])
   return (

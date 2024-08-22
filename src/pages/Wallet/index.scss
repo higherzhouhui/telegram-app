@@ -1,6 +1,21 @@
 .wallet-page {
   padding: 18px 12px;
   text-align: center;
+  position: relative;
+  .my-assets {
+    position: fixed;
+    right: 12px;
+    top: 20px;
+    font-size: 18px;
+    background: var(--btnBg);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'bold';
+  }
   .wallet-img {
     margin-top: 1rem;
     width: 90px;

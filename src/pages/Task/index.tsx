@@ -9,19 +9,23 @@ import BackTop from '@/components/BackTop'
 function TaskPage() {
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
-  const [handleLoading, setHandleLoading] = useState(false)
   const navigate = useNavigate()
   const handleDoTask = async (item: any, index: number, cindex: number) => {
     if (item.status != 'Done') {
-      setHandleLoading(true)
+      const _list = JSON.parse(JSON.stringify(list))
+      _list[index][cindex].loading = true
+      setList(_list)
       const res = await handleTakReq(item)
       if (res.code == 0) {
         const _list = JSON.parse(JSON.stringify(list))
         _list[index][cindex].status = res.data.status
+        _list[index][cindex].loading = false
         setList(_list)
       } else {
         Toast.show({ content: res.msg, position: 'top' })
-        setHandleLoading(false)
+        const _list = JSON.parse(JSON.stringify(list))
+        _list[index][cindex].loading = false
+        setList(_list)
       }
       if (item.status == null) {
         if (item.linkType.includes('telegram')) {
@@ -46,6 +50,7 @@ function TaskPage() {
       }, {})
     );
   }
+
   const getImgSrc = (img: string) => {
     if (img.includes('Game')) {
       return 'game'
@@ -57,19 +62,16 @@ function TaskPage() {
       return 'aelf'
     }
   }
-  useEffect(() => {
-    if (handleLoading) {
-      setTimeout(() => {
-        setHandleLoading(false)
-      }, 5000);
-    }
-  }, [handleLoading])
+
 
   useEffect(() => {
     setLoading(true)
     taskListReq().then(res => {
       setLoading(false)
       if (res.code == 0) {
+        res.data.map(item => {
+          item.loading = false
+        })
         const list = groupByType(res.data)
         setList(list)
       }
@@ -111,7 +113,7 @@ function TaskPage() {
                     </div>
                   </div>
                   <div className='task-list-right'>
-                    <Button className={`task-list-right-btn ${citem.status}`} onClick={() => handleDoTask(citem, index, cindex)} loading={handleLoading}>
+                    <Button className={`task-list-right-btn ${citem.status}`} onClick={() => handleDoTask(citem, index, cindex)} loading={citem.loading}>
                       {
                         citem.status || 'Start'
                       }

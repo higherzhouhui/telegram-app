@@ -6,13 +6,15 @@ import { Button } from 'antd-mobile'
 import { useDispatch } from 'react-redux'
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 import EventBus from '@/utils/eventBus'
+import { useNavigate } from 'react-router-dom'
 
-function CheckInPage({ handleCallBack }: { handleCallBack: () => void }) {
+function CheckInPage() {
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance()
   const [checkObj, setCheckObj] = useState<any>()
   const [changeScale, setChangeScale] = useState(false)
   const [rewardsList, setRewardList] = useState([])
+  const navigate = useNavigate()
   const checkIn = async () => {
     const res = await userCheckReq()
     setCheckObj(res.data)
@@ -23,7 +25,7 @@ function CheckInPage({ handleCallBack }: { handleCallBack: () => void }) {
   }
 
   const handleContinue = () => {
-    handleCallBack()
+    navigate('/')
   }
   useEffect(() => {
     checkIn()

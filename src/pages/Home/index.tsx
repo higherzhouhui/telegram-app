@@ -1,11 +1,9 @@
 import './index.scss';
 import { FC, useEffect, useRef, useState } from 'react';
-import { getMagicPrizeReq, getRewardFarmingReq, loginReq, startFarmingReq } from '@/api/common';
+import { getMagicPrizeReq, getRewardFarmingReq, getUserInfoReq, startFarmingReq } from '@/api/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
-import { initInitData, initUtils } from '@telegram-apps/sdk';
-import Loading from '@/components/Loading';
-import CheckIn from '@/components/CheckIn';
+import { initUtils } from '@telegram-apps/sdk';
 import moment from 'moment';
 import { Button, Popup, Toast } from 'antd-mobile';
 import { judgeIsStartFarming } from '@/utils/common';
@@ -18,8 +16,6 @@ export const HomePage: FC = () => {
   const navigate = useNavigate()
   const userInfo = useSelector((state: any) => state.user.info);
   const link = `${loginConfig.TG_LINK}?startapp=${btoa(userInfo.user_id)}`
-  const [loading, setLoading] = useState(true)
-  const [isCheck, setIsCheck] = useState(false)
   const [isShowRules, setShowRules] = useState(false)
   const [isSleep, setIsSleep] = useState(true)
   const [showAddScore, setShowScore] = useState(false)
@@ -47,26 +43,6 @@ export const HomePage: FC = () => {
     percent: 0,
     leftTime: 180,
   })
-  const login = async () => {
-    const initData = initInitData() as any;
-    let res: any;
-    if (initData && initData.user && initData.user.id) {
-      const user = initData.initData.user
-      const data = { ...initData.initData, ...user }
-      res = await loginReq(data)
-    }
-    if (res.code == 0) {
-      dispatch(setUserInfoAction(res.data))
-      localStorage.setItem('authorization', res.data.user_id)
-      if (res.data.check_date) {
-        const today = moment().utc().format('MM-DD')
-        if (res.data.check_date == today) {
-          setIsCheck(true)
-        }
-      }
-    }
-    setLoading(false)
-  }
 
   const handleStartFarming = async () => {
     const res = await startFarmingReq()
@@ -110,10 +86,6 @@ export const HomePage: FC = () => {
   }
 
   useEffect(() => {
-    login()
-  }, [])
-
-  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentMessage((val) => val + 1)
     }, 10000);
@@ -139,6 +111,20 @@ export const HomePage: FC = () => {
       clearTimeout(hideTimer)
     }
   }, [currentMessage])
+
+  useEffect(() => {
+    let timer
+    if (isShowCongrate) {
+      timer = setTimeout(() => {
+        setShowScore(false)
+      }, 3000);
+    }
+    return () => {
+      if (timer) {
+        clearInterval(timer)
+      }
+    }
+  }, [isShowCongrate])
 
   const handleCopyLink = () => {
     const textToCopy = link; // 替换为你想要复制的内容  
@@ -207,6 +193,15 @@ export const HomePage: FC = () => {
     }
   }, [showAddScore])
 
+
+  useEffect(() => {
+    getUserInfoReq({}).then(res => {
+      if (res.code == 0) {
+        dispatch(setUserInfoAction(res.data.userInfo))
+      }
+    })
+  }, [])
+
   useEffect(() => {
     if (farmingTimer.current) {
       clearInterval(farmingTimer.current)
@@ -228,9 +223,6 @@ export const HomePage: FC = () => {
   }, [userInfo])
   return (
     <div className="home-page fadeIn">
-      {
-        loading ? <Loading /> : !isCheck ? <CheckIn handleCallBack={() => setIsCheck(true)} /> : null
-      }
       <div className='top-title'>
         <div className='score'>{userInfo?.score?.toLocaleString()}</div>
         <div className='unit'>
@@ -320,7 +312,7 @@ export const HomePage: FC = () => {
             </div>
             <ul>
               <li>Check in daily to get <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} /> and an additional <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} /> if you do it consecutively!</li>
-              <li>Grow your tomatoes to harvest <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} /> rewards!</li>
+              <li>Grow your cat to harvest <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} /> rewards!</li>
               <li>Check in daily to receive <img src='/assets/common/ticket.webp' alt='logo' width={16} height={16} /> and earn more <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} />.</li>
               <li>Invite frens to earn more <img src='/assets/common/cat.webp' alt='logo' width={16} height={16} />.</li>
               <li>

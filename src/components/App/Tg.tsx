@@ -66,6 +66,8 @@ const TgApp: FC = () => {
         if (res.data.check_date != today) {
           navigate('/checkIn')
         }
+      } else {
+        navigate('/checkIn')
       }
     }
     setLoading(false)

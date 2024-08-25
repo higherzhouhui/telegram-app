@@ -1,5 +1,4 @@
 
-import '@/mockEnv';
 import eruda from "eruda";
 // import '@/trackers'
 

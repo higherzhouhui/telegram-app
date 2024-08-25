@@ -1,6 +1,3 @@
-
-import '@/mockProd';
-
 import {
   bindMiniAppCSSVars,
   bindThemeParamsCSSVars,

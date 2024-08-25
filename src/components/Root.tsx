@@ -1,3 +1,4 @@
+import '@/mockEnv';
 import { type FC } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Provider } from 'react-redux';
@@ -15,8 +16,7 @@ import { APP_NAME, WEBSITE_ICON } from "@/constants/website";
 import BridgeUpdater from '@/components/BridgeUpdater';
 import { HashRouter } from 'react-router-dom';
 import { SDKProvider } from '@telegram-apps/sdk-react';
-import TgApp from '@/components/App/Tg';
-import PcApp from '@/components/App/Pc';
+import { App } from './App';
 
 const {
   CHAIN_ID,
@@ -132,7 +132,7 @@ const MiNiRoot: FC = () => {
         <WebLoginProvider bridgeAPI={bridgeAPI}>
           <HashRouter>
             <SDKProvider>
-              <TgApp />
+              <App />
             </SDKProvider>
             <BridgeUpdater />
           </HashRouter>
@@ -142,29 +142,10 @@ const MiNiRoot: FC = () => {
   );
 };
 
-const H5PcRoot: FC = () => {
-  const bridgeAPI = init(config)
 
-  return (
-    <Provider store={store}>
-      <ConfigProvider locale={enUS}>
-        <WebLoginProvider bridgeAPI={bridgeAPI}>
-          <HashRouter>
-            <SDKProvider>
-              <PcApp />
-            </SDKProvider>
-            <BridgeUpdater />
-          </HashRouter>
-        </WebLoginProvider>
-      </ConfigProvider>
-    </Provider>
-  );
-};
 
 export const Root: FC = () => (
-  <ErrorBoundary fallback={ErrorBoundaryError} H5PcRoot={<ErrorBoundary fallback={ErrorBoundaryError} H5PcRoot={<>H5PcRoot Error</>}><H5PcRoot /></ErrorBoundary>}>
-    {
-      import.meta.env.DEV ? <H5PcRoot /> : <MiNiRoot />
-    }
+  <ErrorBoundary fallback={ErrorBoundaryError} >
+    <MiNiRoot />
   </ErrorBoundary>
 );

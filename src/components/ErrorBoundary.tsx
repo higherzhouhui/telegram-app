@@ -25,6 +25,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     this.setState({ error });
     if (error.message == 'Unable to determine current environment and possible way to send event. You are probably trying to use Mini Apps method outside the Telegram application environment.') {
       this.setState({ usePc: true })
+      console.log('userPc')
     }
   }
 

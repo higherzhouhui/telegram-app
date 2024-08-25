@@ -134,8 +134,8 @@ const MiNiRoot: FC = () => {
             <SDKProvider>
               <TgApp />
             </SDKProvider>
+            <BridgeUpdater />
           </HashRouter>
-          <BridgeUpdater />
         </WebLoginProvider>
       </ConfigProvider>
     </Provider>
@@ -162,7 +162,7 @@ const H5PcRoot: FC = () => {
 };
 
 export const Root: FC = () => (
-  <ErrorBoundary fallback={ErrorBoundaryError} H5PcRoot={<H5PcRoot />}>
+  <ErrorBoundary fallback={ErrorBoundaryError} H5PcRoot={<ErrorBoundary fallback={ErrorBoundaryError} H5PcRoot={<>H5PcRoot Error</>}><H5PcRoot /></ErrorBoundary>}>
     {
       import.meta.env.DEV ? <H5PcRoot /> : <MiNiRoot />
     }

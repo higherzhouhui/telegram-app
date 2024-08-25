@@ -81,7 +81,9 @@ export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(function PhaserGame
                 <img src='/assets/game/freezeAg.gif' alt='gif' className='bl' />
                 <img src='/assets/game/freezeAg.gif' alt='gif' className='br' />
             </div>
-            <img src='/assets/game/click.gif' alt='boom' className='get-score' style={{ left: clickTomato.left, top: clickTomato.top, opacity: clickTomato.show ? 1 : 0, zIndex: clickTomato ? 10 : -1 }} />
+            <div className='get-score' style={{ zIndex: clickTomato ? 10 : -1 }}>
+                <img src='/assets/game/click.gif' alt='boom' style={{ left: clickTomato.left, top: clickTomato.top, opacity: clickTomato.show ? 1 : 0 }} />
+            </div>
         </div>
     );
 });

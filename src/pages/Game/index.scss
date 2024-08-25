@@ -30,7 +30,7 @@
       width: 100%;
     }
     .congrats-img {
-      width: 50vw;
+      width: 80%;
       margin-bottom: 22px;
     }
     .congrats {
@@ -96,6 +96,9 @@
 
 }
 .popup-result {
+  max-width: 450px;
+  margin: 0 auto;
+  color: #fff;
   .popup-title {
     position: relative;
     text-align: center;
@@ -103,7 +106,6 @@
     font-weight: bold;
     line-height: 2.2rem;
     margin-top: 12px;
-    color: #000;
     .close-svg {
       position: absolute;
       right: 14px;
@@ -116,7 +118,6 @@
     align-items: center;
     flex-direction: column;
     padding: 18px 12px;
-    color: #000;
     .popup-content-jb {
       font-size: 5rem;
     }
@@ -138,7 +139,7 @@
     }
     .popup-content-btn {
       height: 3.2rem;
-      border: 1px solid #000;
+      border: 1px solid #fff;
       width: 100%;
       text-align: center;
       margin-top: 12px;

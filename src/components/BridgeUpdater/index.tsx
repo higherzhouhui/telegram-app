@@ -3,14 +3,18 @@ import { useEffect } from "react";
 import { PortkeyBridgeEventReceiveInstance } from "../../bridgeEvent/on";
 import { PortkeyBridgeEventPost } from "../../bridgeEvent/dispatch";
 import { NotificationEvents } from "../../bridgeEvent/constants";
-import { bindWalletReq } from '@/api/common'
+import { bindWalletReq, h5PcLoginReq } from '@/api/common'
 import { Toast } from "antd-mobile";
 import { useDispatch } from "react-redux";
 import { setUserInfoAction } from "@/redux/slices/userSlice";
+import EventBus from "@/utils/eventBus";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 export default function BridgeUpdater() {
   const provider = useConnectWallet();
   const dispatch = useDispatch()
-
+  const eventBus = EventBus.getInstance()
+  const navigate = useNavigate()
   const bindWallet = async (walletInfo: any) => {
     const res = await bindWalletReq(walletInfo)
     if (res.code !== 0) {
@@ -19,6 +23,35 @@ export default function BridgeUpdater() {
       dispatch(setUserInfoAction(res.data))
     }
   }
+
+  const h5PcLogin = async (walletInfo: any) => {
+    eventBus.emit('loading', true)
+    let url = location.hash
+    if (url) {
+      url = url.replace('#', '')
+    }
+    const res = await h5PcLoginReq(walletInfo)
+    if (res.code !== 0) {
+      Toast.show({ content: res.msg, position: 'top' })
+    } else {
+      dispatch(setUserInfoAction(res.data))
+      localStorage.setItem('authorization', res.data.user_id)
+      localStorage.setItem('walletInfo', JSON.stringify(walletInfo))
+      if (res.data.check_date) {
+        const today = moment().utc().format('MM-DD')
+        if (res.data.check_date != today) {
+          navigate('/checkIn')
+        } else {
+          navigate(url)
+        }
+      } else {
+        navigate('/checkIn')
+      }
+    }
+    eventBus.emit('loading', false)
+  }
+
+
   useEffect(() => {
     if (!window.PortkeyBridge) window.PortkeyBridge = {};
     console.log(provider, "NotificationEvents ==provider===");
@@ -59,10 +92,18 @@ export default function BridgeUpdater() {
       (event) => {
         // 这里对address进行修改
         if (event?.address) {
-          bindWallet({
-            wallet: event?.address,
-            wallet_nickName: event?.extraInfo?.nickName
-          })
+          if (localStorage.getItem('h5PcRoot') == '1') {
+            h5PcLogin({
+              wallet: event?.address,
+              wallet_nickName: event?.extraInfo?.nickName,
+              username: event?.extraInfo?.nickName,
+            })
+          } else {
+            bindWallet({
+              wallet: event?.address,
+              wallet_nickName: event?.extraInfo?.nickName,
+            })
+          }
         }
         console.log(event, "NotificationEvents.walletChanged");
       }

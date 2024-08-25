@@ -49,30 +49,6 @@ const TgApp: FC = () => {
     return new URL('tonconnect-manifest.json', window.location.href).toString();
   }, []);
 
-  const login = async () => {
-    setLoading(true)
-    const initData = initInitData() as any;
-    let res: any;
-    if (initData && initData.user && initData.user.id) {
-      const user = initData.initData.user
-      const data = { ...initData.initData, ...user }
-      res = await loginReq(data)
-    }
-    if (res.code == 0) {
-      dispatch(setUserInfoAction(res.data))
-      localStorage.setItem('authorization', res.data.user_id)
-      if (res.data.check_date) {
-        const today = moment().utc().format('MM-DD')
-        if (res.data.check_date != today) {
-          navigate('/checkIn')
-        }
-      } else {
-        navigate('/checkIn')
-      }
-    }
-    setLoading(false)
-  }
-
   useEffect(() => {
     return bindMiniAppCSSVars(miniApp, themeParams);
   }, [miniApp, themeParams]);
@@ -91,6 +67,7 @@ const TgApp: FC = () => {
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
   const initApp = async () => {
+    localStorage.setItem('h5PcRoot', '0')
     const initData = initInitData() as any;
     if (initData && initData.user && initData.user.id) {
       const user = initData.initData.user

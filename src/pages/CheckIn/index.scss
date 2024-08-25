@@ -1,11 +1,9 @@
 .checkIn-container {
-  width: 100vw;
   height: 100vh;
   overflow: hidden;
-  position: fixed;
   z-index: 999;
   background: var(--bgColor);
-
+  width: 100%;
   .checkIn-first {
     display: flex;
     flex-direction: column;

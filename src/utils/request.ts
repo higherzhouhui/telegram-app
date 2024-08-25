@@ -10,6 +10,12 @@ const handleResponse = (data: GlobalRequest.Response<any>) => {
       window.location.href = `/`;
     }
   }
+  if (code === 401) {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('authorization');
+      window.location.href = `/#/wallet`;
+    }
+  }
 };
 // 处理错误
 const handleError = (res: any) => {

@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react';
+import { type FC } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -14,8 +14,9 @@ import loginConfig from "@/constants/config/login.config";
 import { APP_NAME, WEBSITE_ICON } from "@/constants/website";
 import BridgeUpdater from '@/components/BridgeUpdater';
 import { HashRouter } from 'react-router-dom';
-import { App } from '@/components/App';
-import { TelegramPlatform, did } from "@portkey/did-ui-react";
+import { SDKProvider } from '@telegram-apps/sdk-react';
+import TgApp from '@/components/App/Tg';
+import PcApp from '@/components/App/Pc';
 
 const {
   CHAIN_ID,
@@ -119,28 +120,20 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
       </code>
     </blockquote>
   </div>
+
 );
 
-const Inner: FC = () => {
+const MiNiRoot: FC = () => {
   const bridgeAPI = init(config)
-  const handleLogout = async () => {
-    // logout
-    await did.logout({
-      chainId: CHAIN_ID
-    }).then(res => {
-      console.log(res, 'logout')
-    });
-  };
-  useEffect(() => {
-    // TelegramPlatform.initializeTelegramWebApp({ handleLogout });
 
-  }, [])
   return (
     <Provider store={store}>
       <ConfigProvider locale={enUS}>
         <WebLoginProvider bridgeAPI={bridgeAPI}>
           <HashRouter>
-            <App />
+            <SDKProvider>
+              <TgApp />
+            </SDKProvider>
           </HashRouter>
           <BridgeUpdater />
         </WebLoginProvider>
@@ -149,8 +142,29 @@ const Inner: FC = () => {
   );
 };
 
+const H5PcRoot: FC = () => {
+  const bridgeAPI = init(config)
+
+  return (
+    <Provider store={store}>
+      <ConfigProvider locale={enUS}>
+        <WebLoginProvider bridgeAPI={bridgeAPI}>
+          <HashRouter>
+            <SDKProvider>
+              <PcApp />
+            </SDKProvider>
+            <BridgeUpdater />
+          </HashRouter>
+        </WebLoginProvider>
+      </ConfigProvider>
+    </Provider>
+  );
+};
+
 export const Root: FC = () => (
-  <ErrorBoundary fallback={ErrorBoundaryError}>
-    <Inner />
+  <ErrorBoundary fallback={ErrorBoundaryError} H5PcRoot={<H5PcRoot />}>
+    {
+      import.meta.env.DEV ? <H5PcRoot /> : <MiNiRoot />
+    }
   </ErrorBoundary>
 );

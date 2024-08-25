@@ -44,13 +44,13 @@
   }
   .tree {
     position: absolute;
-    left: calc(50% - 20vw);
+    left: 30%;
     top: 38%;
     transform: translate(-50%, -50%);
     width: 100%;
     overflow: hidden;
     img {
-      width: 140vw;
+      width: 140%;
       object-fit: contain;
     }   
   }
@@ -247,7 +247,7 @@
   }
 }
 .popup-rule {
-  color: #000;
+  color: #fff;
 }
 .popup-rule-title {
   display: flex;

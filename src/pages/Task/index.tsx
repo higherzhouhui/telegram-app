@@ -10,31 +10,35 @@ function TaskPage() {
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
-  const handleDoTask = async (item: any, index: number, cindex: number) => {
+  const handleDoTask = async (item: any, index: number, cIndex: number) => {
     if (item.status != 'Done') {
       const _list = JSON.parse(JSON.stringify(list))
-      _list[index][cindex].loading = true
+      _list[index][cIndex].loading = true
       setList(_list)
       const res = await handleTakReq(item)
       if (res.code == 0) {
         const _list = JSON.parse(JSON.stringify(list))
-        _list[index][cindex].status = res.data.status
-        _list[index][cindex].loading = false
+        _list[index][cIndex].status = res.data.status
+        _list[index][cIndex].loading = false
         setList(_list)
       } else {
         Toast.show({ content: res.msg, position: 'top' })
         const _list = JSON.parse(JSON.stringify(list))
-        _list[index][cindex].loading = false
+        _list[index][cIndex].loading = false
         setList(_list)
       }
       if (item.status == null) {
-        if (item.linkType.includes('telegram')) {
-          const utils = initUtils()
-          utils.openLink(item.link)
-        } else if (item.linkType == 'outside') {
+        if (localStorage.getItem('h5PcRoot') == '1') {
           window.open(item.link)
-        } else if (item.linkType == 'self') {
-          navigate(item.link)
+        } else {
+          if (item.linkType.includes('telegram')) {
+            const utils = initUtils()
+            utils.openLink(item.link)
+          } else if (item.linkType == 'outside') {
+            window.open(item.link)
+          } else if (item.linkType == 'self') {
+            navigate(item.link)
+          }
         }
       }
     }
@@ -55,12 +59,13 @@ function TaskPage() {
     if (img.includes('Game')) {
       return 'game'
     }
-    if (img.includes('Protkey')) {
-      return 'protkey'
+    if (img.includes('portkey')) {
+      return 'portkey'
     }
     if (img.includes('Aelf')) {
       return 'aelf'
     }
+    return 'game'
   }
 
 

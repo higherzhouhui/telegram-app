@@ -8,6 +8,15 @@ export const loginReq = (data: any) => {
   });
 };
 
+export const h5PcLoginReq = (data: any) => {
+  return service<any>({
+    url: '/user/h5PcLogin',
+    method: 'POST',
+    data,
+  });
+};
+
+
 export const updateUserReq = (data: any) => {
   return service<any>({
     url: '/user/update',

@@ -21,12 +21,24 @@
 
 
 
-body::-webkit-scrollbar {
-  display: none;
+/* 自定义整个滚动条 */
+.content::-webkit-scrollbar {
+  width: 1px; /* 设置滚动条的宽度 */
 }
-
-html::-webkit-scrollbar {
-  display: none;
+ 
+/* 自定义滚动条轨道 */
+.content::-webkit-scrollbar-track {
+  background: #fff; /* 设置轨道的背景颜色 */
+}
+ 
+/* 自定义滚动条的滑块（thumb） */
+.content::-webkit-scrollbar-thumb {
+  background: #888; /* 设置滑块的背景颜色 */
+}
+ 
+/* 当滑块悬停或活动时，可以添加更多样式 */
+.content::-webkit-scrollbar-thumb:hover {
+  background: #555; /* 设置滑块在悬停状态下的背景颜色 */
 }
 
 
@@ -155,13 +167,14 @@ body,
 
 .freeze-gif {
   position: fixed;
-  left: 0;
+  left: 50%;
   top: 0;
   width: 100%;
   height: 100vh;
-
+  max-width: 450px;
+  transform: translate(-50%, 0);
   img {
-    width: 30px;
+    width: 36px;
     position: absolute;
   }
 
@@ -191,9 +204,18 @@ body,
 
 .get-score {
   position: fixed;
+  left: 50%;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  max-width: 450px;
+  transform: translate(-50%, 0);
   z-index: 9;
-  width: 60px;
-  transform: translate(-50%, 0%);
+  img {
+    width: 70px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .qrCode {
@@ -214,9 +236,19 @@ body,
   }
 }
 
+.adm-popup-body {
+  background: #181818;
+}
+.adm-modal-title {
+  color: #000;
+}
 .popup-invite {
   padding: 12px 0;
-  color: #000;
+  color: #fff;
+  .popup-frens {
+    max-width: 450px;
+    margin: 0 auto;
+  }
   .title {
     display: flex;
     align-items: center;
@@ -261,11 +293,24 @@ body,
     font-size: 1.3rem;
     font-family: 'bold';
     border-radius: 50px;
-    border: 1px solid;
+    border: 1px solid #fff;
   }
   .btn-send {
     background: var(--btnBg);
     color: #000;
     border: none;
   }
+}
+
+
+.maxWidth {
+  max-width: 450px;
+  margin: 0 auto;
+  border: 1px solid #999;
+}
+
+header {
+  padding: 4px 0 0 4px;
+  top: 0;
+  width: fit-content;
 }

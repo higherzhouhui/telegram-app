@@ -1,10 +1,9 @@
 
-import '@/mockEnv';
+import '@/mockProd';
 
 import {
   bindMiniAppCSSVars,
   bindThemeParamsCSSVars,
-  initInitData,
   useMiniApp,
   useThemeParams,
 } from '@telegram-apps/sdk-react';

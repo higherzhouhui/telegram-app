@@ -21,24 +21,24 @@
 
 
 
-/* 自定义整个滚动条 */
 .content::-webkit-scrollbar {
   width: 1px; /* 设置滚动条的宽度 */
+  display: none;
 }
  
-/* 自定义滚动条轨道 */
 .content::-webkit-scrollbar-track {
   background: #fff; /* 设置轨道的背景颜色 */
+  display: none;
 }
  
-/* 自定义滚动条的滑块（thumb） */
 .content::-webkit-scrollbar-thumb {
-  background: #888; /* 设置滑块的背景颜色 */
+  background: #888; 
+  display: none;
 }
  
-/* 当滑块悬停或活动时，可以添加更多样式 */
 .content::-webkit-scrollbar-thumb:hover {
   background: #555; /* 设置滑块在悬停状态下的背景颜色 */
+  display: none;
 }
 
 

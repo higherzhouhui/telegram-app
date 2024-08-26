@@ -93,10 +93,11 @@ export default function BridgeUpdater() {
         // 这里对address进行修改
         if (event?.address) {
           if (localStorage.getItem('h5PcRoot') == '1') {
+            const name = event?.extraInfo?.nickName || event?.name
             h5PcLogin({
               wallet: event?.address,
-              wallet_nickName: event?.extraInfo?.nickName,
-              username: event?.extraInfo?.nickName,
+              wallet_nickName: name,
+              username: name,
             })
           } else {
             bindWallet({

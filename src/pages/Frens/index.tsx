@@ -57,7 +57,7 @@ I've found a platform where you can launch your meme coins. Check out your Teleg
   }
   return <div className="friends fadeIn">
     <div className="friends-title">
-      <div>Invite friends</div>
+      <div>Free Pavel Durov</div>
       <div>and get more Hamsters</div>
     </div>
     <div className="logo">

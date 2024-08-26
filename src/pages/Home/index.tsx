@@ -76,11 +76,11 @@ export default function Home() {
           <Swiper autoplay loop>
             <Swiper.Item key={3}>
               <div className="community">
-                <div className="Hamsters-com">Developer COMMUNITY</div>
-                <div className="home-tg">Business cooperation</div>
+                <div className="Hamsters-com">Free Pavel Durov COMMUNITY</div>
+                <div className="home-tg">TELEGRAM & CRYPTO OG</div>
                 <div className="join-btn" onClick={() => {
                   utils.openTelegramLink('https://t.me/+CFUnnwrLIcgzOWFl')
-                }}>Look 🧊</div>
+                }}>Just a Dog 🧊</div>
                 <div className="heart">💅</div>
               </div>
             </Swiper.Item>
@@ -94,7 +94,7 @@ export default function Home() {
                 <div className="heart">💖</div>
               </div>
             </Swiper.Item>
-            <Swiper.Item key={2}>
+            {/* <Swiper.Item key={2}>
               <div className="community">
                 <div className="Hamsters-com">FOLOW US ON X.COM</div>
                 <div className="home-tg">stay updated with the latest news</div>
@@ -103,7 +103,7 @@ export default function Home() {
                 }}>Follow 🐹</div>
                 <div className="heart">💥</div>
               </div>
-            </Swiper.Item>
+            </Swiper.Item> */}
           </Swiper>
           <div className="reward">
             Your rewards

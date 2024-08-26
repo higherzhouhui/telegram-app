@@ -5,6 +5,7 @@ import { Button, Skeleton } from 'antd-mobile'
 import { useSelector } from 'react-redux'
 import { initUtils } from '@telegram-apps/sdk'
 import { useNavigate } from 'react-router-dom'
+import { handleCopyLink } from '@/utils/common'
 
 function FrensPage() {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -48,13 +49,7 @@ function FrensPage() {
     return type
   }
   const copy = () => {
-    const textToCopy = link; // 替换为你想要复制的内容  
-    const textArea = document.createElement("textarea");
-    textArea.value = textToCopy;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textArea);
+    handleCopyLink(link)
 
     setIsCopy(true)
     setTimeout(() => {

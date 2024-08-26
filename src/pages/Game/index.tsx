@@ -9,6 +9,7 @@ import { beginGameReq, endGameReq } from '@/api/game';
 import { setUserInfoAction } from '@/redux/slices/userSlice';
 import EventBus from '@/utils/eventBus';
 import Loading from '@/components/Loading';
+import { handleCopyLink } from '@/utils/common';
 
 function GamePage() {
   //  References to the PhaserGame component (game and scene are exposed)
@@ -65,15 +66,8 @@ function GamePage() {
     setShowPopUp(true)
   }
 
-  const handleCopyLink = () => {
-    const textToCopy = link; // 替换为你想要复制的内容  
-    const textArea = document.createElement("textarea");
-    textArea.value = textToCopy;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textArea);
-    Toast.show({ content: 'copied', position: 'top' })
+  const selfHandCopy = () => {
+    handleCopyLink(link)
   }
 
   const handleSendLink = () => {
@@ -132,7 +126,7 @@ function GamePage() {
             </div>
             <div>I scored {score} points in Cat Game!</div>
             <div>I dare you to challenge me!</div>
-            <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
+            <div className='popup-content-btn' onClick={() => selfHandCopy()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>
           </div>
         </div>

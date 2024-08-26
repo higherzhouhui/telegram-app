@@ -60,9 +60,9 @@ I've found a platform where you can launch your meme coins. Check out your Teleg
       <div>Free Pavel Durov</div>
       <div>and get more Hamsters</div>
     </div>
-    <div className="logo">
+    {/* <div className="logo">
       <img src={LogoIcon} alt="logo" style={{ width: '40vw', objectFit: 'contain' }} />
-    </div>
+    </div> */}
     <div className="friends-list-wrapper">
 
       {

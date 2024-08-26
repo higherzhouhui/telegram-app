@@ -73,7 +73,7 @@ export default function ({ cStep }: { cStep?: number }) {
 
 function First() {
   return <div className="first">
-    <img src={LogoIcon} alt='logo' style={{ width: '70vw', objectFit: 'contain' }} />
+    {/* <img src={LogoIcon} alt='logo' style={{ width: '70vw', objectFit: 'contain' }} /> */}
     <p>👋 Hey!</p>
     <p>You've been in Telegram for a while,</p>
     <p>it's time to get rewarded</p>
@@ -127,6 +127,7 @@ function Third({ cIndex, handleClick }: { cIndex: number, handleClick: (index: n
       subTitle: userInfo.score.toLocaleString(),
       center: <img src={LogoIcon} alt='logo' style={{ width: '60vw', objectFit: 'contain' }} />,
       rank1: 'Thanks for your time on Telegram 🤝',
+      rank2: 'Join us to Free Pavel Durov($FPB)',
     },
   ]
   const [list, setList] = useState(staticList)

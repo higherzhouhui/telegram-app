@@ -95,28 +95,28 @@ export default class MainGame extends Phaser.Scene {
         if (random > 0 && random <= 0.11) {
           iconObj = {
             width: 50,
-            score: 1,
+            score: 10,
             speed: Math.random() + 2.2,
             type: 'cat',
           }
         } else if (random > 0.11 && random <= 0.47) {
           iconObj = {
             width: 75,
-            score: 3,
+            score: 30,
             speed: Math.random() + 2.5,
             type: 'cat',
           }
         } else if (random > 0.47 && random <= 0.84) {
           iconObj = {
             width: 85,
-            score: 4,
+            score: 40,
             speed: Math.random() + 2.5,
             type: 'cat',
           }
         } else {
           iconObj = {
             width: 100,
-            score: 6,
+            score: 60,
             speed: Math.random() + 3,
             type: 'cat',
           }

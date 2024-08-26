@@ -7,10 +7,10 @@ export default function () {
   useEffect(() => {
     setTimeout(() => {
       navigate('/second')
-    }, 1000);
+    }, 1500);
   }, [])
   return <div className='begin-wrapper'>
-    <img src={LOGO} alt="logo" />
+    {/* <img src={LOGO} alt="logo" /> */}
     <span>Who are you dawg?</span>
   </div>
 }

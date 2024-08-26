@@ -56,6 +56,7 @@
     }
    
     .game-over-btn {
+      text-shadow: none;
       display: flex;
       width: 100%;
       justify-content: center;
@@ -146,6 +147,7 @@
       font-size: 1.3rem;
       font-family: 'bold';
       border-radius: 50px;
+      text-shadow: none;
     }
     .btn-send {
       background: var(--btnBg);

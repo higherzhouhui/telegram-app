@@ -90,7 +90,7 @@ function CheckInPage() {
                     {
                       checkObj?.day > index ? <img src="/assets/toast-success.webp" alt="check" /> : <>
                         <div className='score-ticket'>
-                          {formatNumber(item.score, 0)}&nbsp;
+                          {formatNumber(item.score)}&nbsp;
                           <img src='/assets/common/cat.webp' alt='logo' />
                         </div>
                         <div className='score-ticket ticket-pic'>

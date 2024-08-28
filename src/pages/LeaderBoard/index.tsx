@@ -100,10 +100,10 @@ export default function LeaderBoardPage() {
       </div>
       <div className="right">
         {
-          rank == 1 ? <img src={No1} alt="no1" /> : rank == 2 ? <img src={No2} alt="no2" /> : rank == 3 ? <img src={No3} alt="no3" /> : `#${rank}`
+          rank == 1 ? <img src={No1} alt="no1" /> : rank == 2 ? <img src={No2} alt="no2" /> : rank == 3 ? <img src={No3} alt="no3" /> : <span>#{rank}</span>
         }
       </div>
-      <BackTop scrollName='content' />
+      <BackTop />
     </div>
   }
 }

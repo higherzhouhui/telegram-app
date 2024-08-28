@@ -17,11 +17,14 @@
         width: 100%;
         object-fit: contain;
       }
+      .ticket {
+        width: 20px;
+      }
       .btn {
         display: flex;
         align-items: center;
-        background: #fff;
-        color: #000;
+        background: var(--btnBg);
+        color: #111;
         justify-content: center;
         padding: 8px 12px;
         border-radius: 6px;

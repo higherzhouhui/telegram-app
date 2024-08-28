@@ -143,7 +143,7 @@ function GamePage() {
             <div className='score-wrapper'>
               <span>+</span>
               <span>{score} </span>
-              $Hamster
+              $Hamsters
             </div>
             <div>I scored {score} points in Hamster Game!</div>
             <div>I dare you to challenge me!</div>

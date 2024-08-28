@@ -26,20 +26,11 @@ function FrensDetailPage() {
     return res.data.rows
   }
   const getType = (type: string) => {
-    if (type == 'register') {
-      type = 'Inviting'
-    }
-    if (type == 'sign') {
-      type = 'Checking In'
-    }
     if (type == 'play_game_reward_parent') {
       type = 'Drop Game'
     }
     if (type == 'play_game_reward') {
       type = 'Drop Game'
-    }
-    if (type == 'harvest_farming') {
-      type = 'Farming'
     }
     if (type == 'share_playGame') {
       type = 'Share Game'
@@ -89,7 +80,7 @@ function FrensDetailPage() {
         isMyself ? <span>My Scores</span> : <span>{total}&nbsp;frens</span>
       }
     </div>
-    <List>
+    <List className='list-wrapper'>
       {
         list.map((item: any, index: number) => {
           return <List.Item key={index}>

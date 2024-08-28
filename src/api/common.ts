@@ -61,3 +61,10 @@ export const bindWalletReq = (data: any) => {
     data,
   });
 };
+
+export const getCheckInRewardListReq = () => {
+  return service<any>({
+    url: '/checkInReward/list',
+    method: 'GET',
+  });
+};

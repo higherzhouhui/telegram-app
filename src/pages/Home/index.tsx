@@ -7,7 +7,7 @@ import friendsIcon from '@/assets/h-friends.png'
 import gameIcon from '@/assets/game.png'
 import taskIcon from '@/assets/task.png'
 import walletIcon from '@/assets/wallet.png'
-import { Button, Swiper, Toast } from "antd-mobile";
+import { Button, Popup, Swiper, Toast } from "antd-mobile";
 import { judgeIsCheckIn } from '@/utils/common'
 import { useDispatch, useSelector } from "react-redux";
 import { userCheckReq, bindWalletReq } from "@/api/common";
@@ -16,12 +16,14 @@ import { setUserInfoAction } from "@/redux/slices/userSlice";
 import LogoIcon from '@/assets/logo.jpg'
 import { TonConnectButton, useTonWallet } from "@tonconnect/ui-react";
 import { useNavigate } from "react-router-dom";
+import BackTop from "@/components/BackTop";
 
 export default function Home() {
   const userInfo = useSelector((state: any) => state.user.info);
   const eventBus = EventBus.getInstance()
   const utils = initUtils();
   const [loading, setLoading] = useState(false)
+  const [isShowRules, setShowRules] = useState(false)
   const wallet = useTonWallet()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -61,9 +63,12 @@ export default function Home() {
         </div>
         <div className="logo">
           <img src={LogoIcon} alt="logo" style={{ width: '30vw', objectFit: 'contain' }} />
-          <Button className="sign" onClick={() => handleCheckIn()} size="small" loading={loading}>
+          {/* <Button className="sign" onClick={() => handleCheckIn()} size="small" loading={loading}>
             {judgeIsCheckIn(userInfo?.check_date) ? 'checked' : 'Check In'}
-          </Button>
+          </Button> */}
+          <div className="question" onClick={() => setShowRules(true)}>
+            <img src="/assets/question.png" width={20} />
+          </div>
         </div>
         <div className="score">
           {userInfo?.score?.toLocaleString()}
@@ -74,16 +79,6 @@ export default function Home() {
         </div>
         <div className="wrapper">
           <Swiper autoplay loop>
-            <Swiper.Item key={3}>
-              <div className="community">
-                <div className="Hamsters-com">Free Pavel Durov COMMUNITY</div>
-                <div className="home-tg">TELEGRAM & CRYPTO OG</div>
-                <div className="join-btn" onClick={() => {
-                  utils.openTelegramLink('https://t.me/+CFUnnwrLIcgzOWFl')
-                }}>Just a Dog 🧊</div>
-                <div className="heart">💅</div>
-              </div>
-            </Swiper.Item>
             <Swiper.Item key={1}>
               <div className="community">
                 <div className="Hamsters-com">Hamster COMMUNITY</div>
@@ -94,16 +89,16 @@ export default function Home() {
                 <div className="heart">💖</div>
               </div>
             </Swiper.Item>
-            {/* <Swiper.Item key={2}>
+            <Swiper.Item key={2}>
               <div className="community">
                 <div className="Hamsters-com">FOLOW US ON X.COM</div>
                 <div className="home-tg">stay updated with the latest news</div>
-                <div className="join-btn" onClick={() => {
+                <div className="join-btn follow-btn" onClick={() => {
                   window.open('https://x.com/Hamster_meme_')
                 }}>Follow 🐹</div>
                 <div className="heart">💥</div>
               </div>
-            </Swiper.Item> */}
+            </Swiper.Item>
           </Swiper>
           <div className="reward">
             Your rewards
@@ -154,6 +149,44 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Popup
+        visible={isShowRules}
+        onMaskClick={() => {
+          setShowRules(false)
+        }}
+        bodyStyle={{
+          borderTopLeftRadius: '8px',
+          borderTopRightRadius: '8px',
+        }}
+        className='popup-rule'
+      >
+        <div className='popup-rule-content'>
+          <div className='popup-rule-title'>
+            <div>Rules</div>
+            <svg onClick={() => setShowRules(false)} className="close-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5777" width="18" height="18"><path d="M597.795527 511.488347 813.564755 295.718095c23.833825-23.833825 23.833825-62.47489 0.001023-86.307691-23.832801-23.832801-62.47489-23.833825-86.307691 0L511.487835 425.180656 295.717583 209.410404c-23.833825-23.833825-62.475913-23.833825-86.307691 0-23.832801 23.832801-23.833825 62.47489 0 86.308715l215.769228 215.769228L209.410915 727.258599c-23.833825 23.833825-23.833825 62.47489 0 86.307691 23.832801 23.833825 62.473867 23.833825 86.307691 0l215.768205-215.768205 215.769228 215.769228c23.834848 23.833825 62.475913 23.832801 86.308715 0 23.833825-23.833825 23.833825-62.47489 0-86.307691L597.795527 511.488347z" fill="#000" p-id="5778"></path></svg>
+          </div>
+          <div className='popup-rule-wrapper'>
+            <div className='popup-rule-content'>
+              <div className='popup-rule-content-title'>
+                <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5414" width="16" height="16"><path d="M845.902988 0.000232H178.097244A177.864812 177.864812 0 0 0 0.000232 178.097244v667.805744a177.864812 177.864812 0 0 0 178.097012 178.097012h667.805744a177.864812 177.864812 0 0 0 178.097012-178.097012V178.097244A177.864812 177.864812 0 0 0 845.902988 0.000232zM512.000116 911.615445A75.929234 75.929234 0 1 1 587.929351 835.91841a77.090232 77.090232 0 0 1-75.929235 75.697035z m75.929235-340.172258v51.548287a75.929234 75.929234 0 0 1-151.858469 0v-114.938749a75.697035 75.697035 0 0 1 75.929234-75.929235A84.056217 84.056217 0 1 0 428.176099 348.299473a76.161434 76.161434 0 1 1-152.090669 0 235.914686 235.914686 0 1 1 311.843921 223.375913z" fill="#000" p-id="5415"></path></svg>
+                How to Earn
+                <img src='/assets/logo.png' alt='logo' width={16} height={16} />
+              </div>
+              <ul>
+                <li>Check in daily to get <img src='/assets/logo.png' alt='logo' width={16} height={16} /> and an additional <img src='/assets/logo.png' alt='logo' width={16} height={16} /> if you do it consecutively!</li>
+                <li>Check in daily to receive <img src='/assets/common/ticket.webp' alt='logo' width={16} height={16} /> and earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />.</li>
+                <li>Invite frens to earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />,Get 10% of Your Fren's  unit Yields in Rewards
+                </li>
+                <li>Play games to earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />.</li>
+                <li>
+                  <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3174" data-spm-anchor-id="a313x.search_index.0.i5.2b3c3a81TUgFeH" width="16" height="16"><path d="M42.666667 896l938.666667 0-469.333333-810.666667-469.333333 810.666667zM554.666667 768l-85.333333 0 0-85.333333 85.333333 0 0 85.333333zM554.666667 597.333333l-85.333333 0 0-170.666667 85.333333 0 0 170.666667z" fill="#ecc115" p-id="3175" data-spm-anchor-id="a313x.search_index.0.i0.2b3c3a81TUgFeH" ></path></svg>
+                  &nbsp;<img src='/assets/common/ticket.webp' alt='logo' width={16} height={16} /> will be reset at 00:00 AM (UTC+0) every day!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </Popup>
+      <BackTop />
     </main>
   )
 

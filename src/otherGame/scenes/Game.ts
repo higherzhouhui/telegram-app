@@ -95,28 +95,28 @@ export default class MainGame extends Phaser.Scene {
         if (random > 0 && random <= 0.11) {
           iconObj = {
             width: 50,
-            score: 10,
+            score: 5,
             speed: Math.random() + 2.2,
             type: 'cat',
           }
         } else if (random > 0.11 && random <= 0.47) {
           iconObj = {
             width: 75,
-            score: 30,
+            score: 10,
             speed: Math.random() + 2.5,
             type: 'cat',
           }
         } else if (random > 0.47 && random <= 0.84) {
           iconObj = {
             width: 85,
-            score: 40,
+            score: 20,
             speed: Math.random() + 2.5,
             type: 'cat',
           }
         } else {
           iconObj = {
             width: 100,
-            score: 60,
+            score: 30,
             speed: Math.random() + 3,
             type: 'cat',
           }
@@ -136,7 +136,7 @@ export default class MainGame extends Phaser.Scene {
         if (!this.images.filter(item => { return item.type == 'boom' }).length) {
           iconObj = {
             width: 60 + Math.random() * 10,
-            score: -100,
+            score: -500,
             speed: Math.random() + 3,
             type: 'boom',
           }

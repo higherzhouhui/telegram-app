@@ -1,26 +1,19 @@
-.adm-list-item {
-  background: rgba($color: #000000, $alpha: 0.8);
-}
-
 .adm-list-default .adm-list-body {
   border: none;
 }
 
 .adm-list-item-content {
   border-top-color: #312d2d;
-  background: rgba($color: #000000, $alpha: 0.8);
 }
 
 .frens-detail-page {
-  padding: 18px 12px;
+  padding: 18px 0;
 
   .frens-title {
     font-size: 2rem;
-    margin-bottom: 1rem;
     border-bottom: 1px solid #aaa;
-    padding-bottom: 1rem;
+    padding: 0 12px 1rem 12px;
     font-weight: bold;
-
     span {
       font-family: 'number';
 
@@ -37,13 +30,12 @@
     color: #fff;
     min-width: 32px;
   }
-
   .frens-list {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 6px;
-
+    padding: 0 12px;
     .frens-detail-left {
       .score {
         color: var(--highColor);
@@ -77,14 +69,16 @@
       }
 
       .user-icon {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: #fff;
         border-radius: 50%;
         font-size: 12px;
+        text-shadow: 1px 1px 1px #000;
+        text-transform: uppercase;
       }
 
       .type {

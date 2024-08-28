@@ -127,7 +127,7 @@ function Third({ cIndex, handleClick }: { cIndex: number, handleClick: (index: n
       subTitle: userInfo.score.toLocaleString(),
       center: <img src={LogoIcon} alt='logo' style={{ width: '60vw', objectFit: 'contain' }} />,
       rank1: 'Thanks for your time on Telegram 🤝',
-      rank2: 'Join us to Free Pavel Durov($FPB)',
+      rank2: 'Join us to Free Pavel Durov',
     },
   ]
   const [list, setList] = useState(staticList)

@@ -57,12 +57,12 @@ I've found a platform where you can launch your meme coins. Check out your Teleg
   }
   return <div className="friends fadeIn">
     <div className="friends-title">
-      <div>Free Pavel Durov</div>
+      <div>Invite Frens</div>
       <div>and get more Hamsters</div>
     </div>
-    {/* <div className="logo">
+    <div className="logo">
       <img src={LogoIcon} alt="logo" style={{ width: '40vw', objectFit: 'contain' }} />
-    </div> */}
+    </div>
     <div className="friends-list-wrapper">
 
       {

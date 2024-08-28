@@ -93,7 +93,7 @@ html {
     --elevation-dark-1: 0px 10px 60px rgba(0, 0, 0, .7);
     --tg-theme-button-color: red;
     --highColor: #ff4530;
-    --btnBg: #2ec06d;
+    --btnBg: #24ee7b;
 }
 
 .fadeIn {
@@ -113,9 +113,8 @@ html {
   color: #fff;
   display: flex;
   flex-direction: column;
-  background: url('/assets/bg.png');
+  background: #000;
   background-size: 100% 100%;
-  text-shadow: -2px -1px 1px #000;
   .content {
     flex: 1;
     overflow: auto;

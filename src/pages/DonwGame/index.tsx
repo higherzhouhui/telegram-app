@@ -96,7 +96,7 @@ function GamePage() {
           </div>
           <div className='game-over-bots'>
             <div className='game-over-btn' onClick={() => shareResult()}>
-              Share Your Results +50
+              Share Your Results +500
             </div>
             <div className='game-over-btn play-btn' onClick={() => restartGame()}>
               <div className='game-over-bot-middle'>Play ({userInfo.ticket} Attempts Left)</div>
@@ -124,7 +124,7 @@ function GamePage() {
             <div className='score-wrapper'>
               <span>+</span>
               <span>{score} </span>
-              $Hamster
+              $Hamsters
             </div>
             <div>I scored {score} points in Hamster Game!</div>
             <div>I dare you to challenge me!</div>

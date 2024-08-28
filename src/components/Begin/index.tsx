@@ -10,7 +10,7 @@ export default function () {
     }, 1500);
   }, [])
   return <div className='begin-wrapper'>
-    {/* <img src={LOGO} alt="logo" /> */}
+    <img src={LOGO} alt="logo" />
     <span>Who are you dawg?</span>
   </div>
 }

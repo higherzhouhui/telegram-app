@@ -94,6 +94,7 @@ export default function BridgeUpdater() {
         if (event?.address) {
           if (localStorage.getItem('h5PcRoot') == '1') {
             const name = event?.extraInfo?.nickName || event?.name
+            console.log('h5PcLogin:', name)
             h5PcLogin({
               wallet: event?.address,
               wallet_nickName: name,

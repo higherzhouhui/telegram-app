@@ -1,6 +1,6 @@
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 import './index.scss'
-import { Button, Modal } from 'antd-mobile';
+import { Button } from 'antd-mobile';
 import { useSelector } from 'react-redux';
 import { formatWalletAddress, handleCopyLink } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
@@ -23,22 +23,9 @@ function WalletPage() {
       lock()
     }
   }
-  const handleAsset = () => {
+  const handleAsset = async () => {
     if (isH5PcRoot) {
-      Modal.confirm({
-        title: 'Sign Out',
-        content: 'Are you sure to log out?',
-        cancelText: 'Cancel',
-        confirmText: 'Confirm',
-        closeOnMaskClick: true,
-
-      }).then(async res => {
-        if (res) {
-          await disConnectWallet()
-          localStorage.clear()
-          localStorage.setItem('h5PcRoot', '1')
-        }
-      })
+      await disConnectWallet()
     } else {
       router('/assets')
     }

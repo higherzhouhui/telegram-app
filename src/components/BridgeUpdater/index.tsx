@@ -95,7 +95,6 @@ export default function BridgeUpdater() {
         if (event?.address) {
           if (localStorage.getItem('h5PcRoot') == '1') {
             const name = event?.extraInfo?.nickName || event?.name
-            console.log('h5PcLogin:', name)
             h5PcLogin({
               wallet: event?.address,
               wallet_nickName: name,
@@ -110,10 +109,8 @@ export default function BridgeUpdater() {
         }
         // 如果无wallet任何信息，则清空数据
         if (!event) {
-          if (event == null) {
-            localStorage.clear()
-            localStorage.setItem('h5PcRoot', '1')
-          }
+          localStorage.setItem('authorization', '')
+          localStorage.setItem('walletInfo', '')
         }
         console.log(event, "NotificationEvents.walletChanged");
       }

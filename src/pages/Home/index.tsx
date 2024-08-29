@@ -1,11 +1,11 @@
 import './index.scss';
 import { FC, useEffect, useRef, useState } from 'react';
-import { getMagicPrizeReq, getRewardFarmingReq, getSystemConfigReq, getUserInfoReq, startFarmingReq } from '@/api/common';
+import { getMagicPrizeReq, getRewardFarmingReq, getUserInfoReq, startFarmingReq } from '@/api/common';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSystemAction, setUserInfoAction } from '@/redux/slices/userSlice'
+import { setUserInfoAction } from '@/redux/slices/userSlice'
 import { initUtils } from '@telegram-apps/sdk';
 import moment from 'moment';
-import { Button, Popup, Toast } from 'antd-mobile';
+import { Button, Popup } from 'antd-mobile';
 import { handleCopyLink, judgeIsStartFarming } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
 import EventBus from '@/utils/eventBus';
@@ -193,11 +193,6 @@ export const HomePage: FC = () => {
     getUserInfoReq({}).then(res => {
       if (res.code == 0) {
         dispatch(setUserInfoAction(res.data.userInfo))
-      }
-    })
-    getSystemConfigReq().then(res => {
-      if (res.code == 0) {
-        dispatch(setSystemAction(res.data))
       }
     })
   }, [])

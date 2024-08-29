@@ -31,6 +31,7 @@ export default defineConfig({
   // @ts-ignore
   // base: process.env.GH_PAGES ? '/telegram-mini/' : './',
   server: {
+    port: 6699,
     proxy: {
       '/api': {
         target: 'http://localhost:5174', // 目标服务器地址

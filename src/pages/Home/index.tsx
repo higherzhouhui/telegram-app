@@ -1,8 +1,8 @@
 import './index.scss';
 import { FC, useEffect, useRef, useState } from 'react';
-import { getMagicPrizeReq, getRewardFarmingReq, getUserInfoReq, startFarmingReq } from '@/api/common';
+import { getMagicPrizeReq, getRewardFarmingReq, getSystemConfigReq, getUserInfoReq, startFarmingReq } from '@/api/common';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfoAction } from '@/redux/slices/userSlice'
+import { setSystemAction, setUserInfoAction } from '@/redux/slices/userSlice'
 import { initUtils } from '@telegram-apps/sdk';
 import moment from 'moment';
 import { Button, Popup, Toast } from 'antd-mobile';
@@ -195,6 +195,11 @@ export const HomePage: FC = () => {
         dispatch(setUserInfoAction(res.data.userInfo))
       }
     })
+    getSystemConfigReq().then(res => {
+      if (res.code == 0) {
+        dispatch(setSystemAction(res.data))
+      }
+    })
   }, [])
 
   useEffect(() => {
@@ -352,7 +357,7 @@ export const HomePage: FC = () => {
         isShowCongrate ? <div className='full-congrate fadeIn' onClick={() => setShowCongrates(false)}>
           <div className='full-congrate-content'>
             <div className='full-congrate-score'>+ {isGetBigReward ? systemConfig?.special_reward : systemConfig?.farm_score}<img src='/assets/common/cat.webp' /></div>
-            <div className='full-congrate-desc'>{isGetBigReward ? 'Mysterious Grand Prize' : 'Congratulations on farming 1080 $CAT'}</div>
+            <div className='full-congrate-desc'>{isGetBigReward ? 'Mysterious Grand Prize' : `Congratulations on farming ${systemConfig?.farm_score} $CAT`}</div>
           </div>
         </div> : null
       }

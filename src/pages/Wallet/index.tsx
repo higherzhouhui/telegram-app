@@ -59,9 +59,11 @@ function WalletPage() {
             <div className='my-assets' onClick={() => handleCopyLink(userInfo.wallet)}>
               {formatWalletAddress(userInfo.wallet)}
             </div>
-            <div className='my-assets' onClick={lock}>
-              {isLocking ? 'unLock' : 'Lock'}
-            </div>
+            {
+              isH5PcRoot ? <div className='my-assets' onClick={lock}>
+                {isLocking ? 'unLock' : 'Lock'}
+              </div> : null
+            }
             <div className='my-assets' onClick={() => handleAsset()}>
               {
                 isH5PcRoot ? 'Disconnect' : <>

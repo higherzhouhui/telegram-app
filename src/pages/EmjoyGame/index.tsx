@@ -22,6 +22,7 @@ function GamePage() {
   const dispatch = useDispatch()
   const eventBus = EventBus.getInstance()
   const [isShowInvite, setShowInvite] = useState(false)
+  const systemInfo = useSelector((state: any) => state.user.system)
 
   // Event emitted from the PhaserGame component
   const currentActiveScene = async (scene: Phaser.Scene) => {
@@ -115,7 +116,7 @@ function GamePage() {
           </div>
           <div className='game-over-bots'>
             <div className='game-over-btn' onClick={() => shareResult()}>
-              Share Your Results +50
+              Share Your Results +500
             </div>
             <div className='game-over-btn play-btn' onClick={() => restartGame()}>
               <div className='game-over-bot-middle'>Play ({userInfo.ticket} Attempts Left)</div>
@@ -170,8 +171,8 @@ function GamePage() {
           </div>
           <div className='content'>
             <div className='content-desc'>
-              <div>Get 2000 $Hamster and 10 ticket（Invite a Friend）</div>
-              <div>Get 20000 $Hamster and 30 tickets（Invite a Telegram Premium）</div>
+              <div>Get {systemInfo?.invite_add} $Hamster and {systemInfo?.ticket} ticket（Invite a Friend）</div>
+              <div>Get {systemInfo?.huiYuan_add} $Hamster and {systemInfo?.huiYuan_ticket} tickets（Invite a Telegram Premium）</div>
             </div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>

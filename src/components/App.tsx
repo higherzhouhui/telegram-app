@@ -20,8 +20,8 @@ import {
 import { routes } from '@/navigation/routes';
 import Footer from './Footer';
 import { useDispatch } from 'react-redux';
-import { loginReq } from '@/api/common';
-import { setUserInfoAction } from '@/redux/slices/userSlice';
+import { getSystemReq, loginReq } from '@/api/common';
+import { setSystemAction, setUserInfoAction } from '@/redux/slices/userSlice';
 import Congrates from './Congrates';
 import EventBus from '@/utils/eventBus';
 import Loading from './Loading';
@@ -61,26 +61,33 @@ export const App: FC = () => {
 
   const login = async () => {
     setLoading(true)
-    const initData = initInitData() as any;
-    let res: any;
-    if (initData && initData.user && initData.user.id) {
-      const user = initData.initData.user
-      const data = { ...initData.initData, ...user }
-      res = await loginReq(data)
-    }
-    if (res.code == 0) {
-      localStorage.setItem('authorization', res.data.user_id)
-      dispatch(setUserInfoAction(res.data))
-      const check_date = res.data.check_date
-      const today = moment().utc().format('MM-DD')
-      if (res.data.is_New) {
-        navigate('/begin')
-      } else if (!check_date || check_date && check_date != today) {
-        navigate('/checkIn')
-        return
+    try {
+      const initData = initInitData() as any;
+      let resArray: any;
+      if (initData && initData.user && initData.user.id) {
+        const user = initData.initData.user
+        const data = { ...initData.initData, ...user }
+        resArray = await Promise.all([loginReq(data), getSystemReq()])
       }
+      const [res, sys] = resArray
+      if (sys.code == 0) {
+        dispatch(setSystemAction(sys.data))
+      }
+      if (res.code == 0) {
+        localStorage.setItem('authorization', res.data.user_id)
+        dispatch(setUserInfoAction(res.data))
+        const check_date = res.data.check_date
+        const today = moment().utc().format('MM-DD')
+        if (res.data.is_New) {
+          navigate('/begin')
+        } else if (!check_date || check_date && check_date != today) {
+          navigate('/checkIn')
+        }
+      }
+      setLoading(false)
+    } catch {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   useEffect(() => {
@@ -118,3 +125,5 @@ export const App: FC = () => {
     </AppRoot>
   );
 };
+
+

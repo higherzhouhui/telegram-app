@@ -138,7 +138,8 @@ export default class MainGame extends Phaser.Scene {
 
 
         this.timerText = this.add.text(50, 70, '30:00', this.fontStyle).setOrigin(0.5, 0.5);
-        this.scoreText = this.add.text(width - 60, 70, `Score:${this.score}`, { ...this.fontStyle, color: '#ff0000' }).setOrigin(0.5, 0.5);
+        this.scoreText = this.add.text(width - 30, 70, `${this.score}`, { ...this.fontStyle, color: '#ff0000' }).setOrigin(0.5, 0.5);
+        this.add.image(width - 65, 70, 'cat').setScale(0.04, 0.04).setDepth(1000)
 
         // 假设 game 是 Phaser 游戏实例
         let graphics = this.add.graphics();
@@ -246,7 +247,7 @@ export default class MainGame extends Phaser.Scene {
 
         this.score++;
 
-        this.scoreText.setText('Score: ' + this.score * 100);
+        this.scoreText.setText(this.score * 100);
 
         this.circle1.setStrokeStyle(3, 0xf8960e);
 
@@ -324,17 +325,6 @@ export default class MainGame extends Phaser.Scene {
                 this.timerText.setText(seconds + ':' + ms);
             }
         }
-        if (this.score && this.totalScoreText) {
-            this.totalScore = this.totalScore + 10
-
-            if (this.totalScore - this.newTotalScore > 30) {
-                this.totalScoreText?.setText(`Score:${this.newTotalScore}`)
-                this.score = 0
-                this.totalScoreText = undefined
-            } else {
-                this.totalScoreText?.setText(`Score:${Math.min(this.totalScore, this.newTotalScore)}`)
-            }
-        }
     }
 
     async gameOver() {
@@ -344,7 +334,8 @@ export default class MainGame extends Phaser.Scene {
         this.time.removeAllEvents()
         this.timer = null
         setTimeout(() => {
-            localStorage.setItem('currentScore', this.score)
+            let s = this.score * 100
+            localStorage.setItem('currentScore', `${s}`)
             this.scene.start('GameOver')
         }, 1000);
     }

@@ -11,7 +11,7 @@ export default function () {
   const link = `https://t.me/HamstersTon_bot/Hamster?startapp=${btoa(userInfo.user_id)}`;
   const [isShowInvite, setShowInvite] = useState(false)
   const utils = initUtils()
-
+  const systemInfo = useSelector((state: any) => state.user.system)
   const handlePlayGame = (link: string) => {
     if (userInfo?.ticket > 0) {
       navigate(link)
@@ -79,8 +79,8 @@ export default function () {
         </div>
         <div className='content'>
           <div className='content-desc'>
-            <div>Get 2000 $Hamster and 10 ticket（Invite a Friend）</div>
-            <div>Get 20000 $Hamster and 30 tickets（Invite a Telegram Premium）</div>
+            <div>Get {systemInfo?.invite_add} $Hamster and {systemInfo?.ticket} ticket（Invite a Friend）</div>
+            <div>Get {systemInfo?.huiYuan_add} $Hamster and {systemInfo?.huiYuan_ticket} tickets（Invite a Telegram Premium）</div>
           </div>
           <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
           <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>

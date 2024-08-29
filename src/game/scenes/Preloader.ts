@@ -38,6 +38,7 @@ export class Preloader extends Scene {
         // this.loadText.setStroke('#203c5b', 6);
         // this.loadText.setShadow(2, 2, '#2d2d2d', 4, true, false);
 
+        this.load.image('cat', 'assets/common/cat.webp')
 
         this.load.setPath('assets/games/emoji-match/');
         this.load.image('background', 'background.png');

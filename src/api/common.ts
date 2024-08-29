@@ -68,3 +68,10 @@ export const getCheckInRewardListReq = () => {
     method: 'GET',
   });
 };
+
+export const getSystemReq = () => {
+  return service<any>({
+    url: '/system/getConfig',
+    method: 'GET',
+  });
+};

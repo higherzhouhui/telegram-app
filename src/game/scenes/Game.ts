@@ -131,7 +131,7 @@ export default class MainGame extends Phaser.Scene {
                 cellWidth: 80,
                 cellHeight: 80,
                 x: width / 2 - 150,
-                y: height / 2 - 120,
+                y: height / 2 - 160,
                 position: 0
             }
         });

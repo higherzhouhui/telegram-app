@@ -60,13 +60,14 @@ main {
     flex: 1;
     overflow: auto;
     padding-top: 6rem;
+    position: relative;
     .top {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 1.5rem 0;
       background-color: #222;
-      position: fixed;
+      position: absolute;
       width: 100vw;
       top: 0;
       z-index: 99;

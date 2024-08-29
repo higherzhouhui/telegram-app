@@ -26,6 +26,7 @@ import Congrates from './Congrates';
 import EventBus from '@/utils/eventBus';
 import Loading from './Loading';
 import moment from 'moment';
+import PriceComp from './Price';
 
 export const App: FC = () => {
   const lp = useLaunchParams();
@@ -110,6 +111,7 @@ export const App: FC = () => {
       platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
     >
       <div className='layout'>
+        <PriceComp />
         <div className='content'>
           <Routes>
             {routes.map((route) => <Route key={route.path} {...route} />)}

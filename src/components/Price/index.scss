@@ -1,0 +1,33 @@
+.price-comp {
+  padding: 4px 12px;
+  background: #181818;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  .left {
+    font-size: 1.2rem;
+    span {
+      opacity: 0.8;
+      font-size: 1rem;
+    }
+  }
+  .right {
+    font-family: 'number';
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .percent {
+      border-radius: 6px;
+      padding: 4px 8px;
+    }
+    .rise {
+      background: green;
+    }
+    .fall {
+      background: red;
+    }
+  }
+}

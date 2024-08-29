@@ -75,3 +75,12 @@ export const getSystemReq = () => {
     method: 'GET',
   });
 };
+
+
+export const getPriceReq = (dev: boolean) => {
+  const url = dev ? 'https://www.binance.com/api/v3/ticker?symbol=DOGSUSDT' : '/binancePrice';
+  return service<any>({
+    url: url,
+    method: 'GET',
+  });
+}

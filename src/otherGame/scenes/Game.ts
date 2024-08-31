@@ -102,21 +102,21 @@ export default class MainGame extends Phaser.Scene {
         } else if (random > 0.11 && random <= 0.47) {
           iconObj = {
             width: 75,
-            score: 6,
+            score: 5,
             speed: Math.random() + 2.5,
             type: 'cat',
           }
         } else if (random > 0.47 && random <= 0.84) {
           iconObj = {
             width: 85,
-            score: 9,
+            score: 8,
             speed: Math.random() + 2.5,
             type: 'cat',
           }
         } else {
           iconObj = {
             width: 100,
-            score: 20,
+            score: 14,
             speed: Math.random() + 3,
             type: 'cat',
           }
@@ -136,7 +136,7 @@ export default class MainGame extends Phaser.Scene {
         if (!this.images.filter(item => { return item.type == 'boom' }).length) {
           iconObj = {
             width: 60 + Math.random() * 10,
-            score: -200,
+            score: -300,
             speed: Math.random() + 3,
             type: 'boom',
           }
@@ -176,7 +176,7 @@ export default class MainGame extends Phaser.Scene {
             ease: 'Linear',
             duration: 1000,
           })
-          this.score = Math.max(this.score - iconObj.score, 0)
+          this.score = Math.max(this.score + iconObj.score, 0)
           this.scoreText.setText(this.score).setColor('#ffffff')
           const bgWidth = 1125
           const bgHeight = 2115

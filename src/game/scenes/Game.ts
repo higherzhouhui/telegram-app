@@ -247,7 +247,7 @@ export default class MainGame extends Phaser.Scene {
 
         this.score++;
 
-        this.scoreText.setText(this.score * 100);
+        this.scoreText.setText(this.score * 200);
 
         this.circle1.setStrokeStyle(3, 0xf8960e);
 
@@ -334,7 +334,7 @@ export default class MainGame extends Phaser.Scene {
         this.time.removeAllEvents()
         this.timer = null
         setTimeout(() => {
-            let s = this.score * 100
+            let s = this.score * 200
             localStorage.setItem('currentScore', `${s}`)
             this.scene.start('GameOver')
         }, 1000);

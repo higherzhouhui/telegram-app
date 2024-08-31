@@ -59,7 +59,7 @@ function TaskPage() {
     if (img.includes('Game')) {
       return 'game'
     }
-    if (img.includes('portkey')) {
+    if (img.includes('Portkey') || img.includes('Protkey')) {
       return 'portkey'
     }
     if (img.includes('Aelf')) {

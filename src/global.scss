@@ -219,23 +219,6 @@ body,
   }
 }
 
-.qrCode {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  div {
-    font-size: 1.6rem;
-    font-weight: bold;
-  }
-  img {
-    width: 260px;
-    margin: 2rem 0;
-  }
-}
 
 .adm-popup-body {
   background: #181818!important;

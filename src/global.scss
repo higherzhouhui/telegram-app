@@ -221,7 +221,12 @@ body,
 
 
 .adm-popup-body {
-  background: #181818!important;
+  background: rgb(11,11,11)!important;
+  >div {
+    max-width: 450px;
+    margin: 0 auto;
+    background: #000;
+  }
 }
 .adm-modal-title {
   color: #000;

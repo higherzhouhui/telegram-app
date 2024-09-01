@@ -112,7 +112,6 @@ const PcApp: FC = () => {
           {routes.map((route) => <Route key={route.path} {...route} />)}
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>
-        <div className='bot' style={{ height: '20px' }} />
       </div>
       <Congrates visible={isShowCongrates} time={showTime} callBack={() => setShowCongrates(false)} />
       {

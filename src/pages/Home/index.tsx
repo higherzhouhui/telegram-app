@@ -117,7 +117,7 @@ export const HomePage: FC = () => {
     if (isShowCongrate) {
       timer = setTimeout(() => {
         setShowCongrates(false)
-      }, 3000);
+      }, 2000);
     }
     return () => {
       if (timer) {

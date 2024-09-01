@@ -165,6 +165,7 @@ body,
   }
 }
 
+
 .freeze-gif {
   position: fixed;
   left: 50%;
@@ -306,7 +307,13 @@ body,
 .maxWidth {
   max-width: 450px;
   margin: 0 auto;
-  border: 1px solid #999;
+  @media screen and (min-width: 750px) {
+    border: 1px solid #999;
+  }
+}
+
+.pcLayout {
+  height: 100%!important;
 }
 
 header {

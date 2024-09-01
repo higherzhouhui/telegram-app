@@ -1,0 +1,129 @@
+.LeaderBoard {
+  flex: 1;
+  overflow: auto;
+  color: #fff;
+  padding: 18px 0;
+  .title {
+    font-size: 2.5rem;
+    font-family: Bold;
+    margin-bottom: 1rem;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 12px;
+    margin-bottom: 1rem;
+    .tab {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.2);
+      height: 32px;
+    }
+    .active-tab {
+      background: var(--highColor);
+    }
+  }
+  .myself {
+    width: 96%;
+    margin-left: 2%;
+    background: rgba($color: #fff, $alpha: 0.1);
+    border-radius: 1rem;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .left {
+      display: flex;
+      align-items: center;
+      .icon {
+        border-radius: 50%;
+        min-width: 42px;
+        min-height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Bold;
+        margin-right: 1rem;
+        text-transform: uppercase;
+      }
+      .name {
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+        max-width: 160px;
+        overflow: hidden;
+      }
+      .name-score {
+        opacity: 0.8;
+        font-family: Bold;
+        font-size: 1.2rem;
+      }
+    }
+    .right {
+      font-family: 'Bold';
+      font-size: 1.3rem;
+      img {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+  .holder-title {
+    margin: 1rem 0;
+    font-family: 'Bold';
+    font-size: 2rem;
+    padding-left: 12px;
+  }
+  .holders-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    .holders-left {
+      display: flex;
+      align-items: center;
+      .icon {
+        border-radius: 50%;
+        font-family: Bold;
+        margin-right: 1rem;
+        text-transform: uppercase;
+        min-width: 42px;
+        min-height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .name {
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+        max-width: 160px;
+        overflow: hidden;
+      }
+      .name-score {
+        opacity: 0.8;
+        font-family: Bold;
+        font-size: 1.2rem;
+      }
+    }
+    .right {
+      span {
+        margin-right: 4px;
+      }
+      img {
+        width: 32px;
+        object-fit: contain;
+        margin-right: 0;
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './index.scss'
 import { getPriceReq } from '@/api/common';
 import { initUtils } from '@telegram-apps/sdk';
@@ -9,7 +9,9 @@ function PriceComp() {
   const [rise, setRise] = useState(true)
   const utils = initUtils()
   const initPrice = async () => {
-    const res: any = await getPriceReq(import.meta.env.DEV)
+    const random = Math.floor(Math.random() * 5)
+    const types = ['ETHUSDT', 'DOGSUSDT', 'ETHUSDT', 'BNBUSDT', 'DOGSUSDT']
+    const res: any = await getPriceReq(import.meta.env.DEV, types[random])
     if (res && res?.priceChangePercent) {
       if (res.priceChangePercent > 0) {
         setRise(true)
@@ -22,7 +24,7 @@ function PriceComp() {
   const handleOpenDogs = () => {
     Modal.confirm({
       title: 'Discover Dogs',
-      content: 'Dogs is a TON chain meme token born in the Telegram community(2024-08)',
+      content: 'DOGS is a TON chain meme token born in the Telegram community(2024-08)',
       cancelText: 'Cancel',
       confirmText: 'Look',
       closeOnMaskClick: true,
@@ -38,7 +40,7 @@ function PriceComp() {
     }, 10000);
   }, [])
   return <div className='price-comp' onClick={() => handleOpenDogs()}>
-    <div className='left'>DOGS<span>/USDT</span></div>
+    <div className='left'>{info?.symbol?.replace('USDT', '')}<span>/USDT</span></div>
     <div className='right'>
       <div className='price'>{info?.lastPrice}</div>
       <div className={`percent ${rise ? 'rise' : 'fall'}`}>{info?.priceChangePercent}%</div>

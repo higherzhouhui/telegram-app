@@ -7,6 +7,13 @@ export const beginGameReq = () => {
   });
 };
 
+export const getGameInfoReq = () => {
+  return service<any>({
+    url: '/game/info',
+    method: 'GET',
+  });
+};
+
 export const endGameReq = (data: any) => {
   return service<any>({
     url: '/game/end',

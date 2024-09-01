@@ -53,7 +53,7 @@ export default function LeaderBoardPage() {
     <div className="myself" onClick={() => navigate('/detail?myself=true')}>
       <div className="left">
         <div className="icon" style={{ background: stringToColor(userInfo?.username) }}>
-          {userInfo?.username.slice(0, 2)}
+          {userInfo?.username?.slice(0, 2)}
         </div>
         <div className="name-score-warpper">
           <div className="name">{userInfo?.username}</div>

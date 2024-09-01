@@ -35,4 +35,48 @@
       }
     }
   }
+  .myself {
+    background: rgba($color: #fff, $alpha: 0.1);
+    border-radius: 1rem;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 12px 0;
+    .left {
+      display: flex;
+      align-items: center;
+      .icon {
+        border-radius: 50%;
+        min-width: 42px;
+        min-height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Bold;
+        margin-right: 1rem;
+        text-transform: uppercase;
+      }
+      .name {
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+        max-width: 160px;
+        overflow: hidden;
+      }
+      .name-score {
+        opacity: 0.8;
+        font-family: Bold;
+        font-size: 1.2rem;
+      }
+    }
+    .right {
+      font-family: 'Bold';
+      font-size: 1.3rem;
+      img {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
 }

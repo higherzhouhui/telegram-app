@@ -10,6 +10,7 @@ import DonwGamePage from '@/pages/DonwGame';
 import DetailPage from '@/pages/Detail';
 import SecondPage from '@/pages/Second'
 import CheckInlPage from '@/pages/CheckIn';
+import GameLeaderBoardPage from '@/pages/GameLeaderBoard';
 
 interface Route {
   path: string;
@@ -25,6 +26,7 @@ export const routes: Route[] = [
   { path: '/emjoyGame', Component: EmjoyGamePage },
   { path: '/downGame', Component: DonwGamePage },
   { path: '/leaderBoard', Component: LeaderBoardPage },
+  { path: '/gameleaderboard', Component: GameLeaderBoardPage },
   { path: '/frens', Component: FrensPage },
   { path: '/game', Component: GamePage },
   { path: '/detail', Component: DetailPage },

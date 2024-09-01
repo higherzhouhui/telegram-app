@@ -3,11 +3,17 @@ import './index.scss'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { initUtils } from '@telegram-apps/sdk';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { stringToColor } from '@/utils/common';
+import { getGameInfoReq } from '@/api/game';
+import No1 from '@/assets/NO.1.png'
+import No2 from '@/assets/NO.2.png'
+import No3 from '@/assets/NO.3.png'
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
   const navigate = useNavigate()
+  const [gameInfo, setGameInfo] = useState<any>({})
   const link = `https://t.me/HamstersTon_bot/Hamster?startapp=${btoa(userInfo.user_id)}`;
   const [isShowInvite, setShowInvite] = useState(false)
   const utils = initUtils()
@@ -36,8 +42,35 @@ export default function () {
     utils.shareURL(link, text)
   }
 
+  useEffect(() => {
+    getGameInfoReq().then(res => {
+      if (res.code == 0) {
+        setGameInfo(res.data)
+      }
+    })
+  }, [])
+
   return <div className='gamepage-container fadeIn'>
     <div className='title'>Play games to earn $Hamster</div>
+    <div>
+      <div className="myself" onClick={() => navigate('/gameleaderboard')}>
+        <div className="left">
+          <div className="icon" style={{ background: stringToColor(userInfo?.username) }}>
+            {userInfo?.username.slice(0, 2)}
+          </div>
+          <div className="name-score-warpper">
+            <div className="name">{userInfo?.username}</div>
+            <div className="name-score">Game:&nbsp;{userInfo?.game_score?.toLocaleString()}&nbsp;Hamsters</div>
+            <div className="name-score">Times:&nbsp;{gameInfo?.count}&nbsp;</div>
+          </div>
+        </div>
+        <div className="right">
+          {
+            gameInfo?.rank == 1 ? <img src={No1} alt="no1" /> : gameInfo?.rank == 2 ? <img src={No2} alt="no2" /> : gameInfo?.rank == 3 ? <img src={No3} alt="no3" /> : `#${gameInfo?.rank}`
+          }
+        </div>
+      </div>
+    </div>
     <div className='intros'>
       <div className='intro-list'>
         <img src='/assets/g1.png' />
@@ -49,6 +82,7 @@ export default function () {
           <img src='/assets/common/ticket.webp' className='ticket' />
         </div>
       </div>
+
       <div className='intro-list'>
         <img src='/assets/wel.gif' />
         <div className='btn' onClick={() => handlePlayGame('/downGame')}>

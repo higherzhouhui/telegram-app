@@ -29,7 +29,13 @@ export const getUserListReq = (params: any) => {
     params,
   });
 };
-
+export const getUserGameListReq = (params: any) => {
+  return service<any>({
+    url: '/user/gamelist',
+    method: 'GET',
+    params,
+  });
+};
 export const getSubUserListReq = (params: any) => {
   return service<any>({
     url: '/user/subList',
@@ -77,10 +83,13 @@ export const getSystemReq = () => {
 };
 
 
-export const getPriceReq = (dev: boolean) => {
-  const url = dev ? 'https://www.binance.com/api/v3/ticker?symbol=DOGSUSDT' : '/binancePrice';
+export const getPriceReq = (dev: boolean, type: string) => {
+  const url = dev ? 'https://www.binance.com/api/v3/ticker' : '/binancePrice';
   return service<any>({
     url: url,
     method: 'GET',
+    params: {
+      symbol: type
+    }
   });
 }

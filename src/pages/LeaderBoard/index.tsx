@@ -53,7 +53,7 @@ export default function LeaderBoard() {
         </div>
         <div className="name-score-warpper">
           <div className="name">{userInfo?.username}</div>
-          <div className="name-score">{userInfo?.score?.toLocaleString()}&nbsp;TOMATO</div>
+          <div className="name-score">{userInfo?.score?.toLocaleString()}&nbsp;$CAT</div>
         </div>
       </div>
       <div className="right">
@@ -88,7 +88,7 @@ function ListItem({ username, score, rank }: { username: string, score: number, 
       </div>
       <div className="name-score-wrapper">
         <div className="name">{username}</div>
-        <div className="name-score">{score.toLocaleString()}&nbsp;TOMATO</div>
+        <div className="name-score">{score.toLocaleString()}&nbsp;$CAT</div>
       </div>
     </div>
     <div className="right">

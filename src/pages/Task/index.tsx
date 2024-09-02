@@ -29,7 +29,11 @@ function TaskPage() {
       }
       if (item.status == null) {
         if (localStorage.getItem('h5PcRoot') == '1') {
-          window.open(item.link)
+          if (item.linkType == 'self') {
+            navigate(item.link)
+          } else {
+            window.open(item.link)
+          }
         } else {
           if (item.linkType.includes('telegram')) {
             const utils = initUtils()

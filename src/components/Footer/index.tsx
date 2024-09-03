@@ -50,7 +50,7 @@ function FooterComp({ isH5PcRoot }: { isH5PcRoot?: boolean }) {
         } else {
             setShowFooter(true)
         }
-        if (flag) {
+        if (flag || myLocation.pathname == '/') {
             backButton.hide()
             eventBus.emit('showBack', false)
         } else {

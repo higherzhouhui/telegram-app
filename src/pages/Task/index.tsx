@@ -39,7 +39,7 @@ function TaskPage() {
             const utils = initUtils()
             utils.openLink(item.link)
           } else if (item.linkType == 'outside') {
-            window.open(item.link)
+            location.href = item.link
           } else if (item.linkType == 'self') {
             navigate(item.link)
           }

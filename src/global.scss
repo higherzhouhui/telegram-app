@@ -310,3 +310,18 @@ header {
   cursor: pointer;
   z-index: 999;
 }
+.error-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--textColor);
+  .reload {
+    background: var(--btnBg);
+    padding: 6px 12px;
+    border-radius: 12px;
+    color: #000;
+  }
+}

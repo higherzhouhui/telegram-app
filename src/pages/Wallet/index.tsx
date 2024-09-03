@@ -41,8 +41,10 @@ function WalletPage() {
     setTimeout(() => {
       if (!isConnected && !walletInfo) {
         setTimeout(() => {
-          localStorage.setItem('authorization', '')
-          localStorage.setItem('walletInfo', '')
+          if (isH5PcRoot) {
+            localStorage.setItem('authorization', '')
+            localStorage.setItem('walletInfo', '')
+          }
           connectWallet()
         }, 500);
       }

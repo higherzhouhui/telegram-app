@@ -9,7 +9,7 @@ import AssetsPage from '@/components/Assets';
 import LeaderBoardPage from '@/pages/LeaderBoard';
 import FrensDetailPage from '@/pages/Frens/Detail';
 import CheckInlPage from '@/pages/CheckIn';
-
+import LoadingPage from '@/components/Loading'
 interface Route {
   path: string;
   Component: ComponentType;
@@ -19,7 +19,8 @@ interface Route {
 
 
 export const routes: Route[] = [
-  { path: '/', Component: HomePage },
+  { path: '/', Component: LoadingPage },
+  { path: '/home', Component: HomePage },
   { path: '/game', Component: GamePage },
   { path: '/task', Component: TaskPage },
   { path: '/frens', Component: FrensPage },

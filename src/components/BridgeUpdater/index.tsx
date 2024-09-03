@@ -34,18 +34,13 @@ export default function BridgeUpdater() {
     if (res.code !== 0) {
       Toast.show({ content: res.msg, position: 'top' })
     } else {
-      dispatch(setUserInfoAction(res.data))
       localStorage.setItem('authorization', res.data.user_id)
       localStorage.setItem('walletInfo', JSON.stringify(walletInfo))
-      if (res.data.check_date) {
-        const today = moment().utc().format('MM-DD')
-        if (res.data.check_date != today) {
-          navigate('/checkIn')
-        } else {
-          navigate(url)
-        }
-      } else {
+      const today = moment().utc().format('MM-DD')
+      if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
         navigate('/checkIn')
+      } else {
+        navigate('/home')
       }
     }
     eventBus.emit('loading', false)

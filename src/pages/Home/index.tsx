@@ -190,9 +190,9 @@ export const HomePage: FC = () => {
 
 
   useEffect(() => {
-    getUserInfoReq({}).then(res => {
+    getUserInfoReq().then(res => {
       if (res.code == 0) {
-        dispatch(setUserInfoAction(res.data.userInfo))
+        dispatch(setUserInfoAction(res.data))
       }
     })
   }, [])

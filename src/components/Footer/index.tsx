@@ -19,7 +19,7 @@ function FooterComp({ isH5PcRoot }: { isH5PcRoot?: boolean }) {
         {
             title: 'Home',
             icon: HomeIcon,
-            to: '/',
+            to: '/home',
         },
         {
             title: 'Task',

@@ -22,6 +22,7 @@ import { setSystemAction, setUserInfoAction } from '@/redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import Loading from '../Loading';
+import { Toast } from 'antd-mobile';
 
 
 const PcApp: FC = () => {
@@ -56,16 +57,19 @@ const PcApp: FC = () => {
           dispatch(setSystemAction(sysInfo.data))
         }
         if (res.code == 0) {
-          dispatch(setUserInfoAction(res.data))
+          // dispatch(setUserInfoAction(res.data))
           localStorage.setItem('authorization', res.data.user_id)
-          if (res.data.check_date) {
-            const today = moment().utc().format('MM-DD')
-            if (res.data.check_date != today) {
-              navigate('/checkIn')
-            }
-          } else {
+          const today = moment().utc().format('MM-DD')
+          if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
             navigate('/checkIn')
+          } else {
+            navigate('/home')
           }
+        } else {
+          Toast.show({
+            content: res.msg,
+            position: 'center'
+          })
         }
         setLoading(false)
       } else {

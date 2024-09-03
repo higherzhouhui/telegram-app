@@ -76,13 +76,7 @@ const PcApp: FC = () => {
     }
   }
   useEffect(() => {
-    localStorage.setItem('h5PcRoot', '1')
-    getSystemConfigReq().then((res: any) => {
-      if (res.code == 0) {
-        dispatch(setSystemAction(res.data))
-      }
-    })
-    // initApp()
+    initApp()
     const onMessage = ({ visible, time }: { visible: boolean, time?: number }) => {
       setShowCongrates(visible)
       setShowTime(time || 1500)

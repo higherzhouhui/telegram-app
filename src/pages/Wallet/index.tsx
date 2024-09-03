@@ -41,6 +41,8 @@ function WalletPage() {
     setTimeout(() => {
       if (!isConnected && !walletInfo) {
         setTimeout(() => {
+          localStorage.setItem('authorization', '')
+          localStorage.setItem('walletInfo', '')
           connectWallet()
         }, 500);
       }

@@ -76,7 +76,7 @@ const TgApp: FC = () => {
       const [res, sysInfo] = await Promise.all([loginReq(data), getSystemConfigReq()])
       if (res.code == 0) {
         // dispatch(setUserInfoAction(res.data))
-        localStorage.setItem('authorization', res.data.user_id)
+        localStorage.setItem('authorization', res.data.token)
         const today = moment().utc().format('MM-DD')
         if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
           navigate('/checkIn')

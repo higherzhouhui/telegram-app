@@ -1936,7 +1936,7 @@ aelf-sdk@^3.4.14-beta.1:
     scryptsy "^2.1.0"
     xmlhttprequest "^1.8.0"
 
-ahooks@^3.7.6, ahooks@^3.8.0:
+ahooks@^3.7.6:
   version "3.8.1"
   resolved "https://registry.npmmirror.com/ahooks/-/ahooks-3.8.1.tgz#3a19d0e4085618a7a38a22a34b568c8d3fd974c0"
   integrity sha512-JoP9+/RWO7MnI/uSKdvQ8WB10Y3oo1PjLv+4Sv4Vpm19Z86VUMdXh+RhWvMGxZZs06sq2p0xVtFk8Oh5ZObsoA==
@@ -2471,7 +2471,7 @@ chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^4.0.0:
+chalk@^4.0.0, chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.npmmirror.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -2706,7 +2706,7 @@ dayjs@1.x, dayjs@^1.11.11, dayjs@^1.11.7, dayjs@^1.9.1:
   resolved "https://registry.npmmirror.com/dayjs/-/dayjs-1.11.12.tgz#5245226cc7f40a15bf52e0b99fd2a04669ccac1d"
   integrity sha512-Rt2g+nTbLlDWZTwwrIXjy9MeiZmSDI375FvZs72ngxx8PDC6YXOeR3q5LAuPzjZQxhiWdRKac7RKV+YyQYfYIg==
 
-debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4, debug@~4.3.1, debug@~4.3.2:
+debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4, debug@~4.3.1, debug@~4.3.2:
   version "4.3.6"
   resolved "https://registry.npmmirror.com/debug/-/debug-4.3.6.tgz#2ab2c38fbaffebf8aa95fdfe6d88438c7a13c52b"
   integrity sha512-O/09Bd4Z1fBrU4VzkhFqVgpPzaGbw6Sm9FEkBT1A/YBXQFGuuSxa1dN2nxgxS34JmKXqYx8CZAwEVoJFImUXIg==
@@ -3214,6 +3214,15 @@ form-data@^4.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+fs-extra@^10.0.0:
+  version "10.1.0"
+  resolved "https://registry.npmmirror.com/fs-extra/-/fs-extra-10.1.0.tgz#02873cfbc4084dde127eaa5f9905eef2325d1abf"
+  integrity sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmmirror.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -3311,6 +3320,11 @@ gopd@^1.0.1:
   integrity sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==
   dependencies:
     get-intrinsic "^1.1.3"
+
+graceful-fs@^4.1.6, graceful-fs@^4.2.0:
+  version "4.2.11"
+  resolved "https://registry.npmmirror.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
+  integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
 graphemer@^1.4.0:
   version "1.4.0"
@@ -3646,6 +3660,15 @@ json5@^2.2.3:
   version "2.2.3"
   resolved "https://registry.npmmirror.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
+
+jsonfile@^6.0.1:
+  version "6.1.0"
+  resolved "https://registry.npmmirror.com/jsonfile/-/jsonfile-6.1.0.tgz#bc55b2634793c679ec6403094eb13698a6ec0aae"
+  integrity sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==
+  dependencies:
+    universalify "^2.0.0"
+  optionalDependencies:
+    graceful-fs "^4.1.6"
 
 just-compare@^2.3.0:
   version "2.3.0"
@@ -5684,6 +5707,11 @@ universalify@^0.2.0:
   resolved "https://registry.npmmirror.com/universalify/-/universalify-0.2.0.tgz#6451760566fa857534745ab1dde952d1b1761be0"
   integrity sha512-CJ1QgKmNg3CwvAv/kOFmtnEN05f0D/cn9QntgNOQlQF9dgvVTHj3t+8JPdjqawCHk7V/KA+fbUqzZ9XWhcqPUg==
 
+universalify@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.npmmirror.com/universalify/-/universalify-2.0.1.tgz#168efc2180964e6386d061e094df61afe239b18d"
+  integrity sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==
+
 update-browserslist-db@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmmirror.com/update-browserslist-db/-/update-browserslist-db-1.1.0.tgz#7ca61c0d8650766090728046e416a8cde682859e"
@@ -5787,6 +5815,15 @@ vconsole@^3.15.1:
     copy-text-to-clipboard "^3.0.1"
     core-js "^3.11.0"
     mutation-observer "^1.0.3"
+
+vite-plugin-compression@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.npmmirror.com/vite-plugin-compression/-/vite-plugin-compression-0.5.1.tgz#a75b0d8f48357ebb377b65016da9f20885ef39b6"
+  integrity sha512-5QJKBDc+gNYVqL/skgFAP81Yuzo9R+EAf19d+EtsMF/i8kFUpNi3J/H01QD3Oo8zBQn+NzoCIFkpPLynoOzaJg==
+  dependencies:
+    chalk "^4.1.2"
+    debug "^4.3.3"
+    fs-extra "^10.0.0"
 
 vite-plugin-node-polyfills@^0.22.0:
   version "0.22.0"

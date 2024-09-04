@@ -31,7 +31,6 @@
     "@twa-dev/sdk": "^6.7.1",
     "@vitejs/plugin-react": "^4.3.1",
     "aelf-sdk": "^3.4.14-beta.1",
-    "ahooks": "^3.8.0",
     "antd": "^5.19.1",
     "antd-mobile": "^5.33.1",
     "axios": "^1.7.2",

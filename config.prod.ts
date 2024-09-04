@@ -47,14 +47,16 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          phaser: ['phaser']
-        }
+          phaser: ['phaser'],
+          aelfSdk: ['aelf-sdk'],
+        },
       }
     },
     minify: 'terser',
     terserOptions: {
       compress: {
-        passes: 2
+        passes: 2,
+        drop_console: true
       },
       mangle: true,
       format: {
@@ -68,7 +70,6 @@ export default defineConfig({
     proxy: {
       '/api': {
         // target: 'http://localhost:8085', // 目标服务器地址
-        target: 'https://test.forkfrenpet.com', // 目标服务器地址
         changeOrigin: true, // 是否改变源地址
         rewrite: (path) => path.replace(/^\/api/, '/api/'), // 重写路径
       }

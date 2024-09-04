@@ -28,7 +28,7 @@ import EventBus from '@/utils/eventBus';
 import { AppRoot } from '@telegram-apps/telegram-ui';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import { getSystemConfigReq, loginReq } from '@/api/common';
-import { setSystemAction, setUserInfoAction } from '@/redux/slices/userSlice';
+import { setSystemAction } from '@/redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import Loading from '../Loading';

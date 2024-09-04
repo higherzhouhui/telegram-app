@@ -136,14 +136,14 @@ const MiNiRoot: FC = () => {
   return (
     <Provider store={store}>
       <ConfigProvider locale={enUS}>
-        <HashRouter>
-          <WebLoginProvider bridgeAPI={bridgeAPI}>
+        <WebLoginProvider bridgeAPI={bridgeAPI}>
+          <HashRouter>
             <SDKProvider>
               <App />
             </SDKProvider>
             <BridgeUpdater />
-          </WebLoginProvider>
-        </HashRouter>
+          </HashRouter>
+        </WebLoginProvider>
       </ConfigProvider>
     </Provider>
   );

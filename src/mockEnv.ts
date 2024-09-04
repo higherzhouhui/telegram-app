@@ -3,7 +3,7 @@ import { mockTelegramEnv, parseInitData, retrieveLaunchParams } from '@telegram-
 // It is important, to mock the environment only for development purposes. When building the
 // application, import.meta.env.DEV will become false, and the code inside will be tree-shaken,
 // so you will not see it in your final bundle.
-if (import.meta.env.DEV || import.meta.env.PROD) {
+if (import.meta.env.DEV) {
   let shouldMock: boolean;
 
   // Try to extract launch parameters to check if the current environment is Telegram-based.
@@ -24,7 +24,7 @@ if (import.meta.env.DEV || import.meta.env.PROD) {
       ['user', JSON.stringify({
         id: 77777777,
         first_name: 'Andrew',
-        last_name: 'isMockUser_258217',
+        last_name: 'isMockUser_258218',
         username: 'mockuser',
         language_code: 'en',
         is_premium: true,

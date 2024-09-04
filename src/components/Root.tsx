@@ -1,5 +1,5 @@
 import '@/mockEnv';
-import { useEffect, type FC } from 'react';
+import { type FC } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -136,20 +136,18 @@ const MiNiRoot: FC = () => {
   return (
     <Provider store={store}>
       <ConfigProvider locale={enUS}>
-        <WebLoginProvider bridgeAPI={bridgeAPI}>
-          <HashRouter>
+        <HashRouter>
+          <WebLoginProvider bridgeAPI={bridgeAPI}>
             <SDKProvider>
               <App />
             </SDKProvider>
             <BridgeUpdater />
-          </HashRouter>
-        </WebLoginProvider>
+          </WebLoginProvider>
+        </HashRouter>
       </ConfigProvider>
     </Provider>
   );
 };
-
-
 
 export const Root: FC = () => (
   <ErrorBoundary fallback={ErrorBoundaryError} >

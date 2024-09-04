@@ -102,11 +102,11 @@ function TaskPage() {
         list.map((item: any, index) => {
           return <div className='item-wrapper' key={index}>
             <div className='item-wrapper-title'>
-              <img src={`/assets/task/${getImgSrc(item[0].type)}.png`} className='logo-pic' />
+              <img src={`/assets/task/${getImgSrc(item[0].type)}.png`} className='logo-pic' alt="penalty" />
               {
                 item[0].type
               }
-              <img src='/assets/task/touch.png' className='touch' />
+              <img src='/assets/task/touch.png' className='touch' alt="penalty" />
             </div>
             {
               item.map((citem: any, cindex: number) => {

@@ -48,7 +48,21 @@ export default defineConfig({
       output: {
         manualChunks: {
           phaser: ['phaser'],
-          aelfSdk: ['aelf-sdk'],
+          // aelfSdk: ['aelf-sdk'],
+          // twaSdk: ['@twa-dev/sdk'],
+          // antd: ['antd'],
+          // antdMobile: ['antd-mobile'],
+          // sdkReactsdk: ['@telegram-apps/sdk'],
+          // sdkReact: ['@telegram-apps/sdk-react'],
+          // sdkReactUi: ['@telegram-apps/telegram-ui'],
+          // login: ['@aelf-web-login/utils'],
+          // loginbase: ['@aelf-web-login/wallet-adapter-base'],
+          // loginbridge: ['@aelf-web-login/wallet-adapter-bridge'],
+          // loginelf: ['@aelf-web-login/wallet-adapter-night-elf'],
+          // loginaa: ['@aelf-web-login/wallet-adapter-portkey-aa'],
+          // logindiscover: ['@aelf-web-login/wallet-adapter-portkey-discover'],
+          // loginreact: ['@aelf-web-login/wallet-adapter-react'],
+          // eruda: ['eruda'],
         },
       }
     },

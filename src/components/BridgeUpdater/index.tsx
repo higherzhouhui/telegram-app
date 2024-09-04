@@ -27,30 +27,28 @@ export default function BridgeUpdater() {
   }
 
   const h5PcLogin = async (walletInfo: any) => {
+    eventBus.emit('loading', true)
     let url = location.hash
     if (url) {
       url = url.replace('#', '')
     }
-    if (localStorage.getItem('authorization')) {
-      eventBus.emit('loading', true)
-      const res = await h5PcLoginReq(walletInfo)
-      if (res.code !== 0) {
-        Toast.show({ content: res.msg, position: 'top' })
+    const res = await h5PcLoginReq(walletInfo)
+    if (res.code !== 0) {
+      Toast.show({ content: res.msg, position: 'top' })
+    } else {
+      dispatch(setUserInfoAction(res.data))
+      localStorage.setItem('authorization', res.data.token)
+      localStorage.setItem('walletInfo', JSON.stringify(walletInfo))
+      const today = moment().utc().format('MM-DD')
+      if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
+        navigate('/checkIn')
       } else {
-        dispatch(setUserInfoAction(res.data))
-        localStorage.setItem('authorization', res.data.token)
-        localStorage.setItem('walletInfo', JSON.stringify(walletInfo))
-        const today = moment().utc().format('MM-DD')
-        if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
-          navigate('/checkIn')
-        } else {
-          navigate('/home')
-        }
+        navigate('/home')
       }
-      eventBus.emit('loading', false)
     }
-
+    eventBus.emit('loading', false)
   }
+
 
   useEffect(() => {
     if (!window.PortkeyBridge) window.PortkeyBridge = {};

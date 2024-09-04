@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { lazy, type ComponentType, type JSX } from 'react';
 
+
 const LoadingPage = lazy(() => import('@/components/Loading'))
 const HomePage = lazy(() => import('@/pages/Home'))
 const GamePage = lazy(() => import('@/pages/Game'))

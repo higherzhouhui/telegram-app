@@ -6,6 +6,7 @@ import { formatWalletAddress, handleCopyLink } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+
 function WalletPage() {
   const router = useNavigate()
   const [isH5PcRoot, setH5PcRoot] = useState(false)
@@ -48,6 +49,7 @@ function WalletPage() {
   }, [isConnected, walletInfo])
 
   return <div className='wallet-page fadeIn'>
+
     <img src="/assets/wallet-1.png" alt="wallet" className='wallet-img' />
     <div className='wallet-page-title'>The time has come.</div>
     <div className='connect-wrapper'>

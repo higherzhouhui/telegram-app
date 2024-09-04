@@ -35,9 +35,10 @@ function WalletPage() {
   }, [])
 
   useEffect(() => {
-    setTimeout(() => {
+    let timer2;
+    const timer = setTimeout(() => {
       if (!isConnected && !walletInfo) {
-        setTimeout(() => {
+        timer2 = setTimeout(() => {
           if (isH5PcRoot) {
             localStorage.setItem('authorization', '')
             localStorage.setItem('walletInfo', '')
@@ -46,6 +47,10 @@ function WalletPage() {
         }, 500);
       }
     }, 1000);
+    return () => {
+      clearTimeout(timer)
+      clearTimeout(timer2)
+    }
   }, [isConnected, walletInfo])
 
   return <div className='wallet-page fadeIn'>

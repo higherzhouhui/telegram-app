@@ -5,11 +5,15 @@ function CongratesComp({ visible, time, callBack }: { visible: boolean, time: nu
   const [isVisible, setIsVisible] = useState(visible)
   useEffect(() => {
     setIsVisible(visible)
+    let timer;
     if (visible) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         setIsVisible(false)
         callBack()
       }, time);
+    }
+    return () => {
+      clearInterval(timer)
     }
   }, [visible])
   return <>

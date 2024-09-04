@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import { getCheckInRewardListReq, userCheckReq } from '@/api/common'
 import { formatNumber } from '@/utils/common'
@@ -14,12 +14,13 @@ function CheckInPage() {
   const [checkObj, setCheckObj] = useState<any>()
   const [changeScale, setChangeScale] = useState(false)
   const [rewardsList, setRewardList] = useState([])
+  const timer = useRef<any>(null)
   const navigate = useNavigate()
   const checkIn = async () => {
     const res = await userCheckReq()
     setCheckObj(res.data)
     dispatch(setUserInfoAction(res.data))
-    setTimeout(() => {
+    timer.current = setTimeout(() => {
       eventBus.emit('showCongrates', { time: 1500, visible: true })
     }, 2000);
   }

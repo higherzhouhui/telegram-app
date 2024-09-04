@@ -1,7 +1,3 @@
-
-import eruda from "eruda";
-// import '@/trackers'
-
 import {
   bindMiniAppCSSVars,
   bindThemeParamsCSSVars,
@@ -36,7 +32,6 @@ import { Toast } from "antd-mobile";
 
 
 const TgApp: FC = () => {
-  const debug = useLaunchParams().startParam === 'debug';
   const lp = useLaunchParams();
   const miniApp = useMiniApp();
   const themeParams = useThemeParams();
@@ -113,11 +108,7 @@ const TgApp: FC = () => {
     eventBus.addListener('loading', onLoading)
   }, [])
 
-  useEffect(() => {
-    if (debug) {
-      eruda.init()
-    }
-  }, [debug]);
+
 
   useEffect(() => {
     backButton.on('click', () => {

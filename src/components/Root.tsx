@@ -1,5 +1,6 @@
-import '@/mockEnv';
-import { Suspense, type FC } from 'react';
+import '@/trackers'
+import eruda from "eruda";
+import { Suspense, useEffect, type FC } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -17,6 +18,7 @@ import BridgeUpdater from '@/components/BridgeUpdater';
 import { HashRouter } from 'react-router-dom';
 import Loading from '@/components/Loading';
 import { App } from './App';
+import { SDKProvider, useLaunchParams } from '@telegram-apps/sdk-react';
 
 const {
   CHAIN_ID,
@@ -127,24 +129,33 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
 );
 
 const MiNiRoot: FC = () => {
+  const debug = useLaunchParams().startParam === 'debug';
+
   let bridgeAPI: any
   try {
     bridgeAPI = init(config)
   } catch (error) {
     console.error(error)
   }
+  useEffect(() => {
+    if (debug) {
+      eruda.init()
+    }
+  }, [debug]);
   return (
     <Suspense fallback={<Loading />}>
-      <Provider store={store}>
-        <ConfigProvider locale={enUS}>
-          <WebLoginProvider bridgeAPI={bridgeAPI}>
-            <HashRouter>
-              <App />
-              <BridgeUpdater />
-            </HashRouter>
-          </WebLoginProvider>
-        </ConfigProvider>
-      </Provider>
+      <SDKProvider acceptCustomStyles debug={debug}>
+        <Provider store={store}>
+          <ConfigProvider locale={enUS}>
+            <WebLoginProvider bridgeAPI={bridgeAPI}>
+              <HashRouter>
+                <App />
+                <BridgeUpdater />
+              </HashRouter>
+            </WebLoginProvider>
+          </ConfigProvider>
+        </Provider>
+      </SDKProvider>
     </Suspense>
   );
 };

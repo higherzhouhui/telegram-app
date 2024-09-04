@@ -119,7 +119,10 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
             : JSON.stringify(error)}
       </code>
     </blockquote>
-    <div className='reload' onClick={() => location.reload()}>Fresh</div>
+    <div className='reload' onClick={() => {
+      localStorage.clear()
+      location.reload();
+    }}>Fresh</div>
   </div>
 );
 

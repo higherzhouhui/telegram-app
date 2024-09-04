@@ -25,7 +25,7 @@ const handleError = (res: any) => {
 // 创建请求实例
 const instance = axios.create({
   baseURL: '/api',
-  timeout: 500000,
+  timeout: 50000,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
   },
@@ -43,8 +43,8 @@ instance.interceptors.request.use(
         };
       }
     }
-    removePending(config);
-    addPending(config);
+    // removePending(config);
+    // addPending(config);
     // 发送请求之前做些什么
     return config;
   },
@@ -66,6 +66,7 @@ instance.interceptors.response.use(
   (err) => {
     // 对响应错误做些什么
     handleError(err.response);
+    console.error('httpError:', `${err}`)
     return Promise.reject(err);
   }
 );

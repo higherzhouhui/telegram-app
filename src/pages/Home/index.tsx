@@ -198,10 +198,10 @@ export const HomePage: FC = () => {
   }, [])
 
   useEffect(() => {
-    if (farmingTimer.current) {
+    if (farmingTimer && farmingTimer.current) {
       clearInterval(farmingTimer.current)
     }
-    if (userInfo.end_farm_time && userInfo.last_farming_time) {
+    if (userInfo && userInfo.end_farm_time && userInfo.last_farming_time) {
       const data = judgeIsStartFarming(userInfo.end_farm_time, userInfo.last_farming_time)
       setFarmObj(data)
       farmingTimer.current = setInterval(() => {

@@ -1,5 +1,5 @@
 import '@/mockEnv';
-import { type FC } from 'react';
+import { Suspense, type FC } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -15,7 +15,7 @@ import loginConfig from "@/constants/config/login.config";
 import { APP_NAME, WEBSITE_ICON } from "@/constants/website";
 import BridgeUpdater from '@/components/BridgeUpdater';
 import { HashRouter } from 'react-router-dom';
-import { SDKProvider } from '@telegram-apps/sdk-react';
+import Loading from '@/components/Loading';
 import { App } from './App';
 
 const {
@@ -134,18 +134,18 @@ const MiNiRoot: FC = () => {
     console.error(error)
   }
   return (
-    <Provider store={store}>
-      <ConfigProvider locale={enUS}>
-        <WebLoginProvider bridgeAPI={bridgeAPI}>
-          <HashRouter>
-            <SDKProvider>
+    <Suspense fallback={<Loading />}>
+      <Provider store={store}>
+        <ConfigProvider locale={enUS}>
+          <WebLoginProvider bridgeAPI={bridgeAPI}>
+            <HashRouter>
               <App />
-            </SDKProvider>
-            <BridgeUpdater />
-          </HashRouter>
-        </WebLoginProvider>
-      </ConfigProvider>
-    </Provider>
+              <BridgeUpdater />
+            </HashRouter>
+          </WebLoginProvider>
+        </ConfigProvider>
+      </Provider>
+    </Suspense>
   );
 };
 

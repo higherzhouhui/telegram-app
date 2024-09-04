@@ -1,8 +1,5 @@
-
-
-
-import { lazy, Suspense, useEffect, useState, type FC } from 'react';
-import Loading from '@/components/Loading';
+import { lazy, useEffect, useState, type FC } from 'react';
+import { SDKProvider } from '@telegram-apps/sdk-react';
 import { initInitData } from '@telegram-apps/sdk';
 
 const TgApp = lazy(() => import('./Tg'))
@@ -17,10 +14,10 @@ export const App: FC = () => {
     }
   }, [])
   return (
-    <Suspense fallback={<Loading />}>
+    <SDKProvider>
       {
         isPc ? <PcApp /> : <TgApp />
       }
-    </Suspense>
+    </SDKProvider>
   );
 };

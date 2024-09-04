@@ -70,7 +70,6 @@ export default defineConfig({
     terserOptions: {
       compress: {
         passes: 2,
-        drop_console: true
       },
       mangle: true,
       format: {

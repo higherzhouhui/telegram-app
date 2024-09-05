@@ -3,9 +3,7 @@
   text-align: center;
   position: relative;
   .connect-assets {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    margin-top: 1.5rem;
     .my-assets {
       font-size: 18px;
       background: var(--btnBg);
@@ -17,6 +15,20 @@
       gap: 4px;
       font-family: 'bold';
       width: fit-content;
+      margin: 0 auto;
+    }
+    .connect-list {
+      display: flex;
+      margin-top: 2rem;
+    }
+    .lock {
+      background: var(--palette-dark-20);
+    }
+    .lock {
+      background: var(--palette-red-dark);
+    }
+    .assets {
+      background: var(--highColor);
     }
   }
   .wallet-img {

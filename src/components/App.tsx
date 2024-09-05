@@ -40,11 +40,6 @@ export const App: FC = () => {
   const [showTime, setShowTime] = useState(1500)
   const eventBus = EventBus.getInstance()
   const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    backButton.on('click', () => {
-      navigate(-1)
-    })
-  }, [])
 
   const login = async () => {
     setLoading(true)

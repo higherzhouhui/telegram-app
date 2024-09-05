@@ -1,14 +1,13 @@
 import {
-  bindMiniAppCSSVars,
-  bindThemeParamsCSSVars,
   bindViewportCSSVars,
   initBackButton,
   initInitData,
-  useLaunchParams,
-  useMiniApp,
-  useThemeParams,
-  useViewport,
-} from '@telegram-apps/sdk-react';
+  initMiniApp,
+  initSwipeBehavior,
+  initViewport,
+  retrieveLaunchParams
+} from '@telegram-apps/sdk';
+
 import { AppRoot } from '@telegram-apps/telegram-ui';
 import { type FC, useEffect, useState } from 'react';
 import {
@@ -29,31 +28,18 @@ import moment from 'moment';
 import PriceComp from './Price';
 
 export const App: FC = () => {
-  const lp = useLaunchParams();
-  const miniApp = useMiniApp();
-  const themeParams = useThemeParams();
-  const viewport = useViewport();
   const [backButton] = initBackButton()
+  const [swipeBehavior] = initSwipeBehavior();
+  const [viewport] = initViewport();
+  const [miniApp] = initMiniApp()
+  const launchParams = retrieveLaunchParams()
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
   const eventBus = EventBus.getInstance()
   const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    return bindMiniAppCSSVars(miniApp, themeParams);
-  }, [miniApp, themeParams]);
-
-  useEffect(() => {
-    return bindThemeParamsCSSVars(themeParams);
-  }, [themeParams]);
-
-  useEffect(() => {
-    if (!viewport?.isExpanded) {
-      viewport?.expand(); // will expand the Mini App, if it's not
-    }
-    return viewport && bindViewportCSSVars(viewport);
-  }, [viewport]);
   useEffect(() => {
     backButton.on('click', () => {
       navigate(-1)
@@ -90,6 +76,13 @@ export const App: FC = () => {
       setLoading(false)
     }
   }
+  const expandViewPort = async () => {
+    const vp = await viewport;
+    if (!vp.isExpanded) {
+      vp.expand(); // will expand the Mini App, if it's not
+    }
+    bindViewportCSSVars(vp);
+  }
 
   useEffect(() => {
     login()
@@ -104,11 +97,20 @@ export const App: FC = () => {
     eventBus.addListener('loading', onLoading)
   }, [])
 
+  useEffect(() => {
+    backButton.on('click', () => {
+      navigate(-1)
+    })
+    swipeBehavior.disableVerticalSwipe();
+    // const tp = initThemeParams();
+    // bindThemeParamsCSSVars(tp);
+    expandViewPort()
+  }, [])
 
   return (
     <AppRoot
       appearance={miniApp.isDark ? 'dark' : 'light'}
-      platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
+      platform={['macos', 'ios'].includes(launchParams.platform) ? 'ios' : 'base'}
     >
       <div className='layout'>
         <PriceComp />

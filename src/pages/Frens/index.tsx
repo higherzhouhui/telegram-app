@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import LogoIcon from '@/assets/logo.jpg'
 import './index.scss'
+import { useNavigate } from "react-router-dom";
 
 export default function Friends() {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -16,6 +17,7 @@ export default function Friends() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [total, setTotal] = useState(0)
+  const navigate = useNavigate()
   async function loadMore() {
     const append = await getList()
     if (page == 1) {
@@ -66,7 +68,10 @@ I've found a platform where you can launch your meme coins. Check out your Teleg
     <div className="friends-list-wrapper">
 
       {
-        !total ? <div className="tap-desc">Tap on the button to invite your friends</div> : <div className="friends-list-title">{total}&nbsp;&nbsp;friends</div>
+        !total ? <div className="tap-desc">Tap on the button to invite your friends</div> : <div className="friends-list-title">
+          <div className="ft-left">{total}&nbsp;&nbsp;frens</div>
+          <svg onClick={() => navigate(`/detail?total=${total}`)} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2628" width="22" height="22"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667z m0 810.666666c-204.8 0-373.333333-168.533333-373.333333-373.333333S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" fill="#e6e6e6" p-id="2629"></path><path d="M512 512m-42.666667 0a42.666667 42.666667 0 1 0 85.333334 0 42.666667 42.666667 0 1 0-85.333334 0Z" fill="#e6e6e6" p-id="2630"></path><path d="M341.333333 512m-42.666666 0a42.666667 42.666667 0 1 0 85.333333 0 42.666667 42.666667 0 1 0-85.333333 0Z" fill="#e6e6e6" p-id="2631"></path><path d="M682.666667 512m-42.666667 0a42.666667 42.666667 0 1 0 85.333333 0 42.666667 42.666667 0 1 0-85.333333 0Z" fill="#e6e6e6" p-id="2632"></path></svg>
+        </div>
       }
       <List>
         {

@@ -14,13 +14,12 @@ function FrensDetailPage() {
   const [total, setTotal] = useState(0)
   const myLocation = useLocation()
   const [isMyself, setIsMyself] = useState(false)
-
-  const getList = async (mySelf: boolean) => {
+  const getList = async (mySelf: boolean, type: string) => {
     let res: any
     if (mySelf) {
-      res = await getMyScoreHistoryReq({ page })
+      res = await getMyScoreHistoryReq({ page, type })
     } else {
-      res = await getSubUserListReq({ page })
+      res = await getSubUserListReq({ page, type })
     }
     setPage((page => page + 1))
     return res.data.rows
@@ -35,19 +34,27 @@ function FrensDetailPage() {
     if (type == 'share_playGame') {
       type = 'Share Game'
     }
+    if (type == 'checkIn_parent') {
+      type = 'checkIn'
+    }
     return type
   }
   async function loadMore() {
     const search = myLocation.search
     let isMyself = false
+    let type = 'detail'
     if (search) {
       if (search.includes('myself')) {
         isMyself = true
+        if (search.includes('play_game_reward')) {
+          type = 'play_game_reward'
+        } else {
+          type = ''
+        }
       }
     }
 
-
-    const append = await getList(isMyself)
+    const append = await getList(isMyself, type)
     if (page == 1) {
       if (append.length < 20) {
         setHasMore(false)
@@ -71,7 +78,6 @@ function FrensDetailPage() {
         setIsMyself(false)
       }
     }
-
   }, [])
 
   return <div className="frens-detail-page">

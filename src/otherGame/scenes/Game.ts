@@ -70,7 +70,7 @@ export default class MainGame extends Phaser.Scene {
     this.timer = this.time.addEvent({ delay: this.timerCount * 1000, callback: this.gameOver, callbackScope: this });
     this.autoCreateTimer = setInterval(() => {
       this.autoCreateIcon()
-    }, 150);
+    }, 200);
   }
 
   reStart() {
@@ -78,7 +78,7 @@ export default class MainGame extends Phaser.Scene {
     this.timer = this.time.addEvent({ delay: this.timerCount * 1000, callback: this.gameOver, callbackScope: this });
     this.autoCreateTimer = setInterval(() => {
       this.autoCreateIcon()
-    }, 150);
+    }, 200);
   }
   autoCreateIcon() {
     try {

@@ -1,4 +1,4 @@
-import { mockTelegramEnv, parseInitData, retrieveLaunchParams } from '@telegram-apps/sdk-react';
+import { mockTelegramEnv, parseInitData, retrieveLaunchParams } from '@telegram-apps/sdk';
 
 // It is important, to mock the environment only for development purposes. When building the
 // application, import.meta.env.DEV will become false, and the code inside will be tree-shaken,
@@ -19,21 +19,20 @@ if (import.meta.env.DEV) {
   } catch (e) {
     shouldMock = true;
   }
-
   if (shouldMock) {
     const initDataRaw = new URLSearchParams([
       ['user', JSON.stringify({
-        id: 954524,
+        id: 77777777,
         first_name: 'Andrew',
-        last_name: 'Rogue_child1',
-        username: 'child',
+        last_name: 'isMockUser_258218',
+        username: 'mockuser',
         language_code: 'en',
         is_premium: true,
         allows_write_to_pm: true,
       })],
       ['hash', '89d6079ad6762351f38c6dbbc41bb53048019256a9443988af7a48bcad16ba31'],
-      ['auth_date', '1716922846'],
-      ['start_param', `${btoa('645848634')}`],
+      ['auth_date', `${Math.round(new Date().getTime() / 1000)}`],
+      ['start_param', `${btoa('77777777')}`],
       ['chat_type', 'sender'],
       ['chat_instance', '8428209589180549439'],
     ]).toString();
@@ -56,7 +55,7 @@ if (import.meta.env.DEV) {
       },
       initData: parseInitData(initDataRaw),
       initDataRaw,
-      version: '7.2',
+      version: '9.0',
       platform: 'tdesktop',
     });
     sessionStorage.setItem('____mocked', '1');

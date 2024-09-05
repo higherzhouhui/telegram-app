@@ -59,7 +59,7 @@ export default function LeaderBoardPage() {
       <div className={`tab ${tab == 'Today' ? 'active-tab' : ''}`} onClick={() => handleChangeTab('Today')}>Today</div>
       <div className={`tab ${tab == 'Total' ? 'active-tab' : ''}`} onClick={() => handleChangeTab('Total')}>Total</div>
     </div> */}
-    <div className="myself" onClick={() => navigate('/detail?myself=true&type=play_game')}>
+    <div className="myself" onClick={() => navigate('/detail?myself=true&type=play_game_reward')}>
       <div className="left">
         <div className="icon" style={{ background: stringToColor(userInfo?.username) }}>
           {userInfo?.username?.slice(0, 2)}

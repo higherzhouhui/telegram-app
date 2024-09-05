@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 1.5rem;
+  padding: 22px 0;
   overflow: auto;
   color: #fff;
   padding-bottom: 6rem;
@@ -33,12 +33,16 @@
       font-size: 1.8rem;
       font-weight: bold;
       margin-bottom: 1.5rem;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     .friends-list {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 6px;
+      padding: 0 12px;
     }
     .icon {
       border-radius: 50%;

@@ -1,5 +1,8 @@
 .gamepage-container {
-  padding: 12px 12px 60px 12px;
+  padding: 0 0 60px 0;
+  .g-container {
+    padding: 9px 12px 0 12px;
+  }
   .title {
     font-size: 2rem;
     font-weight: bold;

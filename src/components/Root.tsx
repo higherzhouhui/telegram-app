@@ -1,6 +1,5 @@
 import '@/trackers'
-import eruda from "eruda";
-import { Suspense, useEffect, type FC } from 'react';
+import { Suspense, type FC } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -18,7 +17,7 @@ import BridgeUpdater from '@/components/BridgeUpdater';
 import { HashRouter } from 'react-router-dom';
 import Loading from '@/components/Loading';
 import { App } from './App';
-import { SDKProvider, useLaunchParams } from '@telegram-apps/sdk-react';
+import { SDKProvider } from '@telegram-apps/sdk-react';
 
 const {
   CHAIN_ID,
@@ -122,14 +121,17 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
       </code>
     </blockquote>
     <div className='reload' onClick={() => {
-      localStorage.clear()
-      location.reload();
+      localStorage.removeItem('authorization')
+      if (localStorage.getItem('h5PcRoot') == '1') {
+        window.location.href = `/#/wallet`;
+      } else {
+        // window.location.href = `/#/index`;
+      }
     }}>Fresh</div>
   </div>
 );
 
 const MiNiRoot: FC = () => {
-  const debug = useLaunchParams().startParam === 'debug';
 
   let bridgeAPI: any
   try {
@@ -137,25 +139,21 @@ const MiNiRoot: FC = () => {
   } catch (error) {
     console.error(error)
   }
-  useEffect(() => {
-    if (debug) {
-      eruda.init()
-    }
-  }, [debug]);
+
   return (
     <Suspense fallback={<Loading />}>
-      <SDKProvider acceptCustomStyles debug={debug}>
-        <Provider store={store}>
-          <ConfigProvider locale={enUS}>
+      <Provider store={store}>
+        <ConfigProvider locale={enUS}>
+          <SDKProvider acceptCustomStyles>
             <WebLoginProvider bridgeAPI={bridgeAPI}>
               <HashRouter>
                 <App />
                 <BridgeUpdater />
               </HashRouter>
             </WebLoginProvider>
-          </ConfigProvider>
-        </Provider>
-      </SDKProvider>
+          </SDKProvider>
+        </ConfigProvider>
+      </Provider>
     </Suspense>
   );
 };

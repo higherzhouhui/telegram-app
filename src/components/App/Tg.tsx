@@ -33,6 +33,7 @@ import { Toast } from "antd-mobile";
 
 const TgApp: FC = () => {
   const lp = useLaunchParams();
+  console.log('lp:', lp)
   const miniApp = useMiniApp();
   const themeParams = useThemeParams();
   const viewport = useViewport();

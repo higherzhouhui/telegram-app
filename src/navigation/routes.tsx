@@ -1,7 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { lazy, type ComponentType, type JSX } from 'react';
 
-
 const LoadingPage = lazy(() => import('@/components/Loading'))
 const HomePage = lazy(() => import('@/pages/Home'))
 const GamePage = lazy(() => import('@/pages/Game'))
@@ -12,6 +11,7 @@ const AssetsPage = lazy(() => import('@/components/Assets'))
 const LeaderBoardPage = lazy(() => import('@/pages/LeaderBoard'))
 const FrensDetailPage = lazy(() => import('@/pages/Frens/Detail'))
 const CheckInlPage = lazy(() => import('@/pages/CheckIn'))
+const IndexPage = lazy(() => import('@/pages/Index'))
 
 interface Route {
   path: string;
@@ -20,9 +20,9 @@ interface Route {
   icon?: JSX.Element;
 }
 
-
 export const routes: Route[] = [
   { path: '/', Component: LoadingPage },
+  { path: '/index', Component: IndexPage },
   { path: '/home', Component: HomePage },
   { path: '/game', Component: GamePage },
   { path: '/task', Component: TaskPage },

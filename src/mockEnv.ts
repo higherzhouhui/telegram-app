@@ -31,7 +31,7 @@ if (import.meta.env.DEV || import.meta.env.PROD) {
         allows_write_to_pm: true,
       })],
       ['hash', '89d6079ad6762351f38c6dbbc41bb53048019256a9443988af7a48bcad16ba31'],
-      ['auth_date', '1716922846'],
+      ['auth_date', `${Math.round(new Date().getTime() / 1000)}`],
       ['start_param', `${btoa('645848634')}`],
       ['chat_type', 'sender'],
       ['chat_instance', '8428209589180549439'],

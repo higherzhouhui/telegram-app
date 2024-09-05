@@ -7,10 +7,11 @@ const handleResponse = (data: GlobalRequest.Response<any>) => {
   if (code === 403) {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('authorization');
-      window.location.href = `/#/`;
-      setTimeout(() => {
-        window.location.reload()
-      }, 200);
+      if (localStorage.getItem('h5PcRoot') == '1') {
+        window.location.href = `/#/wallet`;
+      } else {
+        window.location.href = `/#/index`;
+      }
     }
   }
 };
@@ -43,8 +44,8 @@ instance.interceptors.request.use(
         };
       }
     }
-    // removePending(config);
-    // addPending(config);
+    removePending(config);
+    addPending(config);
     // 发送请求之前做些什么
     return config;
   },

@@ -1,11 +1,4 @@
 import {
-  bindMiniAppCSSVars,
-  bindThemeParamsCSSVars,
-  useMiniApp,
-  useThemeParams,
-} from '@telegram-apps/sdk-react';
-
-import {
   Navigate,
   Route,
   Routes,
@@ -26,20 +19,9 @@ import { Toast } from 'antd-mobile';
 
 
 const PcApp: FC = () => {
-  const miniApp = useMiniApp();
-  const themeParams = useThemeParams();
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    return bindMiniAppCSSVars(miniApp, themeParams);
-  }, [miniApp, themeParams]);
-
-  useEffect(() => {
-    return bindThemeParamsCSSVars(themeParams);
-  }, [themeParams]);
-
   const eventBus = EventBus.getInstance()
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)

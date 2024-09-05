@@ -68,7 +68,6 @@ export default defineConfig({
           loginaa: ['@aelf-web-login/wallet-adapter-portkey-aa'],
           logindiscover: ['@aelf-web-login/wallet-adapter-portkey-discover'],
           loginreact: ['@aelf-web-login/wallet-adapter-react'],
-          eruda: ['eruda'],
         },
       }
     },

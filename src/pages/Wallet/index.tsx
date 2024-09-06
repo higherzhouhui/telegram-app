@@ -56,7 +56,7 @@ function WalletPage() {
     <div className='connect-wrapper'>
       <img src="/assets/money.png" alt="wallet" width={32} />
       {
-        !isConnected && !userInfo?.wallet ? <div>
+        isConnected && userInfo?.wallet ? <div>
           <div className='connect-desc'>The best Wallet to Explore TON Ecosystem</div>
           <div className='connect-assets'>
             <div className='my-assets' onClick={() => handleCopyLink(userInfo.wallet)}>

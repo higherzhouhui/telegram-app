@@ -83,9 +83,6 @@ export default function BridgeUpdater() {
     const r2 = PortkeyBridgeEventReceiveInstance.on(
       NotificationEvents.lockStatus,
       (event) => {
-        if (event == true) {
-          dispatch(setUserInfoAction({ isLocking: event }))
-        }
         console.log(event, "NotificationEvents.lockStatus");
       }
     );

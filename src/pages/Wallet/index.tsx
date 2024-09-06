@@ -57,7 +57,7 @@ function WalletPage() {
       <img src="/assets/money.png" alt="wallet" width={32} />
       {
         isConnected && userInfo?.wallet ? <div>
-          <div className='connect-desc'>The best Wallet to Explore TON Ecosystem</div>
+          <div className='connect-desc'>The best Wallet to Explore AELF Ecosystem</div>
           <div className='connect-assets'>
             <div className='my-assets' onClick={() => handleCopyLink(userInfo.wallet)}>
               {formatWalletAddress(userInfo.wallet)}
@@ -69,7 +69,7 @@ function WalletPage() {
                 </div> : null
               }
               {
-                isH5PcRoot ? <div className='my-assets disconnect' onClick={lock}>
+                isH5PcRoot ? <div className='my-assets disconnect' onClick={async () => await disConnectWallet()}>
                   Disconnect
                 </div> : null
               }
@@ -81,14 +81,16 @@ function WalletPage() {
           </div>
         </div> : <>
           <div className='connect-desc'>Connect your PortKey Wallet</div>
-          <div className='connect-intro'>The best Wallet to Explore TON Ecosystem</div>
-          <Button onClick={onConnectBtnClickHandler} style={{ marginTop: '1rem', background: 'var(--btnBg)', border: 'none' }}>connect</Button>
+          <div className='connect-intro'>The best Wallet to Explore AELF Ecosystem</div>
+          <Button onClick={onConnectBtnClickHandler} style={{ marginTop: '1rem', background: 'var(--btnBg)', border: 'none' }}>
+            {isLocking ? 'UnLock' : 'Connect'}
+          </Button>
         </>
       }
     </div>
     <div className='happing'>What's happening?</div>
     <div className='activity'>Somethings <span>HUGE</span> is coming in Oct.</div>
-    <div className='activity'>connecting PortKey Wallet is the <span>first step</span>. Do not be late.</div>
+    <div className='activity'>Connecting PortKey Wallet is the <span>first step</span>. Do not be late.</div>
   </div>
 }
 

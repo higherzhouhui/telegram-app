@@ -83,6 +83,9 @@ export default function BridgeUpdater() {
     const r2 = PortkeyBridgeEventReceiveInstance.on(
       NotificationEvents.lockStatus,
       (event) => {
+        if (event == true) {
+          dispatch(setUserInfoAction({ isLocking: event }))
+        }
         console.log(event, "NotificationEvents.lockStatus");
       }
     );
@@ -93,10 +96,12 @@ export default function BridgeUpdater() {
         if (event?.address) {
           if (localStorage.getItem('h5PcRoot') == '1') {
             const name = event?.extraInfo?.nickName || event?.name
+            const startParam = localStorage.getItem('startParam')
             h5PcLogin({
               wallet: event?.address,
               wallet_nickName: name,
               username: name,
+              startParam,
             })
           } else {
             bindWallet({

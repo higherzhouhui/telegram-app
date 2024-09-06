@@ -124,7 +124,7 @@ body,
 
 .fadeIn {
   opacity: 0;
-  animation: fadeIn forwards 1.5s;
+  animation: fadeIn forwards 1s;
 }
 
 @keyframes fadeIn {
@@ -336,4 +336,9 @@ header {
 
 .adm-list-item-content {
   border-top-color: #312d2d;
+}
+.adm-toast-mask .adm-toast-main {
+  color: var(--highColor);
+  background: #222;
+  max-width: 350px;
 }

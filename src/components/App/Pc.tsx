@@ -29,15 +29,18 @@ const PcApp: FC = () => {
   const initApp = async () => {
     try {
       localStorage.setItem('h5PcRoot', '1')
+      const sysInfo = await getSystemConfigReq()
+      if (sysInfo.code == 0) {
+        dispatch(setSystemAction(sysInfo.data))
+      }
+
       const authorization = localStorage.getItem('authorization')
       const walletInfo = localStorage.getItem('walletInfo')
       const h5PcRoot = true
       if (authorization && h5PcRoot && walletInfo) {
         setLoading(true)
-        const [res, sysInfo] = await Promise.all([h5PcLoginReq(JSON.parse(walletInfo)), getSystemConfigReq()])
-        if (sysInfo.code == 0) {
-          dispatch(setSystemAction(sysInfo.data))
-        }
+
+        const res = await h5PcLoginReq(JSON.parse(walletInfo))
         if (res.code == 0) {
           // dispatch(setUserInfoAction(res.data))
           localStorage.setItem('authorization', res.data.token)
@@ -76,6 +79,20 @@ const PcApp: FC = () => {
     eventBus.addListener('showCongrates', onMessage)
     eventBus.addListener('showBack', onBack)
     eventBus.addListener('loading', onLoading)
+    // 获取邀请参数
+    try {
+      const url = new URL(location.href);
+      const params = new URLSearchParams(url.search.slice(1)); // 移除开头的'?'字符
+      const startParam = params.get('startParam')
+      if (startParam) {
+        localStorage.setItem('startParam', startParam)
+      } else {
+        localStorage.removeItem('startParam')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+
   }, [])
 
 

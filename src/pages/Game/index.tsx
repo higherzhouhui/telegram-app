@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
 import './index.scss'
 import { Popup, Toast } from 'antd-mobile';
@@ -22,10 +22,10 @@ function GamePage() {
   const [showPopUp, setShowPopUp] = useState(false)
   const utils = initUtils()
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const eventBus = EventBus.getInstance()
   const [isShowInvite, setShowInvite] = useState(false)
-
+  const [isH5PcRoot, setIsH5PcRoot] = useState(false)
   // Event emitted from the PhaserGame component
   const currentActiveScene = async (scene: Phaser.Scene) => {
     setCurrentScene(scene.scene.key);
@@ -67,13 +67,24 @@ function GamePage() {
   }
 
   const selfHandCopy = () => {
-    handleCopyLink(link)
+    if (isH5PcRoot) {
+      handleCopyLink(location.href)
+    } else {
+      handleCopyLink(link)
+    }
   }
 
   const handleSendLink = () => {
     const text = `I scored ${score} points in Cat Game!\nI dare you to challenge me!\nFarm 🍅 $CAT with me and secure your token allocation through Tomarket.ai.\nUse my link to get 2,000 🍅 $CAT!`
     utils.shareURL(link, text)
   }
+
+
+  useEffect(() => {
+    if (localStorage.getItem('h5PcRoot') == '1') {
+      setIsH5PcRoot(true)
+    }
+  }, [])
 
   return (
     <div className='game-wrapper'>
@@ -127,7 +138,9 @@ function GamePage() {
             <div>I scored {score} points in Cat Game!</div>
             <div>I dare you to challenge me!</div>
             <div className='popup-content-btn' onClick={() => selfHandCopy()}>Copy link</div>
-            <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>
+            {
+              !isH5PcRoot ? <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div> : null
+            }
           </div>
         </div>
       </Popup>
@@ -152,8 +165,10 @@ function GamePage() {
               <div>Get {systemConfig?.invite_normalAccount_score} <img src='/assets/common/cat.webp' />and {systemConfig?.invite_normalAccount_ticket} <img src='/assets/common/ticket.webp' />（Invite a Friend）</div>
               <div>Get {systemConfig?.invite_premiumAccount_score} <img src='/assets/common/cat.webp' />and {systemConfig?.invite_premiumAccount_ticket} <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
             </div>
-            <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
-            <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>
+            <div className='popup-content-btn' onClick={() => handleSendLink()}>Copy link</div>
+            {
+              !isH5PcRoot ? <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div> : null
+            }
           </div>
         </div>
       </Popup>

@@ -61,6 +61,9 @@ function FooterComp({ isH5PcRoot }: { isH5PcRoot?: boolean }) {
             backButton.show();
             eventBus.emit('showBack', true)
         }
+        if (!localStorage.getItem('authorization')) {
+            setShowFooter(false)
+        }
     }, [myLocation.pathname])
     return <footer className="footer" style={{ display: isShowFooter ? 'block' : 'none' }}>
         <div className='list'>

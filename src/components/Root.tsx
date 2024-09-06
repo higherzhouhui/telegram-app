@@ -127,14 +127,7 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
 );
 
 const MiNiRoot: FC = () => {
-
-  let bridgeAPI: any
-  try {
-    bridgeAPI = init(config)
-  } catch (error) {
-    console.error(error)
-  }
-
+  const bridgeAPI = init(config)
   return (
     <Suspense fallback={<Loading />}>
       <Provider store={store}>

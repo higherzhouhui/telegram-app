@@ -15,7 +15,8 @@ export const HomePage: FC = () => {
   const navigate = useNavigate()
   const userInfo = useSelector((state: any) => state.user.info);
   const systemConfig = useSelector((state: any) => state.user.system);
-  const link = `${systemConfig.tg_link}?startapp=${btoa(userInfo.user_id)}`
+  const _link = `${systemConfig.tg_link}?startapp=${btoa(userInfo.user_id)}`
+  const [link, setLink] = useState(_link)
   const [isShowRules, setShowRules] = useState(false)
   const [isSleep, setIsSleep] = useState(true)
   const [showAddScore, setShowScore] = useState(false)
@@ -27,6 +28,7 @@ export const HomePage: FC = () => {
   const [isShowInvite, setShowInvite] = useState(false)
   const [isShowCongrate, setShowCongrates] = useState(false)
   const [isGetBigReward, setGetBigReward] = useState(false)
+  const [isH5PcRoot, setIsH5PcRoot] = useState(false)
   const messageList = [
     'Invite friends to get more $CAT!',
     `I've got lots of surprises ready, but i can't tell yet!`,
@@ -195,6 +197,13 @@ export const HomePage: FC = () => {
         dispatch(setUserInfoAction(res.data))
       }
     })
+    if (localStorage.getItem('h5PcRoot') == '1') {
+      setIsH5PcRoot(true)
+      const _link = `${location.origin}?startParam=${btoa(userInfo.user_id)}`
+      setLink(_link)
+    } else {
+      setIsH5PcRoot(false)
+    }
   }, [])
 
   useEffect(() => {
@@ -344,7 +353,9 @@ export const HomePage: FC = () => {
               <div>Get {systemConfig?.invite_premiumAccount_score} <img src='/assets/common/cat.webp' />and {systemConfig?.invite_premiumAccount_ticket} <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
             </div>
             <div className='popup-content-btn' onClick={() => selfHandleCopyLink()}>Copy link</div>
-            <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>
+            {
+              !isH5PcRoot ? <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div> : null
+            }
           </div>
         </div>
       </Popup>

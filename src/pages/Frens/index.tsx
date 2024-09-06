@@ -28,7 +28,14 @@ function FrensPage() {
     navigate(`/frens-detail?total=${total}`)
   }
   const handleShare = () => {
-    utils.shareURL(link, ``)
+    if (localStorage.getItem('h5PcRoot') == '1') {
+      const isOpen = window.open(link)
+      if (!isOpen) {
+        location.href = link
+      }
+    } else {
+      utils.shareURL(link, ``)
+    }
   }
   const getType = (type: string) => {
     if (type == 'register') {
@@ -64,7 +71,7 @@ function FrensPage() {
     <div className='frens-page-top'>
       <div className='frens-title'>
         <img src="/assets/frens.gif" alt="friends" width={150} />
-        <div className='invite-earn'>Invite a Frend</div>
+        <div className='invite-earn'>Invite a Friend</div>
       </div>
       {
         loading ? <div className='skeleton-wrapper'>

@@ -33,7 +33,7 @@ function WalletPage() {
   useEffect(() => {
     let timer2;
     const timer = setTimeout(() => {
-      if (!isConnected && !walletInfo) {
+      if (!isConnected && !walletInfo && !isLocking) {
         timer2 = setTimeout(() => {
           if (isH5PcRoot) {
             localStorage.setItem('authorization', '')
@@ -47,7 +47,7 @@ function WalletPage() {
       clearTimeout(timer)
       clearTimeout(timer2)
     }
-  }, [isConnected, walletInfo])
+  }, [isConnected, walletInfo, isLocking])
 
   return <div className='wallet-page fadeIn'>
 
@@ -63,11 +63,11 @@ function WalletPage() {
               {formatWalletAddress(userInfo.wallet)}
             </div>
             <div className='connect-list'>
-              {
+              {/* {
                 isH5PcRoot ? <div className='my-assets lock' onClick={lock}>
                   {isLocking ? 'unLock' : 'Lock'}
                 </div> : null
-              }
+              } */}
               {
                 isH5PcRoot ? <div className='my-assets disconnect' onClick={async () => await disConnectWallet()}>
                   Disconnect

@@ -33,11 +33,8 @@ export default function Assets() {
   }, []);
 
   useEffect(() => {
-    console.log('walletType', walletType)
-    console.log('walletInfo', walletInfo)
-    console.log('portkeyAAInfo', portkeyAAInfo)
     if (walletType !== WalletTypeEnum.aa) {
-      navigate("/index");
+      navigate("/home");
     }
   }, [walletType, navigate]);
 

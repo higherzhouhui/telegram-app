@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
 import './index.scss'
-import { Popup, Toast } from 'antd-mobile';
+import { Popup } from 'antd-mobile';
 import { initUtils } from '@telegram-apps/sdk';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +18,8 @@ function GamePage() {
   const userInfo = useSelector((state: any) => state.user.info);
   const [currentScene, setCurrentScene] = useState('Preloader')
   const [score, setScore] = useState(0)
-  const link = `${systemConfig?.tg_link}?startapp=${btoa(userInfo.user_id)}SHAREGAME`
+  const _link = `${systemConfig?.tg_link}?startapp=${btoa(userInfo.user_id)}SHAREGAME`
+  const [link, setLink] = useState(_link)
   const [showPopUp, setShowPopUp] = useState(false)
   const utils = initUtils()
   const navigate = useNavigate();
@@ -67,11 +68,7 @@ function GamePage() {
   }
 
   const selfHandCopy = () => {
-    if (isH5PcRoot) {
-      handleCopyLink(location.href)
-    } else {
-      handleCopyLink(link)
-    }
+    handleCopyLink(link)
   }
 
   const handleSendLink = () => {
@@ -83,6 +80,8 @@ function GamePage() {
   useEffect(() => {
     if (localStorage.getItem('h5PcRoot') == '1') {
       setIsH5PcRoot(true)
+      const _link = `${location.origin}?startParam=${btoa(userInfo.user_id)}`
+      setLink(_link)
     }
   }, [])
 

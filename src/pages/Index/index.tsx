@@ -13,7 +13,6 @@ function IndexPage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const initApp = async () => {
-    localStorage.setItem('h5PcRoot', '0')
     const initData = initInitData() as any;
     if (initData && initData.user && initData.user.id) {
       const user = initData.initData.user
@@ -45,7 +44,9 @@ function IndexPage() {
     }
   }
   useEffect(() => {
-    initApp()
+    if (localStorage.getItem('h5PcRoot') == '1') {
+      initApp()
+    }
   }, [])
   return <Loading />
 }

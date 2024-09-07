@@ -137,9 +137,17 @@
   .page-bottom {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
     padding: 18px 12px;
-
+    .invite-link {
+      word-break: break-all;
+      background: var(--btnBg);
+      color: var(--bgColor);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
     button {
       height: 44px;
     }

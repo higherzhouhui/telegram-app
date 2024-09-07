@@ -17,6 +17,7 @@ export const HomePage: FC = () => {
   const systemConfig = useSelector((state: any) => state.user.system);
   const _link = `${systemConfig.tg_link}?startapp=${btoa(userInfo.user_id)}`
   const [link, setLink] = useState(_link)
+  const [isH5PcRoot, setIsH5PcRoot] = useState(false)
   const [isShowRules, setShowRules] = useState(false)
   const [isSleep, setIsSleep] = useState(true)
   const [showAddScore, setShowScore] = useState(false)
@@ -28,7 +29,6 @@ export const HomePage: FC = () => {
   const [isShowInvite, setShowInvite] = useState(false)
   const [isShowCongrate, setShowCongrates] = useState(false)
   const [isGetBigReward, setGetBigReward] = useState(false)
-  const [isH5PcRoot, setIsH5PcRoot] = useState(false)
   const messageList = [
     'Invite friends to get more $CAT!',
     `I've got lots of surprises ready, but i can't tell yet!`,

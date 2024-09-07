@@ -8,7 +8,7 @@ import moment from 'moment'
 import BackTop from '@/components/BackTop'
 import { useSelector } from 'react-redux'
 
-function FrensDetailPage() {
+function FriendPage() {
   const userInfo = useSelector((state: any) => state.user.info);
   const [list, setList] = useState<any>([])
   const [hasMore, setHasMore] = useState(true)
@@ -99,7 +99,7 @@ function FrensDetailPage() {
               <div className='frens-detail-left'>
                 <div className='score'>+&nbsp;{item.score.toLocaleString()}<img src='/assets/common/cat.webp' /></div>
                 {
-                  item.ticket ? <div className='score'>+&nbsp;{item.ticket}<img src='/assets/common/ticket.webp' /></div> : null
+                  item.ticket ? <div className='score'>+&nbsp;{item.ticket}<img src='/assets/common/ticket.webp' /></div> : <div></div>
                 }
                 <div className='frens-detail-time'>{moment(item.createdAt).format('YYYY-MM-DD HH:mm')}</div>
               </div>
@@ -123,4 +123,4 @@ function FrensDetailPage() {
   </div>
 }
 
-export default FrensDetailPage
+export default FriendPage

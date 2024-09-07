@@ -62,14 +62,14 @@ function FrensPage() {
         loading ? <div className='skeleton-wrapper'>
           <Skeleton className='skeleton1' animated />
           <Skeleton className='skeleton2' animated />
-        </div> : null
+        </div> : <div></div>
       }
       {
         total ? <div className='sub-container' onClick={() => routeToDetail()}>
           <div className='total'>{total}</div>
           <div className='frens'>Frens</div>
           <div className='view-frens'>View Frens Detail&nbsp;&nbsp;&gt;</div>
-        </div> : null
+        </div> : <div></div>
       }
       <div className='rules-container'>
         <div className='rules-title'>Referral Rules</div>

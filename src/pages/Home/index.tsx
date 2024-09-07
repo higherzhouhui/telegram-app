@@ -259,7 +259,7 @@ export const HomePage: FC = () => {
               <img src='/assets/common/cat.webp' alt='logo' />
               <span className='btn-number'>{farmObj.score} / 1080</span>
               {
-                farmObj.score != 1080 ? <div className='left-time'>{farmObj.leftTime}m</div> : null
+                farmObj.score != 1080 ? <div className='left-time'>{farmObj.leftTime}m</div> : <div></div>
               }
             </div>
           }
@@ -273,7 +273,7 @@ export const HomePage: FC = () => {
             {
               typeStr ? <div className='message'>
                 <span>{typeStr}</span>
-              </div> : null
+              </div> : <div></div>
             }
           </div>
           <div className='btn-top-middle' onClick={() => handlePlayGame()}>
@@ -354,7 +354,7 @@ export const HomePage: FC = () => {
             </div>
             <div className='popup-content-btn' onClick={() => selfHandleCopyLink()}>Copy link</div>
             {
-              !isH5PcRoot ? <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div> : null
+              !isH5PcRoot ? <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div> : <div></div>
             }
           </div>
         </div>
@@ -365,7 +365,7 @@ export const HomePage: FC = () => {
             <div className='full-congrate-score'>+ {isGetBigReward ? systemConfig?.special_reward : systemConfig?.farm_score}<img src='/assets/common/cat.webp' /></div>
             <div className='full-congrate-desc'>{isGetBigReward ? 'Mysterious Grand Prize' : `Congratulations on farming ${systemConfig?.farm_score} $CAT`}</div>
           </div>
-        </div> : null
+        </div> : <div></div>
       }
     </div>
   )

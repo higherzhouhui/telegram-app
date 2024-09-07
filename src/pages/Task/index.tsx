@@ -98,7 +98,7 @@ function TaskPage() {
       {
         loading ? [...Array(5)].map((_, index) => {
           return <Skeleton className='skeleton' animated key={index} />
-        }) : null
+        }) : <div></div>
       }
       {
         list.map((item: any, index) => {

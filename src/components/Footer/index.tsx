@@ -66,9 +66,6 @@ function FooterComp({ isH5PcRoot }: { isH5PcRoot?: boolean }) {
         if (!localStorage.getItem('authorization')) {
             setShowFooter(false)
         }
-        if (!isConnected && isH5PcRoot) {
-            setShowFooter(false)
-        }
     }, [myLocation.pathname, isConnected])
     return <footer className="footer" style={{ display: isShowFooter ? 'block' : 'none' }}>
         <div className='list'>

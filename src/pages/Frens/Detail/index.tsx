@@ -32,7 +32,7 @@ function FriendPage() {
       type = 'Register'
     }
     if (type == 'checkIn_parent') {
-      type = 'Checking In'
+      type = 'checkIn'
     }
     if (type == 'play_game_reward_parent') {
       type = 'Drop Game'

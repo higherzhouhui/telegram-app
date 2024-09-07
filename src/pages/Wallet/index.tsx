@@ -12,6 +12,7 @@ function WalletPage() {
   const [isH5PcRoot, setH5PcRoot] = useState(false)
   const { connectWallet, isConnected, disConnectWallet, walletInfo, isLocking, lock, walletType } = useConnectWallet();
   const userInfo = useSelector((state: any) => state.user.info);
+  const [hasToken, setHasToken] = useState(true)
   const onConnectBtnClickHandler = async () => {
     try {
       await connectWallet();
@@ -27,6 +28,9 @@ function WalletPage() {
   useEffect(() => {
     if (localStorage.getItem('h5PcRoot') == '1') {
       setH5PcRoot(true)
+    }
+    if (!localStorage.getItem('authorization')) {
+      setHasToken(false)
     }
   }, [])
 
@@ -56,7 +60,7 @@ function WalletPage() {
     <div className='connect-wrapper'>
       <img src="/assets/money.png" alt="wallet" width={32} />
       {
-        isConnected && userInfo?.wallet ? <div>
+        isConnected && userInfo?.wallet && hasToken ? <div>
           <div className='connect-desc'>The best Wallet to Explore AELF Ecosystem</div>
           <div className='connect-assets'>
             <div className='my-assets' onClick={() => handleCopyLink(userInfo.wallet, 'The address has been copied to the clipboard.')}>

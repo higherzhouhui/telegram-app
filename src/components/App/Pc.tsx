@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import Loading from '../Loading';
 import { Toast } from 'antd-mobile';
+import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 
 const PcApp: FC = () => {
@@ -26,42 +27,40 @@ const PcApp: FC = () => {
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
   const [isShowBack, setIsShowBack] = useState(false)
+  const { isConnected } = useConnectWallet();
+
   const initApp = async () => {
-    try {
-      localStorage.setItem('h5PcRoot', '1')
-      const sysInfo = await getSystemConfigReq()
-      if (sysInfo.code == 0) {
-        dispatch(setSystemAction(sysInfo.data))
-      }
-
-      const authorization = localStorage.getItem('authorization')
-      const walletInfo = localStorage.getItem('walletInfo')
-      const h5PcRoot = true
-      if (authorization && h5PcRoot && walletInfo) {
-        setLoading(true)
-
-        const res = await h5PcLoginReq(JSON.parse(walletInfo))
-        if (res.code == 0) {
-          // dispatch(setUserInfoAction(res.data))
-          localStorage.setItem('authorization', res.data.token)
-          const today = moment().utc().format('MM-DD')
-          if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
-            navigate('/checkIn')
-          } else {
-            navigate('/home')
-          }
+    localStorage.setItem('h5PcRoot', '1')
+    const sysInfo = await getSystemConfigReq()
+    if (sysInfo.code == 0) {
+      dispatch(setSystemAction(sysInfo.data))
+    }
+    const authorization = localStorage.getItem('authorization')
+    const walletInfo = localStorage.getItem('walletInfo')
+    const connectedWallet = localStorage.getItem('connectedWallet')
+    if (authorization && walletInfo && connectedWallet != "PortkeyDiscover") {
+      setLoading(true)
+      const res = await h5PcLoginReq(JSON.parse(walletInfo))
+      if (res.code == 0) {
+        // dispatch(setUserInfoAction(res.data))
+        localStorage.setItem('authorization', res.data.token)
+        const today = moment().utc().format('MM-DD')
+        if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
+          navigate('/checkIn')
         } else {
-          Toast.show({
-            content: res.msg,
-            position: 'center'
-          })
+          navigate('/home')
         }
-        setLoading(false)
       } else {
+        Toast.show({
+          content: res.msg,
+          position: 'center'
+        })
+      }
+      setLoading(false)
+    } else {
+      if (!isConnected) {
         navigate('/wallet')
       }
-    } catch (error) {
-      navigate('/wallet')
     }
   }
   useEffect(() => {

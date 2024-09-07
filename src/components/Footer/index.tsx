@@ -66,7 +66,7 @@ function FooterComp({ isH5PcRoot }: { isH5PcRoot?: boolean }) {
         if (!localStorage.getItem('authorization')) {
             setShowFooter(false)
         }
-        if (!isConnected && localStorage.getItem('h5PcRoot') == '1') {
+        if (!isConnected && isH5PcRoot) {
             setShowFooter(false)
         }
     }, [myLocation.pathname, isConnected])
@@ -76,14 +76,8 @@ function FooterComp({ isH5PcRoot }: { isH5PcRoot?: boolean }) {
                 menu.map((item => {
                     return <Link to={item.to} key={item.title} className='menu-wrapper'>
                         <div className={`menu ${myLocation.pathname == item.to ? 'active' : ''}`} key={item.title}>
-                            {
-                                isH5PcRoot ? <>
-                                    <div className='title' style={{ marginBottom: '6px' }}>{item.title}</div>
-                                    {item.icon}</> : <>
-                                    {item.icon}
-                                    <div className='title'>{item.title}</div></>
-                            }
-
+                            {item.icon}
+                            <div className='title'>{item.title}</div>
                         </div>
                     </Link>
                 }))

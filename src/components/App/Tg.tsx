@@ -120,7 +120,7 @@ const TgApp: FC = () => {
         <Footer />
         <Congrates visible={isShowCongrates} time={showTime} callBack={() => setShowCongrates(false)} />
         {
-          loading ? <Loading /> : null
+          loading ? <Loading /> : <div></div>
         }
       </div>
     </AppRoot >

@@ -44,9 +44,7 @@ function IndexPage() {
     }
   }
   useEffect(() => {
-    if (localStorage.getItem('h5PcRoot') == '1') {
-      initApp()
-    }
+    initApp()
   }, [])
   return <Loading />
 }

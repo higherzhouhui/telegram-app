@@ -69,7 +69,7 @@ function WalletPage() {
                     walletType == 'PortkeyAA' ? <div className='my-assets lock' onClick={lock}>
                       {isLocking ? 'unLock' : 'Lock'}
                     </div> : <div className='my-assets disconnect' onClick={async () => await disConnectWallet()}>
-                      Lock
+                      Disconnect
                     </div>
                   }
                 </> : null

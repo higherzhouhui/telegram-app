@@ -4,7 +4,7 @@ import { Button } from 'antd-mobile';
 import { useSelector } from 'react-redux';
 import { formatWalletAddress, handleCopyLink } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 function WalletPage() {
@@ -13,6 +13,8 @@ function WalletPage() {
   const { connectWallet, isConnected, disConnectWallet, walletInfo, isLocking, lock, walletType } = useConnectWallet();
   const userInfo = useSelector((state: any) => state.user.info);
   const [hasToken, setHasToken] = useState(true)
+  const timer = useRef<any>(null)
+  const timer1 = useRef<any>(null)
   const onConnectBtnClickHandler = async () => {
     try {
       await connectWallet();
@@ -35,10 +37,11 @@ function WalletPage() {
   }, [])
 
   useEffect(() => {
-    let timer2;
-    const timer = setTimeout(() => {
+    clearTimeout(timer.current)
+    clearTimeout(timer1.current)
+    timer.current = setTimeout(() => {
       if (!isConnected && !walletInfo && !isLocking) {
-        timer2 = setTimeout(() => {
+        timer1.current = setTimeout(() => {
           if (isH5PcRoot) {
             localStorage.setItem('authorization', '')
             localStorage.setItem('walletInfo', '')
@@ -48,8 +51,8 @@ function WalletPage() {
       }
     }, 1000);
     return () => {
-      clearTimeout(timer)
-      clearTimeout(timer2)
+      clearTimeout(timer.current)
+      clearTimeout(timer1.current)
     }
   }, [isConnected, walletInfo, isLocking])
 

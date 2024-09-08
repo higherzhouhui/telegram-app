@@ -21,9 +21,8 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  { path: '/', Component: LoadingPage },
+  { path: '/', Component: HomePage },
   { path: '/index', Component: IndexPage },
-  { path: '/home', Component: HomePage },
   { path: '/game', Component: GamePage },
   { path: '/task', Component: TaskPage },
   { path: '/frens', Component: FrensPage },

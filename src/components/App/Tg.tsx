@@ -57,13 +57,14 @@ const TgApp: FC = () => {
         if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
           navigate('/checkIn')
         } else {
-          navigate('/home')
+          navigate('/')
         }
       } else {
         Toast.show({
           content: res.msg,
           position: 'center'
         })
+        navigate('/')
       }
       if (sysInfo.code == 0) {
         dispatch(setSystemAction(sysInfo.data))

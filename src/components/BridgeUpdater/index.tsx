@@ -43,7 +43,7 @@ export default function BridgeUpdater() {
       if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
         navigate('/checkIn')
       } else {
-        navigate('/home')
+        navigate('/')
       }
     }
     eventBus.emit('loading', false)

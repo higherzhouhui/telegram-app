@@ -26,7 +26,7 @@ function CheckInPage() {
   }
 
   const handleContinue = () => {
-    navigate('/home')
+    navigate('/')
   }
   useEffect(() => {
     checkIn()

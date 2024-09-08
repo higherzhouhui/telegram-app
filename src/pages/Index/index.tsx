@@ -27,7 +27,7 @@ function IndexPage() {
         if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
           navigate('/checkIn')
         } else {
-          navigate('/home')
+          navigate('/')
         }
       } else {
         Toast.show({

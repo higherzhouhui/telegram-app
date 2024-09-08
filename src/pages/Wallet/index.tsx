@@ -49,7 +49,7 @@ function WalletPage() {
           connectWallet()
         }, 500);
       }
-    }, 1000);
+    }, 500);
     return () => {
       clearTimeout(timer.current)
       clearTimeout(timer1.current)

@@ -43,7 +43,7 @@ export default function Assets() {
     !portkeyAAInfo?.portkeyInfo?.pin ||
     !portkeyAAInfo?.portkeyInfo?.chainId
   ) {
-    return 'null';
+    return <div></div>;
   }
 
   return (

@@ -55,6 +55,7 @@ const PcApp: FC = () => {
           content: res.msg,
           position: 'center'
         })
+        navigate('/wallet')
       }
       setLoading(false)
     } else {

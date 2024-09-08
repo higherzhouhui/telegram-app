@@ -123,10 +123,14 @@ export default function BridgeUpdater() {
       }
     );
     return () => {
-      r1.remove();
-      r2.remove();
-      r3.remove();
-      r4.remove();
+      try {
+        r1.remove();
+        r2.remove();
+        r3.remove();
+        r4.remove();
+      } catch (error) {
+        console.error(error)
+      }
     };
   }, []);
 

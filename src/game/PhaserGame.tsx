@@ -73,7 +73,7 @@ export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(function PhaserGame
     }, [currentActiveScene, ref]);
 
     return (
-        <div ref={gameWrapper}>
+        <div ref={gameWrapper} style={{ userSelect: 'none' }}>
             <div id='game-container' />
             <div className='freeze-gif' style={{ opacity: execTypeCmd == 'freeze' ? 1 : 0, zIndex: execTypeCmd == 'freeze' ? 10 : -1 }}>
                 <img src='/assets/game/freezeAg.gif' alt='gif' className='tl' />

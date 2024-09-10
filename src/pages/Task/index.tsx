@@ -22,7 +22,7 @@ function TaskPage() {
         _list[index][cIndex].loading = false
         setTimeout(() => {
           setList(_list)
-        }, 5000);
+        }, 10000);
       } else {
         Toast.show({ content: res.msg, position: 'top' })
         const _list = JSON.parse(JSON.stringify(list))

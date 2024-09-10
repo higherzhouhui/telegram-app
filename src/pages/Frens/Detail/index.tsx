@@ -40,7 +40,7 @@ function FriendPage() {
     if (type == 'play_game_reward_parent' || type == 'play_game_reward') {
       type = 'Drop Game'
     }
-    if (type == 'harvest_farming') {
+    if (type == 'harvest_farming' || type == 'harvest_farming_parent') {
       type = 'Farming'
     }
     if (type == 'share_playGame') {

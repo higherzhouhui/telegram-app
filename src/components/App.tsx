@@ -56,7 +56,7 @@ export const App: FC = () => {
         dispatch(setSystemAction(sys.data))
       }
       if (res.code == 0) {
-        localStorage.setItem('authorization', res.data.user_id)
+        localStorage.setItem('authorization', res.data.token)
         dispatch(setUserInfoAction(res.data))
         const check_date = res.data.check_date
         const today = moment().utc().format('MM-DD')
@@ -108,7 +108,9 @@ export const App: FC = () => {
       platform={['macos', 'ios'].includes(launchParams.platform) ? 'ios' : 'base'}
     >
       <div className='layout'>
-        <PriceComp />
+        {
+          import.meta.env.PROD ? <PriceComp /> : <div></div>
+        }
         <div className='content'>
           <Routes>
             {routes.map((route) => <Route key={route.path} {...route} />)}

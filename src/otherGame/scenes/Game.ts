@@ -152,7 +152,7 @@ export default class MainGame extends Phaser.Scene {
         iconX = this.width - iconObj.width / 2 - 12
       }
 
-      let icon;
+      let icon: any;
       if (iconObj.type == 'cat') {
         icon = this.add.image(iconX, 0, 'game-cat').setInteractive().setScale(iconObj.width / catWidth, iconObj.width / catWidth).setDepth(10)
       } else {

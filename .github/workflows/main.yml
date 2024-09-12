@@ -37,6 +37,6 @@ jobs:
           SOURCE: ./docs                                # 要推送的文件夹，路径相对于代码仓库的根目录
           REMOTE_HOST: ${{ secrets.REMOTE_HOST_WH }}      # 远程连接的host，引用配置
           REMOTE_USER: root                            # 远程连接的用户名，引用配置
-          TARGET: /www/wwwroot/hamster/docs                  # 部署到目标文件的路径
+          TARGET: /www/wwwroot/hamster                  # 部署到目标文件的路径
 
                         

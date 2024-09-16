@@ -1,4 +1,4 @@
-import { Suspense, type FC } from 'react';
+import { Suspense, useEffect, useState, type FC } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
@@ -11,7 +11,7 @@ import { WebLoginProvider, init } from "@aelf-web-login/wallet-adapter-react";
 import { IConfigProps } from "@aelf-web-login/wallet-adapter-bridge";
 import { SignInDesignEnum } from "@aelf-web-login/wallet-adapter-base";
 import loginConfig from "@/constants/config/login.config";
-import { APP_NAME, WEBSITE_ICON } from "@/constants/website";
+import { APP_NAME } from "@/constants/website";
 import BridgeUpdater from '@/components/BridgeUpdater';
 import { HashRouter } from 'react-router-dom';
 import Loading from '@/components/Loading';
@@ -36,10 +36,6 @@ const didConfig = {
   },
 
   socialLogin: {
-    Portkey: {
-      websiteName: APP_NAME,
-      websiteIcon: WEBSITE_ICON,
-    },
     Telegram: {
       botId: TELEGRAM_BOT_ID,
     }
@@ -122,19 +118,50 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
   </div>
 );
 
+
+function WebLoginProviderELE({ children }: { children: React.ReactNode }) {
+  const bridgeAPI = init(config);
+
+  return <WebLoginProvider bridgeAPI={bridgeAPI}>{children}</WebLoginProvider>;
+}
+
+export default function WebLoginConfigProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    const scpt = document.createElement("script");
+    scpt.src = "./telegram-web-app.js";
+    document.body.appendChild(scpt);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    scpt?.addEventListener("load", (e: any) => {
+      setIsLoaded(true);
+      return;
+    });
+  }, []);
+  return isLoaded ? (
+    <WebLoginProviderELE>{children}</WebLoginProviderELE>
+  ) : null;
+}
+
+
 const MiNiRoot: FC = () => {
-  const bridgeAPI = init(config)
   return (
     <Suspense fallback={<Loading />}>
       <Provider store={store}>
         <ConfigProvider locale={enUS}>
           <SDKProvider acceptCustomStyles>
-            <WebLoginProvider bridgeAPI={bridgeAPI}>
+            <WebLoginConfigProvider>
               <HashRouter>
                 <App />
                 <BridgeUpdater />
               </HashRouter>
-            </WebLoginProvider>
+            </WebLoginConfigProvider>
           </SDKProvider>
         </ConfigProvider>
       </Provider>

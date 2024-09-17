@@ -56,16 +56,20 @@
       object-fit: contain;
     }   
   }
+ 
   .btn-container {
     position: absolute;
-    bottom: 1rem;
     width: 100%;
-    padding: 0 1rem;
+    padding: 0 1.3rem;
     z-index: 22;
     .btn-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 1.3rem;
+      .anima {
+        cursor: pointer;
+      }
       .btn-top-middle {
         button {
           border-radius: 50%;
@@ -91,6 +95,7 @@
       }
       .btn-top-right {
        position: relative;
+       cursor: pointer;
        .hint-img {
         width: 100px;
        }
@@ -118,10 +123,10 @@
        .message {
         border-radius: 6px;
         padding: 4px;
-        width: 180px;
+        width: 150px;
         border: 2px solid #FFFF84;
         position: absolute;
-        left: -5px;
+        left: -45px;
         top: -30px;
         transform: translate(0, -100%);
         font-size: 12px;
@@ -133,7 +138,7 @@
           border-right: 5px solid transparent;
           border-top: 10px solid var(--highColor);
           position: absolute;
-          left: 38px;
+          left: 78px;
           bottom: -2px;
           transform: translate(0, 100%);
         }
@@ -142,7 +147,7 @@
       }
     }
     .btn-bot {
-      margin-bottom: 70px;
+      margin-bottom: 30px;
       width: 100%;
       position: relative;
       border-radius: 50rem;
@@ -300,18 +305,12 @@
 }
 
 @media screen and (min-height: 750px) {
-  .btn-bot {
-    margin-bottom: 90px!important;
-  }
   .btn-container {
-    bottom: 40px!important;
+    bottom: 30px!important;
   }
 }
 
 @media screen and (max-height: 700px) {
-  .btn-bot {
-    margin-bottom: 60px!important;
-  }
   .btn-container {
     bottom: 0px!important;
   }

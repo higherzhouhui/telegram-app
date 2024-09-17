@@ -5,8 +5,11 @@ import { initUtils } from '@telegram-apps/sdk'
 import { Button, Skeleton, Toast } from 'antd-mobile'
 import { useNavigate } from 'react-router-dom'
 import BackTop from '@/components/BackTop'
+import { useLaunchParams } from '@telegram-apps/sdk-react'
 
 function TaskPage() {
+  const launchParams = useLaunchParams();
+  const utils = initUtils();
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
@@ -30,15 +33,17 @@ function TaskPage() {
         setList(_list)
       }
       if (item.status == null) {
-        if (localStorage.getItem('h5PcRoot') == '1') {
+        if (localStorage.getItem('h5PcRoot') == '1' || launchParams.platform == 'tdesktop') {
           if (item.linkType == 'self') {
             navigate(item.link)
           } else {
-            window.open(item.link)
+            const open = window.open(item.link)
+            if (!open) {
+              location.href = item.link
+            }
           }
         } else {
           if (item.linkType.includes('telegram')) {
-            const utils = initUtils()
             utils.openLink(item.link)
           } else if (item.linkType == 'outside') {
             location.href = item.link

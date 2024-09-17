@@ -69,8 +69,6 @@
       margin-top: 12px;
       color: #000;
       text-align: center;
-      background-image: url('/assets/game/btnBg.png');
-      background-size: 100% 100%;
       .avatar {
         width: 32px;
         object-fit: contain;
@@ -87,6 +85,26 @@
           height: 22px;
           object-fit: contain;
         }
+      }
+    }
+    .share-result {
+      position: relative;
+      .s-cat {
+        width: 24px;
+        margin-left: 4px;
+      }
+      .house, .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 28px;
+      }
+      .house {
+        left: 25px;
+      }
+      .arrow {
+        right: 5px;
+        width: 12px;
       }
     }
     .play-btn {

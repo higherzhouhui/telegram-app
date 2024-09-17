@@ -103,8 +103,10 @@ function GamePage() {
             </div>
           </div>
           <div className='game-over-bots'>
-            <div className='game-over-btn' onClick={() => shareResult()}>
-              Share Your Results +50
+            <div className='game-over-btn share-result' onClick={() => shareResult()}>
+              <img src='/assets/game/house.png' alt='house' className='house' />
+              <span>Share Your Results +50</span><img src="/assets/common/cat.webp" alt="cat" className='s-cat' />
+              <img src='/assets/game/arrow.png' alt='arrow' className='arrow' />
             </div>
             <div className='game-over-btn play-btn' onClick={() => restartGame()}>
               <div className='game-over-bot-middle'>Play ({userInfo.ticket} Attempts Left)</div>

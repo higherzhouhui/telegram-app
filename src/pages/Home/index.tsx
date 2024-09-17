@@ -192,11 +192,13 @@ export const HomePage: FC = () => {
 
 
   useEffect(() => {
-    getUserInfoReq().then(res => {
-      if (res.code == 0) {
-        dispatch(setUserInfoAction(res.data))
-      }
-    })
+    if (localStorage.getItem('authorization')) {
+      getUserInfoReq().then(res => {
+        if (res.code == 0) {
+          dispatch(setUserInfoAction(res.data))
+        }
+      })
+    }
     if (localStorage.getItem('h5PcRoot') == '1') {
       setIsH5PcRoot(true)
       const _link = `${location.origin}?startParam=${btoa(userInfo.user_id)}`
@@ -243,6 +245,29 @@ export const HomePage: FC = () => {
         }
       </div>
       <div className='btn-container'>
+        <div className='btn-top'>
+          <div className='btn-top-left' onClick={() => setShowRules(true)}>
+            <div className='question'>
+              <img src='/assets/home/question.png' width={30} />
+            </div>
+            <div className='anima' onClick={() => handleTouchCat()}>
+              {
+                isSleep ? <img src="/assets/home/cat-wait.gif" alt="cat" width={80} /> : <img src="/assets/home/cat-touch.gif" alt="cat" width={80} />
+              }
+            </div>
+          </div>
+          <div className='btn-top-right' onClick={() => handlePlayGame()}>
+            <img src='/assets/home/hint.png' alt='hint' className='hint-img' />
+            <img src='/assets/home/cat.gif' className='cat-img' />
+            <div className='count'>{userInfo?.ticket}</div>
+            <div className='play-now'>Drop Game</div>
+            {
+              typeStr ? <div className='message'>
+                <span>{typeStr}</span>
+              </div> : <div></div>
+            }
+          </div>
+        </div>
         <div className='btn-bot'>
           <div className='progress' style={{ width: farmObj.percent + '%' }} />
           {
@@ -264,33 +289,6 @@ export const HomePage: FC = () => {
             </div>
           }
         </div>
-        <div className='btn-top'>
-          <div className='btn-top-right'>
-            <img src='/assets/home/hint.png' alt='hint' className='hint-img' />
-            <img src='/assets/home/cat.gif' className='cat-img' />
-            <div className='count'>{userInfo?.ticket}</div>
-            <div className='play-now'>Drop Game</div>
-            {
-              typeStr ? <div className='message'>
-                <span>{typeStr}</span>
-              </div> : <div></div>
-            }
-          </div>
-          <div className='btn-top-middle' onClick={() => handlePlayGame()}>
-            <Button size='mini'>Play</Button>
-          </div>
-          <div className='btn-top-left'>
-            <div className='question' onClick={() => setShowRules(true)}>
-              <img src='/assets/home/question.png' width={30} />
-            </div>
-            <div className='anima' onClick={() => handleTouchCat()}>
-              {
-                isSleep ? <img src="/assets/home/cat-wait.gif" alt="cat" width={80} /> : <img src="/assets/home/cat-touch.gif" alt="cat" width={80} />
-              }
-            </div>
-          </div>
-        </div>
-
       </div>
       <Popup
         visible={isShowRules}

@@ -159,6 +159,7 @@ body,
   display: flex;
   flex-direction: column;
   color: var(--textColor);
+  padding-bottom: env(safe-area-inset-bottom);
   .content {
     flex: 1;
     overflow: auto;
@@ -226,6 +227,7 @@ body,
     max-width: 450px;
     margin: 0 auto;
     background: #000;
+    padding-bottom: 24px!important;
   }
 }
 .adm-modal-title {

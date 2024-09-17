@@ -3,19 +3,28 @@
   text-align: center;
   position: relative;
   .connect-assets {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     .my-assets {
-      font-size: 18px;
-      background: var(--btnBg);
-      color: #000;
-      padding: 4px 8px;
-      border-radius: 6px;
+      margin-top: 1rem;
+      font-size: 1rem;
+      background: rgba($color: #000000, $alpha: 0.8);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-family: 'bold';
       display: flex;
       align-items: center;
-      gap: 4px;
-      font-family: 'bold';
-      width: fit-content;
-      margin: 0 auto;
+      justify-content: space-between;
+      .value {
+        width: fit-content;
+        background: var(--highColor);
+        color: #000;
+        padding: 4px;
+        width: 100px;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
     }
     .connect-list {
       display: flex;
@@ -45,7 +54,7 @@
     border-radius: 12px;
     margin: 22px 0;
     padding: 22px 12px;
-    background: rgba($color: #000000, $alpha: 0.7);
+    background: rgba($color: #000000, $alpha: 0.4);
     .connect-desc {
       margin: 12px 0;
       font-weight: bold;

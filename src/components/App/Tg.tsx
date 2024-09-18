@@ -43,26 +43,26 @@ const TgApp: FC = () => {
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
   const initApp = async () => {
-    localStorage.setItem('h5PcRoot', '0')
+    localStorage.removeItem('h5PcRoot')
     const initData = initInitData() as any;
     if (initData && initData.user && initData.user.id) {
       const user = initData.initData.user
       const data = { ...initData.initData, ...user }
       setLoading(true)
-      const [res, sysInfo] = await Promise.all([loginReq(data), getSystemConfigReq()])
-      if (res.code == 0) {
-        // dispatch(setUserInfoAction(res.data))
-        localStorage.setItem('authorization', res.data.token)
-        const today = moment().utc().format('MM-DD')
-        if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
-          navigate('/checkIn')
-        }
-      } else {
-        Toast.show({
-          content: res.msg,
-          position: 'center'
-        })
-      }
+      const [sysInfo] = await Promise.all([getSystemConfigReq()])
+      // if (res.code == 0) {
+      //   // dispatch(setUserInfoAction(res.data))
+      //   localStorage.setItem('authorization', res.data.token)
+      //   const today = moment().utc().format('MM-DD')
+      //   if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
+      //     navigate('/checkIn')
+      //   }
+      // } else {
+      //   Toast.show({
+      //     content: res.msg,
+      //     position: 'center'
+      //   })
+      // }
       if (sysInfo.code == 0) {
         dispatch(setSystemAction(sysInfo.data))
       }

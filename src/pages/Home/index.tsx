@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 import { initUtils } from '@telegram-apps/sdk';
 import moment from 'moment';
-import { Button, Popup } from 'antd-mobile';
+import { Popup } from 'antd-mobile';
 import { handleCopyLink, judgeIsStartFarming } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
 import EventBus from '@/utils/eventBus';
@@ -155,7 +155,7 @@ export const HomePage: FC = () => {
         if (res.code == 0) {
           setShowCongrates(true)
           setGetBigReward(true)
-          eventBus.emit('showCongrates', { time: 3000, visible: true })
+          eventBus.emit('showCongrates', { time: 2000, visible: true })
           dispatch(setUserInfoAction(res.data))
           localStorage.setItem('isGetBigRewardDay', today)
         }

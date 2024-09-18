@@ -38,9 +38,9 @@ function TaskPage() {
             navigate(item.link)
           } else {
             const open = window.open(item.link)
-            if (!open) {
-              location.href = item.link
-            }
+            // if (!open) {
+            //   location.href = item.link
+            // }
           }
         } else {
           if (item.linkType.includes('telegram')) {

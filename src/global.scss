@@ -116,6 +116,7 @@ html {
   flex-direction: column;
   background: #000;
   background-size: 100% 100%;
+  padding-bottom: env(safe-area-inset-bottom);
   .content {
     flex: 1;
     overflow: auto;
@@ -184,14 +185,14 @@ html {
 }
 
 .popup-invite {
-  padding: 12px 0;
+  padding: 12px 0 24px 0;
   color: #000;
   .title {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 12px;
-    font-family: "bold";
+    font-family: "Bold";
     font-size: 1.3rem;
     position: relative;
     border-bottom: 1px solid #eee;

@@ -63,7 +63,7 @@ function FooterComp({ isH5PcRoot }: { isH5PcRoot?: boolean }) {
             backButton.show();
             eventBus.emit('showBack', true)
         }
-        if (!localStorage.getItem('authorization')) {
+        if (!localStorage.getItem('authorization') && isH5PcRoot) {
             setShowFooter(false)
         }
     }, [myLocation.pathname, isConnected])

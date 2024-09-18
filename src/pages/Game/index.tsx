@@ -88,7 +88,7 @@ function GamePage() {
   return (
     <div className='game-wrapper'>
       {
-        currentScene == 'Preloader' ? <Loading /> : null
+        currentScene == 'Preloader' ? <Loading /> : <div></div>
       }
       {
         currentScene == 'GameOver' ? <div className='game-over'>

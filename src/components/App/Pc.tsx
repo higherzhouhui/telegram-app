@@ -34,6 +34,7 @@ const PcApp: FC = () => {
     const sysInfo = await getSystemConfigReq()
     if (sysInfo.code == 0) {
       dispatch(setSystemAction(sysInfo.data))
+      localStorage.setItem('game_time', sysInfo?.data?.game_time)
     }
     const authorization = localStorage.getItem('authorization')
     const walletInfo = localStorage.getItem('walletInfo')

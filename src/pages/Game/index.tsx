@@ -88,7 +88,6 @@ function GamePage() {
       const _link = `${location.origin}?startParam=${btoa(userInfo.user_id)}`
       setLink(_link)
     }
-    localStorage.setItem('game_time', systemConfig?.game_time)
   }, [])
 
   return (

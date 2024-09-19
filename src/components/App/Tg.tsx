@@ -21,10 +21,9 @@ import Congrates from '@/components/Congrates';
 import EventBus from '@/utils/eventBus';
 import { AppRoot } from '@telegram-apps/telegram-ui';
 import { type FC, useEffect, useState } from 'react';
-import { getSystemConfigReq, loginReq } from '@/api/common';
+import { getSystemConfigReq } from '@/api/common';
 import { setSystemAction } from '@/redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
-import moment from 'moment';
 import Loading from '../Loading';
 import { Toast } from "antd-mobile";
 
@@ -46,8 +45,8 @@ const TgApp: FC = () => {
     localStorage.removeItem('h5PcRoot')
     const initData = initInitData() as any;
     if (initData && initData.user && initData.user.id) {
-      const user = initData.initData.user
-      const data = { ...initData.initData, ...user }
+      // const user = initData.initData.user
+      // const data = { ...initData.initData, ...user }
       setLoading(true)
       const [sysInfo] = await Promise.all([getSystemConfigReq()])
       // if (res.code == 0) {
@@ -65,6 +64,7 @@ const TgApp: FC = () => {
       // }
       if (sysInfo.code == 0) {
         dispatch(setSystemAction(sysInfo.data))
+        localStorage.setItem('game_time', sysInfo?.data?.game_time)
       }
       setLoading(false)
     } else {

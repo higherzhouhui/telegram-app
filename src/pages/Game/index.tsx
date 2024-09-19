@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { IRefPhaserGame, PhaserGame } from '@/game/PhaserGame';
 import './index.scss'
-import { Popup } from 'antd-mobile';
+import { Popup, Toast } from 'antd-mobile';
 import { initUtils } from '@telegram-apps/sdk';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,15 +33,20 @@ function GamePage() {
     if (scene.scene.key == 'GameOver') {
       const _score = (localStorage.getItem('currentScore') || 0) as any
       if (parseInt(_score)) {
-        eventBus.emit('showCongrates', { time: 1000, visible: true })
         setScore(_score as any)
         endGameReq({ score: _score * 1 }).then(res => {
           if (res.code == 0) {
             dispatch(setUserInfoAction(res.data))
+            eventBus.emit('showCongrates', { time: 1000, visible: true })
+          } else {
+            Toast.show({
+              content: res.msg,
+            })
           }
         }).catch(error => {
           console.error(error)
         })
+
       }
     }
     if (scene.scene.key == 'MainGame') {
@@ -83,6 +88,7 @@ function GamePage() {
       const _link = `${location.origin}?startParam=${btoa(userInfo.user_id)}`
       setLink(_link)
     }
+    localStorage.setItem('game_time', systemConfig?.game_time)
   }, [])
 
   return (

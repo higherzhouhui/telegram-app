@@ -27,7 +27,7 @@ export default class MainGame extends Phaser.Scene {
         this.timerText;
         this.shakeTimer;
         this.freeze = false
-        this.timerCount = 30
+        this.timerCount = parseInt(localStorage.getItem('game_time') || '30')
     }
 
     init() {

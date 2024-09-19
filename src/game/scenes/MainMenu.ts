@@ -27,7 +27,7 @@ export default class MainMenu extends Phaser.Scene {
         const width = screen[0].clientWidth
         const height = screen[0].clientHeight
 
-        let background = this.add.image(width / 2, height / 2, 'dark').setInteractive();
+        const background = this.add.image(width / 2, height / 2, 'dark').setInteractive();
         this.volumeButton()
         this.tweens.add({
             targets: background,

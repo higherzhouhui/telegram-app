@@ -2,8 +2,6 @@ import { Scene } from 'phaser';
 import { EventBus } from '../EventBus';
 
 export class Preloader extends Scene {
-
-    private loadText: any;
     constructor() {
         super('Preloader');
     }

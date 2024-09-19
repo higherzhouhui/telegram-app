@@ -123,10 +123,10 @@
        .message {
         border-radius: 6px;
         padding: 4px;
-        width: 150px;
+        width: 160px;
         border: 2px solid #FFFF84;
         position: absolute;
-        left: -45px;
+        left: -55px;
         top: -30px;
         transform: translate(0, -100%);
         font-size: 12px;
@@ -138,7 +138,7 @@
           border-right: 5px solid transparent;
           border-top: 10px solid var(--highColor);
           position: absolute;
-          left: 78px;
+          left: 88px;
           bottom: -2px;
           transform: translate(0, 100%);
         }
@@ -313,5 +313,16 @@
 @media screen and (max-height: 700px) {
   .btn-container {
     bottom: 0px!important;
+  }
+}
+@media screen and (max-height: 600px) {
+  .btn-container {
+    bottom: 0px!important;
+  }
+  .btn-top {
+    margin-bottom: 0.5rem!important;
+  }
+  .btn-bot {
+    margin-bottom: 0.5rem!important;
   }
 }

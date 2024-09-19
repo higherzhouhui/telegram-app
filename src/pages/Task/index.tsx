@@ -9,6 +9,7 @@ import { useLaunchParams } from '@telegram-apps/sdk-react'
 
 function TaskPage() {
   const launchParams = useLaunchParams();
+  console.log(launchParams, 1111)
   const utils = initUtils();
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)

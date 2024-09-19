@@ -38,20 +38,23 @@ function WalletPage() {
     if (localStorage.getItem('h5PcRoot') == '1') {
       setH5PcRoot(true)
     }
-    if (!localStorage.getItem('authorization')) {
-      setHasToken(false)
-    }
+
   }, [])
 
   useEffect(() => {
     clearTimeout(timer.current)
     clearTimeout(timer1.current)
+    if (!localStorage.getItem('authorization')) {
+      setHasToken(false)
+    } else {
+      setHasToken(true)
+    }
     timer.current = setTimeout(() => {
       if (!isConnected && !walletInfo && !isLocking) {
         timer1.current = setTimeout(() => {
           if (isH5PcRoot) {
-            localStorage.setItem('authorization', '')
-            localStorage.setItem('walletInfo', '')
+            localStorage.removeItem('authorization')
+            localStorage.removeItem('walletInfo')
           }
           onConnectBtnClickHandler()
         }, 500);

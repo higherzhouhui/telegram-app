@@ -10,5 +10,22 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      /**
+        * 基础禁止调试代码
+      */
+        if (!localStorage.getItem('onlyMeZh')) {
+          (() => {
+          function ban() {
+            setInterval(() => {
+              debugger;
+            }, 1000);
+          }
+          try {
+            ban();
+          } catch (err) { }
+        })();
+        }
+    </script>
   </body>
 </html>

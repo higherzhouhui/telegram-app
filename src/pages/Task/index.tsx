@@ -38,7 +38,8 @@ function TaskPage() {
           if (item.linkType == 'self') {
             navigate(item.link)
           } else {
-            const open = window.open(item.link)
+            window.open(item.link)
+            console.log('open')
             // if (!open) {
             //   location.href = item.link
             // }

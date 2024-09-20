@@ -17,6 +17,7 @@ function FooterComp({ isH5PcRoot }: { isH5PcRoot?: boolean }) {
     const myLocation = useLocation()
     const eventBus = EventBus.getInstance()
     const [isShowFooter, setShowFooter] = useState(true)
+    const [isIos, setIsIos] = useState(false)
     const menu = [
         {
             title: 'Home',
@@ -67,7 +68,12 @@ function FooterComp({ isH5PcRoot }: { isH5PcRoot?: boolean }) {
             setShowFooter(false)
         }
     }, [myLocation.pathname, isConnected])
-    return <footer className="footer" style={{ display: isShowFooter ? 'block' : 'none' }}>
+
+    useEffect(() => {
+        const flag = /iPad|iPhone|iPod/.test(navigator.userAgent)
+        setIsIos(flag)
+    }, [])
+    return <footer className="footer" style={{ display: isShowFooter ? 'block' : 'none', paddingBottom: isIos ? '1.5rem' : '0.5rem' }}>
         <div className='list'>
             {
                 menu.map((item => {

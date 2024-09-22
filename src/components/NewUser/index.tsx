@@ -123,7 +123,7 @@ function Third({ cIndex, handleClick }: { cIndex: number, handleClick: (index: n
     },
     {
       title: 'You are amazing!',
-      desc: `Here is your Hamsters reward`,
+      desc: `Here is your HMSTR reward`,
       subTitle: userInfo.score.toLocaleString(),
       center: <img src={LogoIcon} alt='logo' style={{ width: '60vw', objectFit: 'contain' }} />,
       rank1: 'Thanks for your time on Telegram 🤝',

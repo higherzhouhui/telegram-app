@@ -72,7 +72,7 @@ export default function Home() {
         </div>
         <div className="score">
           {userInfo?.score?.toLocaleString()}
-          <div style={{ fontSize: '1.5rem', opacity: 0.8, lineHeight: '24px' }}>Hamsters</div>
+          <div style={{ fontSize: '1.5rem', opacity: 0.8, lineHeight: '24px' }}>HMSTR</div>
         </div>
         <div className="wallet">
           <TonConnectButton className="connect-btn" />
@@ -107,14 +107,14 @@ export default function Home() {
             <div className="left">
               <div className="img-wrapper"><img src={starIcon} alt="star" /></div>
               <span>Account Age</span></div>
-            <div className="right">+{userInfo?.account_age_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
+            <div className="right">+{userInfo?.account_age_score || 0}&nbsp;<span className="unit">HMSTR</span></div>
           </div>
           {
             userInfo?.invite_friends_score ? <div className="list">
               <div className="left">
                 <div className="img-wrapper"><img src={friendsIcon} alt="star" /></div>
                 <span>Invited Friends</span></div>
-              <div className="right">+{userInfo?.invite_friends_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
+              <div className="right">+{userInfo?.invite_friends_score || 0}&nbsp;<span className="unit">HMSTR</span></div>
             </div> : ''
           }
           {
@@ -122,7 +122,7 @@ export default function Home() {
               <div className="left">
                 <div className="img-wrapper"><img src={gameIcon} alt="star" /></div>
                 <span>Play Game</span></div>
-              <div className="right">{userInfo.game_score > 0 ? `+${userInfo.game_score}` : userInfo.game_score}&nbsp;<span className="unit">Hamsters</span></div>
+              <div className="right">{userInfo.game_score > 0 ? `+${userInfo.game_score}` : userInfo.game_score}&nbsp;<span className="unit">HMSTR</span></div>
             </div> : ''
           }
           {
@@ -130,7 +130,7 @@ export default function Home() {
               <div className="left">
                 <div className="img-wrapper"><img src={taskIcon} alt="star" /></div>
                 <span>Daily Check-in</span></div>
-              <div className="right">+{userInfo.check_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
+              <div className="right">+{userInfo.check_score || 0}&nbsp;<span className="unit">HMSTR</span></div>
             </div> : ''
           }
           {
@@ -138,14 +138,14 @@ export default function Home() {
               <div className="left">
                 <div className="img-wrapper"><img src={walletIcon} alt="star" /></div>
                 <span>Connect Wallet</span></div>
-              <div className="right">+{userInfo.bind_wallet_score || 0}&nbsp;<span className="unit">Hamsters</span></div>
+              <div className="right">+{userInfo.bind_wallet_score || 0}&nbsp;<span className="unit">HMSTR</span></div>
             </div> : ''
           }
           <div className="list">
             <div className="left">
               <div className="img-wrapper"><img src={checkIcon} alt="star" /></div>
               <span>Telegram Premium</span></div>
-            <div className="right">{userInfo?.telegram_premium ? `+${userInfo?.telegram_premium}` : 0}&nbsp;<span className="unit">Hamsters</span></div>
+            <div className="right">{userInfo?.telegram_premium ? `+${userInfo?.telegram_premium}` : 0}&nbsp;<span className="unit">HMSTR</span></div>
           </div>
         </div>
       </div>

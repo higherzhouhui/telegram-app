@@ -31,7 +31,7 @@ export default function () {
             to: '/frens'
         },
         {
-            title: 'game',
+            title: 'Game',
             icon: gameIcon,
             to: '/game',
         },

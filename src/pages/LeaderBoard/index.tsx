@@ -57,7 +57,7 @@ export default function LeaderBoardPage() {
         </div>
         <div className="name-score-warpper">
           <div className="name">{userInfo?.username}</div>
-          <div className="name-score">{userInfo?.score?.toLocaleString()}&nbsp;Hamsters</div>
+          <div className="name-score">{userInfo?.score?.toLocaleString()}&nbsp;HMSTR</div>
         </div>
       </div>
       <div className="right">
@@ -95,7 +95,7 @@ export default function LeaderBoardPage() {
         </div>
         <div className="name-score-wrapper">
           <div className="name">{username}</div>
-          <div className="name-score">{score.toLocaleString()}&nbsp;Hamsters</div>
+          <div className="name-score">{score.toLocaleString()}&nbsp;HMSTR</div>
         </div>
       </div>
       <div className="right">

@@ -69,7 +69,7 @@ function CheckInPage() {
             <div className='rewards-one'>
               <img src='/assets/common/cat.webp' alt='logo' />
               <div className='reward-number'>{checkObj?.reward_score}</div>
-              <div className='unit'>$HAMSTER</div>
+              <div className='unit'>$HMSTR</div>
             </div>
             <div className='rewards-one'>
               <img src='/assets/common/ticket.webp' alt='logo' />

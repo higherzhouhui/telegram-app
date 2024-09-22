@@ -66,7 +66,7 @@ export default function LeaderBoardPage() {
         </div>
         <div className="name-score-warpper">
           <div className="name">{userInfo?.username}</div>
-          <div className="name-score">Game:&nbsp;{userInfo?.game_score?.toLocaleString()}&nbsp;Hamsters</div>
+          <div className="name-score">Game:&nbsp;{userInfo?.game_score?.toLocaleString()}&nbsp;HMSTR</div>
           <div className="name-score">Times:&nbsp;{count}&nbsp;</div>
         </div>
       </div>
@@ -109,7 +109,7 @@ export default function LeaderBoardPage() {
           <div className='popup-rule-content'>
             <div className='popup-rule-content-title'>
               <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5414" width="16" height="16"><path d="M845.902988 0.000232H178.097244A177.864812 177.864812 0 0 0 0.000232 178.097244v667.805744a177.864812 177.864812 0 0 0 178.097012 178.097012h667.805744a177.864812 177.864812 0 0 0 178.097012-178.097012V178.097244A177.864812 177.864812 0 0 0 845.902988 0.000232zM512.000116 911.615445A75.929234 75.929234 0 1 1 587.929351 835.91841a77.090232 77.090232 0 0 1-75.929235 75.697035z m75.929235-340.172258v51.548287a75.929234 75.929234 0 0 1-151.858469 0v-114.938749a75.697035 75.697035 0 0 1 75.929234-75.929235A84.056217 84.056217 0 1 0 428.176099 348.299473a76.161434 76.161434 0 1 1-152.090669 0 235.914686 235.914686 0 1 1 311.843921 223.375913z" fill="#000" p-id="5415"></path></svg>
-              How to Join
+              How to Play
               <img src='/assets/logo.png' alt='logo' width={16} height={16} />
             </div>
             <ul>
@@ -138,7 +138,7 @@ export default function LeaderBoardPage() {
         </div>
         <div className="name-score-wrapper">
           <div className="name">{username}</div>
-          <div className="name-score">{game_score.toLocaleString()}&nbsp;Hamsters</div>
+          <div className="name-score">{game_score.toLocaleString()}&nbsp;HMSTR</div>
         </div>
       </div>
       <div className="right">

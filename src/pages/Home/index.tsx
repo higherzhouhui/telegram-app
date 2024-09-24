@@ -174,13 +174,13 @@ export default function Home() {
               </div>
               <ul>
                 <li>Check in daily to get <img src='/assets/logo.png' alt='logo' width={16} height={16} /> and an additional <img src='/assets/logo.png' alt='logo' width={16} height={16} /> if you do it consecutively!</li>
-                <li>Check in daily to receive <img src='/assets/common/ticket.webp' alt='logo' width={16} height={16} /> and earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />.</li>
+                <li>Check in daily to receive <img src='/assets/common/heart.png' alt='logo' width={16} height={16} /> and earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />.</li>
                 <li>Invite frens to earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />,Get 10% of Your Fren's  unit Yields in Rewards
                 </li>
                 <li>Play games to earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />.</li>
                 <li>
                   <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3174" data-spm-anchor-id="a313x.search_index.0.i5.2b3c3a81TUgFeH" width="16" height="16"><path d="M42.666667 896l938.666667 0-469.333333-810.666667-469.333333 810.666667zM554.666667 768l-85.333333 0 0-85.333333 85.333333 0 0 85.333333zM554.666667 597.333333l-85.333333 0 0-170.666667 85.333333 0 0 170.666667z" fill="#ecc115" p-id="3175" data-spm-anchor-id="a313x.search_index.0.i0.2b3c3a81TUgFeH" ></path></svg>
-                  &nbsp;<img src='/assets/common/ticket.webp' alt='logo' width={16} height={16} /> will be reset at 00:00 AM (UTC+0) every day!</li>
+                  &nbsp;<img src='/assets/common/heart.png' alt='logo' width={16} height={16} /> will be reset at 00:00 AM (UTC+0) every day!</li>
               </ul>
             </div>
           </div>

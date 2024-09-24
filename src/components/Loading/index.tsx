@@ -1,7 +1,8 @@
 import './index.scss'
 
 export default function () {
-  return <div className="global-loading">
-    <img src='/assets/newLoading.gif' alt="loading" />
+  return <div className='loading-wrapper'>
+    <div className="loading">
+    </div>
   </div>
 }

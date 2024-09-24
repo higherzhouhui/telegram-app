@@ -4,9 +4,6 @@ import { formatNumber, stringToColor } from '@/utils/common'
 import { List, InfiniteScroll } from 'antd-mobile'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import No1 from '@/assets/NO.1.png'
-import No2 from '@/assets/NO.2.png'
-import No3 from '@/assets/NO.3.png'
 import './index.scss'
 import BackTop from '@/components/BackTop'
 import { useNavigate } from 'react-router-dom'
@@ -62,7 +59,7 @@ export default function LeaderBoardPage() {
       </div>
       <div className="right">
         {
-          rank == 1 ? <img src={No1} alt="no1" /> : rank == 2 ? <img src={No2} alt="no2" /> : rank == 3 ? <img src={No3} alt="no3" /> : `#${rank}`
+          rank == 1 ? <img src='/assets/common/NO1.png' alt="no1" /> : rank == 2 ? <img src='/assets/common/NO2.png' alt="no2" /> : rank == 3 ? <img src='/assets/common/NO3.png' alt="no3" /> : rank == 4 ? <img src='/assets/common/NO4.png' alt="no4" /> : rank == 5 ? <img src='/assets/common/NO5.png' alt="no5" /> : <span>#{rank}</span>
         }
       </div>
     </div>
@@ -100,7 +97,7 @@ export default function LeaderBoardPage() {
       </div>
       <div className="right">
         {
-          rank == 1 ? <img src={No1} alt="no1" /> : rank == 2 ? <img src={No2} alt="no2" /> : rank == 3 ? <img src={No3} alt="no3" /> : <span>#{rank}</span>
+          rank == 1 ? <img src='/assets/common/NO1.png' alt="no1" /> : rank == 2 ? <img src='/assets/common/NO2.png' alt="no2" /> : rank == 3 ? <img src='/assets/common/NO3.png' alt="no3" /> : rank == 4 ? <img src='/assets/common/NO4.png' alt="no4" /> : rank == 5 ? <img src='/assets/common/NO5.png' alt="no5" /> : <span>#{rank}</span>
         }
       </div>
       <BackTop />

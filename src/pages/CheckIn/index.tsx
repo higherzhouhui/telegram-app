@@ -72,7 +72,7 @@ function CheckInPage() {
               <div className='unit'>$HMSTR</div>
             </div>
             <div className='rewards-one'>
-              <img src='/assets/common/ticket.webp' alt='logo' />
+              <img src='/assets/common/heart.png' alt='logo' />
               <div className='reward-number'>{checkObj?.reward_ticket}</div>
               <div className='unit'>Ticket</div>
             </div>
@@ -95,7 +95,7 @@ function CheckInPage() {
                         </div>
                         <div className='score-ticket ticket-pic'>
                           {item.ticket}&nbsp;
-                          <img src='/assets/common/ticket.webp' alt='logo' />
+                          <img src='/assets/common/heart.png' alt='logo' />
                         </div>
                       </>
                     }
@@ -106,7 +106,7 @@ function CheckInPage() {
           </div>
         </div>
         <div className='rewards-detail-top'>
-          <Button color="default" style={{ fontWeight: 'bold', flex: 1 }} onClick={() => handleContinue()}>Continue</Button>
+          <Button style={{ fontWeight: 'bold', flex: 1 }} onClick={() => handleContinue()}>Continue</Button>
         </div>
       </div>
     </div>

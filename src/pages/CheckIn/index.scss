@@ -1,7 +1,5 @@
 .checkIn-container {
   height: 100%;
-  overflow: hidden;
-  z-index: 999;
   background: var(--bgColor);
   width: 100%;
   .checkIn-first {
@@ -161,6 +159,7 @@
   .rewards-detail-top {
     width: 100%;
     button {
+      margin-top: 72px;
       width: 100%;
       border-radius: 32px;
       background: var(--btnBg);

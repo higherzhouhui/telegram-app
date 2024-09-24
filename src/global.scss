@@ -1,20 +1,20 @@
 @font-face {
   font-family: 'Regular';
-  src: url('./assets/font/DM-Sans-regular.woff2') format('woff2');
+  src: url('./assets/font/regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Bold';
-  src: url('./assets/font/DM-Sans-600.woff2') format('woff2');
+  src: url('./assets/font/bold.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 html, body, #root {
   height: 100%;
+  background: var(--bgColor);
   font-family: 'Regular';
-  background: #000;
 }
 
 body::-webkit-scrollbar {
@@ -31,10 +31,6 @@ html::-webkit-scrollbar {
 
 body {
   margin: 0;
-  background-color: rgba(0,0,0,0.8);;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -52,7 +48,7 @@ html {
 }
 
 :root {
-  --font-display: -apple-system, "SF Pro Text", "SF UI Text", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-display: -apple-system, "SF Pro Text", "SF UI Text", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
     --font-display-ios-rounded: "SF Pro Rounded", -apple-system, "SF Pro Text", "SF UI Text", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
     --palette-white: #fff;
     --k-device-pixel-ratio: 2;
@@ -95,6 +91,7 @@ html {
     --highColor: #ff4530;
     --btnBg: #24ee7b;
     --adm-color-primary: #30d158!important;
+    --bgColor: #000;
 }
 
 .fadeIn {
@@ -114,8 +111,6 @@ html {
   color: #fff;
   display: flex;
   flex-direction: column;
-  background: #000;
-  background-size: 100% 100%;
   padding-bottom: env(safe-area-inset-bottom);
   .content {
     flex: 1;

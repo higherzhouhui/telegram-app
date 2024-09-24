@@ -6,9 +6,7 @@ import { initUtils } from '@telegram-apps/sdk';
 import { useEffect, useState } from 'react';
 import { stringToColor } from '@/utils/common';
 import { getGameInfoReq } from '@/api/game';
-import No1 from '@/assets/NO.1.png'
-import No2 from '@/assets/NO.2.png'
-import No3 from '@/assets/NO.3.png'
+
 
 export default function () {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -76,7 +74,7 @@ export default function () {
           </div>
           <div className="right">
             {
-              gameInfo?.rank == 1 ? <img src={No1} alt="no1" /> : gameInfo?.rank == 2 ? <img src={No2} alt="no2" /> : gameInfo?.rank == 3 ? <img src={No3} alt="no3" /> : `#${gameInfo?.rank}`
+              gameInfo?.rank == 1 ? <img src='/assets/common/NO1.png' alt="no1" /> : gameInfo?.rank == 2 ? <img src='/assets/common/NO2.png' alt="no2" /> : gameInfo?.rank == 3 ? <img src='/assets/common/NO3.png' alt="no3" /> : gameInfo?.rank == 4 ? <img src='/assets/common/NO4.png' alt="no4" /> : gameInfo?.rank == 5 ? <img src='/assets/common/NO5.png' alt="no5" /> : <span>#{gameInfo?.rank}</span>
             }
           </div>
         </div>
@@ -89,7 +87,7 @@ export default function () {
             <span>
               {userInfo?.ticket}
             </span>
-            <img src='/assets/common/ticket.webp' className='ticket' />
+            <img src='/assets/common/heart.png' className='ticket' />
           </div>
         </div>
 
@@ -100,7 +98,7 @@ export default function () {
             <span>
               {userInfo?.ticket}
             </span>
-            <img src='/assets/common/ticket.webp' className='ticket' />
+            <img src='/assets/common/heart.png' className='ticket' />
           </div>
         </div>
       </div>

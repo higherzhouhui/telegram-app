@@ -10,7 +10,7 @@ import { useLaunchParams } from '@telegram-apps/sdk-react'
 function TaskPage() {
   const launchParams = useLaunchParams();
   const utils = initUtils();
-  const [list, setList] = useState([])
+  const [list, setList] = useState<any>([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const handleDoTask = async (item: any, index: number, cIndex: number) => {
@@ -85,7 +85,7 @@ function TaskPage() {
     taskListReq().then(res => {
       setLoading(false)
       if (res.code == 0) {
-        res.data.map(item => {
+        res.data.map((item: any) => {
           item.loading = false
         })
         const list = groupByType(res.data)
@@ -106,7 +106,7 @@ function TaskPage() {
         }) : <div></div>
       }
       {
-        list.map((item: any, index) => {
+        list.map((item: any, index: number) => {
           return <div className='item-wrapper' key={index}>
             <div className='item-wrapper-title'>
               <img src={`/assets/task/${getImgSrc(item[0].type)}.png`} className='logo-pic' alt="penalty" />

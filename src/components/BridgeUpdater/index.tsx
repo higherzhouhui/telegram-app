@@ -127,6 +127,7 @@ export default function BridgeUpdater() {
             content: 'Login Failed, please retry',
             duration: 5000,
           })
+          navigate('/wallet')
         }
         console.log(event, "NotificationEvents.walletChanged");
       }

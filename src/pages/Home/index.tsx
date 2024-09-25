@@ -9,6 +9,7 @@ import { Popup } from 'antd-mobile';
 import { handleCopyLink, judgeIsStartFarming } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
 import EventBus from '@/utils/eventBus';
+import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 export const HomePage: FC = () => {
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ export const HomePage: FC = () => {
   const [isShowInvite, setShowInvite] = useState(false)
   const [isShowCongrate, setShowCongrates] = useState(false)
   const [isGetBigReward, setGetBigReward] = useState(false)
+  const { isConnected } = useConnectWallet()
   const messageList = [
     'Invite friends to get more $CAT!',
     `I've got lots of surprises ready, but i can't tell yet!`,
@@ -192,7 +194,7 @@ export const HomePage: FC = () => {
 
 
   useEffect(() => {
-    if (localStorage.getItem('authorization')) {
+    if (localStorage.getItem('authorization') && isConnected) {
       getUserInfoReq().then(res => {
         if (res.code == 0) {
           dispatch(setUserInfoAction(res.data))
@@ -206,7 +208,7 @@ export const HomePage: FC = () => {
     } else {
       setIsH5PcRoot(false)
     }
-  }, [])
+  }, [isConnected])
 
   useEffect(() => {
     if (farmingTimer && farmingTimer.current) {

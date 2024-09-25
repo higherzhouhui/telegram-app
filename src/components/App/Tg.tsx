@@ -81,8 +81,24 @@ const TgApp: FC = () => {
     }
     bindViewportCSSVars(vp);
   }
+
+  const disSwipe = () => {
+    try {
+      let version: any = launchParams.version
+      version = parseFloat(version)
+      console.log('current Version:', version)
+      if (version > 9) {
+        console.log('disableVerticalSwipe')
+        swipeBehavior.disableVerticalSwipe();
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   useEffect(() => {
     initApp()
+    disSwipe()
     const onMessage = ({ visible, time }: { visible: boolean, time?: number }) => {
       setShowCongrates(visible)
       setShowTime(time || 1500)
@@ -98,10 +114,10 @@ const TgApp: FC = () => {
     backButton.on('click', () => {
       navigate(-1)
     })
-    swipeBehavior.disableVerticalSwipe();
-    // const tp = initThemeParams();
-    // bindThemeParamsCSSVars(tp);
-    expandViewPort()
+    if (launchParams.version)
+      // const tp = initThemeParams();
+      // bindThemeParamsCSSVars(tp);
+      expandViewPort()
   }, [])
   return (
     <AppRoot

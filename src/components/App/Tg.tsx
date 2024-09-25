@@ -30,7 +30,6 @@ import { Toast } from "antd-mobile";
 
 const TgApp: FC = () => {
   const [backButton] = initBackButton()
-  const [swipeBehavior] = initSwipeBehavior();
   const [viewport] = initViewport();
   const [miniApp] = initMiniApp()
   const launchParams = retrieveLaunchParams()
@@ -87,7 +86,8 @@ const TgApp: FC = () => {
       let version: any = launchParams.version
       version = parseFloat(version)
       console.log('current Version:', version)
-      if (version > 9) {
+      if (version > 7.7) {
+        const [swipeBehavior] = initSwipeBehavior();
         console.log('disableVerticalSwipe')
         swipeBehavior.disableVerticalSwipe();
       }

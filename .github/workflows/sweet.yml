@@ -1,4 +1,4 @@
-name: NodeJS with Vite
+name: Sweet Branch Deploy
 
 on:
   push:

@@ -54,8 +54,9 @@ export const HomePage: FC = () => {
   }
 
   const getRewardFarming = async () => {
+    let flag = false
     if (isGettingScore) {
-      return
+      return false
     }
     if (!farmObj.canFarming) {
       setGetScore(true)
@@ -66,15 +67,19 @@ export const HomePage: FC = () => {
       setShowScore(true)
       if (res.code == 0) {
         dispatch(setUserInfoAction(res.data))
+        flag = true
       }
     }
+    return flag
   }
 
   const handleHarvest = async () => {
     if (farmObj.score == 1080) {
-      setShowCongrates(true)
-      eventBus.emit('showCongrates', { time: 3000, visible: true })
-      await getRewardFarming()
+      const flag = await getRewardFarming()
+      if (flag) {
+        setShowCongrates(true)
+        eventBus.emit('showCongrates', { time: 2000, visible: true })
+      }
     }
   }
 
@@ -82,7 +87,7 @@ export const HomePage: FC = () => {
     if (navigator.vibrate) {
       navigator.vibrate(100)
     }
-    if (userInfo.ticket) {
+    if (userInfo.ticket > 0) {
       navigate('/game')
     } else {
       setShowInvite(true)
@@ -194,18 +199,25 @@ export const HomePage: FC = () => {
 
 
   useEffect(() => {
-    if (localStorage.getItem('authorization') && isConnected) {
-      getUserInfoReq().then(res => {
-        if (res.code == 0) {
-          dispatch(setUserInfoAction(res.data))
-        }
-      })
-    }
     if (localStorage.getItem('h5PcRoot') == '1') {
       setIsH5PcRoot(true)
       const _link = `${location.origin}?startParam=${btoa(userInfo.user_id)}`
       setLink(_link)
+      if (localStorage.getItem('authorization')) {
+        getUserInfoReq().then(res => {
+          if (res.code == 0) {
+            dispatch(setUserInfoAction(res.data))
+          }
+        })
+      }
     } else {
+      if (localStorage.getItem('authorization') && isConnected) {
+        getUserInfoReq().then(res => {
+          if (res.code == 0) {
+            dispatch(setUserInfoAction(res.data))
+          }
+        })
+      }
       setIsH5PcRoot(false)
     }
   }, [isConnected])

@@ -123,11 +123,6 @@ export default function BridgeUpdater() {
           // 如果无wallet任何信息，则清空数据
           localStorage.removeItem('authorization')
           localStorage.removeItem('walletInfo')
-          Toast.show({
-            content: 'Login Failed, please retry',
-            duration: 5000,
-          })
-          navigate('/wallet')
         }
         console.log(event, "NotificationEvents.walletChanged");
       }

@@ -11,13 +11,11 @@ import Congrates from '@/components/Congrates';
 import EventBus from '@/utils/eventBus';
 import { type FC, useEffect, useState } from 'react';
 import { getSystemConfigReq, h5PcLoginReq } from '@/api/common';
-import { setSystemAction } from '@/redux/slices/userSlice';
+import { setSystemAction, setUserInfoAction } from '@/redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import Loading from '../Loading';
 import { Toast } from 'antd-mobile';
-import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
-
 
 const PcApp: FC = () => {
   const [loading, setLoading] = useState(false)
@@ -27,7 +25,6 @@ const PcApp: FC = () => {
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
   const [isShowBack, setIsShowBack] = useState(false)
-  const { isConnected } = useConnectWallet();
 
   const initApp = async () => {
     localStorage.setItem('h5PcRoot', '1')
@@ -43,7 +40,7 @@ const PcApp: FC = () => {
       setLoading(true)
       const res = await h5PcLoginReq(JSON.parse(walletInfo))
       if (res.code == 0) {
-        // dispatch(setUserInfoAction(res.data))
+        dispatch(setUserInfoAction(res.data))
         localStorage.setItem('authorization', res.data.token)
         const today = moment().utc().format('MM-DD')
         if (!res.data.check_date || (res.data.check_date && res.data.check_date != today)) {
@@ -60,9 +57,7 @@ const PcApp: FC = () => {
       }
       setLoading(false)
     } else {
-      if (!isConnected) {
-        navigate('/wallet')
-      }
+      navigate('/wallet')
     }
   }
   useEffect(() => {

@@ -77,7 +77,7 @@ function GamePage() {
   }
 
   const handleSendLink = () => {
-    const text = `I scored ${score} points in PawCoin Game!\nI dare you to challenge me!\nFarm 🍅 $CAT with me and secure your token allocation through Portkey.\nUse my link to get 2,000 🍅 $CAT!`
+    const text = `I scored ${score} points in PawCoin Game!\nI dare you to challenge me!\nFarm $CAT with me and secure your token allocation through Portkey.\nUse my link to get 2,000 $CAT!`
     utils.shareURL(link, text)
   }
 

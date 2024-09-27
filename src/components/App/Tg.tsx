@@ -26,6 +26,7 @@ import { setSystemAction } from '@/redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import Loading from '../Loading';
 import { Toast } from "antd-mobile";
+import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 
 const TgApp: FC = () => {
@@ -34,6 +35,7 @@ const TgApp: FC = () => {
   const [miniApp] = initMiniApp()
   const launchParams = retrieveLaunchParams()
 
+  const { isConnected } = useConnectWallet();
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -41,6 +43,9 @@ const TgApp: FC = () => {
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
   const initApp = async () => {
+    if (!isConnected) {
+      navigate('/wallet')
+    }
     localStorage.removeItem('h5PcRoot')
     const initData = initInitData() as any;
     if (initData && initData.user && initData.user.id) {
@@ -72,6 +77,7 @@ const TgApp: FC = () => {
         position: 'center',
       })
     }
+
   }
   const expandViewPort = async () => {
     const vp = await viewport;

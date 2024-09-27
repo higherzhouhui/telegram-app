@@ -1,5 +1,5 @@
 .task-page {
-  padding: 18px 12px;
+  padding: 18px 1rem 4rem;
   .task-title {
     text-align: center;
     .task {
@@ -30,7 +30,7 @@
     }
   }
   .task-list {
-    padding: 1.5rem 0;
+    padding: 1.5rem 0 0 0;
     .skeleton {
       width: 100%;
       height: 5rem;

@@ -65,7 +65,6 @@ function FrensPage() {
       </div>
       {
         loading ? <div className='skeleton-wrapper'>
-          <Skeleton className='skeleton1' animated />
           <Skeleton className='skeleton2' animated />
         </div> : <div></div>
       }

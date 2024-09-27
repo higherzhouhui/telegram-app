@@ -41,7 +41,7 @@ function TaskPage() {
           }
         } else {
           if (item.linkType.includes('telegram')) {
-            utils.openLink(item.link)
+            utils.openTelegramLink(item.link)
           } else if (item.linkType == 'outside') {
             location.href = item.link
           } else if (item.linkType == 'self') {

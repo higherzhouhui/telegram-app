@@ -11,6 +11,7 @@ import {
   initMiniApp,
   initSwipeBehavior,
   initViewport,
+  requestViewport,
   retrieveLaunchParams
 } from '@telegram-apps/sdk';
 
@@ -39,6 +40,7 @@ const TgApp: FC = () => {
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [height, setHeight] = useState(0)
   const eventBus = EventBus.getInstance()
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
@@ -85,6 +87,10 @@ const TgApp: FC = () => {
       vp.expand(); // will expand the Mini App, if it's not
     }
     bindViewportCSSVars(vp);
+    const screen = await requestViewport()
+    if (screen) {
+      setHeight(screen.height)
+    }
   }
 
   const disSwipe = () => {
@@ -130,7 +136,7 @@ const TgApp: FC = () => {
       appearance={miniApp.isDark ? 'dark' : 'light'}
       platform={['macos', 'ios'].includes(launchParams.platform) ? 'ios' : 'base'}
     >
-      <div className='layout' id='layout'>
+      <div className='layout' id='layout' style={{ height: height ? `${height}px` : '100vh' }}>
         <div className='content'>
           <Routes>
             {routes.map((route) => <Route key={route.path} {...route} />)}

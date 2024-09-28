@@ -3,7 +3,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { getMagicPrizeReq, getRewardFarmingReq, getUserInfoReq, startFarmingReq } from '@/api/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
-import { initUtils } from '@telegram-apps/sdk';
+import { initUtils, initHapticFeedback } from '@telegram-apps/sdk';
 import moment from 'moment';
 import { Popup } from 'antd-mobile';
 import { handleCopyLink, judgeIsStartFarming } from '@/utils/common';
@@ -31,6 +31,8 @@ export const HomePage: FC = () => {
   const [isShowCongrate, setShowCongrates] = useState(false)
   const [isGetBigReward, setGetBigReward] = useState(false)
   const { isConnected } = useConnectWallet()
+  const hapticFeedback = initHapticFeedback();
+
   const messageList = [
     'Invite friends to get more $CAT!',
     `I've got lots of surprises ready, but i can't tell yet!`,
@@ -75,6 +77,7 @@ export const HomePage: FC = () => {
 
   const handleHarvest = async () => {
     if (farmObj.score == 1080) {
+      hapticFeedback.notificationOccurred('success')
       const flag = await getRewardFarming()
       if (flag) {
         setShowCongrates(true)
@@ -84,12 +87,11 @@ export const HomePage: FC = () => {
   }
 
   const handlePlayGame = async () => {
-    if (navigator.vibrate) {
-      navigator.vibrate(100)
-    }
     if (userInfo.ticket > 0) {
+      hapticFeedback.notificationOccurred('success')
       navigate('/game')
     } else {
+      hapticFeedback.notificationOccurred('error')
       setShowInvite(true)
     }
   }

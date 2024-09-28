@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import './index.scss'
 import { taskListReq, handleTakReq } from '@/api/task'
-import { initUtils } from '@telegram-apps/sdk'
+import { initHapticFeedback, initUtils } from '@telegram-apps/sdk'
 import { Button, Skeleton, Toast } from 'antd-mobile'
 import { useNavigate } from 'react-router-dom'
 import BackTop from '@/components/BackTop'
 import { useLaunchParams } from '@telegram-apps/sdk-react'
 
 function TaskPage() {
+  const hapticFeedback = initHapticFeedback();
   const launchParams = useLaunchParams();
   const utils = initUtils();
   const [list, setList] = useState([])
@@ -20,13 +21,15 @@ function TaskPage() {
       setList(_list)
       const res = await handleTakReq(item)
       if (res.code == 0) {
-        const _list = JSON.parse(JSON.stringify(list))
-        _list[index][cIndex].status = res.data.status
-        _list[index][cIndex].loading = false
+        hapticFeedback.notificationOccurred('success')
         setTimeout(() => {
+          const _list = JSON.parse(JSON.stringify(list))
+          _list[index][cIndex].status = res.data.status
+          _list[index][cIndex].loading = false
           setList(_list)
         }, 10000);
       } else {
+        hapticFeedback.notificationOccurred('warning')
         Toast.show({ content: res.msg, position: 'top' })
         const _list = JSON.parse(JSON.stringify(list))
         _list[index][cIndex].loading = false

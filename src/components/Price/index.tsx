@@ -45,7 +45,7 @@ function PriceComp() {
     Modal.confirm({
       title: title,
       content: intro,
-      cancelText: 'Cancel',
+      cancelText: '',
       confirmText: 'Discover',
       closeOnMaskClick: true,
       image: image,

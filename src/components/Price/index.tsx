@@ -3,15 +3,29 @@ import './index.scss'
 import { getPriceReq } from '@/api/common';
 import { initUtils } from '@telegram-apps/sdk';
 import { Modal } from 'antd-mobile';
+import { useDispatch } from 'react-redux';
+import { setHMAction } from '@/redux/slices/userSlice';
 
 function PriceComp() {
+  const dispatch = useDispatch()
   const [info, setInfo] = useState<any>({})
   const [rise, setRise] = useState(true)
+  const [intro, setIntro] = useState('')
+  const [title, setTitle] = useState('')
+  const [link, setLink] = useState('')
+  const [index, setIndex] = useState(0)
   const utils = initUtils()
   const initPrice = async () => {
-    const random = Math.floor(Math.random() * 5)
-    const types = ['ETHUSDT', 'DOGSUSDT', 'ETHUSDT', 'BNBUSDT', 'DOGSUSDT']
-    const res: any = await getPriceReq(import.meta.env.DEV, types[random])
+    const _index = index % 3
+    const types = ['HMSTRUSDT', 'DOGSUSDT', 'TONUSDT']
+    const strings = ['Hamster is a cryptocurrency exchange CEO simulator game built on the Telegram mini program platform', 'DOGS is a Ton chain meme token born in the Telegram community', 'Toncoin is a decentralized, developed L1 blockchain created by the community using technology designed by Telegram']
+    const title = ['HMSTR', 'DOGS', 'TON'];
+    const links = ['https://t.me/hamster_kombat', 'https://t.me/dogs_community', 'https://t.me/toncoin'];
+    setIntro(strings[_index])
+    setTitle(title[_index])
+    setLink(links[_index])
+    const res: any = await getPriceReq(import.meta.env.DEV, types[_index])
+
     if (res && res?.priceChangePercent) {
       if (res.priceChangePercent > 0) {
         setRise(true)
@@ -19,26 +33,31 @@ function PriceComp() {
         setRise(false)
       }
     }
+    if (_index == 0) {
+      dispatch(setHMAction({ price: res?.lastPrice }))
+    }
     setInfo(res || {})
   }
   const handleOpenDogs = () => {
     Modal.confirm({
-      title: 'Discover Dogs',
-      content: 'DOGS is a TON chain meme token born in the Telegram community(2024-08)',
+      title: title,
+      content: intro,
       cancelText: 'Cancel',
-      confirmText: 'Look',
+      confirmText: 'Discover',
       closeOnMaskClick: true,
       onConfirm: () => {
-        utils.openTelegramLink('https://t.me/dogs_community')
+        utils.openTelegramLink(link)
       }
     })
   }
   useEffect(() => {
-    initPrice()
     setInterval(() => {
-      initPrice()
+      setIndex(p => p + 1)
     }, 10000);
   }, [])
+  useEffect(() => {
+    initPrice()
+  }, [index])
   return <div className='price-comp' onClick={() => handleOpenDogs()}>
     <div className='left'>{info?.symbol?.replace('USDT', '')}<span>/USDT</span></div>
     <div className='right'>

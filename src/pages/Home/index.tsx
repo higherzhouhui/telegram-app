@@ -1,25 +1,26 @@
-import EventBus from "@/utils/eventBus";
 import './index.scss'
-import { useEffect, useState } from "react";
+import EventBus from "@/utils/eventBus";
+import { FC, useEffect, useState } from "react";
 import starIcon from '@/assets/h-star.png'
 import checkIcon from '@/assets/h-right.png'
 import friendsIcon from '@/assets/h-friends.png'
 import gameIcon from '@/assets/game.png'
 import taskIcon from '@/assets/task.png'
 import walletIcon from '@/assets/wallet.png'
-import { Button, Popup, Swiper, Toast } from "antd-mobile";
+import { Modal, Popup, ProgressCircle, Swiper } from "antd-mobile";
 import { judgeIsCheckIn } from '@/utils/common'
 import { useDispatch, useSelector } from "react-redux";
 import { userCheckReq, bindWalletReq } from "@/api/common";
-import { initUtils } from '@telegram-apps/sdk-react';
+import { initUtils, useHapticFeedback } from '@telegram-apps/sdk-react';
 import { setUserInfoAction } from "@/redux/slices/userSlice";
 import LogoIcon from '@/assets/logo.jpg'
-import { TonConnectButton, useTonWallet } from "@tonconnect/ui-react";
+import { useTonWallet, useTonConnectModal } from "@tonconnect/ui-react";
 import { useNavigate } from "react-router-dom";
 import BackTop from "@/components/BackTop";
 
 export default function Home() {
   const userInfo = useSelector((state: any) => state.user.info);
+  const hmstrInfo = useSelector((state: any) => state.user.hmstr);
   const eventBus = EventBus.getInstance()
   const utils = initUtils();
   const [loading, setLoading] = useState(false)
@@ -27,8 +28,19 @@ export default function Home() {
   const wallet = useTonWallet()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const hapticFeedback = useHapticFeedback()
+  const modal = useTonConnectModal()
+  const [visible, setVisible] = useState(false)
   const handleToScore = async () => {
     navigate('/second?last=true')
+  }
+  const handleClaim = () => {
+    hapticFeedback.notificationOccurred('success')
+    if (!wallet) {
+      modal.open()
+    } else {
+      setVisible(true)
+    }
   }
   const handleCheckIn = async () => {
     if (judgeIsCheckIn(userInfo?.check_date)) {
@@ -71,11 +83,15 @@ export default function Home() {
           </div>
         </div>
         <div className="score">
-          {userInfo?.score?.toLocaleString()}
-          <div style={{ fontSize: '1.5rem', opacity: 0.8, lineHeight: '24px' }}>HMSTR</div>
+          <div style={{ fontSize: '1.5rem', opacity: 0.9, lineHeight: '24px' }}>Assets (HMSTR)</div>
+          <div className="amount">{userInfo?.score?.toLocaleString()}</div>
+          <div className="really-price">&asymp; ${(Math.round(userInfo?.score * hmstrInfo?.price * 100) / 100).toFixed(2)}</div>
         </div>
         <div className="wallet">
-          <TonConnectButton className="connect-btn" />
+          <div className="wallet-inner" onClick={() => handleClaim()}>
+            Claim Airdrop
+            <img src="/assets/airdrop.png" />
+          </div>
         </div>
         <div className="wrapper">
           <Swiper autoplay loop>
@@ -174,24 +190,60 @@ export default function Home() {
               </div>
               <ul>
                 <li>Check in daily to get <img src='/assets/logo.png' alt='logo' width={16} height={16} /> and an additional <img src='/assets/logo.png' alt='logo' width={16} height={16} /> if you do it consecutively!</li>
-                <li>Check in daily to receive <img src='/assets/common/heart.png' alt='logo' width={16} height={16} /> and earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />.</li>
+                <li>Check in daily to receive <img src='/assets/common/ticket.webp' alt='logo' width={16} height={16} /> and earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />.</li>
                 <li>Invite frens to earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />,Get 10% of Your Fren's  unit Yields in Rewards
                 </li>
                 <li>Play games to earn more <img src='/assets/logo.png' alt='logo' width={16} height={16} />.</li>
                 <li>
                   <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3174" data-spm-anchor-id="a313x.search_index.0.i5.2b3c3a81TUgFeH" width="16" height="16"><path d="M42.666667 896l938.666667 0-469.333333-810.666667-469.333333 810.666667zM554.666667 768l-85.333333 0 0-85.333333 85.333333 0 0 85.333333zM554.666667 597.333333l-85.333333 0 0-170.666667 85.333333 0 0 170.666667z" fill="#ecc115" p-id="3175" data-spm-anchor-id="a313x.search_index.0.i0.2b3c3a81TUgFeH" ></path></svg>
-                  &nbsp;<img src='/assets/common/heart.png' alt='logo' width={16} height={16} /> will be reset at 00:00 AM (UTC+0) every day!</li>
+                  &nbsp;<img src='/assets/common/ticket.webp' alt='logo' width={16} height={16} /> will be reset at 00:00 AM (UTC+0) every day!</li>
               </ul>
             </div>
           </div>
         </div>
       </Popup>
+      <Modal
+        visible={visible}
+        content={<AirDrop />}
+        closeOnAction
+        closeOnMaskClick
+        onClose={() => {
+          setVisible(false)
+        }}
+
+        actions={[
+          {
+            key: 'confirm',
+            text: 'Get More',
+          },
+        ]}
+      />
       <BackTop />
     </main>
   )
-
 }
 
-
+const AirDrop: FC = () => {
+  return <div className='airdrop'>
+    <div className='airdrop-inner'>
+      <div className='title'>Airdrop is coming!</div>
+      <div className='p-wrapper'>
+        <ProgressCircle
+          percent={64}
+          style={{
+            '--size': '110px',
+            '--track-width': '4px',
+          }}
+        >
+          <div className={'p-title'}>Total Supply</div>
+          <div className={'p-total'}>100</div>
+          <div className={'p-unit'}>Billion</div>
+        </ProgressCircle>
+      </div>
+      <div className='p-desc'>In the first season, we generously distributed <b>64.3 billion HMSTR</b> tokens to 56 million users as a preliminary gift for our community building. As the project continues to develop, we are excited to announce that the second season will airdrop another <b>30 billion HMSTR</b> tokens to our users. We sincerely invite every user to join this exciting journey and witness and participate in the growth and prosperity of our project together. Take immediate action, seize the opportunity, <b>let's work together to create a brilliant future</b>!
+      </div>
+    </div>
+  </div>
+}
 var videoIcon = <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="22188" xmlnsXlink="http://www.w3.org/1999/xlink" width="18" height="18"><path d="M509.866667 32C245.333333 32 32 247.466667 32 512s213.333333 480 477.866667 480c264.533333 0 477.866667-215.466667 477.866666-480S774.4 32 509.866667 32z m0 896C281.6 928 96 742.4 96 512S281.6 96 509.866667 96 923.733333 281.6 923.733333 512s-185.6 416-413.866666 416z" fill="#ffffff" p-id="22189"></path><path d="M433.066667 354.133333c-6.4-4.266667-17.066667 0-17.066667 10.666667V661.333333c0 8.533333 8.533333 14.933333 17.066667 10.666667l234.666666-149.333333c6.4-4.266667 6.4-14.933333 0-19.2l-234.666666-149.333334z" fill="#ffffff" p-id="22190"></path></svg>
 

@@ -155,8 +155,8 @@ function GamePage() {
           </div>
           <div className='content'>
             <div className='content-desc'>
-              <div>Get 2000 <img src='/assets/common/cat.webp' />and 1 <img src='/assets/common/heart.png' />（Invite a Friend）</div>
-              <div>Get 20000 <img src='/assets/common/cat.webp' />and 5 <img src='/assets/common/heart.png' />（Invite a Telegram Premium）</div>
+              <div>Get 2000 <img src='/assets/common/cat.webp' />and 1 <img src='/assets/common/ticket.webp' />（Invite a Friend）</div>
+              <div>Get 20000 <img src='/assets/common/cat.webp' />and 5 <img src='/assets/common/ticket.webp' />（Invite a Telegram Premium）</div>
             </div>
             <div className='popup-content-btn' onClick={() => handleCopyLink()}>Copy link</div>
             <div className='popup-content-btn btn-send' onClick={() => handleSendLink()}>Send</div>

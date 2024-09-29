@@ -10,9 +10,67 @@ main {
       border-radius: 1rem;
     }
   }
+  .adm-modal-body {
+    padding: 0!important;
+  }
+  .adm-modal-content {
+    padding: 0;
+  }
+  .airdrop {
+    background-image: url('/assets/s1.jpg');
+    background-size: 100% 100%;
+    .airdrop-inner {
+      color: #fff;
+      background: rgba(0,0,0,0.5);
+      padding: 6px 8px;
+    }
+    .title {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .p-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .p-title {
+      opacity: 0.9;
+      font-size: 0.8rem;
+    }
+    .p-unit {
+      opacity: 0.8;
+    }
+    .p-total {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .p-desc {
+      line-height: 1.6rem;
+    }
+  }
   .wallet {
     margin: 12px 0 0 0;
-    padding: 0 1rem 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .wallet-inner {
+      position: relative;
+      height: 40px;
+      padding: 0 35px 0 12px;
+      border-radius: 12px;
+      background: #d10c6e;
+      font-size: 1.3rem;
+      align-items: center;
+      display: flex;
+      box-shadow: 1px 1px 8px #fff;
+      img {
+        top: -5px;
+        right: 0;
+        position: absolute;
+      }
+    }    
   }
   .gameComp {
     position: fixed;
@@ -130,11 +188,13 @@ main {
     .score {
       text-align: center;
       color: #fff;
-      font-size: 2.8rem;
       font-family: Bold;
-      line-height: 3rem;
-      span {
-        line-height: 3rem;
+      .amount {
+        font-size: 2.5rem;
+      }
+      .really-price {
+        font-size: 1.4rem;
+        opacity: 0.9;
       }
     }
     .earn-more {

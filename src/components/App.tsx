@@ -108,9 +108,10 @@ export const App: FC = () => {
       platform={['macos', 'ios'].includes(launchParams.platform) ? 'ios' : 'base'}
     >
       <div className='layout'>
-        {
+        {/* {
           import.meta.env.PROD ? <PriceComp /> : <div></div>
-        }
+        } */}
+        <PriceComp />
         <div className='content'>
           <Routes>
             {routes.map((route) => <Route key={route.path} {...route} />)}

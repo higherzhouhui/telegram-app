@@ -1,10 +1,10 @@
+import './index.scss'
 import { getUserListReq, getUserInfoReq } from '@/api/common'
 import { setUserInfoAction } from '@/redux/slices/userSlice'
 import { formatNumber, stringToColor } from '@/utils/common'
 import { List, InfiniteScroll } from 'antd-mobile'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import './index.scss'
 import BackTop from '@/components/BackTop'
 import { useNavigate } from 'react-router-dom'
 
@@ -87,7 +87,7 @@ export default function LeaderBoardPage() {
       <div className="holders-left">
         <div className="icon" style={{ background: stringToColor(username) }}>
           {
-            username.slice(0, 2)
+            username?.slice(0, 2)
           }
         </div>
         <div className="name-score-wrapper">

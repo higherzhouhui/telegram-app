@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import LogoIcon from '@/assets/logo.jpg'
 import './index.scss'
 import { useNavigate } from "react-router-dom";
+import { useHapticFeedback } from "@telegram-apps/sdk-react";
 
 export default function Friends() {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -17,6 +18,7 @@ export default function Friends() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [total, setTotal] = useState(0)
+  const hapticFeedback = useHapticFeedback()
   const navigate = useNavigate()
   async function loadMore() {
     const append = await getList()
@@ -44,6 +46,7 @@ I've found a platform where you can launch your meme coins. Check out your Teleg
     utils.shareURL(link, ``)
   }
   const copy = () => {
+    hapticFeedback.notificationOccurred('success')
     const textToCopy = link; // 替换为你想要复制的内容  
     const textArea = document.createElement("textarea");
     textArea.value = textToCopy;

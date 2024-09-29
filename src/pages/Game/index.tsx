@@ -6,6 +6,7 @@ import { initUtils } from '@telegram-apps/sdk';
 import { useEffect, useState } from 'react';
 import { stringToColor } from '@/utils/common';
 import { getGameInfoReq } from '@/api/game';
+import { useHapticFeedback } from '@telegram-apps/sdk-react';
 
 
 export default function () {
@@ -17,11 +18,15 @@ export default function () {
   const utils = initUtils()
   const [content, setContent] = useState('')
   const systemInfo = useSelector((state: any) => state.user.system)
+  const hapticFeedback = useHapticFeedback()
+
   const handlePlayGame = (link: string) => {
     if (userInfo?.ticket > 0) {
       navigate(link)
+      hapticFeedback.notificationOccurred('success')
     } else {
       setShowInvite(true)
+      hapticFeedback.notificationOccurred('warning')
     }
   }
 
@@ -59,7 +64,7 @@ export default function () {
   return <div className='gamepage-container fadeIn'>
     <NoticeBar content={content} color='info' />
     <div className='g-container'>
-      <div className='title'>Play games to earn $HMSTR</div>
+      <div className='title'>Play game to earn $HMSTR</div>
       <div>
         <div className="myself" onClick={() => navigate('/gameleaderboard')}>
           <div className="left">
@@ -87,7 +92,7 @@ export default function () {
             <span>
               {userInfo?.ticket}
             </span>
-            <img src='/assets/common/heart.png' className='ticket' />
+            <img src='/assets/common/ticket.webp' className='ticket' />
           </div>
         </div>
 
@@ -98,7 +103,7 @@ export default function () {
             <span>
               {userInfo?.ticket}
             </span>
-            <img src='/assets/common/heart.png' className='ticket' />
+            <img src='/assets/common/ticket.webp' className='ticket' />
           </div>
         </div>
       </div>

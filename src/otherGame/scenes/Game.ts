@@ -70,7 +70,7 @@ export default class MainGame extends Phaser.Scene {
     this.timer = this.time.addEvent({ delay: this.timerCount * 1000, callback: this.gameOver, callbackScope: this });
     this.autoCreateTimer = setInterval(() => {
       this.autoCreateIcon()
-    }, 200);
+    }, 140);
   }
 
   reStart() {
@@ -96,28 +96,28 @@ export default class MainGame extends Phaser.Scene {
           iconObj = {
             width: 50,
             score: 3,
-            speed: Math.random() + 2.2,
+            speed: Math.random() + 2.5,
             type: 'cat',
           }
         } else if (random > 0.11 && random <= 0.47) {
           iconObj = {
             width: 75,
             score: 5,
-            speed: Math.random() + 2.5,
+            speed: Math.random() + 3,
             type: 'cat',
           }
         } else if (random > 0.47 && random <= 0.84) {
           iconObj = {
             width: 85,
             score: 8,
-            speed: Math.random() + 2.5,
+            speed: Math.random() + 3.5,
             type: 'cat',
           }
         } else {
           iconObj = {
             width: 100,
             score: 14,
-            speed: Math.random() + 3,
+            speed: Math.random() + 4,
             type: 'cat',
           }
         }

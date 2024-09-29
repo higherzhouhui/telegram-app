@@ -21,7 +21,7 @@ function PriceComp() {
     const types = ['HMSTRUSDT', 'DOGSUSDT', 'TONUSDT']
     const strings = ['Hamster is a cryptocurrency exchange CEO simulator game built on the Telegram mini program platform', 'DOGS is a Ton chain meme token born in the Telegram community', 'Toncoin is a decentralized, developed L1 blockchain created by the community using technology designed by Telegram']
     const title = ['HMSTR', 'DOGS', 'TON'];
-    const images = ['/assets/hmstr.png', '/assets/dogs.png', '/assets/ton.png'];
+    const images = ['/assets/hmstr1.png', '/assets/dogs.png', '/assets/ton.png'];
     const links = ['https://t.me/hamster_kombat', 'https://t.me/dogs_community', 'https://t.me/toncoin'];
     setIntro(strings[_index])
     setTitle(title[_index])

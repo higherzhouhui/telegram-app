@@ -21,7 +21,7 @@ main {
     background-size: 100% 100%;
     .airdrop-inner {
       color: #fff;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       padding: 6px 8px;
     }
     .title {
@@ -37,13 +37,10 @@ main {
     }
     .p-title {
       opacity: 0.9;
-      font-size: 0.8rem;
-    }
-    .p-unit {
-      opacity: 0.8;
+      font-size: 0.9rem;
     }
     .p-total {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: bold;
     }
     .p-desc {

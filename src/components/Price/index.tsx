@@ -14,16 +14,19 @@ function PriceComp() {
   const [title, setTitle] = useState('')
   const [link, setLink] = useState('')
   const [index, setIndex] = useState(0)
+  const [image, setImage] = useState('')
   const utils = initUtils()
   const initPrice = async () => {
     const _index = index % 3
     const types = ['HMSTRUSDT', 'DOGSUSDT', 'TONUSDT']
     const strings = ['Hamster is a cryptocurrency exchange CEO simulator game built on the Telegram mini program platform', 'DOGS is a Ton chain meme token born in the Telegram community', 'Toncoin is a decentralized, developed L1 blockchain created by the community using technology designed by Telegram']
     const title = ['HMSTR', 'DOGS', 'TON'];
+    const images = ['/assets/hmstr.png', '/assets/dogs.png', '/assets/ton.png'];
     const links = ['https://t.me/hamster_kombat', 'https://t.me/dogs_community', 'https://t.me/toncoin'];
     setIntro(strings[_index])
     setTitle(title[_index])
     setLink(links[_index])
+    setImage(images[_index])
     const res: any = await getPriceReq(import.meta.env.DEV, types[_index])
 
     if (res && res?.priceChangePercent) {
@@ -45,6 +48,7 @@ function PriceComp() {
       cancelText: 'Cancel',
       confirmText: 'Discover',
       closeOnMaskClick: true,
+      image: image,
       onConfirm: () => {
         utils.openTelegramLink(link)
       }

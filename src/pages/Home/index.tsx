@@ -226,7 +226,7 @@ export default function Home() {
 const AirDrop: FC = () => {
   return <div className='airdrop'>
     <div className='airdrop-inner'>
-      <div className='title'>Airdrop is coming!</div>
+      <div className='title'>Airdrop is Coming!</div>
       <div className='p-wrapper'>
         <ProgressCircle
           percent={64}

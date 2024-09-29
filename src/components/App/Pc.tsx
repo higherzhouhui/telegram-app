@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import Loading from '../Loading';
 import { Toast } from 'antd-mobile';
+import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
 
 const PcApp: FC = () => {
   const [loading, setLoading] = useState(false)
@@ -25,7 +26,7 @@ const PcApp: FC = () => {
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
   const [isShowBack, setIsShowBack] = useState(false)
-
+  const { isConnected, isLocking } = useConnectWallet()
   const initApp = async () => {
     localStorage.setItem('h5PcRoot', '1')
     const sysInfo = await getSystemConfigReq()
@@ -57,7 +58,9 @@ const PcApp: FC = () => {
       }
       setLoading(false)
     } else {
-      navigate('/wallet')
+      if (!isConnected && !isLocking) {
+        navigate('/wallet')
+      }
     }
   }
   useEffect(() => {

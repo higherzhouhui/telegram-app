@@ -9,6 +9,9 @@
   z-index: 1001;
   .left {
     font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     span {
       opacity: 0.8;
       font-size: 1rem;

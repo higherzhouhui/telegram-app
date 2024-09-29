@@ -54,8 +54,8 @@ const userSlice = createSlice({
             localStorage.setItem('userInfo', JSON.stringify(state.info))
         },
         setHMAction(state, action) {
-            state.eth = action.payload
-            localStorage.setItem('hmstrInfo', JSON.stringify(state.eth))
+            state.hmstr = action.payload
+            localStorage.setItem('hmstrInfo', JSON.stringify(state.hmstr))
         },
         setSystemAction(state, action) {
             state.system = action.payload

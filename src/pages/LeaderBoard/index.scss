@@ -3,6 +3,22 @@
   overflow: auto;
   color: #fff;
   padding: 18px 0;
+  .adm-list-default .adm-list-body {
+    border: none;
+  }
+  .adm-list-item-content {
+    border-top-color: #312d2d;
+  }
+  .adm-list-item-content {
+    border: none;
+    padding-right: 0;
+  }
+  .adm-list-item {
+    padding: 0;
+    background: rgba($color: #000000, $alpha: 0.9);
+    border: none;
+  }
+  
   .title {
     font-size: 2.5rem;
     font-family: Bold;

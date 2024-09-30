@@ -72,7 +72,7 @@ function CheckInPage() {
               <div className='unit'>$HMSTR</div>
             </div>
             <div className='rewards-one'>
-              <img src='/assets/common/ticket.webp' alt='logo' />
+              <img src='/assets/common/ticket.png' alt='logo' />
               <div className='reward-number'>{checkObj?.reward_ticket}</div>
               <div className='unit'>Ticket</div>
             </div>
@@ -95,7 +95,7 @@ function CheckInPage() {
                         </div>
                         <div className='score-ticket ticket-pic'>
                           {item.ticket}&nbsp;
-                          <img src='/assets/common/ticket.webp' alt='logo' />
+                          <img src='/assets/common/ticket.png' alt='logo' />
                         </div>
                       </>
                     }

@@ -1,5 +1,5 @@
-import { NoticeBar, Popup, Toast } from 'antd-mobile';
 import './index.scss'
+import { NoticeBar, Popup, Toast } from 'antd-mobile';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { initUtils } from '@telegram-apps/sdk';
@@ -87,23 +87,34 @@ export default function () {
       <div className='intros'>
         <div className='intro-list'>
           <img src='/assets/g1.png' />
-          <div className='btn' onClick={() => handlePlayGame('/emjoyGame')}>
-            <span>Play Game</span>
+          <div className='btn' onClick={() => handlePlayGame('/emoji')}>
+            <span>Play</span>
             <span>
               {userInfo?.ticket}
             </span>
-            <img src='/assets/common/ticket.webp' className='ticket' />
+            <img src='/assets/common/ticket.png' className='ticket' />
           </div>
         </div>
 
         <div className='intro-list'>
           <img src='/assets/wel.gif' />
           <div className='btn' onClick={() => handlePlayGame('/downGame')}>
-            <span>Play Game</span>
+            <span>Play</span>
             <span>
               {userInfo?.ticket}
             </span>
-            <img src='/assets/common/ticket.webp' className='ticket' />
+            <img src='/assets/common/ticket.png' className='ticket' />
+          </div>
+        </div>
+
+        <div className='intro-list'>
+          <img src='/assets/g3.png' />
+          <div className='btn' onClick={() => handlePlayGame('/memory')}>
+            <span>Play</span>
+            <span>
+              {userInfo?.ticket}
+            </span>
+            <img src='/assets/common/ticket.png' className='ticket' />
           </div>
         </div>
       </div>

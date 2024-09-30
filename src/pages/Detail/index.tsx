@@ -1,5 +1,5 @@
-import { InfiniteScroll, List } from 'antd-mobile'
 import './index.scss'
+import { InfiniteScroll, List } from 'antd-mobile'
 import { useEffect, useState } from 'react'
 import { getMyScoreHistoryReq, getSubUserListReq } from '@/api/common'
 import { useLocation } from 'react-router-dom'
@@ -93,6 +93,13 @@ function FrensDetailPage() {
             <div className='frens-list'>
               <div className='frens-detail-left'>
                 <div className='score'>+&nbsp;{item.score.toLocaleString()}</div>
+                {
+                  item.ticket != '0' ? <div className='score ticket'>
+                    +&nbsp;{item.ticket}
+                    <img src='/assets/common/ticket.png' width={24} />
+                  </div> : null
+                }
+
                 <div className='frens-detail-time'>{moment(item.createdAt).format('YYYY-MM-DD HH:mm')}</div>
               </div>
               <div className='frens-detail-right'>

@@ -98,7 +98,7 @@ export default function () {
 
         <div className='intro-list'>
           <img src='/assets/wel.gif' />
-          <div className='btn' onClick={() => handlePlayGame('/downGame')}>
+          <div className='btn' onClick={() => handlePlayGame('/fall')}>
             <span>Play</span>
             <span>
               {userInfo?.ticket}

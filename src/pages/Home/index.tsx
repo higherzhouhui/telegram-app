@@ -83,9 +83,9 @@ export default function Home() {
           </div>
         </div>
         <div className="score">
-          <div style={{ fontSize: '1.5rem', opacity: 0.9, lineHeight: '24px' }}>Assets (HMSTR)</div>
+          <div style={{ fontSize: '1.5rem', opacity: 0.9, lineHeight: '24px' }}>Assets ($HMSTR)</div>
           <div className="amount">{userInfo?.score?.toLocaleString()}</div>
-          <div className="really-price">&asymp; ${(Math.round(userInfo?.score * hmstrInfo?.price * 100) / 100).toFixed(2)}</div>
+          {/* <div className="really-price">&asymp; ${(Math.round(userInfo?.score * hmstrInfo?.price * 100) / 100).toFixed(2)}</div> */}
         </div>
         <div className="wallet">
           <div className="wallet-inner" onClick={() => handleClaim()}>

@@ -92,11 +92,14 @@ function FrensDetailPage() {
           return <List.Item key={index}>
             <div className='frens-list'>
               <div className='frens-detail-left'>
-                <div className='score'>+&nbsp;{item.score.toLocaleString()}</div>
+                <div className='score ticket'>
+                  +&nbsp;{item.score.toLocaleString()}
+                  <img src='/assets/common/cat.webp' width={20} />
+                </div>
                 {
                   item.ticket != '0' ? <div className='score ticket'>
                     +&nbsp;{item.ticket}
-                    <img src='/assets/common/ticket.png' width={24} />
+                    <img src='/assets/common/ticket.png' width={20} />
                   </div> : null
                 }
 

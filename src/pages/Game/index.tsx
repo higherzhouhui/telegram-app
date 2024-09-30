@@ -73,7 +73,7 @@ export default function () {
             </div>
             <div className="name-score-warpper">
               <div className="name">{userInfo?.username}</div>
-              <div className="name-score">Game:&nbsp;{userInfo?.game_score?.toLocaleString()}&nbsp;Hamsters</div>
+              <div className="name-score">Game:&nbsp;{userInfo?.game_score?.toLocaleString()}&nbsp;$HMSTR</div>
               <div className="name-score">Times:&nbsp;{gameInfo?.count}&nbsp;</div>
             </div>
           </div>

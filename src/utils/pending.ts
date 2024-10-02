@@ -2,7 +2,7 @@ import axios, {AxiosRequestConfig} from 'axios';
 export const pending: Map<any, any> = new Map();
 
 /**
- * 添加请求
+ * Add the request
  * @param config
  */
 export const addPending = (config: AxiosRequestConfig) => {
@@ -23,7 +23,7 @@ export const addPending = (config: AxiosRequestConfig) => {
 };
 
 /**
- * 移除请求
+ * Remove the request
  * @param config
  */
 export const removePending = (config: AxiosRequestConfig) => {
@@ -41,7 +41,7 @@ export const removePending = (config: AxiosRequestConfig) => {
 };
 
 /**
- * 清空pending中的请求
+ * Clear the pending requests
  */
 export const clearPending = () => {
   pending.forEach((url: string) => {

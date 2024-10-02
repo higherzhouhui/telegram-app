@@ -5,7 +5,7 @@ import { throttle } from '@/utils/common';
 function BackTop({ scrollName }: { scrollName: string }) {
   const [isVisible, setIsVisible] = useState(false);
 
-  // 判断是否显示回到顶部按钮
+  // Determine whether to show the "back to top" button
   const toggleVisibility = () => {
     const layoutElement = document.getElementsByClassName(scrollName)[0]
     if (layoutElement) {
@@ -19,7 +19,7 @@ function BackTop({ scrollName }: { scrollName: string }) {
     }
   };
 
-  // 滚动事件监听器
+  // Scroll event listener
   useEffect(() => {
     const layoutElement = document.getElementsByClassName(scrollName)[0]
     if (layoutElement) {
@@ -30,7 +30,7 @@ function BackTop({ scrollName }: { scrollName: string }) {
     };
   }, []);
 
-  // 点击按钮回到顶部
+  // Click the button to return to the top
   const scrollToTop = () => {
     const layoutElement = document.getElementsByClassName(scrollName)[0]
 

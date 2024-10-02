@@ -78,10 +78,10 @@ const PcApp: FC = () => {
     eventBus.addListener('showCongrates', onMessage)
     eventBus.addListener('showBack', onBack)
     eventBus.addListener('loading', onLoading)
-    // 获取邀请参数
+    // Get invitation parameters
     try {
       const url = new URL(location.href);
-      const params = new URLSearchParams(url.search.slice(1)); // 移除开头的'?'字符
+      const params = new URLSearchParams(url.search.slice(1)); // Remove the leading '?' character
       const startParam = params.get('startParam')
       if (startParam) {
         localStorage.setItem('startParam', startParam)

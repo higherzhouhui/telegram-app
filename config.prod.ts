@@ -7,7 +7,7 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 import path from 'path';
 
-// 定义一个函数来解析路径
+// Define a function to parse the path
 function _resolve(dir: string) {
   return path.resolve(__dirname, dir);
 }
@@ -44,12 +44,12 @@ export default defineConfig({
     phaserMsg(),
     nodePolyfills(),
     // compression({
-    //   verbose: true, // 是否在控制台输出压缩结果
-    //   disable: false, // 是否禁用压缩
-    //   threshold: 10240, // 压缩文件的大小阈值（以字节为单位）
-    //   algorithm: 'gzip', // 压缩算法
-    //   ext: '.gz', // 压缩文件的后缀名
-    //   deleteOriginFile: true, // 是否删除原文件
+    //   verbose: true, // Whether to output compression results in the console
+    //   disable: false, // Whether to disable compression
+    //   threshold: 10240, // Size threshold for compressed files (in bytes)
+    //   algorithm: 'gzip', // Compression algorithm
+    //   ext: '.gz', // Suffix name of the compressed file
+    //   deleteOriginFile: true, // Whether to delete the original file
     // })
   ],
   build: {

@@ -44,7 +44,7 @@ export default class MainGame extends Phaser.Scene {
         const bgWidth = 1125
         const bgHeight = 2115
         this.add.image(width / 2, height / 2, 'dark').setScale(width / bgWidth, height / bgHeight)
-        // 倒计时背景框
+        // Countdown background box
         const graphics = this.add.graphics({ x: 50, y: 50 }).setDepth(1000);
         graphics.fillStyle(0xffffff, 0.8);
 
@@ -52,14 +52,14 @@ export default class MainGame extends Phaser.Scene {
 
         graphics.fillStyle(0xff00ff, 1);
 
-        // 倒计时和得分
+        // Countdown and score
         this.timerText = this.add.text(45, 20, `${this.timerCount}:00`, this.fontStyle).setOrigin(0.5, 0.5).setDepth(1000);
         this.scoreText = this.add.text(width - 30, 20, `${this.score}`, { ...this.fontStyle, color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(1000);
         this.scoreText.setShadow(1, 1, '#000000', 2);
         this.add.image(width - 60, 20, 'cat').setScale(0.45, 0.45).setDepth(1000)
 
         EventBus.emit('current-scene-ready', this);
-        // 延时1秒后执行
+        // Execute after a 1-second delay
         setTimeout(() => {
             this.start()
         }, 1000);
@@ -122,7 +122,7 @@ export default class MainGame extends Phaser.Scene {
                     }
                 }
             } else if (random < 0.98 && random >= 0.95) {
-                // 不让同屏出现两个冻结
+                // Prevent two freezes from appearing on the same screen
                 if (!this.images.filter(item => { return item.type == 'freeze' }).length) {
                     iconObj = {
                         width: 60 + Math.random() * 10,
@@ -132,7 +132,7 @@ export default class MainGame extends Phaser.Scene {
                     }
                 }
             } else {
-                // 不让同屏出现两个炸弹
+                // Prevent two bombs from appearing on the screen at the same time
                 if (!this.images.filter(item => { return item.type == 'boom' }).length) {
                     iconObj = {
                         width: 60 + Math.random() * 10,
@@ -211,7 +211,7 @@ export default class MainGame extends Phaser.Scene {
                     icon.destroy()
                 }
                 if (iconObj.type == 'cat') {
-                    // 找到距离附近的所有cat然后击碎
+                    // Find all nearby cats and smash them
                     this.images = this.images.filter((item) => {
                         if (Math.abs(item.icon.x - icon.x) < 50 && Math.abs(item.icon.y - icon.y) < 50 && item.type == 'cat') {
                             const scoreTextTween = this.add.text(item.icon.x, item.icon.y, `+${item.score}`, { fontSize: 24, color: '#ffffff', stroke: '#000000', strokeThickness: 2, fontStyle: 'bold' }).setDepth(10)

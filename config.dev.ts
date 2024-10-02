@@ -6,7 +6,7 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 import path from 'path';
 
-// 定义一个函数来解析路径
+// Define a function to parse the path
 function _resolve(dir: string) {
   return path.resolve(__dirname, dir);
 }
@@ -34,10 +34,10 @@ export default defineConfig({
     port: 6699,
     proxy: {
       '/api': {
-        target: 'http://localhost:5174', // 目标服务器地址
-        // target: 'https://test.forkfrenpet.com', // 目标服务器地址
-        changeOrigin: true, // 是否改变源地址
-        rewrite: (path) => path.replace(/^\/api/, '/api/'), // 重写路径
+        target: 'http://localhost:5174', // Target server address
+        // target: 'https://test.forkfrenpet.com', // Target server address
+        changeOrigin: true, // Whether to change the source address
+        rewrite: (path) => path.replace(/^\/api/, '/api/'), // Rewrite the path
       }
     },
     fs: {

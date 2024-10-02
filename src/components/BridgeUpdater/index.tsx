@@ -98,7 +98,7 @@ export default function BridgeUpdater() {
     const r3 = PortkeyBridgeEventReceiveInstance.on(
       NotificationEvents.walletChanged,
       (event) => {
-        // 这里对address进行修改
+        // Modify the address here
         if (event?.address) {
           if (localStorage.getItem('h5PcRoot') == '1') {
             const name = event?.extraInfo?.nickName || event?.name
@@ -120,7 +120,7 @@ export default function BridgeUpdater() {
             })
           }
         } else {
-          // 如果无wallet任何信息，则清空数据
+          // If there is no wallet information, clear the data.
           localStorage.removeItem('authorization')
           localStorage.removeItem('walletInfo')
         }

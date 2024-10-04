@@ -14,7 +14,7 @@ import { userCheckReq, bindWalletReq } from "@/api/common";
 import { initUtils, useHapticFeedback } from '@telegram-apps/sdk-react';
 import { setUserInfoAction } from "@/redux/slices/userSlice";
 import LogoIcon from '@/assets/logo.jpg'
-import { useTonWallet, useTonConnectModal } from "@tonconnect/ui-react";
+import { useTonWallet, useTonConnectModal, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { useNavigate } from "react-router-dom";
 import BackTop from "@/components/BackTop";
 
@@ -30,13 +30,14 @@ export default function Home() {
   const navigate = useNavigate()
   const hapticFeedback = useHapticFeedback()
   const modal = useTonConnectModal()
+  const [tonConnectUi] = useTonConnectUI()
   const [visible, setVisible] = useState(false)
   const handleToScore = async () => {
     navigate('/second?last=true')
   }
   const handleClaim = () => {
     hapticFeedback.notificationOccurred('success')
-    if (!wallet) {
+    if (!tonConnectUi.connected) {
       modal.open()
     } else {
       setVisible(true)

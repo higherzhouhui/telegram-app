@@ -46,7 +46,8 @@ export default class MainGame extends Phaser.Scene {
 
     init() {
         // Fadein camera
-        this.lives = 10;
+        this.lives = 7;
+        this.score = 0;
         this.volumeButton();
     }
 
@@ -169,7 +170,6 @@ export default class MainGame extends Phaser.Scene {
     }
 
     startGame() {
-        this.score = 0
         // WinnerText and GameOverText
         const winnerText = this.add.text(this.sys.game.scale.width / 2, -1000, "YOU WIN",
             { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }

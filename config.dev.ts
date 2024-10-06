@@ -27,12 +27,17 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
+      '/api/binancePrice/': {
+        target: 'https://api.binance.com/api/v3/ticker', // 本地开发
+        changeOrigin: true, // 是否改变源地址
+        rewrite: (path) => path.replace(/^\/api\/binancePrice/, ''), // 重写路径
+      },
+      '/api/': {
         target: 'http://localhost:8085', // 本地开发
         // target: 'http://8.212.49.10:8010', // 目标服务器地址 文档地址：http://8.212.49.10:8010/api-docs/
         changeOrigin: true, // 是否改变源地址
         rewrite: (path) => path.replace(/^\/api/, '/api/'), // 重写路径
-      }
+      },
     },
     fs: {
       allow: ['../sdk', './'],

@@ -1,12 +1,13 @@
 import './index.scss'
-import { NoticeBar, Popup, Toast } from 'antd-mobile';
+import { Modal, NoticeBar, Popup, Toast } from 'antd-mobile';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { initUtils } from '@telegram-apps/sdk';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { stringToColor } from '@/utils/common';
 import { getGameInfoReq } from '@/api/game';
 import { useHapticFeedback } from '@telegram-apps/sdk-react';
+import { useAdsgram } from '@/hooks/useAdsgram';
 
 
 export default function () {
@@ -20,14 +21,36 @@ export default function () {
   const systemInfo = useSelector((state: any) => state.user.system)
   const hapticFeedback = useHapticFeedback()
 
+  const onReward = useCallback(() => {
+    alert('Reward');
+  }, []);
+  const onError = useCallback((result: any) => {
+    alert(JSON.stringify(result, null, 4));
+  }, []);
+
+  /**
+   * insert your-block-id
+   */
+  const showAd = useAdsgram({ blockId: "3913", onReward, onError });
+
   const handlePlayGame = (link: string) => {
     if (userInfo?.ticket > 0) {
       navigate(link)
       hapticFeedback.notificationOccurred('success')
     } else {
+      showAd()
+      return
       setShowInvite(true)
       hapticFeedback.notificationOccurred('warning')
     }
+  }
+
+  const handleNotice = () => {
+    Modal.show({
+      title: 'Game rewards',
+      content: content,
+      closeOnMaskClick: true,
+    })
   }
 
   const handleCopyLink = () => {
@@ -62,7 +85,7 @@ export default function () {
   }, [])
 
   return <div className='gamepage-container fadeIn'>
-    <NoticeBar content={content} color='info' />
+    <NoticeBar content={content} color='info' onClick={() => handleNotice()} />
     <div className='g-container'>
       <div className='title'>Play game to earn $HMSTR</div>
       <div>

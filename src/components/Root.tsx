@@ -27,6 +27,7 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
 
 const Inner: FC = () => {
   const manifestUrl = useMemo(() => {
+    return 'https://germ.wedoctor.top/hamster-manifest.json'
     return new URL('tonconnect-manifest.json', window.location.href).toString();
   }, []);
 

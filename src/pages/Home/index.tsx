@@ -14,7 +14,7 @@ import { userCheckReq, bindWalletReq } from "@/api/common";
 import { initUtils, useHapticFeedback } from '@telegram-apps/sdk-react';
 import { setUserInfoAction } from "@/redux/slices/userSlice";
 import LogoIcon from '@/assets/logo.jpg'
-import { useTonWallet, useTonConnectModal, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import { useTonWallet, useTonConnectModal, useTonAddress, useTonConnectUI, TonConnectButton } from "@tonconnect/ui-react";
 import { useNavigate } from "react-router-dom";
 import BackTop from "@/components/BackTop";
 
@@ -37,11 +37,7 @@ export default function Home() {
   }
   const handleClaim = () => {
     hapticFeedback.notificationOccurred('success')
-    if (!tonConnectUi.connected) {
-      modal.open()
-    } else {
-      setVisible(true)
-    }
+    setVisible(true)
   }
   const handleCheckIn = async () => {
     if (judgeIsCheckIn(userInfo?.check_date)) {
@@ -89,10 +85,14 @@ export default function Home() {
           {/* <div className="really-price">&asymp; ${(Math.round(userInfo?.score * hmstrInfo?.price * 100) / 100).toFixed(2)}</div> */}
         </div>
         <div className="wallet">
-          <div className="wallet-inner" onClick={() => handleClaim()}>
-            𝘾𝙡𝙖𝙞𝙢 𝘼𝙞𝙧𝙙𝙧𝙤𝙥
-            <img src="/assets/airdrop.png" />
-          </div>
+
+          {
+            !tonConnectUi.connected ? <TonConnectButton /> : <div className="wallet-inner" onClick={() => handleClaim()}>
+              𝘾𝙡𝙖𝙞𝙢 𝘼𝙞𝙧𝙙𝙧𝙤𝙥
+              <img src="/assets/airdrop.png" />
+            </div>
+          }
+
         </div>
         <div className="wrapper">
           <Swiper autoplay loop>

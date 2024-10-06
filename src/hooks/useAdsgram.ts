@@ -1,3 +1,4 @@
+import { AdController, ShowPromiseResult } from '@/types/adsgram';
 import { useCallback, useEffect, useRef } from 'react';
 /**
  * Check Typescript section
@@ -7,15 +8,14 @@ import { useCallback, useEffect, useRef } from 'react';
 export interface useAdsgramParams {
   blockId: string;
   onReward: () => void;
-  onError?: (result: any) => void;
+  onError?: (result: ShowPromiseResult) => void;
 }
 
 export function useAdsgram({ blockId, onReward, onError }: useAdsgramParams): () => Promise<void> {
-  const AdControllerRef = useRef<any | undefined>(undefined);
+  const AdControllerRef = useRef<AdController | undefined>(undefined);
 
   useEffect(() => {
-    let _window = window as any
-    AdControllerRef.current = _window.Adsgram?.init({ blockId, debug: true, debugBannerType: 'FullscreenMedia' });
+    AdControllerRef.current = window.Adsgram?.init({ blockId, debug: true, debugBannerType: 'FullscreenMedia' });
   }, [blockId]);
 
   return useCallback(async () => {
@@ -26,7 +26,7 @@ export function useAdsgram({ blockId, onReward, onError }: useAdsgramParams): ()
           // user watch ad till the end
           onReward();
         })
-        .catch((result: any) => {
+        .catch((result: ShowPromiseResult) => {
           // user get error during playing ad or skip ad
           onError?.(result);
         });

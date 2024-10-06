@@ -46,7 +46,7 @@ export default function LeaderBoardPage() {
   }, [])
 
   return <div className="LeaderBoard fadeIn">
-    <div className="title">Telegram Wall of Fame</div>
+    <div className="title">𝓣𝓮𝓵𝓮𝓰𝓻𝓪𝓶 𝓦𝓪𝓵𝓵 𝓸𝓯 𝓕𝓪𝓶𝓮</div>
     <div className="myself" onClick={() => navigate('/detail?myself=true')}>
       <div className="left">
         <div className="icon" style={{ background: stringToColor(userInfo?.username) }}>

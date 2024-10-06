@@ -84,25 +84,35 @@ export default function Home() {
           </div>
         </div>
         <div className="score">
-          <div style={{ fontSize: '1.5rem', opacity: 0.9, lineHeight: '24px' }}>Assets ($HMSTR)</div>
+          <div style={{ fontSize: '1.5rem', opacity: 0.9, lineHeight: '24px' }}>𝗔𝘀𝘀𝗲𝘁𝘀 ($𝗛𝗠𝗦𝗧𝗥)</div>
           <div className="amount">{userInfo?.score?.toLocaleString()}</div>
           {/* <div className="really-price">&asymp; ${(Math.round(userInfo?.score * hmstrInfo?.price * 100) / 100).toFixed(2)}</div> */}
         </div>
         <div className="wallet">
           <div className="wallet-inner" onClick={() => handleClaim()}>
-            Claim Airdrop
+            𝘾𝙡𝙖𝙞𝙢 𝘼𝙞𝙧𝙙𝙧𝙤𝙥
             <img src="/assets/airdrop.png" />
           </div>
         </div>
         <div className="wrapper">
           <Swiper autoplay loop>
+            <Swiper.Item key={3}>
+              <div className="community">
+                <div className="Hamsters-com">Hamster Developers Community</div>
+                <div className="home-tg">Business Cooperation Channel</div>
+                <div className="join-btn" onClick={() => {
+                  utils.openTelegramLink('https://t.me/+CFUnnwrLIcgzOWFl')
+                }}>𝒟𝒾𝓈𝒸ℴ𝓋ℯ𝓇 🪜</div>
+                <div className="heart">🥮</div>
+              </div>
+            </Swiper.Item>
             <Swiper.Item key={1}>
               <div className="community">
                 <div className="Hamsters-com">Hamster COMMUNITY</div>
                 <div className="home-tg">Home for Telegram OGs</div>
                 <div className="join-btn" onClick={() => {
                   utils.openTelegramLink('https://t.me/hamstermemedapp')
-                }}>Join 💰</div>
+                }}>𝒥ℴ𝒾𝓃 💰</div>
                 <div className="heart">💖</div>
               </div>
             </Swiper.Item>
@@ -112,13 +122,13 @@ export default function Home() {
                 <div className="home-tg">stay updated with the latest news</div>
                 <div className="join-btn follow-btn" onClick={() => {
                   window.open('https://x.com/Hamster_meme_')
-                }}>Follow 🐹</div>
+                }}>ℱℴ𝓁𝓁ℴ𝓌 🐹</div>
                 <div className="heart">💥</div>
               </div>
             </Swiper.Item>
           </Swiper>
           <div className="reward">
-            Your rewards
+            🆈🅾🆄🆁 🆁🅴🆆🅰🆁🅳🆂
           </div>
           <div className="list">
             <div className="left">

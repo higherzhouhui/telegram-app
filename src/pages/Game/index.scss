@@ -6,6 +6,13 @@
   .title {
     font-size: 1.8rem;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .right {
+      display: flex;
+      align-items: center;
+    }
   }
   .intros {
     margin-top: 20px;

@@ -16,22 +16,22 @@ export default function () {
     }
     const [menu, setMenu] = useState([
         {
-            title: 'Home',
+            title: '𝗛𝗼𝗺𝗲',
             icon: HomeIcon,
             to: '/'
         },
         {
-            title: 'Leaderboard',
+            title: '𝗟𝗲𝗮𝗱𝗲𝗿𝗯𝗼𝗮𝗿𝗱',
             icon: LeaderBoardIcon,
             to: '/leaderBoard',
         },
         {
-            title: 'Friends',
+            title: '𝗙𝗿𝗶𝗲𝗻𝗱𝘀',
             icon: FriendsIcon,
             to: '/frens'
         },
         {
-            title: 'Game',
+            title: '𝗚𝗮𝗺𝗲',
             icon: gameIcon,
             to: '/game',
         },

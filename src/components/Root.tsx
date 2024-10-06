@@ -27,7 +27,7 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
 
 const Inner: FC = () => {
   const manifestUrl = useMemo(() => {
-    return new URL('ton-config.json', window.location.href).toString();
+    return new URL('t-manifest.json', window.location.href).toString();
   }, []);
 
   return (

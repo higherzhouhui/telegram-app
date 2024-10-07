@@ -38,8 +38,6 @@ export default function () {
       navigate(link)
       hapticFeedback.notificationOccurred('success')
     } else {
-      showAd()
-      return
       setShowInvite(true)
       hapticFeedback.notificationOccurred('warning')
     }

@@ -89,7 +89,7 @@ export const HomePage: FC = () => {
 
 
   const onReward = useCallback(() => {
-    alert('Reward');
+    console.log('success')
   }, []);
   const onError = useCallback((result: any) => {
     alert(JSON.stringify(result, null, 4));
@@ -98,7 +98,8 @@ export const HomePage: FC = () => {
   /**
    * insert your-block-id
    */
-  const showAd = useAdsgram({ blockId: "3925", onReward, onError });
+  // const showAd = useAdsgram({ blockId: "3925", onReward, onError });
+  const showAd = useAdsgram({ blockId: "3941", onReward, onError });
 
   const handlePlayGame = async () => {
     if (userInfo.ticket > 0) {

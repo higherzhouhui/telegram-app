@@ -2,9 +2,9 @@ name: Sweet Branch Deploy
 
 on:
   push:
-    branches: [ "sweet" ]
+    branches: [ "sweet-ads" ]
   pull_request:
-    branches: [ "sweet" ]
+    branches: [ "sweet-ads" ]
 
 jobs:
   build:

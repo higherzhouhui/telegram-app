@@ -1,5 +1,5 @@
 import './index.scss';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { getMagicPrizeReq, getRewardFarmingReq, getUserInfoReq, startFarmingReq } from '@/api/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfoAction } from '@/redux/slices/userSlice'
@@ -10,6 +10,7 @@ import { handleCopyLink, judgeIsStartFarming } from '@/utils/common';
 import { useNavigate } from 'react-router-dom';
 import EventBus from '@/utils/eventBus';
 import { useConnectWallet } from '@aelf-web-login/wallet-adapter-react';
+import { useAdsgram } from '@/hooks/useAdsgram';
 
 export const HomePage: FC = () => {
   const dispatch = useDispatch()
@@ -86,12 +87,27 @@ export const HomePage: FC = () => {
     }
   }
 
+
+  const onReward = useCallback(() => {
+    alert('Reward');
+  }, []);
+  const onError = useCallback((result: any) => {
+    alert(JSON.stringify(result, null, 4));
+  }, []);
+
+  /**
+   * insert your-block-id
+   */
+  const showAd = useAdsgram({ blockId: "3925", onReward, onError });
+
   const handlePlayGame = async () => {
     if (userInfo.ticket > 0) {
       hapticFeedback.notificationOccurred('success')
       navigate('/game')
     } else {
       hapticFeedback.notificationOccurred('error')
+      showAd()
+      return
       setShowInvite(true)
     }
   }

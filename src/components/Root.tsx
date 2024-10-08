@@ -41,6 +41,7 @@ const didConfig = {
     }
   },
   referralInfo: {
+    referralCode: "",
     projectCode: "15015",
   },
 };

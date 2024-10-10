@@ -14,6 +14,7 @@ export default function LeaderBoard() {
   const [rank, setRank] = useState(1)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
+  const [isH5PcRoot, setIsH5PcRoot] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   async function loadMore() {
@@ -42,10 +43,13 @@ export default function LeaderBoard() {
         dispatch(setUserInfoAction(res.data))
       }
     })
+    if (localStorage.getItem('h5PcRoot') == '1') {
+      setIsH5PcRoot(true)
+    }
   }, [])
 
   return <div className="LeaderBoard fadeIn">
-    <div className="title">Telegram Wall of Fame</div>
+    <div className="title">{isH5PcRoot ? 'LeaderBoard' : 'Telegram Wall of Fame'}</div>
     <div className="myself" onClick={() => navigate('/frens-detail?myself=true')}>
       <div className="left">
         <div className="icon" style={{ background: stringToColor(userInfo?.username) }}>

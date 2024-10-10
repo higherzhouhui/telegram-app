@@ -22,9 +22,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".", // 设置基础URL为当前目录
+    "baseUrl": ".", // Set the base URL to the current directory
     "paths": {
-      "@/*": ["src/*"] // 设置别名路径映射，‌这里将@映射到src目录
+      "@/*": ["src/*"] // Set alias path mapping, mapping '@' to the src directory
     },
   },
   "include": ["src"]

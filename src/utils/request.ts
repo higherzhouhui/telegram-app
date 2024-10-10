@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { addPending, removePending } from './pending';
 
-// 处理响应
+// Handle the response
 const handleResponse = (data: GlobalRequest.Response<any>) => {
   const { code } = data;
   if (code === 403) {
@@ -16,7 +16,7 @@ const handleResponse = (data: GlobalRequest.Response<any>) => {
     }
   }
 };
-// 处理错误
+// Handle the error
 const handleError = (res: any) => {
   if (!res) {
     return;
@@ -24,7 +24,7 @@ const handleError = (res: any) => {
 
 };
 
-// 创建请求实例
+// Create a request instance
 const instance = axios.create({
   baseURL: '/api',
   timeout: 50000,
@@ -33,7 +33,7 @@ const instance = axios.create({
   },
 });
 
-// 添加请求拦截器
+// Add a request interceptor
 instance.interceptors.request.use(
   (config: any) => {
     if (typeof window !== 'undefined') {
@@ -47,26 +47,26 @@ instance.interceptors.request.use(
     }
     removePending(config);
     addPending(config);
-    // 发送请求之前做些什么
+      // Do something before sending the request
     return config;
   },
   (err) => {
-    // 对请求错误做些什么
+      // Do something with the request error
     return Promise.reject(err);
   }
 );
 
-// 添加响应拦截器
+// Add a response interceptor
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
     const data: GlobalRequest.Response<any> = response.data;
-    // 对响应数据做些什么
+      // Do something with the response data
     removePending(response);
     handleResponse(data);
     return response;
   },
   (err) => {
-    // 对响应错误做些什么
+      // Do something with the response error
     handleError(err.response);
     console.error('httpError:', `${err}`)
     return Promise.reject(err);

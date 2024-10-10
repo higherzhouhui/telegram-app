@@ -73,7 +73,7 @@ export default class MainMenu extends Phaser.Scene {
             if (this.kouFen) {
                 return
             }
-            // 暂停click动画和隐藏click to play
+            // Pause the click animation and hide "click to play"
             titleTextAnimation.stop()
             titleText.setAlpha(0)
             const res: any = await beginGameReq()
@@ -98,7 +98,7 @@ export default class MainMenu extends Phaser.Scene {
 
 
         // this.input.once('pointerdown', async () => {
-        //     // 暂停click动画和隐藏click to play
+        //     // Pause the click animation and hide "click to play"
         //     titleTextAnimation.stop()
         //     titleText.setAlpha(0)
         //     const res: any = await beginGameReq()

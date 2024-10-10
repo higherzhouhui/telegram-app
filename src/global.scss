@@ -22,12 +22,12 @@
 
 
 .content::-webkit-scrollbar {
-  width: 1px; /* 设置滚动条的宽度 */
+  width: 1px; /* Set the width of the scrollbar */
   display: none;
 }
  
 .content::-webkit-scrollbar-track {
-  background: #fff; /* 设置轨道的背景颜色 */
+  background: #fff; /* Set the background color of the track */
   display: none;
 }
  
@@ -37,7 +37,7 @@
 }
  
 .content::-webkit-scrollbar-thumb:hover {
-  background: #555; /* 设置滑块在悬停状态下的背景颜色 */
+  background: #555; /* Set the background color of the slider in hover state */
   display: none;
 }
 

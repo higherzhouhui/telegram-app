@@ -2,7 +2,7 @@ import ReactGA from 'react-ga';
 const id = import.meta.env.GOOGLE_ID
 
 export function initializeAnalytics() {
-  ReactGA.initialize(id); // 用您的跟踪 ID 替换 G-XXXXXXXXXX
+  ReactGA.initialize(id); // Replace G-XXXXXXXXXX with your tracking ID
   console.log('ReactGA is init')
 }
 

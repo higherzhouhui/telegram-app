@@ -28,7 +28,7 @@ export function formatNumber(num: any, hz?: number) {
   if (isNaN(num)) {
     return num
   }
-  // 小于千直接返回  
+  // Return directly if less than a thousand
   if (num < 1000) {
     return num;
   }
@@ -36,7 +36,7 @@ export function formatNumber(num: any, hz?: number) {
   if (hz != undefined) {
     fixed = hz
   }
-  // 超过千  
+  // Greater than a thousand
   if (num < 1000000) {
     return (num / 1000).toFixed(fixed) + 'K';
   } else if (num < 1000000000) {
@@ -79,7 +79,7 @@ export function judgeIsStartFarming(end_farm_time: any, last_farming_time: any) 
     const end = new Date(end_farm_time).getTime()
     const last = new Date(last_farming_time).getTime()
     const start = end - 3 * 60 * 60 * 1000
-    // 如果采摘时间大于结束时间，说明已经完全收完，可以开始下一次
+    // If the picking time is greater than the end time, it means the harvest is complete and the next round can begin
     if (now < end) {
       canFarming = false
       score = Math.abs(Math.round((now - start) / 1000) * 0.1)
@@ -120,7 +120,7 @@ export function formatWalletAddress(address: any) {
 
 
 export function handleCopyLink(link: string, toast?: string) {
-  const textToCopy = link; // 替换为你想要复制的内容  
+  const textToCopy = link; // Replace with the content you want to copy
   const textArea = document.createElement("textarea");
   textArea.value = textToCopy;
   document.body.appendChild(textArea);

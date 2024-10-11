@@ -10,6 +10,6 @@ export const RPC_SERVER_TDVW = "https://explorer-test-side02.aelf.io/chain";
 export const GRAPHQL_SERVER =
   "https://dapp-aa-portkey.portkey.finance/Portkey_V2_DID/PortKeyIndexerCASchema/graphql";
 
-export const CONNECT_SERVER = "https://auth-aa-portkey-test.portkey.finance";
+export const CONNECT_SERVER = "https://auth-aa-portkey.portkey.finance";
 
-export const PORTKEY_SERVER_URL = "https://aa-portkey-test.portkey.finance";
+export const PORTKEY_SERVER_URL = "https://aa-portkey.portkey.finance";

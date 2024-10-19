@@ -38,7 +38,7 @@ function AirDropPage() {
       ]
       setDetail(list)
     }
-  }, [])
+  }, [userInfo])
 
   return <div className='airdrop-page'>
     {/* <div className='title'>Airdrop</div> */}

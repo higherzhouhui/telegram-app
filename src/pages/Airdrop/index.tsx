@@ -8,7 +8,7 @@ function AirDropPage() {
   const userInfo = useSelector((state: any) => state.user.info);
   const hmstr = useSelector((state: any) => state.user.hmstr);
   const [detail, setDetail] = useState<any>([])
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
   const [current, setCurrent] = useState(0)
   const utils = initUtils()
   const withDrawList = [

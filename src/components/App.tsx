@@ -58,6 +58,9 @@ export const App: FC = () => {
       if (res.code == 0) {
         localStorage.setItem('authorization', res.data.token)
         dispatch(setUserInfoAction(res.data))
+        navigate('/')
+        setLoading(false)
+        return
         const check_date = res.data.check_date
         const today = moment().utc().format('MM-DD')
         if (res.data.is_New) {
@@ -108,9 +111,6 @@ export const App: FC = () => {
       platform={['macos', 'ios'].includes(launchParams.platform) ? 'ios' : 'base'}
     >
       <div className='layout'>
-        {/* {
-          import.meta.env.PROD ? <PriceComp /> : <div></div>
-        } */}
         <PriceComp />
         <div className='content'>
           <Routes>
@@ -118,7 +118,7 @@ export const App: FC = () => {
             <Route path='*' element={<Navigate to='/' />} />
           </Routes>
         </div>
-        <Footer />
+        {/* <Footer /> */}
         <Congrates visible={isShowCongrates} time={showTime} callBack={() => setShowCongrates(false)} />
         {
           loading ? <Loading /> : null

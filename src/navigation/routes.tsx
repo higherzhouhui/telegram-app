@@ -1,6 +1,6 @@
 import { lazy, type ComponentType, type JSX } from 'react';
 
-const HomePage = lazy(() => import('@/pages/Home'))
+// const HomePage = lazy(() => import('@/pages/Home'))
 const WelcomePage = lazy(() => import('@/pages/Welcome'))
 const EmojiGamePage = lazy(() => import('@/pages/Emoji'))
 const LeaderBoardPage = lazy(() => import('@/pages/LeaderBoard'))
@@ -12,6 +12,8 @@ const DetailPage = lazy(() => import('@/pages/Detail'))
 const SecondPage = lazy(() => import('@/pages/Second'))
 const CheckInlPage = lazy(() => import('@/pages/CheckIn'))
 const GameLeaderBoardPage = lazy(() => import('@/pages/GameLeaderBoard'))
+import AirDropPage from '@/pages/Airdrop';
+
 
 interface Route {
   path: string;
@@ -21,7 +23,8 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  { path: '/', Component: HomePage },
+  { path: '/', Component: AirDropPage },
+  // { path: '/', Component: HomePage },
   { path: '/begin', Component: WelcomePage },
   { path: '/second', Component: SecondPage },
   { path: '/emoji', Component: EmojiGamePage },

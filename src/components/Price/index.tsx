@@ -57,7 +57,7 @@ function PriceComp() {
   useEffect(() => {
     setInterval(() => {
       setIndex(p => p + 1)
-    }, 10000);
+    }, 5000);
   }, [])
   useEffect(() => {
     initPrice()

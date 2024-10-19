@@ -53,7 +53,7 @@ function AirDropPage() {
         detail.map((item: any, index: number) => {
           return <div key={index} className={`detail-item detail-item${item.score}`}>
             <div className='left'>{item.label}</div>
-            <div className='right'>{item.score.toLocaleString()}</div>
+            <div className='right'>{item?.score?.toLocaleString()}</div>
           </div>
         })
       }

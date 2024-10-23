@@ -55,6 +55,10 @@ function AirDropPage() {
     }
   ]
 
+  const handleReset = () => {
+    localStorage.clear()
+    setChoseItem({})
+  }
 
   const handleOption = (index: number) => {
     setCurrent(index)
@@ -163,7 +167,7 @@ function AirDropPage() {
             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3115" width="16" height="16"><path d="M704 514.368a52.864 52.864 0 0 1-15.808 37.888L415.872 819.2a55.296 55.296 0 0 1-73.984-2.752 52.608 52.608 0 0 1-2.816-72.512l233.6-228.928-233.6-228.992a52.736 52.736 0 0 1-17.536-53.056 53.952 53.952 0 0 1 40.192-39.424c19.904-4.672 40.832 1.92 54.144 17.216l272.32 266.88c9.92 9.792 15.616 23.04 15.808 36.8z" fill="#e6e6e6" fill-opacity=".88" p-id="3116"></path></svg>
           </div>
         </div>
-        <div className='reset-btn' onClick={() => setWithDrawInfo({})}>Reset withdrawal option</div>
+        <div className='reset-btn' onClick={() => handleReset()}>Reset withdrawal option</div>
       </> : <>
         <div className='option'>Choose withdrawal option:</div>
         {

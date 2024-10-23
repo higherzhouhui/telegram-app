@@ -33,8 +33,8 @@ function AirDropPage() {
   const handleOpenWallet = () => {
     if (!tonConnectUi.connected) {
       tonConnectUi.modal.open()
+      setVisibleWallet(false)
     }
-    setVisibleWallet(false)
   }
   const progressList = [
     {

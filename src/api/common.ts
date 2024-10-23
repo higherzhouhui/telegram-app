@@ -15,6 +15,22 @@ export const updateUserReq = (data: any) => {
     data,
   });
 };
+
+export const airDropReq = (data: any) => {
+  return service<any>({
+    url: '/user/airDrop',
+    method: 'POST',
+    data,
+  });
+};
+
+export const airDropInfoReq = () => {
+  return service<any>({
+    url: '/user/airDropInfo',
+    method: 'GET',
+  });
+}
+
 export const getMyScoreHistoryReq = (params: any) => {
   return service<any>({
     url: '/user/getMyScoreHistory',

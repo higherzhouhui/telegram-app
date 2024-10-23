@@ -71,7 +71,7 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 8px;
-    background: rgba($color: #fff, $alpha: 0.1);
+    background: rgba($color: #fff, $alpha: 0.2);
     padding: 8px 14px;
     margin-top: 1rem;
 
@@ -86,13 +86,67 @@
       }
     }
   }
+  .option-chosen {
+    color: var(--btnBg);
+  }
+  .reset-btn {
+    background: var(--palette-dark-20);
+    border-radius: 50px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+}
+
+.popup-wallet {
+  >div {
+    background: linear-gradient(to top, #666, #111);
+    overflow: auto;
+  }
+  .wallet-content {
+    padding: 1rem 1rem 2rem 1rem;
+    color: #fff;
+
+    .close {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.3rem;
+      font-weight: bold;
+
+      .logo {
+        width: 32px;
+        border-radius: 6px;
+      }
+    }
+    .desc {
+      margin-top: 1.5rem;
+      opacity: 0.8;
+    }
+    .wallet {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
 
 .popup-airdrop {
   >div {
     height: var(--tg-viewport-height);
     padding-top: 30px;
-    background: linear-gradient(to bottom, #666, #111);
+    background: linear-gradient(to top, #666, #111);
+    overflow: auto;
   }
 
   .airdrop-content {
@@ -137,5 +191,23 @@
       margin-bottom: 1rem;
       opacity: 0.9;
     }
+  }
+  .input-wrapper {
+    margin-top: 0.5rem;
+  }
+  .save-btn {
+    position: fixed;
+    bottom: 20px;
+    width: 94%;
+    left: 3%;
+    background: var(--highColor);
+    border-radius: 50px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.3rem;
   }
 }

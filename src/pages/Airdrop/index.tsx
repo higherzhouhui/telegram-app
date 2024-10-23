@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import './index.scss'
 import { useEffect, useState } from 'react';
-import { Popup, Toast } from 'antd-mobile';
+import { Input, Popup, Toast } from 'antd-mobile';
 import { initUtils } from '@telegram-apps/sdk';
 
 function AirDropPage() {
@@ -10,29 +10,51 @@ function AirDropPage() {
   const [detail, setDetail] = useState<any>([])
   const [visible, setVisible] = useState(false)
   const [current, setCurrent] = useState(0)
+  const [uid, setUid] = useState('')
+  const [address, setAddress] = useState('')
+  const [memo, setMemo] = useState('')
+
   const utils = initUtils()
+
   const withDrawList = [
     { logo: '/assets/okx.png', name: 'OKX Exchange', url: 'https://www.okx.com/', type: 'okx', desc: 'Unlock new trading possibilities with OKX. Trusted by traders worldwide-trade anytime, from anywhere' },
     { logo: '/assets/binance.png', name: 'BINANCE Exchange', url: 'https://www.binance.com/', type: 'binance' },
     { logo: '/assets/wallet.png', name: 'Wallet in Telegram', url: '', type: 'wallet' },
   ]
+
+
+  const progressList = [
+    {
+      label: 'October 24 2024, 06:00 PM UTC - Deposit start',
+      active: true,
+    },
+    {
+      label: 'October 28 2024, 09:00 AM UTC - Deposit end',
+      active: false,
+    },
+    {
+      label: 'October 28 2024, 06:00 PM UTC - confirmation/decline',
+      active: false,
+    },
+    {
+      label: `October 29 2024, 12:00 AM UTC - You'll get your Airdrop`,
+      active: false,
+    }
+  ]
   const handleOption = (index: number) => {
-    Toast.show({
-      content: 'Come soon',
-      position: 'top'
-    })
-    return
     setCurrent(index)
     setVisible(true)
   }
+
   const handleToRegister = () => {
     utils.openLink(withDrawList[current].url)
   }
+
   useEffect(() => {
     if (userInfo) {
       const list = [
         { label: 'Account', score: userInfo.account_age_score + userInfo.telegram_premium },
-        { label: 'Check', score: userInfo.check_score },
+        { label: 'Check-In', score: userInfo.check_score },
         { label: 'Game', score: userInfo.game_score },
         { label: 'Friends', score: userInfo.score - userInfo.account_age_score - userInfo.telegram_premium - userInfo.check_score - userInfo.game_score },
       ]
@@ -92,7 +114,24 @@ function AirDropPage() {
           <div className='title-name'>{withDrawList[current].name}</div>
         </div>
         <div className='desc'>{withDrawList[current].desc}</div>
-        <div className='btn' onClick={() => handleToRegister()}>Register</div>
+        <div className='btn' onClick={() => handleToRegister()}>
+          Register
+          <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2284" width="14" height="14"><path d="M400 876.8l339.2-339.2v-44.8L400 156.8l-44.8 44.8 313.6 313.6-313.6 316.8z" fill="#000000" p-id="2285"></path></svg>
+        </div>
+        {
+          progressList.map((item: any, index: number) => {
+            return <div className='time-list' key={index}>{item.label}</div>
+          })
+        }
+        <div className='input-wrapper'>
+          <div className='label'>OKX UID:</div>
+          <Input
+            placeholder='Please Input'
+            value={uid}
+            onChange={(e) => setUid(e)}
+            style={{ background: '#222', padding: '12px 6px', marginTop: '10px', borderRadius: '6px', '--color': '#fff', '--font-size': '1rem' }}
+          />
+        </div>
       </div>
     </Popup>
   </div>

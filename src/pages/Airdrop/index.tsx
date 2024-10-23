@@ -6,8 +6,7 @@ import { initUtils } from '@telegram-apps/sdk';
 import EventBus from '@/utils/eventBus';
 import { airDropReq, airDropInfoReq } from '@/api/common';
 import { setUserInfoAction } from '@/redux/slices/userSlice';
-import moment from 'moment';
-import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
+import { TonConnectButton, useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 
 function AirDropPage() {
   const userInfo = useSelector((state: any) => state.user.info);
@@ -25,12 +24,18 @@ function AirDropPage() {
   const [chosenItem, setChoseItem] = useState<any>()
   const [withdrawInfo, setWithDrawInfo] = useState<any>({})
   const wallet = useTonWallet()
+  const [tonConnectUi] = useTonConnectUI()
   const withDrawList = [
     { logo: '/assets/okx.png', name: 'OKX Exchange', url: 'https://www.okx.com/', type: 'OKX', desc: 'Unlock new trading possibilities with OKX. Trusted by traders worldwide-trade anytime, from anywhere' },
     { logo: '/assets/binance.png', name: 'BINANCE Exchange', url: 'https://www.binance.com/', type: 'BINANCE', desc: 'Unlock new trading possibilities with BINANCE. Trusted by traders worldwide-trade anytime, from anywhere' },
     { logo: '/assets/wallet.png', name: 'Wallet in Telegram', url: '', type: 'WALLET', desc: 'Wallet inside Telegram. Get tokens in two clicks' },
   ]
-
+  const handleOpenWallet = () => {
+    if (!tonConnectUi.connected) {
+      tonConnectUi.modal.open()
+    }
+    setVisibleWallet(false)
+  }
   const progressList = [
     {
       label: 'October 24 2024, 06:00 PM UTC - Deposit start',
@@ -130,6 +135,7 @@ function AirDropPage() {
   return <div className='airdrop-page'>
     {/* <div className='title'>Airdrop</div> */}
     <div className='title'>Snapshot</div>
+
     <div className='time'>Until October 24, 2024. 12:00 UTC</div>
     <div className='have'>
       <div className='have-title'>You have</div>
@@ -257,7 +263,7 @@ function AirDropPage() {
           <div className='title-name'>{withDrawList[current].name}</div>
         </div>
         <div className='desc'>{withDrawList[current].desc}</div>
-        <div className='wallet'><TonConnectButton /></div>
+        <div className='wallet' onClick={() => handleOpenWallet()}><TonConnectButton /></div>
       </div>
     </Popup>
   </div>

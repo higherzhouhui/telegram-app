@@ -57,7 +57,7 @@ function AirDropPage() {
 
   const handleReset = () => {
     localStorage.clear()
-    setChoseItem({})
+    setWithDrawInfo({})
   }
 
   const handleOption = (index: number) => {
@@ -138,9 +138,8 @@ function AirDropPage() {
 
   return <div className='airdrop-page'>
     {/* <div className='title'>Airdrop</div> */}
-    <div className='title'>Snapshot</div>
 
-    <div className='time'>Until October 24, 2024. 12:00 UTC</div>
+    <div className='time'>October 24, 2024. 18:00 UTC</div>
     <div className='have'>
       <div className='have-title'>You have</div>
       <div className='balance'>{userInfo?.score?.toLocaleString()} $HMSTR</div>

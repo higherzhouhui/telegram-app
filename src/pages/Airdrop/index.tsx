@@ -101,7 +101,7 @@ function AirDropPage() {
   }
 
   useEffect(() => {
-    if (wallet?.account) {
+    if (wallet?.account && current == 2) {
       airDropReq({ address: wallet?.account?.address, type: 'WALLET' }).then(res => {
         if (res.code == 0) {
           dispatch(setUserInfoAction(res.data))

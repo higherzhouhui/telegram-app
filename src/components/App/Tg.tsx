@@ -11,7 +11,9 @@ import {
   initMiniApp,
   initSwipeBehavior,
   initViewport,
-  retrieveLaunchParams
+  retrieveLaunchParams,
+  on,
+  postEvent
 } from '@telegram-apps/sdk';
 
 
@@ -39,7 +41,6 @@ const TgApp: FC = () => {
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [height, setHeight] = useState(0)
   const eventBus = EventBus.getInstance()
   const [isShowCongrates, setShowCongrates] = useState(false)
   const [showTime, setShowTime] = useState(1500)
@@ -121,6 +122,10 @@ const TgApp: FC = () => {
     backButton.on('click', () => {
       navigate(-1)
     })
+    on('back_button_pressed', () => {
+      navigate(-1)
+    })
+    postEvent('web_app_set_header_color', { color: '#000000' });
     if (launchParams.version)
       // const tp = initThemeParams();
       // bindThemeParamsCSSVars(tp);

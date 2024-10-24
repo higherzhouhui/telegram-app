@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './index.scss'
 import { taskListReq, handleTakReq } from '@/api/task'
-import { initHapticFeedback, initUtils } from '@telegram-apps/sdk'
+import { initHapticFeedback, initUtils, postEvent } from '@telegram-apps/sdk'
 import { Button, Skeleton, Toast } from 'antd-mobile'
 import { useNavigate } from 'react-router-dom'
 import BackTop from '@/components/BackTop'
@@ -46,7 +46,7 @@ function TaskPage() {
           if (item.linkType.includes('telegram')) {
             utils.openTelegramLink(item.link)
           } else if (item.linkType == 'outside') {
-            location.href = item.link
+            postEvent('web_app_open_link', { url: item.link })
           } else if (item.linkType == 'self') {
             navigate(item.link)
           }
